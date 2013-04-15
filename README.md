@@ -1,7 +1,7 @@
 WBA2 Phase 2
 ===========
 
-#Ausarbeitung eines Szenarios.
+##Ausarbeitung eines Szenarios
 
 Im Folgenden wird ein Szenario für das Modul Web-basierte Anwendungen 2: verteilte Systeme ausgearbeitet. Zunächst wurden mögliche Szenarien grob betrachtet und in frage kommende ausgearbeitet. Nach der detaillierten Erarbeitung zweier Szenarien wurde Pro und Kontra abgewägt, sodass sich letztendlich für das Sport-Szenario entschieden wurde.
 
