@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Sportverzeichnis>
+    
+    <Sportgruppen  SGid="0">
+        
+        <SGName>Kampfsport</SGName>
+        <SGBeschreibung>...</SGBeschreibung>
+ 
+        <Sportart ref="URI"></Sportart>
+        <Sportart ref="URI"></Sportart>
+        <!-- ... -->
+        
+    </Sportgruppen>
+    
+    <Sportart Sid="0">
+        
+        <SName>Judo</SName>
+        <SBeschreibung></SBeschreibung>
+        <SHerkunft></SHerkunft>
+        <SVorraussetzungen></SVorraussetzungen>
+        <SRegeln></SRegeln>
+        <Veranstaltung Vid="0"></Veranstaltung> <!-- So referenzieren? -->
+        <Veranstaltung ref="URI"></Veranstaltung>
+        <!-- ... -->
+        
+    </Sportart>
+    
+    <Veranstaltung Vid="0">
+        <VBeschreibung></VBeschreibung>
+        <VInfo></VInfo>
+        <VOrt ref="URI"></VOrt>
+        <VDatum></VDatum>
+        <VUhrzeit></VUhrzeit>
+        <VNiveau></VNiveau>
+        <Veranstalter ref="URI"></Veranstalter>
+        <VVorraussetzungen>Hisse</VVorraussetzungen>
+    </Veranstaltung>
+    
+    <Ort Oid="0">
+        <OName></OName>
+        <Gebaeude ref="..."></Gebaeude>
+    </Ort>
+    <Gebaeude Gid="0">
+        <GName></GName>
+        <GAnschrift></GAnschrift>
+        <Veranstaltung ref="..."></Veranstaltung>
+        <Ort ref="..."></Ort>
+        <Veranstalter ref="..."></Veranstalter>
+        <Equipment ref="..."></Equipment>
+    </Gebaeude>
+    <Equipment Eid="0"></Equipment>
+    <Veranstalter VTid="0">
+        <VTName></VTName>
+        <VTGeschlecht></VTGeschlecht>
+        <VTemail></VTemail>
+        <VTTelefon></VTTelefon>
+    </Veranstalter>
+    
+    
+</Sportverzeichnis>
