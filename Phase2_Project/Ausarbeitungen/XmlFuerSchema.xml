@@ -20,7 +20,7 @@
         <SVorraussetzungen>keine</SVorraussetzungen>
         <SRegeln>Neben den Regeln des Kampfes wie keine Tritte, Schläge, Kneifer oder sonstiges gelten die 10 Judowerte: Ehrlichkeit, bescheidenheit, Respekt, Höflichkeit, Ernsthaftigkeit, Mut, Selbstbeherrschung, Wertschätzung, Hilfsbereitschaft und Freundschaft. </SRegeln>
         <Veranstaltung V_id="0"></Veranstaltung> <!-- So referenzieren? -->
-        <Veranstaltung ref="URI"></Veranstaltung>
+        <Veranstaltung ref="0"></Veranstaltung>
         <!-- ... -->
         
     </Sportart>
@@ -28,32 +28,32 @@
     <Veranstaltung V_id="0">
         <VBeschreibung>13. Offene Kreiseinzelmeisterschaft U15</VBeschreibung>
         <VInfo>Zugelassen sind alle Judoka unter 15</VInfo>
-        <VOrt ref="URI"></VOrt>
+        <VOrt ref="0"></VOrt>
         <VDatum>27.04.2013</VDatum>
         <VUhrzeit>Waage m: 11.00 Uhr | Waage w: 13.00 Uhr</VUhrzeit>
         <VNiveau>Ab 7. Kyu</VNiveau>
-        <Veranstalter ref="URI"></Veranstalter>
+        <Veranstalter ref="0"></Veranstalter>
         <VVorraussetzungen>Hisse</VVorraussetzungen>
     </Veranstaltung>
     
     <Ort O_id="0">
         <OName>Grevenbroich</OName>
-        <Gebaeude ref="..."></Gebaeude>
+        <Gebaeude ref="0"></Gebaeude>
     </Ort>
     <Gebaeude G_id="0">
         <GName>Hans-Sachs Halle</GName>
         <GAnschrift>Hans-Sachs Straße 4</GAnschrift>
-        <Veranstaltung ref="..."></Veranstaltung>
-        <Ort ref="..."></Ort>
-        <Veranstalter ref="..."></Veranstalter>
-        <Equipment ref="..."></Equipment>
+        <Veranstaltung ref="0"></Veranstaltung>
+        <Ort ref="0"></Ort>
+        <Veranstalter ref="0"></Veranstalter>
+        <Equipment ref="0"></Equipment>
     </Gebaeude>
-    <Equipment E_id="0">Judomatten, Judokleidung</Equipment>
+    <Equipment E_id="0">Judomatten</Equipment>
     <Veranstalter VTid="0">
         <VTName>Jens Kronenthal</VTName>
         <VTGeschlecht>m</VTGeschlecht>
-        <VTemail>jensi.kroni@gmx.de</VTemail>
-        <VTTelefon>1234/567890</VTTelefon>
+        <VTEmail>jensi.kroni@gmx.de</VTEmail>
+        <VTTelefon>1234567890</VTTelefon>
     </Veranstalter>
     
     

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"> 
+    
+    <!-- //////////// -->
+    <!-- Simple Type -->
+    <!-- //////////// -->
+    
+    <!-- Sporgruppen -->
+    <xs:element name="SGName" type="xs:string"></xs:element>
+    <xs:element name="SGBeschreibung" type="xs:string"></xs:element>
+    
+    <!-- Sportarten -->
+    <xs:element name="SBeschreibung" type="xs:string"></xs:element>
+    <xs:element name="SVorraussetzung" type="xs:string"></xs:element>
+    <xs:element name="SHerkunft" type="xs:string"></xs:element>
+    <xs:element name="SRegeln" type="xs:string"></xs:element>
+    
+    <!-- Veranstaltung -->
+    <xs:element name="VBeschreibung" type="xs:string"></xs:element>
+    <xs:element name="VInfo" type="xs:string"></xs:element>
+    <xs:element name="VDatum" type="xs:date"></xs:element>
+    <xs:element name="VUhrzeit" type="xs:dateTime"></xs:element>
+    <xs:element name="VNiveau" type="xs:string"></xs:element>
+    <xs:element name="VVorraussetzungen" type="xs:string"></xs:element>
+    
+    <!-- Ort -->
+    <xs:element name="OName" type="xs:string"></xs:element>
+
+    <!-- Gebaeude -->
+        <!-- SimpleTypes -->
+        <xs:element name="GName" type="xs:string"></xs:element>
+        <xs:element name="GAnschrift" type="xs:string"></xs:element>
+    
+        <!-- ComplexTypes -->
+        <xs:element name="Gebaeude">
+            <xs:complexType>
+                <xs:sequence>
+                    <xs:element ref="GName"/>
+                    <xs:element ref="GAnschrift"/>
+                    <!-- Veranstaltung, Ort, Equipement (Vranstalter)-->
+                    <xs:element ref="Veranstalter"/>           <!-- ??? -->
+                </xs:sequence>
+                <xs:attribute ref="ref"/>
+            </xs:complexType>
+        </xs:element>
+    
+    <!-- Veranstalter -->
+        <!-- SimpleTypes -->
+        <xs:element name="VTName" type="xs:string"></xs:element>
+        <xs:element name="VTGeschlecht" type="Geschlecht"></xs:element>
+        <xs:element name="VTEmail" type="xs:string"></xs:element>
+        <xs:element name="VTTelefon" type="xs:integer"></xs:element>
+        
+        <!-- ComplexTypes -->
+        <xs:element name="Veranstalter">
+            <xs:complexType>
+                <xs:sequence>
+                    <xs:element ref="VTName"/>
+                    <xs:element ref="VTGeschlecht"/>
+                    <xs:element ref="VTEmail"/>
+                    <xs:element ref="VTTelefon"/>
+                </xs:sequence>
+                <xs:attribute ref="ref"/>       <!-- ??? -->
+            </xs:complexType>
+        </xs:element>
+    <!-- /Veranstalter -->
+    
+ 
+    
+    
+    
+    <!-- ///////// -->
+    <!-- Attribute -->
+    <!-- ///////// -->
+    
+    <xs:attribute name="ref" type="xs:IDREF"></xs:attribute>
+
+    
+    
+    <!-- ////////// -->
+    <!-- Datentypen -->
+    <!-- ////////// -->
+    
+    <xs:simpleType name="Geschlecht">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="w"/>
+            <xs:enumeration value="m"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+</xs:schema>
