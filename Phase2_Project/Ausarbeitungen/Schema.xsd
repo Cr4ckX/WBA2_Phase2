@@ -36,7 +36,8 @@
                     <xs:element ref="SGBeschreibung"/>
                     <xs:element ref="Sportart" minOccurs="1" maxOccurs="unbounded"/>
                 </xs:sequence>
-                <xs:attribute ref="SGid"/>   
+                <xs:attribute ref="SGid" use="required"/>
+                <xs:attribute ref="ref" use="optional"/>
             </xs:complexType>
         </xs:element>
     
@@ -64,7 +65,8 @@
                     <xs:element ref="SRegeln"/>
                     <xs:element ref="Veranstaltung" minOccurs="0" maxOccurs="unbounded"/>
                 </xs:sequence>
-                <xs:attribute ref="Sid"/>     
+                <xs:attribute ref="Sid" use="required"/>
+                <xs:attribute ref="ref" use="optional"/>
             </xs:complexType>
         </xs:element>
   
@@ -96,7 +98,8 @@
                     <xs:element ref="VVorraussetzungen" minOccurs="0"/>
                     <xs:element ref="Veranstalter" minOccurs="1" maxOccurs="1"/>
                 </xs:sequence>
-                <xs:attribute ref="Vid"/>     
+                <xs:attribute ref="Vid" use="required"/>
+                <xs:attribute ref="ref" use="optional"/>
             </xs:complexType>
         </xs:element>
     
@@ -118,7 +121,8 @@
                     <xs:element ref="OName"/>
                     <xs:element ref="Gebaeude" minOccurs="1" maxOccurs="1"/> 
                 </xs:sequence>
-                <xs:attribute ref="Oid"/>    
+                <xs:attribute ref="Oid" use="required"/>
+                <xs:attribute ref="ref" use="optional"/>
             </xs:complexType>
         </xs:element>
 
@@ -145,7 +149,8 @@
                     <xs:element ref="Veranstalter" minOccurs="0" maxOccurs="unbounded"/>           
                     <xs:element ref="Equipment" minOccurs="0" maxOccurs="unbounded"/> 
                 </xs:sequence>
-                <xs:attribute ref="Gid"/>     
+                <xs:attribute ref="Gid" use="required"/>    
+                <xs:attribute ref="ref" use="optional"/>
             </xs:complexType>
         </xs:element>
     
@@ -164,8 +169,9 @@
                     <xs:element ref="EName"/>
                     <xs:element ref="Veranstalter" minOccurs="0" maxOccurs="1"/>
                 </xs:sequence>
-                <xs:attribute ref="Eid"/>      
-                <xs:attribute ref="entliehen"/>
+                <xs:attribute ref="Eid" use="required"/>      
+                <xs:attribute ref="entliehen" use="required"/>
+                <xs:attribute ref="ref" use="optional"/>
             </xs:complexType>
         </xs:element>
      
@@ -177,10 +183,10 @@
     <!-- Veranstalter --> 
     
         <!-- SimpleTypes -->
-        <xs:element name="VTName" type="xs:string"></xs:element>
-        <xs:element name="VTGeschlecht" type="Geschlecht"></xs:element>
-        <xs:element name="VTEmail" type="xs:string"></xs:element>
-        <xs:element name="VTTelefon" type="xs:integer"></xs:element>
+        <xs:element name="VTName" type="xs:string"/>
+        <xs:element name="VTGeschlecht" type="Geschlecht"/>
+        <xs:element name="VTEmail" type="xs:string"/>
+        <xs:element name="VTTelefon" type="xs:integer"/>
         
         <!-- ComplexTypes -->
         <xs:element name="Veranstalter">
@@ -191,24 +197,26 @@
                     <xs:element ref="VTEmail"/>
                     <xs:element ref="VTTelefon"/>
                 </xs:sequence>
-                <xs:attribute ref="VTid"/>       <!-- ??? -->
+                <xs:attribute ref="VTid"/>
+                <xs:attribute ref="ref"/>   <!-- ??? -->
             </xs:complexType>
         </xs:element>
     
-    <!-- /Veranstalter -->
+    <!-- /Veranstalter (sowie beim späteren Benutzer noch Abonnements hinzufügen) -->
     
    
  
  
     <!-- Attribute -->
 
-        <xs:attribute name="SGid" type="xs:IDREF"></xs:attribute>
-        <xs:attribute name="Sid" type="xs:IDREF"></xs:attribute>
-        <xs:attribute name="Vid" type="xs:IDREF"></xs:attribute>
-        <xs:attribute name="Oid" type="xs:IDREF"></xs:attribute>
-        <xs:attribute name="Gid" type="xs:IDREF"></xs:attribute>
-        <xs:attribute name="Eid" type="xs:IDREF"></xs:attribute>
-        <xs:attribute name="VTid" type="xs:IDREF"></xs:attribute>
+        <xs:attribute name="ref" type="xs:IDREF"></xs:attribute>
+        <xs:attribute name="SGid" type="xs:ID"></xs:attribute>
+        <xs:attribute name="Sid" type="xs:ID"></xs:attribute>
+        <xs:attribute name="Vid" type="xs:ID"></xs:attribute>
+        <xs:attribute name="Oid" type="xs:ID"></xs:attribute>
+        <xs:attribute name="Gid" type="xs:ID"></xs:attribute>
+        <xs:attribute name="Eid" type="xs:ID"></xs:attribute>
+        <xs:attribute name="VTid" type="xs:ID"></xs:attribute>
         <xs:attribute name="entliehen" type="xs:boolean"></xs:attribute>
     <!-- /Attribute -->
     

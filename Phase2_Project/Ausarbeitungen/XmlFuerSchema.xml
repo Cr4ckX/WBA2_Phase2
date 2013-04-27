@@ -1,60 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Sportverzeichnis>
+<Sportverzeichnis xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="Schema.xsd">
     
-    <Sportgruppe  SGid="0">
+    <Sportgruppe SGid="http://beispieluri.de/sportgruppe/1">
         
         <SGName>Kampfsport</SGName>
         <SGBeschreibung>Unter Kampfsport definiert man eine Sammelbegriff für diverse Sportarten in welchen Kampfstile integriert werden. </SGBeschreibung>
  
-        <Sportart ref="0"></Sportart>
-        <Sportart ref="1"></Sportart>
+        <Sportart ref="http://beispieluri.de/sportgruppe/1/sportart/3/"></Sportart>
         <!-- ... -->
         
     </Sportgruppe>
     
-    <Sportart Sid="0">
+    <Sportart Sid="http://beispieluri.de/sportgruppe/1/sportart/3/">
         
         <SName>Judo</SName>
         <SBeschreibung>Judo als Kampfsport läuft ganz nach dem Motto "Der sanfte Weg" beziehungsweise "Siegen durch Nachgeben" und dient weniger der Selbstverteidigung sondern eher der Kampfkunst.</SBeschreibung>
         <SHerkunft>Der Judosprt stammt aus Japan und wurde erstmals 1933 in Deutschland praktiziert. Begründer des Judo ist das Japaner Jigoro Kano, welcher Tritte und Schläge der Kampfsportart "Ju-Jutsu" entnahm und dadurch den Judosport begründete. </SHerkunft>
-        <SVorraussetzungen>keine</SVorraussetzungen>
+        <SVorraussetzung>keine</SVorraussetzung>
         <SRegeln>Neben den Regeln des Kampfes wie keine Tritte, Schläge, Kneifer oder sonstiges gelten die 10 Judowerte: Ehrlichkeit, bescheidenheit, Respekt, Höflichkeit, Ernsthaftigkeit, Mut, Selbstbeherrschung, Wertschätzung, Hilfsbereitschaft und Freundschaft. </SRegeln>
-        <Veranstaltung ref="0"></Veranstaltung>
+        <Veranstaltung ref="http://beispieluri.de/sportgruppe/1/sportart/3/veranstaltung/65/"></Veranstaltung>
         <!-- ... -->
         
     </Sportart>
     
-    <Veranstaltung Vid="0">
+    <Veranstaltung Vid="http://beispieluri.de/sportgruppe/1/sportart/3/veranstaltung/65/">
         <VBeschreibung>13. Offene Kreiseinzelmeisterschaft U15</VBeschreibung>
         <VInfo>Zugelassen sind alle Judoka unter 15</VInfo>
-        <Ort ref="0"></Ort>
+        <Ort ref="http://beispieluri.de/ort/2/"></Ort>
         <VDatum>27.04.2013</VDatum>
         <VUhrzeit>Waage m: 11.00 Uhr | Waage w: 13.00 Uhr</VUhrzeit>
         <VNiveau>Ab 7. Kyu</VNiveau>
         <VVorraussetzungen>Hisse</VVorraussetzungen>
-        <Veranstalter ref="0"></Veranstalter>
+        <Veranstalter ref="http://beispieluri.de/veranstalter/1/"></Veranstalter>
 
     </Veranstaltung>
     
-    <Ort Oid="0">
+    <Ort Oid="http://beispieluri.de/ort/2/">
         <OName>Grevenbroich</OName>
-        <Gebaeude ref="0"></Gebaeude>
+        <Gebaeude ref="http://beispieluri.de/ort/2/gebaeude/3/"></Gebaeude>
     </Ort>
-    <Gebaeude Gid="0">
+    <Gebaeude Gid="http://beispieluri.de/ort/2/gebaeude/3/">
         <GName>Hans-Sachs Halle</GName>
         <GAnschrift>Hans-Sachs Straße 4</GAnschrift>
-        <Veranstaltung ref="0"></Veranstaltung>
-        <Ort ref="0"></Ort>
-        <Veranstalter ref="0"></Veranstalter>
-        <Equipment ref="0"></Equipment>
+        <Veranstaltung ref="http://beispieluri.de/sportgruppe/1/sportart/3/veranstaltung/65/"></Veranstaltung>
+        <Ort ref="http://beispieluri.de/ort/2/"></Ort>
+        <Veranstalter ref="http://beispieluri.de/veranstalter/1/"></Veranstalter>
+        <Equipment ref="http://beispieluri.de/ort/2/gebaeude/3/equipment/45/"></Equipment>
     </Gebaeude>
     
-    <Equipment Eid="0" entliehen="true">
+    <Equipment Eid="http://beispieluri.de/ort/2/gebaeude/3/equipment/45/" entliehen="true">
         <EName>Judomatten</EName>
-        <Veranstalter ref="0"></Veranstalter>
+        <Veranstalter ref="http://beispieluri.de/veranstalter/1/"></Veranstalter>
     </Equipment>
     
-    <Veranstalter VTid="0">
+    <Veranstalter VTid="http://beispieluri.de/veranstalter/1/">
         <VTName>Jens Kronenthal</VTName>
         <VTGeschlecht>m</VTGeschlecht>
         <VTEmail>jensi.kroni@gmx.de</VTEmail>
