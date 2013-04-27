@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Sportverzeichnis>
     
-    <Sportgruppen  S_Gid="0">
+    <Sportgruppe  SGid="0">
         
         <SGName>Kampfsport</SGName>
         <SGBeschreibung>Unter Kampfsport definiert man eine Sammelbegriff für diverse Sportarten in welchen Kampfstile integriert werden. </SGBeschreibung>
  
-        <Sportart ref="URI"></Sportart>
-        <Sportart ref="URI"></Sportart>
+        <Sportart ref="0"></Sportart>
+        <Sportart ref="1"></Sportart>
         <!-- ... -->
         
-    </Sportgruppen>
+    </Sportgruppe>
     
-    <Sportart S_id="0">
+    <Sportart Sid="0">
         
         <SName>Judo</SName>
         <SBeschreibung>Judo als Kampfsport läuft ganz nach dem Motto "Der sanfte Weg" beziehungsweise "Siegen durch Nachgeben" und dient weniger der Selbstverteidigung sondern eher der Kampfkunst.</SBeschreibung>
         <SHerkunft>Der Judosprt stammt aus Japan und wurde erstmals 1933 in Deutschland praktiziert. Begründer des Judo ist das Japaner Jigoro Kano, welcher Tritte und Schläge der Kampfsportart "Ju-Jutsu" entnahm und dadurch den Judosport begründete. </SHerkunft>
         <SVorraussetzungen>keine</SVorraussetzungen>
         <SRegeln>Neben den Regeln des Kampfes wie keine Tritte, Schläge, Kneifer oder sonstiges gelten die 10 Judowerte: Ehrlichkeit, bescheidenheit, Respekt, Höflichkeit, Ernsthaftigkeit, Mut, Selbstbeherrschung, Wertschätzung, Hilfsbereitschaft und Freundschaft. </SRegeln>
-        <Veranstaltung V_id="0"></Veranstaltung> <!-- So referenzieren? -->
         <Veranstaltung ref="0"></Veranstaltung>
         <!-- ... -->
         
     </Sportart>
     
-    <Veranstaltung V_id="0">
+    <Veranstaltung Vid="0">
         <VBeschreibung>13. Offene Kreiseinzelmeisterschaft U15</VBeschreibung>
         <VInfo>Zugelassen sind alle Judoka unter 15</VInfo>
-        <VOrt ref="0"></VOrt>
+        <Ort ref="0"></Ort>
         <VDatum>27.04.2013</VDatum>
         <VUhrzeit>Waage m: 11.00 Uhr | Waage w: 13.00 Uhr</VUhrzeit>
         <VNiveau>Ab 7. Kyu</VNiveau>
-        <Veranstalter ref="0"></Veranstalter>
         <VVorraussetzungen>Hisse</VVorraussetzungen>
+        <Veranstalter ref="0"></Veranstalter>
+
     </Veranstaltung>
     
-    <Ort O_id="0">
+    <Ort Oid="0">
         <OName>Grevenbroich</OName>
         <Gebaeude ref="0"></Gebaeude>
     </Ort>
-    <Gebaeude G_id="0">
+    <Gebaeude Gid="0">
         <GName>Hans-Sachs Halle</GName>
         <GAnschrift>Hans-Sachs Straße 4</GAnschrift>
         <Veranstaltung ref="0"></Veranstaltung>
@@ -48,7 +48,12 @@
         <Veranstalter ref="0"></Veranstalter>
         <Equipment ref="0"></Equipment>
     </Gebaeude>
-    <Equipment E_id="0">Judomatten</Equipment>
+    
+    <Equipment Eid="0" entliehen="true">
+        <EName>Judomatten</EName>
+        <Veranstalter ref="0"></Veranstalter>
+    </Equipment>
+    
     <Veranstalter VTid="0">
         <VTName>Jens Kronenthal</VTName>
         <VTGeschlecht>m</VTGeschlecht>
