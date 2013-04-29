@@ -10,8 +10,8 @@
                     <xs:element ref="Sportgruppe"   minOccurs="1" maxOccurs="unbounded"/>
                     <xs:element ref="Sportart"      minOccurs="1" maxOccurs="unbounded"/>
                     <xs:element ref="Veranstaltung" minOccurs="0" maxOccurs="unbounded"/>
-                    <xs:element ref="Ort"           minOccurs="0" maxOccurs="unbounded"/>
-                    <xs:element ref="Gebaeude"      minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element ref="Ort"           minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element ref="Gebaeude"      minOccurs="1" maxOccurs="unbounded"/>
                     <xs:element ref="Equipment"     minOccurs="0" maxOccurs="unbounded"/>
                     <xs:element ref="Veranstalter"  minOccurs="0" maxOccurs="unbounded"/>
                 </xs:sequence>
@@ -209,15 +209,15 @@
  
     <!-- Attribute -->
 
-        <xs:attribute name="ref" type="xs:IDREF"></xs:attribute>
-        <xs:attribute name="SGid" type="xs:ID"></xs:attribute>
-        <xs:attribute name="Sid" type="xs:ID"></xs:attribute>
-        <xs:attribute name="Vid" type="xs:ID"></xs:attribute>
-        <xs:attribute name="Oid" type="xs:ID"></xs:attribute>
-        <xs:attribute name="Gid" type="xs:ID"></xs:attribute>
-        <xs:attribute name="Eid" type="xs:ID"></xs:attribute>
-        <xs:attribute name="VTid" type="xs:ID"></xs:attribute>
-        <xs:attribute name="entliehen" type="xs:boolean"></xs:attribute>
+        <xs:attribute name="ref" type="xs:IDREF"/>
+        <xs:attribute name="SGid" type="xs:ID"/>
+        <xs:attribute name="Sid" type="xs:ID"/>
+        <xs:attribute name="Vid" type="xs:ID"/>
+        <xs:attribute name="Oid" type="xs:ID"/>
+        <xs:attribute name="Gid" type="xs:ID"/>
+        <xs:attribute name="Eid" type="xs:ID"/>
+        <xs:attribute name="VTid" type="xs:ID"/>
+        <xs:attribute name="entliehen" type="xs:boolean"/>
     <!-- /Attribute -->
     
     
