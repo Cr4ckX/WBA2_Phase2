@@ -2,64 +2,95 @@
 <Sportverzeichnis xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="Schema.xsd">
     
-    <Sportgruppe SGid="http://beispieluri.de/sportgruppe/1">
+    <SportgruppenM>
+        <Sportgruppe id="SG01">
+            <SGName>Kampfsport</SGName>
+            <SGBeschreibung>Unter Kampfsport definiert man eine Sammelbegriff für diverse Sportarten in welchen Kampfstile integriert werden.</SGBeschreibung>
+            <SportartIDRef>S01</SportartIDRef>
+            <SportartIDRef>S02</SportartIDRef>
+                      <!-- ... -->
+        </Sportgruppe>
         
-        <SGName>Kampfsport</SGName>
-        <SGBeschreibung>Unter Kampfsport definiert man eine Sammelbegriff für diverse Sportarten in welchen Kampfstile integriert werden. </SGBeschreibung>
- 
-        <Sportart ref="http://beispieluri.de/sportgruppe/1/sportart/3/"></Sportart>
-        <!-- ... -->
-        
-    </Sportgruppe>
+        <Sportgruppe id="SG02">
+            <SGName>Rückschlagsportart</SGName>
+            <SGBeschreibung>keine</SGBeschreibung>
+            <SportartIDRef>S07</SportartIDRef>
+            <SportartIDRef>S08</SportartIDRef>
+                      <!-- ... -->
+        </Sportgruppe>
+    </SportgruppenM>
     
-    <Sportart Sid="http://beispieluri.de/sportgruppe/1/sportart/3/">
         
-        <SName>Judo</SName>
-        <SBeschreibung>Judo als Kampfsport läuft ganz nach dem Motto "Der sanfte Weg" beziehungsweise "Siegen durch Nachgeben" und dient weniger der Selbstverteidigung sondern eher der Kampfkunst.</SBeschreibung>
-        <SHerkunft>Der Judosprt stammt aus Japan und wurde erstmals 1933 in Deutschland praktiziert. Begründer des Judo ist das Japaner Jigoro Kano, welcher Tritte und Schläge der Kampfsportart "Ju-Jutsu" entnahm und dadurch den Judosport begründete. </SHerkunft>
-        <SVorraussetzung>keine</SVorraussetzung>
-        <SRegeln>Neben den Regeln des Kampfes wie keine Tritte, Schläge, Kneifer oder sonstiges gelten die 10 Judowerte: Ehrlichkeit, bescheidenheit, Respekt, Höflichkeit, Ernsthaftigkeit, Mut, Selbstbeherrschung, Wertschätzung, Hilfsbereitschaft und Freundschaft. </SRegeln>
-        <Veranstaltung ref="http://beispieluri.de/sportgruppe/1/sportart/3/veranstaltung/65/"></Veranstaltung>
-        <!-- ... -->
-        
-    </Sportart>
+    <SportartenM>
+        <Sportart id="S01">
+            <SName>Judo</SName>
+            <SBeschreibung>Judo als Kampfsport läuft ganz nach dem Motto "Der sanfte Weg" beziehungsweise "Siegen durch Nachgeben" und dient weniger der Selbstverteidigung sondern eher der Kampfkunst.</SBeschreibung>
+            <SHerkunft>Der Judosprt stammt aus Japan und wurde erstmals 1933 in Deutschland praktiziert. Begründer des Judo ist das Japaner Jigoro Kano, welcher Tritte und Schläge der Kampfsportart "Ju-Jutsu" entnahm und dadurch den Judosport begründete.</SHerkunft>
+            <SVorraussetzung>keine</SVorraussetzung>
+            <SRegeln>Neben den Regeln des Kampfes wie keine Tritte, Schläge, Kneifer oder sonstiges gelten die 10 Judowerte: Ehrlichkeit, bescheidenheit, Respekt, Höflichkeit, Ernsthaftigkeit, Mut, Selbstbeherrschung, Wertschätzung, Hilfsbereitschaft und Freundschaft.</SRegeln>
+            <SportgruppeIDRef>SG01</SportgruppeIDRef>
+        </Sportart>
+    </SportartenM>
     
-    <Veranstaltung Vid="http://beispieluri.de/sportgruppe/1/sportart/3/veranstaltung/65/">
-        <VBeschreibung>13. Offene Kreiseinzelmeisterschaft U15</VBeschreibung>
-        <VInfo>Zugelassen sind alle Judoka unter 15</VInfo>
-        <Ort ref="http://beispieluri.de/ort/2/"></Ort>
-        <VDatum>27.04.2013</VDatum>
-        <VUhrzeit>Waage m: 11.00 Uhr | Waage w: 13.00 Uhr</VUhrzeit>
-        <VNiveau>Ab 7. Kyu</VNiveau>
-        <VVorraussetzungen>Hisse</VVorraussetzungen>
-        <Veranstalter ref="http://beispieluri.de/veranstalter/1/"></Veranstalter>
+    
+    <VeranstaltungenM>
+        <Veranstaltung id="V01">
+            <VBeschreibung>13. Offene Kreiseinzelmeisterschaft U15</VBeschreibung>
+            <VInfo>Zugelassen sind alle Judoka unter 15</VInfo>
+            <VDatum>22014-04-27</VDatum>
+            <VUhrzeit>13:00:00</VUhrzeit>
+            <VNiveau>Ab 7. Kyu</VNiveau>
+            <VVorraussetzungen>Bunter Gürtel</VVorraussetzungen>
+            <SportartIDRef>S01</SportartIDRef>
+            <GebaeudeIDRef>G01</GebaeudeIDRef>
+            <OrtIDRef>O01</OrtIDRef>
+            <VeranstalterIDRef>VT01</VeranstalterIDRef>
+        </Veranstaltung>
+    </VeranstaltungenM>
 
-    </Veranstaltung>
+
+    <OrteM>
+        <Ort id="O01">
+            <OName>Grevenbroich</OName>
+            <GebaeudeIDRef>G01</GebaeudeIDRef>
+        </Ort>
+    </OrteM>
     
-    <Ort Oid="http://beispieluri.de/ort/2/">
-        <OName>Grevenbroich</OName>
-        <Gebaeude ref="http://beispieluri.de/ort/2/gebaeude/3/"></Gebaeude>
-    </Ort>
-    <Gebaeude Gid="http://beispieluri.de/ort/2/gebaeude/3/">
-        <GName>Hans-Sachs Halle</GName>
-        <GAnschrift>Hans-Sachs Straße 4</GAnschrift>
-        <Veranstaltung ref="http://beispieluri.de/sportgruppe/1/sportart/3/veranstaltung/65/"></Veranstaltung>
-        <Ort ref="http://beispieluri.de/ort/2/"></Ort>
-        <Veranstalter ref="http://beispieluri.de/veranstalter/1/"></Veranstalter>
-        <Equipment ref="http://beispieluri.de/ort/2/gebaeude/3/equipment/45/"></Equipment>
-    </Gebaeude>
+    <GebaeudeM>
+        <Gebaeude id="G01">
+            <GName>Hans-Sachs Halle</GName>
+            <GAnschrift>Hans-Sachs Straße 4</GAnschrift>
+            <OrtIDRef>O01</OrtIDRef>
+            <VeranstaltungIDRef>VT01</VeranstaltungIDRef>
+            <VeranstaltungIDRef>VT23</VeranstaltungIDRef>
+            <EquipmentIDRef>E01</EquipmentIDRef>
+            <EquipmentIDRef>E23</EquipmentIDRef>
+        </Gebaeude>
+    </GebaeudeM>
     
-    <Equipment Eid="http://beispieluri.de/ort/2/gebaeude/3/equipment/45/" entliehen="true">
-        <EName>Judomatten</EName>
-        <Veranstalter ref="http://beispieluri.de/veranstalter/1/"></Veranstalter>
-    </Equipment>
     
-    <Veranstalter VTid="http://beispieluri.de/veranstalter/1/">
-        <VTName>Jens Kronenthal</VTName>
-        <VTGeschlecht>m</VTGeschlecht>
-        <VTEmail>jensi.kroni@gmx.de</VTEmail>
-        <VTTelefon>1234567890</VTTelefon>
-    </Veranstalter>
+    <EquipmentM>
+        <Equipment id="E01" entliehen="true">
+            <EName>Judomatten</EName>
+            <GebaeudeIDRef>G01</GebaeudeIDRef>
+            <VeranstalterIDRef>VT01</VeranstalterIDRef>
+        </Equipment>
+    </EquipmentM>
     
+    <EquipmentM>
+        <Equipment id="E23" entliehen="false">
+            <EName>Tennisschläger</EName>
+            <GebaeudeIDRef>G01</GebaeudeIDRef>
+        </Equipment>
+    </EquipmentM>
+    
+    <VeranstalterM>
+        <Veranstalter id="VT01">
+            <VTName>Jens Kronenthal</VTName>
+            <VTGeschlecht>m</VTGeschlecht>
+            <VTEmail>jensi.kroni@gmx.de</VTEmail>
+            <VTTelefon>1234567890</VTTelefon>
+        </Veranstalter>
+    </VeranstalterM>
     
 </Sportverzeichnis>

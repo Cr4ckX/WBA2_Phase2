@@ -26,7 +26,7 @@
         <xs:element name="SportgruppenM">
             <xs:complexType>
                 <xs:sequence>
-                    <xs:element ref="Sportgruppe"/>
+                    <xs:element ref="Sportgruppe" minOccurs="1" maxOccurs="unbounded"/>
                 </xs:sequence>
             </xs:complexType>
         </xs:element>
@@ -46,7 +46,7 @@
                     <xs:element ref="SGBeschreibung"/>
                     
                     <!-- ElementRefs -->
-                    <xs:element ref="SportartRef" minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element ref="SportartIDRef" minOccurs="1" maxOccurs="unbounded"/>
                     <!-- /ElementRefs -->
                     
                 </xs:sequence>
@@ -89,8 +89,8 @@
                     <xs:element ref="SRegeln"/>
                     
                     <!-- ElementRefs -->
-                    <xs:element ref="SportgruppeRef"/> <!-- Eine Sportart muss zu einer Sportgruppe gehören -->
-                    <xs:element ref="VeranstaltungRef" minOccurs="0" maxOccurs="unbounded"/> <!-- mehrere Veranstaltungen, nicht alle, aber zu der Sportart zugehörigen -->
+                    <xs:element ref="SportgruppeIDRef"/> <!-- Eine Sportart muss zu einer Sportgruppe gehören -->
+                    <xs:element ref="VeranstaltungIDRef" minOccurs="0" maxOccurs="unbounded"/> <!-- mehrere Veranstaltungen, nicht alle, aber zu der Sportart zugehörigen -->
                     <!-- /ElementRefs -->
                     
                 </xs:sequence>
@@ -119,7 +119,7 @@
         <xs:element name="VBeschreibung" type="xs:string"/>
         <xs:element name="VInfo" type="xs:string"/>
         <xs:element name="VDatum" type="xs:date"/>
-        <xs:element name="VUhrzeit" type="xs:dateTime"/>
+        <xs:element name="VUhrzeit" type="xs:time"/>
         <xs:element name="VNiveau" type="xs:string"/>
         <xs:element name="VVorraussetzungen" type="xs:string"/>
 
@@ -130,16 +130,17 @@
                 <xs:sequence>
                     <xs:element ref="VBeschreibung"/>
                     <xs:element ref="VInfo" minOccurs="0"/>
-                    <xs:element ref="Ort"/>
+
                     <xs:element ref="VDatum"/>
                     <xs:element ref="VUhrzeit"/>
                     <xs:element ref="VNiveau" minOccurs="0"/>
                     <xs:element ref="VVorraussetzungen" minOccurs="0"/>
                     
                     <!-- ElementRefs -->
-                    <xs:element ref="SportartRef"/>
-                    <xs:element ref="GebaeudeRef"/>
-                    <xs:element ref="VeranstalterRef"/>
+                    <xs:element ref="SportartIDRef"/>
+                    <xs:element ref="GebaeudeIDRef"/>
+                    <xs:element ref="OrtIDRef"/>
+                    <xs:element ref="VeranstalterIDRef"/>
                     <!-- /ElementRefs -->
                     
                 </xs:sequence>
@@ -175,7 +176,7 @@
                     <xs:element ref="OName"/>
                     
                     <!-- ElementRefs -->
-                    <xs:element ref="GebaeudeRef" minOccurs="1" maxOccurs="unbounded"/> 
+                    <xs:element ref="GebaeudeIDRef" minOccurs="1" maxOccurs="unbounded"/> 
                     <!-- /ElementRefs -->
                     
                 </xs:sequence>
@@ -210,12 +211,11 @@
                 <xs:sequence>
                     <xs:element ref="GName"/>
                     <xs:element ref="GAnschrift"/>
-                    <xs:element ref="VeranstaltungRef" minOccurs="0" maxOccurs="unbounded"/> 
                     
                     <!-- ElementRefs -->
-                    <xs:element ref="OrtRef"/>
-                    <xs:element ref="VeranstalterRef" minOccurs="0" maxOccurs="unbounded"/>           
-                    <xs:element ref="EquipmentRef" minOccurs="0" maxOccurs="unbounded"/> 
+                    <xs:element ref="OrtIDRef"/>    
+                    <xs:element ref="VeranstaltungIDRef" minOccurs="0" maxOccurs="unbounded"/> 
+                    <xs:element ref="EquipmentIDRef" minOccurs="0" maxOccurs="unbounded"/> 
                     <!-- /ElementRefs -->
                     
                 </xs:sequence>
@@ -243,7 +243,7 @@
     
     <!-- Equipment - EINZAHL -->
         <!-- SimpleTypes -->
-        <xs:element name="EName"/>
+        <xs:element name="EName" type="xs:string"/>
             
         <!-- ComplexTypes -->
         <xs:element name="Equipment">
@@ -252,8 +252,8 @@
                     <xs:element ref="EName"/>
                     
                     <!-- ElementRefs -->
-                    <xs:element ref="GebaeudeRef"/> <!-- Genau einem Ort immer zugewiesen -->
-                    <xs:element ref="VeranstalterRef" minOccurs="0" maxOccurs="1"/> <!-- Wenn ausgeliehen 1, sonst 0. Incl. Attribut (entliehen)! -->
+                    <xs:element ref="GebaeudeIDRef"/> <!-- Genau einem Ort immer zugewiesen -->
+                    <xs:element ref="VeranstalterIDRef" minOccurs="0" maxOccurs="1"/> <!-- Wenn ausgeliehen 1, sonst 0. Incl. Attribut (entliehen)!, bei der Programmierung später nicht vergessen, wenn Attribut gesetzt, Veranstaltereingabe Pflicht! -->
                     <!-- /ElementRefs -->
                     
                 </xs:sequence>
@@ -280,7 +280,7 @@
     <!-- Veranstalter - EINZAHL --> 
     
         <!-- SimpleTypes -->
-        <xs:element name="VTName" type="xs:string"/> <!-- Ref zu reservierten Gebäuden einfügen -->
+        <xs:element name="VTName" type="xs:string"/>
         <xs:element name="VTGeschlecht" type="Geschlecht"/>
         <xs:element name="VTEmail" type="xs:string"/>
         <xs:element name="VTTelefon" type="xs:integer"/>
@@ -295,12 +295,12 @@
                     <xs:element ref="VTTelefon"/>
                     
                     <!--  ElementRefs -->
-                    <xs:element ref="VeranstaltungRef"/>
-                    <xs:element ref="EquipmentRef"/>
+                    <xs:element ref="VeranstaltungIDRef" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element ref="EquipmentIDRef" minOccurs="0" maxOccurs="unbounded"/>
                     <!-- /ElementRefs -->
                     
                 </xs:sequence>
-                <xs:attribute ref="id"/>
+                <xs:attribute ref="id" use="required"/>
             </xs:complexType>
         </xs:element>
     
@@ -309,17 +309,17 @@
 <!-- ______________________________________________________________________________________________________________ -->
    
     <!-- !!! Referenzierungselemente !!! -->
-        <xs:element name="SportgruppeRef"/>
-        <xs:element name="SportartRef"/>
-        <xs:element name="VeranstaltungRef"/>
-        <xs:element name="VeranstalterRef"/>
-        <xs:element name="GebaeudeRef"/>
-        <xs:element name="OrtRef"/>
-        <xs:element name="EquipmentRef"/>
+        <xs:element name="SportgruppeIDRef"/>
+        <xs:element name="SportartIDRef"/>
+        <xs:element name="VeranstaltungIDRef"/>
+        <xs:element name="VeranstalterIDRef"/>
+        <xs:element name="GebaeudeIDRef"/>
+        <xs:element name="OrtIDRef"/>
+        <xs:element name="EquipmentIDRef"/>
     <!-- !!! Referenzierungselemente !!! -->
  
     <!-- Attribute -->
-        <xs:attribute name="ref" type="xs:IDREF"/>
+    <!--  <xs:attribute name="ref" type="xs:IDREF"/> -->    <!-- Ausgeklammert, da kein Attribut mehr verwendet sondern Elemente -->
         <xs:attribute name="id" type="xs:ID"/>
         <xs:attribute name="entliehen" type="xs:boolean"/>
     <!-- /Attribute -->
