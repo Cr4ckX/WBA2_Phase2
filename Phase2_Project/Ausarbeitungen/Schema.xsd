@@ -7,22 +7,32 @@
         <xs:element name="Sportverzeichnis">
             <xs:complexType>
                 <xs:sequence>
-                    <xs:element ref="Sportgruppe"   minOccurs="1" maxOccurs="unbounded"/>
-                    <xs:element ref="Sportart"      minOccurs="1" maxOccurs="unbounded"/>
-                    <xs:element ref="Veranstaltung" minOccurs="0" maxOccurs="unbounded"/>
-                    <xs:element ref="Ort"           minOccurs="1" maxOccurs="unbounded"/>
-                    <xs:element ref="Gebaeude"      minOccurs="1" maxOccurs="unbounded"/>
-                    <xs:element ref="Equipment"     minOccurs="0" maxOccurs="unbounded"/>
-                    <xs:element ref="Veranstalter"  minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element ref="SportgruppenM"   minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element ref="SportartenM"      minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element ref="VeranstaltungenM" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element ref="OrteM"           minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element ref="GebaeudeM"      minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element ref="EquipmentM"     minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element ref="VeranstalterM"  minOccurs="0" maxOccurs="unbounded"/>
                 </xs:sequence>
             </xs:complexType>
         </xs:element>    
     
     <!-- /Sportverzeichnis -->
     
+<!-- ______________________________________________________________________________________________________________ -->    
     
-
-    <!-- Sportgruppe --> 
+    <!-- Sportgruppen - MEHRZAHL -->
+        <xs:element name="SportgruppenM">
+            <xs:complexType>
+                <xs:sequence>
+                    <xs:element ref="Sportgruppe"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+    <!--/Sportgruppen - MEHRZAHL -->
+    
+    <!-- Sportgruppe - EINZAHL --> 
     
         <!-- SimpleTypes -->
         <xs:element name="SGName" type="xs:string"/>
@@ -34,18 +44,32 @@
                 <xs:sequence>
                     <xs:element ref="SGName"/>
                     <xs:element ref="SGBeschreibung"/>
-                    <xs:element ref="Sportart" minOccurs="1" maxOccurs="unbounded"/>
+                    
+                    <!-- ElementRefs -->
+                    <xs:element ref="SportartRef" minOccurs="1" maxOccurs="unbounded"/>
+                    <!-- /ElementRefs -->
+                    
                 </xs:sequence>
-                <xs:attribute ref="SGid" use="required"/>
-                <xs:attribute ref="ref" use="optional"/>
+                <xs:attribute ref="id" use="required"/>
             </xs:complexType>
         </xs:element>
     
-    <!-- /Sportgruppe -->
+    <!-- /Sportgruppe - EINZAHL -->
  
+<!-- ______________________________________________________________________________________________________________ -->
+ 
+    <!-- Sportarten - MEHRZAHL -->
+        <xs:element name="SportartenM">
+            <xs:complexType>
+                <xs:sequence>
+                    <xs:element ref="Sportart"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+    <!--/Sportarten - MEHRZAHL -->
     
-    
-    <!-- Sportart -->
+       
+    <!-- Sportart - EINZAHL -->
 
         <!-- SimpleTypes -->
         <xs:element name="SName" type="xs:string"/>
@@ -63,18 +87,33 @@
                     <xs:element ref="SHerkunft"/>
                     <xs:element ref="SVorraussetzung"/>
                     <xs:element ref="SRegeln"/>
-                    <xs:element ref="Veranstaltung" minOccurs="0" maxOccurs="unbounded"/>
+                    
+                    <!-- ElementRefs -->
+                    <xs:element ref="SportgruppeRef"/> <!-- Eine Sportart muss zu einer Sportgruppe gehören -->
+                    <xs:element ref="VeranstaltungRef" minOccurs="0" maxOccurs="unbounded"/> <!-- mehrere Veranstaltungen, nicht alle, aber zu der Sportart zugehörigen -->
+                    <!-- /ElementRefs -->
+                    
                 </xs:sequence>
-                <xs:attribute ref="Sid" use="required"/>
-                <xs:attribute ref="ref" use="optional"/>
+                <xs:attribute ref="id" use="required"/>
             </xs:complexType>
         </xs:element>
   
-    <!-- /Sportart -->
+    <!-- /Sportart - EINZAHL -->
+    
+<!-- ______________________________________________________________________________________________________________ -->    
     
     
+    <!-- Veranstaltungen - MEHRZAHL -->
+        <xs:element name="VeranstaltungenM">
+            <xs:complexType>
+                <xs:sequence>
+                    <xs:element ref="Veranstaltung"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+    <!--/Veranstaltungen - MEHRZAHL -->
     
-    <!-- Veranstaltung -->
+    <!-- Veranstaltung - EINZAHL-->
     
         <!-- SimpleTypes -->
         <xs:element name="VBeschreibung" type="xs:string"/>
@@ -96,20 +135,35 @@
                     <xs:element ref="VUhrzeit"/>
                     <xs:element ref="VNiveau" minOccurs="0"/>
                     <xs:element ref="VVorraussetzungen" minOccurs="0"/>
-                    <xs:element ref="Veranstalter" minOccurs="1" maxOccurs="1"/>
+                    
+                    <!-- ElementRefs -->
+                    <xs:element ref="SportartRef"/>
+                    <xs:element ref="GebaeudeRef"/>
+                    <xs:element ref="VeranstalterRef"/>
+                    <!-- /ElementRefs -->
+                    
                 </xs:sequence>
-                <xs:attribute ref="Vid" use="required"/>
-                <xs:attribute ref="ref" use="optional"/>
+                <xs:attribute ref="id" use="required"/>
             </xs:complexType>
         </xs:element>
     
-    <!-- /Veranstaltung -->
+    <!-- /Veranstaltung - EINZAHL -->
 
     
+<!-- ______________________________________________________________________________________________________________ --> 
  
- 
-
-    <!-- Ort -->
+    <!-- Orte - MEHRZAHL -->
+        <xs:element name="OrteM">
+            <xs:complexType>
+                <xs:sequence>
+                    <xs:element ref="Ort"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+    <!-- /Orte - MEHRZAHL -->
+    
+    
+    <!-- Ort - EINZAHL -->
 
         <!-- SimpleTypes -->
         <xs:element name="OName" type="xs:string"/>
@@ -119,20 +173,32 @@
             <xs:complexType>
                 <xs:sequence>
                     <xs:element ref="OName"/>
-                    <xs:element ref="Gebaeude" minOccurs="1" maxOccurs="1"/> 
+                    
+                    <!-- ElementRefs -->
+                    <xs:element ref="GebaeudeRef" minOccurs="1" maxOccurs="unbounded"/> 
+                    <!-- /ElementRefs -->
+                    
                 </xs:sequence>
-                <xs:attribute ref="Oid" use="required"/>
-                <xs:attribute ref="ref" use="optional"/>
+                <xs:attribute ref="id" use="required"/>
             </xs:complexType>
         </xs:element>
 
-    <!-- Ort -->
+    <!-- Ort - EINZAHL -->
     
     
+<!-- ______________________________________________________________________________________________________________ -->     
     
+   <!-- Gebäude - MEHRZAHL -->
+        <xs:element name="GebaeudeM">
+            <xs:complexType>
+                <xs:sequence>
+                    <xs:element ref="Gebaeude"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+   <!--/Gebäude - MEHRZAHL -->
     
-   
-    <!-- Gebäude -->
+    <!-- Gebäude - EINZAHL -->
     
         <!-- SimpleTypes -->
         <xs:element name="GName" type="xs:string"/>
@@ -144,34 +210,36 @@
                 <xs:sequence>
                     <xs:element ref="GName"/>
                     <xs:element ref="GAnschrift"/>
-                    <xs:element ref="Veranstaltung" minOccurs="0" maxOccurs="unbounded"/> 
-                    <xs:element ref="Ort" minOccurs="1" maxOccurs="1"/>
-                    <xs:element ref="Veranstalter" minOccurs="0" maxOccurs="unbounded"/>           
-                    <xs:element ref="Equipment" minOccurs="0" maxOccurs="unbounded"/> 
+                    <xs:element ref="VeranstaltungRef" minOccurs="0" maxOccurs="unbounded"/> 
+                    
+                    <!-- ElementRefs -->
+                    <xs:element ref="OrtRef"/>
+                    <xs:element ref="VeranstalterRef" minOccurs="0" maxOccurs="unbounded"/>           
+                    <xs:element ref="EquipmentRef" minOccurs="0" maxOccurs="unbounded"/> 
+                    <!-- /ElementRefs -->
+                    
                 </xs:sequence>
-                <xs:attribute ref="Gid" use="required"/>    
-                <xs:attribute ref="ref" use="optional"/>
+                <xs:attribute ref="id" use="required"/>    
             </xs:complexType>
         </xs:element>
     
-    <!-- /Gebäude -->
+    <!-- /Gebäude - EINZAHL -->
     
-    
+<!-- ___________________________________HIER AUFGEHÖRT___________________________________________________________________________ -->
 
     <!-- Equipment -->
         <!-- SimpleTypes -->
         <xs:element name="EName"/>
             
         <!-- ComplexTypes -->
-        <xs:element name="Equipment">
+        <xs:element name="Equipment"> <!-- Gebäude ref hinzufügen -->
             <xs:complexType>
                 <xs:sequence>
                     <xs:element ref="EName"/>
-                    <xs:element ref="Veranstalter" minOccurs="0" maxOccurs="1"/>
+                    <xs:element ref="VeranstalterRef" minOccurs="0" maxOccurs="1"/>
                 </xs:sequence>
-                <xs:attribute ref="Eid" use="required"/>      
+                <xs:attribute ref="id" use="required"/>      
                 <xs:attribute ref="entliehen" use="required"/>
-                <xs:attribute ref="ref" use="optional"/>
             </xs:complexType>
         </xs:element>
      
@@ -183,7 +251,7 @@
     <!-- Veranstalter --> 
     
         <!-- SimpleTypes -->
-        <xs:element name="VTName" type="xs:string"/>
+        <xs:element name="VTName" type="xs:string"/> <!-- Ref zu reservierten Gebäuden einfügen -->
         <xs:element name="VTGeschlecht" type="Geschlecht"/>
         <xs:element name="VTEmail" type="xs:string"/>
         <xs:element name="VTTelefon" type="xs:integer"/>
@@ -197,26 +265,27 @@
                     <xs:element ref="VTEmail"/>
                     <xs:element ref="VTTelefon"/>
                 </xs:sequence>
-                <xs:attribute ref="VTid"/>
-                <xs:attribute ref="ref"/>   <!-- ??? -->
+                <xs:attribute ref="id"/>
             </xs:complexType>
         </xs:element>
     
     <!-- /Veranstalter (sowie beim späteren Benutzer noch Abonnements hinzufügen) -->
     
    
+   <!-- !!! Referenzierungselemente !!! -->
+    <xs:element name="SportgruppeRef"/>
+    <xs:element name="SportartRef"/>
+    <xs:element name="VeranstaltungRef"/>
+    <xs:element name="VeranstalterRef"/>
+    <xs:element name="GebaeudeRef"/>
+    <xs:element name="OrtRef"/>
+    <xs:element name="EquipmentRef"/>
  
  
     <!-- Attribute -->
 
         <xs:attribute name="ref" type="xs:IDREF"/>
-        <xs:attribute name="SGid" type="xs:ID"/>
-        <xs:attribute name="Sid" type="xs:ID"/>
-        <xs:attribute name="Vid" type="xs:ID"/>
-        <xs:attribute name="Oid" type="xs:ID"/>
-        <xs:attribute name="Gid" type="xs:ID"/>
-        <xs:attribute name="Eid" type="xs:ID"/>
-        <xs:attribute name="VTid" type="xs:ID"/>
+        <xs:attribute name="id" type="xs:ID"/>
         <xs:attribute name="entliehen" type="xs:boolean"/>
     <!-- /Attribute -->
     
