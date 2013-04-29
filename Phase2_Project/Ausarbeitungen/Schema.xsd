@@ -225,30 +225,59 @@
     
     <!-- /Gebäude - EINZAHL -->
     
-<!-- ___________________________________HIER AUFGEHÖRT___________________________________________________________________________ -->
+<!-- ______________________________________________________________________________________________________________ -->
 
-    <!-- Equipment -->
+
+    <!-- Equipment - MEHRZAHL -->
+        <xs:element name="EquipmentM">
+            <xs:complexType>
+                <xs:sequence>
+                    <xs:element ref="Equipment"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+    
+    
+    <!--/Equipment - MEHRZAHL -->
+    
+    
+    <!-- Equipment - EINZAHL -->
         <!-- SimpleTypes -->
         <xs:element name="EName"/>
             
         <!-- ComplexTypes -->
-        <xs:element name="Equipment"> <!-- Gebäude ref hinzufügen -->
+        <xs:element name="Equipment">
             <xs:complexType>
                 <xs:sequence>
                     <xs:element ref="EName"/>
-                    <xs:element ref="VeranstalterRef" minOccurs="0" maxOccurs="1"/>
+                    
+                    <!-- ElementRefs -->
+                    <xs:element ref="GebaeudeRef"/> <!-- Genau einem Ort immer zugewiesen -->
+                    <xs:element ref="VeranstalterRef" minOccurs="0" maxOccurs="1"/> <!-- Wenn ausgeliehen 1, sonst 0. Incl. Attribut (entliehen)! -->
+                    <!-- /ElementRefs -->
+                    
                 </xs:sequence>
-                <xs:attribute ref="id" use="required"/>      
+                <xs:attribute ref="id" use="required"/>
                 <xs:attribute ref="entliehen" use="required"/>
             </xs:complexType>
         </xs:element>
      
-     <!-- /Equipment -->
+     <!-- /Equipment - EINZAHL -->
  
+<!-- ______________________________________________________________________________________________________________ -->
+    
+    <!-- Veranstalter - MEHRZAHL -->
+        <xs:element name="VeranstalterM">
+            <xs:complexType>
+                <xs:sequence>
+                    <xs:element ref="Veranstalter"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+    <!--/Veranstalter - MEHRZAHL -->
     
     
-    
-    <!-- Veranstalter --> 
+    <!-- Veranstalter - EINZAHL --> 
     
         <!-- SimpleTypes -->
         <xs:element name="VTName" type="xs:string"/> <!-- Ref zu reservierten Gebäuden einfügen -->
@@ -264,26 +293,32 @@
                     <xs:element ref="VTGeschlecht"/>
                     <xs:element ref="VTEmail"/>
                     <xs:element ref="VTTelefon"/>
+                    
+                    <!--  ElementRefs -->
+                    <xs:element ref="VeranstaltungRef"/>
+                    <xs:element ref="EquipmentRef"/>
+                    <!-- /ElementRefs -->
+                    
                 </xs:sequence>
                 <xs:attribute ref="id"/>
             </xs:complexType>
         </xs:element>
     
-    <!-- /Veranstalter (sowie beim späteren Benutzer noch Abonnements hinzufügen) -->
-    
+    <!-- /Veranstalter - EINZAHL (sowie beim späteren Benutzer noch Abonnements hinzufügen) -->
+
+<!-- ______________________________________________________________________________________________________________ -->
    
-   <!-- !!! Referenzierungselemente !!! -->
-    <xs:element name="SportgruppeRef"/>
-    <xs:element name="SportartRef"/>
-    <xs:element name="VeranstaltungRef"/>
-    <xs:element name="VeranstalterRef"/>
-    <xs:element name="GebaeudeRef"/>
-    <xs:element name="OrtRef"/>
-    <xs:element name="EquipmentRef"/>
- 
+    <!-- !!! Referenzierungselemente !!! -->
+        <xs:element name="SportgruppeRef"/>
+        <xs:element name="SportartRef"/>
+        <xs:element name="VeranstaltungRef"/>
+        <xs:element name="VeranstalterRef"/>
+        <xs:element name="GebaeudeRef"/>
+        <xs:element name="OrtRef"/>
+        <xs:element name="EquipmentRef"/>
+    <!-- !!! Referenzierungselemente !!! -->
  
     <!-- Attribute -->
-
         <xs:attribute name="ref" type="xs:IDREF"/>
         <xs:attribute name="id" type="xs:ID"/>
         <xs:attribute name="entliehen" type="xs:boolean"/>
@@ -293,13 +328,11 @@
     
     
     <!-- Datentypen -->
-    
-    <xs:simpleType name="Geschlecht">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="w"/>
-            <xs:enumeration value="m"/>
-        </xs:restriction>
-    </xs:simpleType>
-    
+        <xs:simpleType name="Geschlecht">
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="w"/>
+                <xs:enumeration value="m"/>
+            </xs:restriction>
+        </xs:simpleType>
     <!-- /Datentypen -->
 </xs:schema>
