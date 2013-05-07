@@ -7,13 +7,20 @@
         <xs:element name="Sportverzeichnis">
             <xs:complexType>
                 <xs:sequence>
-                    <xs:element ref="SportgruppenM"   minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element ref="SportgruppenM"    minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element ref="Sportgruppe"      minOccurs="1" maxOccurs="unbounded"/>
                     <xs:element ref="SportartenM"      minOccurs="1" maxOccurs="unbounded"/>
-                    <xs:element ref="VeranstaltungenM" minOccurs="0" maxOccurs="unbounded"/>
-                    <xs:element ref="OrteM"           minOccurs="1" maxOccurs="unbounded"/>
-                    <xs:element ref="GebaeudeM"      minOccurs="1" maxOccurs="unbounded"/>
-                    <xs:element ref="EquipmentM"     minOccurs="0" maxOccurs="unbounded"/>
-                    <xs:element ref="VeranstalterM"  minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element ref="Sportart"         minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element ref="VeranstaltungenM" minOccurs="1" maxOccurs="unbounded"/> <!-- Liste, wenn auch leer sollte da sein -->
+                    <xs:element ref="Veranstaltung"    minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element ref="OrteM"            minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element ref="Ort"              minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element ref="GebaeudeM"        minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element ref="Gebaeude"         minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element ref="EquipmentM"       minOccurs="1" maxOccurs="unbounded"/><!-- siehe oben -->
+                    <xs:element ref="Equipment"        minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element ref="VeranstalterM"    minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element ref="Veranstalter"     minOccurs="1" maxOccurs="unbounded"/>
                 </xs:sequence>
             </xs:complexType>
         </xs:element>    
@@ -304,7 +311,7 @@
             </xs:complexType>
         </xs:element>
     
-    <!-- /Veranstalter - EINZAHL (sowie beim späteren Benutzer noch Abonnements hinzufügen) -->
+    <!-- /Veranstalter - EINZAHL -->
 
 <!-- ______________________________________________________________________________________________________________ -->
    
@@ -319,7 +326,6 @@
     <!-- !!! Referenzierungselemente !!! -->
  
     <!-- Attribute -->
-    <!--  <xs:attribute name="ref" type="xs:IDREF"/> -->    <!-- Ausgeklammert, da kein Attribut mehr verwendet sondern Elemente -->
         <xs:attribute name="id" type="xs:ID"/>
         <xs:attribute name="entliehen" type="xs:boolean"/>
     <!-- /Attribute -->
