@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Sportverzeichnis xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="Schema Vol2.xsd">
+    <SportgruppenM>
+        
+        <Sportgruppe id="SG00">
+            
+            <SGName>Kampfsport</SGName>
+            <SGBeschreibung>Unter Kampfsport definiert man einen Sammelbegriff für diverse Sportarten in welchen Kampfstile integriert werden.</SGBeschreibung>
+                        
+            <SportartenM>
+                <Sportart id="S00">
+                    
+                    <SName>Judo</SName>
+                    <SBeschreibung>Bla</SBeschreibung>
+                    <SHerkunft>Irgendwo</SHerkunft>
+                    <SVorraussetzung>Hohe</SVorraussetzung>
+                    <SRegeln>Viele</SRegeln>
+                    
+                    <VeranstaltungenM>                      
+                        <Veranstaltung id="V00">
+                            <VBeschreibung>Besch</VBeschreibung>
+                            <VDatum>2014-04-27</VDatum>
+                            <VUhrzeit>13:00:00</VUhrzeit>
+                            <GebaeudeIDRef>G00</GebaeudeIDRef>
+                            <VeranstalterIDRef>VT00</VeranstalterIDRef>
+                        </Veranstaltung>
+                        
+                        <Veranstaltung id="V01">
+                            <VBeschreibung></VBeschreibung>
+                            <VDatum>2014-04-27</VDatum>
+                            <VUhrzeit>15:00:00</VUhrzeit>
+                            <GebaeudeIDRef>G00</GebaeudeIDRef>
+                            <VeranstalterIDRef>VT00</VeranstalterIDRef>
+                        </Veranstaltung>
+                    </VeranstaltungenM>
+                    
+                </Sportart>
+            </SportartenM>
+
+        </Sportgruppe>
+        
+        <Sportgruppe id="SG01">
+            <SGName>Rückschlagsportart</SGName>
+            <SGBeschreibung>Beschreibung1</SGBeschreibung>
+            <SportartenM>
+                <Sportart id="S01">
+                    <SName>Tennis</SName>
+                    <SBeschreibung>..</SBeschreibung>
+                    <SHerkunft>..</SHerkunft>
+                    <SVorraussetzung>..</SVorraussetzung>
+                    <SRegeln>..</SRegeln>
+                    <VeranstaltungenM></VeranstaltungenM> <!-- keine Veranstaltungen momentan -->
+                </Sportart>
+                
+          
+            </SportartenM>
+        </Sportgruppe>
+
+    </SportgruppenM>
+    
+    <OrteM>
+        <Ort id="O00">
+            <OName>Grevenbroich</OName>
+            <GebaeudeM>
+                
+                <Gebaeude id="G00">
+                    <GName>Hans-Sachs Halle</GName>
+                    <GAnschrift>Hans-Sachs Straße 4</GAnschrift>
+                    <EquipmentM>
+                        <Equipment id="E00" entliehen="true">
+                            <EName>Judomatten</EName>
+                            <VeranstalterIDRef>VT00</VeranstalterIDRef>
+                        </Equipment>
+                        
+                        <Equipment id="E01" entliehen="false">
+                            <EName>Fußbälle</EName>
+                        </Equipment>
+                        
+                    </EquipmentM>
+                </Gebaeude>
+                
+                <Gebaeude id="G01">
+                    <GName>Tennishalle</GName>
+                    <GAnschrift>Hautstraße 7</GAnschrift>
+                    <EquipmentM>
+                        <Equipment id="E00" entliehen="false">
+                            <EName>Tennisschläger</EName>
+                        </Equipment>
+                    </EquipmentM>
+                </Gebaeude>
+            </GebaeudeM>
+            
+        </Ort>
+        
+        <Ort id="O01">
+            <OName>Jüchen</OName>
+            <GebaeudeM>
+                <Gebaeude id="G00">
+                    <GName>Halle 7</GName>
+                    <GAnschrift>Günterstraße 13</GAnschrift>
+                    <EquipmentM></EquipmentM>
+                </Gebaeude>
+            </GebaeudeM>
+        </Ort>
+    </OrteM>
+    
+    <VeranstalterM>
+        <Veranstalter id="V00">
+            <VTName>Jen Kronenthal</VTName>
+            <VTGeschlecht>m</VTGeschlecht>
+            <VTEmail>jensi.kroni@gmx.de</VTEmail>
+            <VTTelefon>0123456789</VTTelefon>
+        </Veranstalter>
+    </VeranstalterM>
+    
+</Sportverzeichnis>
