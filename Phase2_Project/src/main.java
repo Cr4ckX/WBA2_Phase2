@@ -22,9 +22,10 @@ public class main {
 		Sportverzeichnis sv = (Sportverzeichnis) unmarshaller.unmarshal(new File(
 				"Ausarbeitungen/XmlFuerSchema.xml"));
 		
+		sv.getVeranstaltungenM().get(0).;
 		for (int i = 0; i < sv.getVeranstaltungenM().size(); i++) {
-			System.out.println(sv.getVeranstaltungenM().get(i).getVeranstaltung().getVBeschreibung());		
-			//System.out.println(sv.getVeranstaltungenM().get(1).getVeranstaltung().getVBeschreibung());		
+			
+			//for (int j =0; j < sv.getVeranstaltungenM().get(i) 
 
 		}
 				
