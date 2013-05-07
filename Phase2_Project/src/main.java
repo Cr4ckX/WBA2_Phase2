@@ -15,22 +15,26 @@ public class main {
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception {
-		System.out.println("Dies ist ein Test");
-		
-		// TODO Auto-generated method stub
-
-	}
-
-	
-	public static void ausgabe () throws Exception{
-		
 		
 		// Vorgaben durch Erstellung
-				JAXBContext jc = JAXBContext.newInstance("generated");
-				Unmarshaller unmarshaller = jc.createUnmarshaller();
-				Sportverzeichnis sv = (Sportverzeichnis) unmarshaller.unmarshal(new File(
-						"src/AUfgabe3d.xml"));
-
+		JAXBContext jc = JAXBContext.newInstance("generated");
+		Unmarshaller unmarshaller = jc.createUnmarshaller();
+		Sportverzeichnis sv = (Sportverzeichnis) unmarshaller.unmarshal(new File(
+				"Ausarbeitungen/XmlFuerSchema.xml"));
 		
-	}
+		for (int i = 0; i < sv.getVeranstaltungenM().size(); i++) {
+			System.out.println(sv.getVeranstaltungenM().get(i).getVeranstaltung().getVBeschreibung());		
+			//System.out.println(sv.getVeranstaltungenM().get(1).getVeranstaltung().getVBeschreibung());		
+
+		}
+				
+		
+//	//EinfŸgen in die XML - marshallen
+//			Marshaller marshaller = jc.createMarshaller();
+//			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+//			
+//			//Output
+//			marshaller.marshal(sv, (new File("Ausarbeitungen/XmlFuerSchema.xml")));
 }
+	
+	}

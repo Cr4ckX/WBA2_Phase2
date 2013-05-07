@@ -46,6 +46,19 @@
             <OrtIDRef>O01</OrtIDRef>
             <VeranstalterIDRef>VT01</VeranstalterIDRef>
         </Veranstaltung>
+
+		<Veranstaltung id="V05">
+            <VBeschreibung>13. test Kreiseinzelmeisterschaft U15</VBeschreibung>
+            <VInfo>Zugelassen sind alle Judoka unter 15</VInfo>
+            <VDatum>22014-04-27</VDatum>
+            <VUhrzeit>13:00:00</VUhrzeit>
+            <VNiveau>Ab 7. Kyu</VNiveau>
+            <VVorraussetzungen>Bunter Gürtel</VVorraussetzungen>
+            <SportartIDRef>S01</SportartIDRef>
+            <GebaeudeIDRef>G01</GebaeudeIDRef>
+            <OrtIDRef>O01</OrtIDRef>
+            <VeranstalterIDRef>VT01</VeranstalterIDRef>
+        </Veranstaltung>
     </VeranstaltungenM>
 
 
