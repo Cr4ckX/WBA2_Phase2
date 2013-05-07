@@ -35,6 +35,7 @@
                 <xs:sequence>
                     <xs:element ref="Sportgruppe" minOccurs="1" maxOccurs="unbounded"/>
                 </xs:sequence>
+                <xs:attribute ref="id" use="required"/>
             </xs:complexType>
         </xs:element>
     <!--/Sportgruppen - MEHRZAHL -->
@@ -56,6 +57,10 @@
                     <xs:element ref="SportartIDRef" minOccurs="1" maxOccurs="unbounded"/>
                     <!-- /ElementRefs -->
                     
+                    <!-- ParentRefs -->
+                    <xs:element ref="SportgruppeMParent"/>
+                    <!-- /ParentRefs -->
+                    
                 </xs:sequence>
                 <xs:attribute ref="id" use="required"/>
             </xs:complexType>
@@ -71,6 +76,7 @@
                 <xs:sequence>
                     <xs:element ref="Sportart"/>
                 </xs:sequence>
+                <xs:attribute ref="id" use="required"/>
             </xs:complexType>
         </xs:element>
     <!--/Sportarten - MEHRZAHL -->
@@ -100,6 +106,10 @@
                     <xs:element ref="VeranstaltungIDRef" minOccurs="0" maxOccurs="unbounded"/> <!-- mehrere Veranstaltungen, nicht alle, aber zu der Sportart zugehörigen -->
                     <!-- /ElementRefs -->
                     
+                    <!-- ParentRefs -->
+                    <xs:element ref="SportartMParent"/>
+                    <!-- /ParentRefs -->
+                    
                 </xs:sequence>
                 <xs:attribute ref="id" use="required"/>
             </xs:complexType>
@@ -116,6 +126,7 @@
                 <xs:sequence>
                     <xs:element ref="Veranstaltung"/>
                 </xs:sequence>
+                <xs:attribute ref="id" use="required"/>
             </xs:complexType>
         </xs:element>
     <!--/Veranstaltungen - MEHRZAHL -->
@@ -150,6 +161,10 @@
                     <xs:element ref="VeranstalterIDRef"/>
                     <!-- /ElementRefs -->
                     
+                    <!-- ParentRefs -->
+                    <xs:element ref="VeranstaltungMParent"/>
+                    <!-- /ParentRefs -->
+                    
                 </xs:sequence>
                 <xs:attribute ref="id" use="required"/>
             </xs:complexType>
@@ -166,6 +181,7 @@
                 <xs:sequence>
                     <xs:element ref="Ort"/>
                 </xs:sequence>
+                <xs:attribute ref="id" use="required"/>
             </xs:complexType>
         </xs:element>
     <!-- /Orte - MEHRZAHL -->
@@ -186,6 +202,9 @@
                     <xs:element ref="GebaeudeIDRef" minOccurs="1" maxOccurs="unbounded"/> 
                     <!-- /ElementRefs -->
                     
+                    <!-- ParentRefs -->
+                    <xs:element ref="OrtMParent"/>
+                    <!-- /ParentRefs -->
                 </xs:sequence>
                 <xs:attribute ref="id" use="required"/>
             </xs:complexType>
@@ -202,6 +221,7 @@
                 <xs:sequence>
                     <xs:element ref="Gebaeude"/>
                 </xs:sequence>
+                <xs:attribute ref="id" use="required"/>
             </xs:complexType>
         </xs:element>
    <!--/Gebäude - MEHRZAHL -->
@@ -225,6 +245,10 @@
                     <xs:element ref="EquipmentIDRef" minOccurs="0" maxOccurs="unbounded"/> 
                     <!-- /ElementRefs -->
                     
+                    <!-- ParentRefs -->
+                    <xs:element ref="GebaeudeMParent"/>
+                    <!-- /ParentRefs -->
+                    
                 </xs:sequence>
                 <xs:attribute ref="id" use="required"/>    
             </xs:complexType>
@@ -241,6 +265,7 @@
                 <xs:sequence>
                     <xs:element ref="Equipment"/>
                 </xs:sequence>
+                <xs:attribute ref="id" use="required"/>
             </xs:complexType>
         </xs:element>
     
@@ -263,6 +288,10 @@
                     <xs:element ref="VeranstalterIDRef" minOccurs="0" maxOccurs="1"/> <!-- Wenn ausgeliehen 1, sonst 0. Incl. Attribut (entliehen)!, bei der Programmierung später nicht vergessen, wenn Attribut gesetzt, Veranstaltereingabe Pflicht! -->
                     <!-- /ElementRefs -->
                     
+                    <!-- ParentRefs -->
+                    <xs:element ref="EquipmentMParent"/>
+                    <!-- /ParentRefs -->
+                    
                 </xs:sequence>
                 <xs:attribute ref="id" use="required"/>
                 <xs:attribute ref="entliehen" use="required"/>
@@ -279,6 +308,7 @@
                 <xs:sequence>
                     <xs:element ref="Veranstalter"/>
                 </xs:sequence>
+                <xs:attribute ref="id" use="required"/>
             </xs:complexType>
         </xs:element>
     <!--/Veranstalter - MEHRZAHL -->
@@ -306,6 +336,9 @@
                     <xs:element ref="EquipmentIDRef" minOccurs="0" maxOccurs="unbounded"/>
                     <!-- /ElementRefs -->
                     
+                    <!-- ParentRefs -->
+                    <xs:element ref="VeranstalterMParent"/>
+                    <!-- /ParentRefs -->
                 </xs:sequence>
                 <xs:attribute ref="id" use="required"/>
             </xs:complexType>
@@ -325,6 +358,18 @@
         <xs:element name="EquipmentIDRef"/>
     <!-- !!! Referenzierungselemente !!! -->
  
+ 
+    <!-- Parent Referenzierungselemente -->
+    <!-- M = Menge/Mehrzahl. Für Listenreferenzieung benötigt -->
+        <xs:element name="SportgruppeMParent"/>
+        <xs:element name="SportartMParent"/>
+        <xs:element name="VeranstaltungMParent"/>
+        <xs:element name="OrtMParent"/>
+        <xs:element name="GebaeudeMParent"/>    
+        <xs:element name="EquipmentMParent"/>
+        <xs:element name="VeranstalterMParent"/>
+    <!--/Parent Referenzierungselemente -->
+    
     <!-- Attribute -->
         <xs:attribute name="id" type="xs:ID"/>
         <xs:attribute name="entliehen" type="xs:boolean"/>
