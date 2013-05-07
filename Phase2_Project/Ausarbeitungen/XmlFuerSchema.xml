@@ -37,7 +37,7 @@
         <Veranstaltung id="V01">
             <VBeschreibung>13. Offene Kreiseinzelmeisterschaft U15</VBeschreibung>
             <VInfo>Zugelassen sind alle Judoka unter 15</VInfo>
-            <VDatum>22014-04-27</VDatum>
+            <VDatum>2014-04-27</VDatum>
             <VUhrzeit>13:00:00</VUhrzeit>
             <VNiveau>Ab 7. Kyu</VNiveau>
             <VVorraussetzungen>Bunter Gürtel</VVorraussetzungen>
@@ -50,7 +50,7 @@
 		<Veranstaltung id="V05">
             <VBeschreibung>13. test Kreiseinzelmeisterschaft U15</VBeschreibung>
             <VInfo>Zugelassen sind alle Judoka unter 15</VInfo>
-            <VDatum>22014-04-27</VDatum>
+            <VDatum>2014-04-27</VDatum>
             <VUhrzeit>13:00:00</VUhrzeit>
             <VNiveau>Ab 7. Kyu</VNiveau>
             <VVorraussetzungen>Bunter Gürtel</VVorraussetzungen>
