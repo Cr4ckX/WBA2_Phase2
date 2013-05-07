@@ -5,7 +5,7 @@
     <SportgruppenM>
         <Sportgruppe id="SG01">
             <SGName>Kampfsport</SGName>
-            <SGBeschreibung>Unter Kampfsport definiert man eine Sammelbegriff für diverse Sportarten in welchen Kampfstile integriert werden.</SGBeschreibung>
+            <SGBeschreibung>Unter Kampfsport definiert man einen Sammelbegriff für diverse Sportarten in welchen Kampfstile integriert werden.</SGBeschreibung>
             <SportartIDRef>S01</SportartIDRef>
             <SportartIDRef>S02</SportartIDRef>
                       <!-- ... -->
@@ -21,7 +21,7 @@
     </SportgruppenM>
     
         
-    <SportartenM>
+    <SportartenM id="SM01">
         <Sportart id="S01">
             <SName>Judo</SName>
             <SBeschreibung>Judo als Kampfsport läuft ganz nach dem Motto "Der sanfte Weg" beziehungsweise "Siegen durch Nachgeben" und dient weniger der Selbstverteidigung sondern eher der Kampfkunst.</SBeschreibung>
@@ -29,11 +29,17 @@
             <SVorraussetzung>keine</SVorraussetzung>
             <SRegeln>Neben den Regeln des Kampfes wie keine Tritte, Schläge, Kneifer oder sonstiges gelten die 10 Judowerte: Ehrlichkeit, bescheidenheit, Respekt, Höflichkeit, Ernsthaftigkeit, Mut, Selbstbeherrschung, Wertschätzung, Hilfsbereitschaft und Freundschaft.</SRegeln>
             <SportgruppeIDRef>SG01</SportgruppeIDRef>
+            <SportartMParent>SM01</SportartMParent>
         </Sportart>
     </SportartenM>
     
+    <!-- 
+    <SportartenM id="SM02">
+       
+    </SportartenM>
+     -->
     
-    <VeranstaltungenM>
+    <VeranstaltungenM id="VM01">
         <Veranstaltung id="V01">
             <VBeschreibung>13. Offene Kreiseinzelmeisterschaft U15</VBeschreibung>
             <VInfo>Zugelassen sind alle Judoka unter 15</VInfo>
@@ -41,31 +47,43 @@
             <VUhrzeit>13:00:00</VUhrzeit>
             <VNiveau>Ab 7. Kyu</VNiveau>
             <VVorraussetzungen>Bunter Gürtel</VVorraussetzungen>
+            
             <SportartIDRef>S01</SportartIDRef>
             <GebaeudeIDRef>G01</GebaeudeIDRef>
             <OrtIDRef>O01</OrtIDRef>
             <VeranstalterIDRef>VT01</VeranstalterIDRef>
+            
+            <VeranstaltungMParent>VM01</VeranstaltungMParent>
         </Veranstaltung>
 
 		<Veranstaltung id="V05">
-            <VBeschreibung>13. test Kreiseinzelmeisterschaft U15</VBeschreibung>
+            <VBeschreibung>14. Geschlossene Kreiseinzelmeisterschaft U15</VBeschreibung>
             <VInfo>Zugelassen sind alle Judoka unter 15</VInfo>
             <VDatum>2014-04-27</VDatum>
             <VUhrzeit>13:00:00</VUhrzeit>
             <VNiveau>Ab 7. Kyu</VNiveau>
             <VVorraussetzungen>Bunter Gürtel</VVorraussetzungen>
+		    
             <SportartIDRef>S01</SportartIDRef>
             <GebaeudeIDRef>G01</GebaeudeIDRef>
             <OrtIDRef>O01</OrtIDRef>
             <VeranstalterIDRef>VT01</VeranstalterIDRef>
+		    
+		    <VeranstaltungMParent>MV01</VeranstaltungMParent>
         </Veranstaltung>
     </VeranstaltungenM>
 
 
-    <OrteM>
+    <OrteM id="OM01">
         <Ort id="O01">
             <OName>Grevenbroich</OName>
             <GebaeudeIDRef>G01</GebaeudeIDRef>
+            <OrtMParent></OrtMParent>
+        </Ort>
+        
+        <Ort id="O02">
+            <OName>Jüchen</OName>
+            <GebaeudeIDRef>G02</GebaeudeIDRef>
         </Ort>
     </OrteM>
     
