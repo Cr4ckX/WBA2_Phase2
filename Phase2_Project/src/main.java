@@ -26,9 +26,10 @@ public class main {
 			
 			for (int j = 0; j < sv.getVeranstaltung().size(); j++){
 				
-				if(sv.getVeranstaltungenM().get(i).getId().equals(sv.getVeranstaltung().get(j).getVeranstaltungMParent())){
-					System.out.println(sv.getVeranstaltung().get(j).getVBeschreibung());
-				}
+			//	sv.getVeranstaltungenM().get(i).getVeranstaltung().getVBeschreibung()
+//				if(sv.getVeranstaltungenM().get(i).getId().equals(sv.getVeranstaltung().get(j).getVeranstaltungMParent())){
+//					System.out.println(sv.getVeranstaltung().get(j).getVBeschreibung());
+//				}
 						
 			}
 
