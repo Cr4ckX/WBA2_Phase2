@@ -20,19 +20,44 @@ public class main {
 		JAXBContext jc = JAXBContext.newInstance("generated");
 		Unmarshaller unmarshaller = jc.createUnmarshaller();
 		Sportverzeichnis sv = (Sportverzeichnis) unmarshaller.unmarshal(new File(
-				"Ausarbeitungen/XmlFuerSchema.xml"));
+				"Ausarbeitungen/XmlFuerSchema Vol2.xml"));
 		
-		for (int i = 0; i < sv.getVeranstaltungenM().size(); i++) {
+		
+		for (int i=0; i<sv.getSportgruppenM().size(); i++){
+			//Liste aller Sportgruppen
+			SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM().get(i);
+	
 			
-			for (int j = 0; j < sv.getVeranstaltung().size(); j++){
+			for (int j=0; j<sgm.getSportgruppe().size(); j++){
+				//konrete Sportgruppe
+				Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(j);
+				System.out.println("Name der Sporgruppe: " +sg.getSGName());
 				
-			//	sv.getVeranstaltungenM().get(i).getVeranstaltung().getVBeschreibung()
-//				if(sv.getVeranstaltungenM().get(i).getId().equals(sv.getVeranstaltung().get(j).getVeranstaltungMParent())){
-//					System.out.println(sv.getVeranstaltung().get(j).getVBeschreibung());
-//				}
+				for (int k=0; k<sg.getSportartenM().size(); k++){
+					//Liste aller Sportarten dieser Sporgruppe
+					SportartenM sm = (SportartenM) sg.getSportartenM().get(k);
+					
+					for (int l=0; l<sm.getSportart().size(); l++){
+						//Konkrete Sportart
+						Sportart s = (Sportart) sm.getSportart().get(l);
 						
+						System.out.println("Sportart: " + s.getSBeschreibung());
+						
+						
+						for (int m=0; m<s.getVeranstaltungenM().getVeranstaltung().size(); m++){
+							//Veranstaltungen (Veranstaltungsliste 1x fŸr gewisse Sportart):
+							Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(m);
+							
+							
+							System.out.println("Veranstaltung: " + v.getVBeschreibung());
+							
+						}
+						
+					
+					}
+					
+				}
 			}
-
 		}
 				
 		
