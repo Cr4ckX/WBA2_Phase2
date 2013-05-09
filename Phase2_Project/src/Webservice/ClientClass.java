@@ -18,9 +18,9 @@ public class ClientClass {
 		
 		ClientResponse clientResponse1 = Client.create().resource(
 		          "http://localhost:8080/sportgruppen" ).get( ClientResponse.class );
-		System.out.println( clientResponse1.getStatus() );                // 200
-//		if ( clientResponse1.hasEntity() )
-//		  System.out.println( clientResponse1.getEntity( String.class )); // Yea!
+		System.out.println( clientResponse1.getStatus() );                
+		if ( clientResponse1.hasEntity() )
+		  System.out.println( clientResponse1.getEntity( String.class )); 
 	}
 
 }
