@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 @Path("sportgruppen")
 // Nachricht-Ressource
@@ -122,7 +123,9 @@ public class Rest_Service {
 							// Konkrete Sportart
 							Sportart s = (Sportart) sm.getSportart().get(l);
 							
-							ausgabe += s.getId() + " " + s.getSName() + "\n";
+							ausgabe += s.getId() + " " + s.getSName();// + "\n";
+							if(l+1 < sm.getSportart().size())
+								ausgabe += "\n";
 
 						}
 				
@@ -224,8 +227,9 @@ public class Rest_Service {
 									// Konkrete Veranstaltungen (Veranstaltungsliste 1x fŸr gewisse Sportart):
 									Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(m);
 									
-									ausgabe += v.getId() + " " + v.getVBeschreibung() + "\n";
-									System.out.println(v.getId() + " " + spaId);
+									ausgabe += v.getId() + " " + v.getVBeschreibung();// + "\n";
+									if(m+1<s.getVeranstaltungenM().getVeranstaltung().size())
+										ausgabe += "\n";
 								}
 								return ausgabe;
 							}
@@ -303,5 +307,72 @@ public class Rest_Service {
 	}
 	
 	
+	
+	@PUT
+	@Path("/{spgId}/sportarten/{spaId}/veranstaltungen/{vstId}")
+	@Consumes (MediaType.TEXT_PLAIN)
+	@Produces (MediaType.TEXT_PLAIN)
+	public String putVeranstaltung(@PathParam("spgId") String spgId,
+			@PathParam("spaId") String spaId, @PathParam("vstId") String vstId,
+			String beschreibung, String info, XMLGregorianCalendar datum, XMLGregorianCalendar uhrzeit, 
+			String niveau, String voraussetzungen) throws Exception{
+		
+
+		// Unmarshalling
+		JAXBContext jc = JAXBContext.newInstance("generated");
+		Unmarshaller unmarshaller = jc.createUnmarshaller();
+		Sportverzeichnis sv = (Sportverzeichnis) unmarshaller
+				.unmarshal(new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
+
+		for (int i = 0; i < sv.getSportgruppenM().size(); i++) {
+			// Liste aller Sportgruppen
+			SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM().get(i);
+
+			for (int j = 0; j < sgm.getSportgruppe().size(); j++) {
+				// konrete Sportgruppe
+				Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(j);
+
+	
+				if (spgId.equals(sg.getId())) {
+					
+					for (int k = 0; k < sg.getSportartenM().size(); k++) {
+						// Liste aller Sportarten dieser Sportgruppe
+						SportartenM sm = (SportartenM) sg.getSportartenM().get(k);
+
+						for (int l = 0; l < sm.getSportart().size(); l++) {
+							// Konkrete Sportart
+							Sportart s = (Sportart) sm.getSportart().get(l);
+							
+							if (spaId.equals(s.getId()) && s.getVeranstaltungenM().getVeranstaltung().size() > 0) {
+								for (int m = 0; m < s.getVeranstaltungenM().getVeranstaltung().size(); m++) {
+									// Konkrete Veranstaltungen (Veranstaltungsliste 1x fŸr gewisse Sportart):
+									Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(m);
+									
+									if (v.getId().equals(vstId)){
+										
+										v.setVBeschreibung(beschreibung);
+										v.setVInfo(info);
+										v.setVDatum(datum);
+										v.setVUhrzeit(uhrzeit);
+										v.setVNiveau(niveau);
+										v.setVVorraussetzungen(voraussetzungen);
+										return "Alles sauber verlaufen!";
+									}
+									
+								}
+								
+							}
+							
+						}
+				
+					}
+
+				}
+
+			}
+		}
+		return "Keine Ahnung was als Return-Wert erwartet wird";
+		
+	}
 	
 }
