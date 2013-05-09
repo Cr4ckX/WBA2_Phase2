@@ -1,42 +1,57 @@
+import generated.Sportart;
+import generated.SportartenM;
+import generated.Sportgruppe;
+import generated.SportgruppenM;
+import generated.Sportverzeichnis;
+import generated.Veranstaltung;
+
 import java.io.File;
-import java.math.BigInteger;
 
-import generated.*;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 
-import Webservice.Rest_Service;
+public class Unmarshallen {
 
-public class main {
+	// Unmarshalling
+	JAXBContext jc;
+	Unmarshaller unmarshaller;
+	Sportverzeichnis sv;
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) throws Exception {
 
-		// Unmarshalling
-		JAXBContext jc = JAXBContext.newInstance("generated");
-		Unmarshaller unmarshaller = jc.createUnmarshaller();
-		Sportverzeichnis sv = (Sportverzeichnis) unmarshaller.unmarshal(new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
+	public void xmlUnmarshallen() throws Exception{
+		jc = JAXBContext.newInstance("generated");
+		unmarshaller = jc.createUnmarshaller();
+		sv = (Sportverzeichnis) unmarshaller.unmarshal(new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
+	}
+	
 
+	
+	@Path("")
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	
+	public String sportgruppen(){
+		return "Hat funktioniert!";
+	}
+	
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path("/{id}")
+	public String sportgruppen(@PathParam("id") String id){
+		return String.format("ID = %s", id);
+		
+	}
+	
+	public void xmlDurchlaufen() throws Exception{
+		
 		// Um ID später um 1 erhöhen zu können
 		int anzahlVeranstaltungen = 0;
 
 		for (int i = 0; i < sv.getSportgruppenM().size(); i++) {
 			// Liste aller Sportgruppen
 			SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM().get(i);
-
-			
-
 			
 			
 			
@@ -94,15 +109,7 @@ public class main {
 			// marshaller.marshal(sv, (new
 			// File("Ausarbeitungen/XmlFuerSchema.xml")));
 		}
-
 	}
 	
-	@Path("sportgruppen")
-	@GET
-	@Produces(MediaType.TEXT_PLAIN)
 	
-	public String nachricht(){
-		return "Hat funktioniert!";
-	}
-
 }

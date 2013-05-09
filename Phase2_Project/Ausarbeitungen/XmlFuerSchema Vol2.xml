@@ -19,7 +19,7 @@
                     
                     <VeranstaltungenM>                      
                         <Veranstaltung id="V00">
-                            <VBeschreibung>Besch</VBeschreibung>
+                            <VBeschreibung>Veranstaltung1</VBeschreibung>
                             <VDatum>2014-04-27</VDatum>
                             <VUhrzeit>13:00:00</VUhrzeit>
                             <GebaeudeIDRef>G00</GebaeudeIDRef>
@@ -27,7 +27,7 @@
                         </Veranstaltung>
                         
                         <Veranstaltung id="V01">
-                            <VBeschreibung></VBeschreibung>
+                            <VBeschreibung>Veranstaltung2</VBeschreibung>
                             <VDatum>2014-04-27</VDatum>
                             <VUhrzeit>15:00:00</VUhrzeit>
                             <GebaeudeIDRef>G00</GebaeudeIDRef>

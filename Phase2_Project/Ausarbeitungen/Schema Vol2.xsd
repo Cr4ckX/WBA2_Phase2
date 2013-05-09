@@ -7,7 +7,7 @@
         <xs:element name="Sportverzeichnis">
             <xs:complexType>
                 <xs:sequence>
-                    <xs:element ref="SportgruppenM"    minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element ref="SportgruppenM"/>
                     <xs:element ref="OrteM"            minOccurs="1" maxOccurs="unbounded"/>
                     <xs:element ref="VeranstalterM"    minOccurs="1" maxOccurs="unbounded"/>
                 </xs:sequence>
