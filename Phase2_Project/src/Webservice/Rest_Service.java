@@ -169,11 +169,11 @@ public class Rest_Service {
 							
 							if (spaId.equals(s.getId())) {
 								
-								return "Sportart: " + s.getSName() + "\n" + 
-									   "Beschreibung: " + s.getSBeschreibung() + "\n" + 
-									   "Herkunft: " + s.getSHerkunft() + "\n" +
-									   "Vorraussetzungen: " + s.getSVorraussetzung() + "\n" + 
-									   "Regeln: " + s.getSRegeln();
+								return "Sportart: " + s.getSName() +
+									   "\nBeschreibung: " + s.getSBeschreibung() + 
+									   "\nHerkunft: " + s.getSHerkunft() +
+									   "\nVorraussetzungen: " + s.getSVorraussetzung() + 
+									   "\nRegeln: " + s.getSRegeln();
 							}
 							
 						}
@@ -186,8 +186,6 @@ public class Rest_Service {
 		}
 		return "Keine Informationen zu der Sportart/Falsche Sportart";
 	}
-	
-	
 	
 	//Hole zu der konkreten Sportart die Veranstaltungs-Liste
 	@GET
@@ -223,14 +221,74 @@ public class Rest_Service {
 							
 							if (spaId.equals(s.getId()) && s.getVeranstaltungenM().getVeranstaltung().size() > 0) {
 								for (int m = 0; m < s.getVeranstaltungenM().getVeranstaltung().size(); m++) {
-									// Konkrete Veranstaltungen (Veranstaltungsliste 1x
-									// fŸr gewisse Sportart):
+									// Konkrete Veranstaltungen (Veranstaltungsliste 1x fŸr gewisse Sportart):
 									Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(m);
 									
 									ausgabe += v.getId() + " " + v.getVBeschreibung() + "\n";
 									System.out.println(v.getId() + " " + spaId);
 								}
 								return ausgabe;
+							}
+							
+						}
+				
+					}
+
+				}
+
+			}
+		}
+		return "Keine Veranstaltungen zu der Sportart/Falsche Sportart";
+	}
+	
+	//Hole Infos zu der konkreten Veranstaltung
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path("/{spgId}/sportarten/{spaId}/veranstaltungen/{vstId}")
+	public String getVeranstaltungen(@PathParam("spgId") String spgId,
+			@PathParam("spaId") String spaId, @PathParam("vstId") String vstId) throws Exception {
+
+		// Unmarshalling
+		JAXBContext jc = JAXBContext.newInstance("generated");
+		Unmarshaller unmarshaller = jc.createUnmarshaller();
+		Sportverzeichnis sv = (Sportverzeichnis) unmarshaller
+				.unmarshal(new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
+
+		for (int i = 0; i < sv.getSportgruppenM().size(); i++) {
+			// Liste aller Sportgruppen
+			SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM().get(i);
+
+			for (int j = 0; j < sgm.getSportgruppe().size(); j++) {
+				// konrete Sportgruppe
+				Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(j);
+
+	
+				if (spgId.equals(sg.getId())) {
+					
+					for (int k = 0; k < sg.getSportartenM().size(); k++) {
+						// Liste aller Sportarten dieser Sportgruppe
+						SportartenM sm = (SportartenM) sg.getSportartenM().get(k);
+
+						for (int l = 0; l < sm.getSportart().size(); l++) {
+							// Konkrete Sportart
+							Sportart s = (Sportart) sm.getSportart().get(l);
+							
+							if (spaId.equals(s.getId()) && s.getVeranstaltungenM().getVeranstaltung().size() > 0) {
+								for (int m = 0; m < s.getVeranstaltungenM().getVeranstaltung().size(); m++) {
+									// Konkrete Veranstaltungen (Veranstaltungsliste 1x fŸr gewisse Sportart):
+									Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(m);
+									
+									if (v.getId().equals(vstId)){
+										return "Beschreibung: " + v.getVBeschreibung() +
+												"\nInfo: " + v.getVInfo() + 
+												"\nDatum " + v.getVDatum() +
+												"\nUhrzeit: " + v.getVUhrzeit() + 
+												"\nNiveau: " + v.getVNiveau() + 
+												"\nVorraussetzungen: " + v.getVVorraussetzungen();
+									}
+									
+								}
+								
 							}
 							
 						}
