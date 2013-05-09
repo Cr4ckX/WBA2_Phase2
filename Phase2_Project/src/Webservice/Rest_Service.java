@@ -5,6 +5,7 @@ import generated.SportartenM;
 import generated.Sportgruppe;
 import generated.SportgruppenM;
 import generated.Sportverzeichnis;
+import generated.Veranstaltung;
 
 import java.io.File;
 import java.util.List;
@@ -20,7 +21,9 @@ import javax.xml.bind.Unmarshaller;
 public class Rest_Service {
 
 	String ausgabe = "";
+	String sportartinfo = "";
 
+	/*
 	// public static List<Sportgruppe> getSportgruppenListe() throws Exception{
 	// // Unmarshalling
 	// JAXBContext jc = JAXBContext.newInstance("generated");
@@ -34,7 +37,11 @@ public class Rest_Service {
 	// return sgm.getSportgruppe();
 	// }
 
+	*/
+
 	// Wie gehe ich mit Mengenwertigen ausgaben um?
+	
+	//Hole Sportgruppen-Liste
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getSporgruppen() throws Exception {
@@ -56,10 +63,11 @@ public class Rest_Service {
 		return ausgabe;
 	}
 
+	//Hole konkrete Sportgruppe
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
-	@Path("/{uriId}")
-	public String getSportgruppen(@PathParam("uriId") String uriId)
+	@Path("/{spgId}")
+	public String getSportgruppen(@PathParam("spgId") String spgId)
 			throws Exception {
 
 		// Unmarshalling
@@ -74,19 +82,20 @@ public class Rest_Service {
 			// konrete Sportgruppe
 			Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(i);
 
-			System.out.println("SGID = " + sg.getId() + "| UriID = " + uriId);
-			if (uriId.equals(sg.getId())) {
+			System.out.println("SGID = " + sg.getId() + "| spgId = " + spgId);
+			if (spgId.equals(sg.getId())) {
 				return sg.getId() + " " + sg.getSGName();
 			}
 
 		}
-		return "Failture";
+		return "Failture falsche Sportgruppe";
 	}
 
+	//Hole zur konkreten Sportgruppe die Sportarten-Liste
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
-	@Path("/{uriId}/sportarten")
-	public String getSportarten(@PathParam("uriId") String uriId) throws Exception {
+	@Path("/{spgId}/sportarten")
+	public String getSportarten(@PathParam("spgId") String spgId) throws Exception {
 
 		// Unmarshalling
 		JAXBContext jc = JAXBContext.newInstance("generated");
@@ -102,8 +111,8 @@ public class Rest_Service {
 				// konrete Sportgruppe
 				Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(j);
 
-		//		System.out.println("SGID = " + sg.getId() + "| UriID = " + uriId);
-				if (uriId.equals(sg.getId())) {
+		//		System.out.println("SGID = " + sg.getId() + "| spgId = " + spgId);
+				if (spgId.equals(sg.getId())) {
 					
 					for (int k = 0; k < sg.getSportartenM().size(); k++) {
 						// Liste aller Sportarten dieser Sportgruppe
@@ -114,15 +123,127 @@ public class Rest_Service {
 							Sportart s = (Sportart) sm.getSportart().get(l);
 							
 							ausgabe += s.getId() + " " + s.getSName() + "\n";
-							return ausgabe;
+
 						}
+				
+					}
+					return ausgabe;	
+				}
+
+			}
+		}
+		return "Failture (keine Sportarten in dieser Gruppe/Falsche Gruppe)";
+	}
+	
+	//Hole zu der konkreten Sportart die zugehšrigen Informationen
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path("/{spgId}/sportarten/{spaId}/")
+	public String getSportarten(@PathParam("spgId") String spgId,
+			@PathParam("spaId") String spaId) throws Exception {
+
+		// Unmarshalling
+		JAXBContext jc = JAXBContext.newInstance("generated");
+		Unmarshaller unmarshaller = jc.createUnmarshaller();
+		Sportverzeichnis sv = (Sportverzeichnis) unmarshaller
+				.unmarshal(new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
+
+		for (int i = 0; i < sv.getSportgruppenM().size(); i++) {
+			// Liste aller Sportgruppen
+			SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM().get(i);
+
+			for (int j = 0; j < sgm.getSportgruppe().size(); j++) {
+				// konrete Sportgruppe
+				Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(j);
+
+	
+				if (spgId.equals(sg.getId())) {
 					
+					for (int k = 0; k < sg.getSportartenM().size(); k++) {
+						// Liste aller Sportarten dieser Sportgruppe
+						SportartenM sm = (SportartenM) sg.getSportartenM().get(k);
+
+						for (int l = 0; l < sm.getSportart().size(); l++) {
+							// Konkrete Sportart
+							Sportart s = (Sportart) sm.getSportart().get(l);
+							
+							if (spaId.equals(s.getId())) {
+								
+								return "Sportart: " + s.getSName() + "\n" + 
+									   "Beschreibung: " + s.getSBeschreibung() + "\n" + 
+									   "Herkunft: " + s.getSHerkunft() + "\n" +
+									   "Vorraussetzungen: " + s.getSVorraussetzung() + "\n" + 
+									   "Regeln: " + s.getSRegeln();
+							}
+							
+						}
+				
 					}
 
 				}
 
 			}
 		}
-		return "Failture";
+		return "Keine Informationen zu der Sportart/Falsche Sportart";
 	}
+	
+	
+	
+	//Hole zu der konkreten Sportart die Veranstaltungs-Liste
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path("/{spgId}/sportarten/{spaId}/veranstaltungen")
+	public String getVeranstaltungen(@PathParam("spgId") String spgId,
+			@PathParam("spaId") String spaId) throws Exception {
+
+		// Unmarshalling
+		JAXBContext jc = JAXBContext.newInstance("generated");
+		Unmarshaller unmarshaller = jc.createUnmarshaller();
+		Sportverzeichnis sv = (Sportverzeichnis) unmarshaller
+				.unmarshal(new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
+
+		for (int i = 0; i < sv.getSportgruppenM().size(); i++) {
+			// Liste aller Sportgruppen
+			SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM().get(i);
+
+			for (int j = 0; j < sgm.getSportgruppe().size(); j++) {
+				// konrete Sportgruppe
+				Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(j);
+
+	
+				if (spgId.equals(sg.getId())) {
+					
+					for (int k = 0; k < sg.getSportartenM().size(); k++) {
+						// Liste aller Sportarten dieser Sportgruppe
+						SportartenM sm = (SportartenM) sg.getSportartenM().get(k);
+
+						for (int l = 0; l < sm.getSportart().size(); l++) {
+							// Konkrete Sportart
+							Sportart s = (Sportart) sm.getSportart().get(l);
+							
+							if (spaId.equals(s.getId()) && s.getVeranstaltungenM().getVeranstaltung().size() > 0) {
+								for (int m = 0; m < s.getVeranstaltungenM().getVeranstaltung().size(); m++) {
+									// Konkrete Veranstaltungen (Veranstaltungsliste 1x
+									// fŸr gewisse Sportart):
+									Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(m);
+									
+									ausgabe += v.getId() + " " + v.getVBeschreibung() + "\n";
+									System.out.println(v.getId() + " " + spaId);
+								}
+								return ausgabe;
+							}
+							
+						}
+				
+					}
+
+				}
+
+			}
+		}
+		return "Keine Veranstaltungen zu der Sportart/Falsche Sportart";
+	}
+	
+	
+	
 }
