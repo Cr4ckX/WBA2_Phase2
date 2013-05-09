@@ -52,11 +52,7 @@ public class Unmarshallen {
 		for (int i = 0; i < sv.getSportgruppenM().size(); i++) {
 			// Liste aller Sportgruppen
 			SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM().get(i);
-			
-			
-			
-			
-			
+						
 			for (int j = 0; j < sgm.getSportgruppe().size(); j++) {
 				// konrete Sportgruppe
 				Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(j);
