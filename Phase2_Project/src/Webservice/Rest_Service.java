@@ -40,7 +40,7 @@ public class Rest_Service {
 		JAXBContext jc = JAXBContext.newInstance("generated");
 		Unmarshaller unmarshaller = jc.createUnmarshaller();
 		Sportverzeichnis sv = (Sportverzeichnis) unmarshaller.unmarshal(new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
-			
+		
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM().get(0); //Hole die SportgruppenListe, im Schema nochmal anpassen, da es nur eine gibt.
 		
 		for (int i = 0; i<sgm.getSportgruppe().size(); i++){
@@ -73,7 +73,7 @@ public class Rest_Service {
 			Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(i);
 			
 			System.out.println("SGID = "+ sg.getId() + "| UriID = " + uriId);
-			if(uriId == sg.getId()){
+			if(uriId.equals(sg.getId())){
 				return sg.getId() + " " + sg.getSGName();
 			}
 
