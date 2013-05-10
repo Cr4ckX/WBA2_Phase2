@@ -27,7 +27,8 @@ public class ClientClass {
 							
 //		WebResource sportgruppeRes = Client.create().resource("http://localhost:8080/sportgruppen/{id}");
 //		WebResource sportartenRes = Client.create().resource("http://localhost:8080/sportgruppen/{id}/sportarten");
-		
+		Object entity;
+		entity = "Test";	
 							
 		System.out.println(sportgruppe.get(String.class));
 		System.out.println("");
@@ -39,28 +40,54 @@ public class ClientClass {
 		System.out.println("");
 		System.out.println(veranstaltung.get(String.class));
 		
+		
+		System.out.println(veranstaltung.delete(String.class));
 				
-		ClientRequest clientRequest1 = Client.create().resource("http://localhost:8080/sportgruppen/SG00/sportarten/S00/veranstaltungen/V00").get(ClientRequest.class);
-		clientRequest1.setEntity(clientRequest1);
-		
-		
-		
-		sportgruppenRes.path("SG00").path("sportarten").path("S00")
-				.path("veranstaltungen").path("V00").accept(MediaType.TEXT_PLAIN)
-				.put(clientRequest1.getEntity());
-		System.out.println(veranstaltung.get(String.class));
-		
-	//	System.out.println(sportgruppen.path("sportgruppen").accept(MediaType.APPLICATION_XML).get(String.class));
+	//	veranstaltung.type(MediaType.TEXT_PLAIN).put(entity);
 
+	//	clientRequest1.setEntity("Hallo");
+
+//		clientRequest1.setEntity(entity);
 		
+		
+//		ClientRequest clientRequest1 = Client.create()
+//				.resource("http://localhost:8080/sportgruppen/SG00/sportarten/S00/veranstaltungen/V00")
+//				.accept(MediaType.TEXT_PLAIN)
+//				.get(ClientRequest.class);
 //		
-//		ClientResponse clientResponse1 = Client.create().resource(
-//		          "http://localhost:8080/sportgruppen" ).get(ClientResponse.class);
-//		System.out.println( clientResponse1.getStatus() );                
-//		if (clientResponse1.hasEntity())
-//		  System.out.println(clientResponse1.getEntity( String.class)); 
+//		clientRequest1 = sportgruppenRes.accept(MediaType.TEXT_PLAIN).get(ClientRequest.class);
+//		clientRequest1.setEntity(entity);		
+	
+
+//		WebResource service = Client.create().resource( "http://localhost:8080/sportgruppen" );
+//		System.out.println( service.path( "SG00" ).path( "sportarten" ).path( "S00" ).path("veranstaltungen")
+//					   .path("V00")
+//                       .type( MediaType.TEXT_PLAIN )
+//                       .put( String.class, "Hey Chris" ) );
+		
 		
 
+		
+		
+
+//		sportgruppenRes.path("SG00").path("sportarten").path("S00")
+//				.path("veranstaltungen").path("V00").accept(MediaType.TEXT_PLAIN)
+//				.put(clientRequest1);
+//		System.out.println(veranstaltung.get(String.class));
+		
+		
+//		System.out.println(sportgruppenRes.path("sportgruppen").accept(MediaType.APPLICATION_XML).get(String.class));
+
+		
+		
+		ClientResponse clientResponse1 = Client.create().resource(
+		          "http://localhost:8080/sportgruppen/Test" ).get(ClientResponse.class);
+		System.out.println(clientResponse1.getStatus());                
+		if (clientResponse1.hasEntity())
+		  System.out.println(clientResponse1.getEntity( String.class)); 
+		
+
+		//ClientRequest clientRequestTest = Client.create().hashCode()
 		
 	}
 

@@ -14,6 +14,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.XMLGregorianCalendar;
 
@@ -41,6 +42,33 @@ public class Rest_Service {
 	*/
 
 	// Wie gehe ich mit Mengenwertigen ausgaben um?
+	
+	
+	// ------------------------------------------------- Test ------------------------------------------------- //
+	@Path("Test")
+	@GET
+	@Produces(MediaType.APPLICATION_XML)
+	public List<SportartenM> getTest() throws Exception {
+
+		// Unmarshalling
+		JAXBContext jc = JAXBContext.newInstance("generated");
+		Unmarshaller unmarshaller = jc.createUnmarshaller();
+		Sportverzeichnis sv = (Sportverzeichnis) unmarshaller
+				.unmarshal(new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
+ 
+
+		return sv.getSportgruppenM().get(0).getSportgruppe().get(0).getSportartenM();
+	}
+	
+	// ------------------------------------------------- Test ------------------------------------------------- //
+
+	
+	
+	
+	
+	
+	
+	
 	
 	//Hole Sportgruppen-Liste
 	@GET
@@ -307,7 +335,7 @@ public class Rest_Service {
 	}
 	
 	
-	
+	//Setze Veranstaltungselemente
 	@PUT
 	@Path("/{spgId}/sportarten/{spaId}/veranstaltungen/{vstId}")
 	@Consumes (MediaType.TEXT_PLAIN)
@@ -374,5 +402,74 @@ public class Rest_Service {
 		return "Keine Ahnung was als Return-Wert erwartet wird";
 		
 	}
+	
+
+	@DELETE
+	@Path("/{spgId}/sportarten/{spaId}/veranstaltungen/{vstId}")
+	/**
+	 * 
+	 * @param spgId - In welcher Sportgruppe befindet sich die Veranstaltung?
+	 * @param spaId - Zu welcher Sportart wird die Veranstaltung ausgetragen?
+	 * @param vstId - Um welche Veranstaltung handelt es sich genau? (Zu löschende Veranstaltung)
+	 * @return Gelöscht - Wenn die gewünschte Veranstaltung erfolgreich gelöscht wird.
+	 * @return Fehlgeschlagen.. - Wenn die Veranstaltung aufgrund von Fehlern nicht gelöscht wird.
+	 * @throws Exception - Für das unmarshallen. (TOODOO: Kann noch bearbeitet werden)
+	 * 
+	 * Löscht die gewünschte Veranstaltung.
+	 * Kaskadierendes Löschen ist noch nicht berücksichtigt.
+	 * Die Returnwerte müssen noch angepasst werden und am besten mit Exceptions behandelt werden
+	 */
+	public String deleteVeranstaltung(@PathParam("spgId") String spgId,
+			@PathParam("spaId") String spaId, @PathParam("vstId") String vstId) throws Exception {
+
+		// Unmarshalling
+		JAXBContext jc = JAXBContext.newInstance("generated");
+		Unmarshaller unmarshaller = jc.createUnmarshaller();
+		Sportverzeichnis sv = (Sportverzeichnis) unmarshaller
+				.unmarshal(new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
+
+		for (int i = 0; i < sv.getSportgruppenM().size(); i++) {
+			// Liste aller Sportgruppen
+			SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM().get(i);
+
+			for (int j = 0; j < sgm.getSportgruppe().size(); j++) {
+				// konrete Sportgruppe
+				Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(j);
+
+	
+				if (spgId.equals(sg.getId())) {
+					
+					for (int k = 0; k < sg.getSportartenM().size(); k++) {
+						// Liste aller Sportarten dieser Sportgruppe
+						SportartenM sm = (SportartenM) sg.getSportartenM().get(k);
+
+						for (int l = 0; l < sm.getSportart().size(); l++) {
+							// Konkrete Sportart
+							Sportart s = (Sportart) sm.getSportart().get(l);
+							
+							 for (int m = 0; m < s.getVeranstaltungenM().getVeranstaltung().size(); m++){
+								 Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(m);
+								 
+								 System.out.println("Übergebene ID: "+ vstId + ", Veranstaltung-ID: " + v.getId());
+								 if (vstId.equals(v.getId()))
+								 {
+									 //Remove erwartet Index, nicht ID ! (Deswegen rm(m)!)
+									 s.getVeranstaltungenM().getVeranstaltung().remove(m);
+									 Marshaller marshaller = jc.createMarshaller();
+									 marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+									
+									 //Output: Konsole
+									 marshaller.marshal(sv, System.out);
+									return "Gelöscht"; //Kaskadierendes Löschen fehlt noch.
+								 }
+							 }		
+						}								
+					}						
+				}
+			}
+		}
+		return "Fehlgeschlagen die Veranstaltungs-ID " + vstId + " zu löschen";
+	}		
+
 	
 }
