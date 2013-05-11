@@ -56,23 +56,22 @@ public class Unmarshallen {
 			Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(j);
 			System.out.println("Name der Sporgruppe: " + sg.getSGName());
 
-			for (int k = 0; k < sg.getSportartenM().size(); k++) {
-				// Liste aller Sportarten dieser Sporgruppe
-				SportartenM sm = (SportartenM) sg.getSportartenM().get(k);
+			// Liste aller Sportarten dieser Sporgruppe
+			SportartenM sm = (SportartenM) sg.getSportartenM();
 
-				for (int l = 0; l < sm.getSportart().size(); l++) {
-					// Konkrete Sportart
-					Sportart s = (Sportart) sm.getSportart().get(l);
+			for (int l = 0; l < sm.getSportart().size(); l++) {
+				// Konkrete Sportart
+				Sportart s = (Sportart) sm.getSportart().get(l);
 
-					System.out.println("Sportart: " + s.getSName());
+				System.out.println("Sportart: " + s.getSName());
 
-					for (int m = 0; m < s.getVeranstaltungenM().getVeranstaltung().size(); m++) {
-						// Konkrete Veranstaltungen (Veranstaltungsliste 1x
-						// fŸr gewisse Sportart):
-						Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(m);
-						anzahlVeranstaltungen++;
+				for (int m = 0; m < s.getVeranstaltungenM().getVeranstaltung().size(); m++) {
+					// Konkrete Veranstaltungen (Veranstaltungsliste 1x
+					// fŸr gewisse Sportart):
+					Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(m);
+					anzahlVeranstaltungen++;
 
-						System.out.println("Veranstaltung: " + v.getVBeschreibung());
+					System.out.println("Veranstaltung: " + v.getVBeschreibung());
 
 //							//Nachricht-Ressource
 //							@Path("nachricht")
@@ -83,7 +82,6 @@ public class Unmarshallen {
 //								public String nachricht(){
 //									return "Hat funktioniert!";
 //								}						
-					}
 				}
 			}
 		}		
