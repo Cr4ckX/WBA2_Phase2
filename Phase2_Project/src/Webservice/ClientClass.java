@@ -72,7 +72,7 @@ public class ClientClass {
 
 //		sportgruppenRes.path("SG00").path("sportarten").path("S00")
 //				.path("veranstaltungen").path("V00").accept(MediaType.TEXT_PLAIN)
-//				.put(clientRequest1);
+//				.put(String.class, "Test", "Test");
 //		System.out.println(veranstaltung.get(String.class));
 		
 		

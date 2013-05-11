@@ -20,7 +20,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 @Path("sportgruppen")
 // Nachricht-Ressource
-public class Rest_Service {
+public class VeranstaltungService {
 
 	String ausgabe = "";
 	String sportartinfo = "";
@@ -258,6 +258,8 @@ public class Rest_Service {
 									ausgabe += v.getId() + " " + v.getVBeschreibung();// + "\n";
 									if(m+1<s.getVeranstaltungenM().getVeranstaltung().size())
 										ausgabe += "\n";
+									
+									
 								}
 								return ausgabe;
 							}
@@ -335,16 +337,15 @@ public class Rest_Service {
 	}
 	
 	
-	//Setze Veranstaltungselemente
+	//PUT - Setze Veranstaltungselemente - noch Buggy!
 	@PUT
 	@Path("/{spgId}/sportarten/{spaId}/veranstaltungen/{vstId}")
-	@Consumes (MediaType.TEXT_PLAIN)
-	@Produces (MediaType.TEXT_PLAIN)
+	@Consumes (MediaType.APPLICATION_XML)
+	@Produces (MediaType.APPLICATION_XML)
 	public String putVeranstaltung(@PathParam("spgId") String spgId,
-			@PathParam("spaId") String spaId, @PathParam("vstId") String vstId,
-			String beschreibung, String info, XMLGregorianCalendar datum, XMLGregorianCalendar uhrzeit, 
-			String niveau, String voraussetzungen) throws Exception{
+			@PathParam("spaId") String spaId, @PathParam("vstId") String vstId, Veranstaltung uebergabe) throws Exception{
 		
+
 
 		// Unmarshalling
 		JAXBContext jc = JAXBContext.newInstance("generated");
@@ -378,12 +379,23 @@ public class Rest_Service {
 									
 									if (v.getId().equals(vstId)){
 										
-										v.setVBeschreibung(beschreibung);
-										v.setVInfo(info);
-										v.setVDatum(datum);
-										v.setVUhrzeit(uhrzeit);
-										v.setVNiveau(niveau);
-										v.setVVorraussetzungen(voraussetzungen);
+										 Marshaller marshaller = jc.createMarshaller();
+										 marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);																				
+
+										 v.setVBeschreibung(uebergabe.getVBeschreibung());
+										 v.setVInfo(uebergabe.getVBeschreibung());
+										 v.setVDatum(uebergabe.getVDatum());
+										 v.setVUhrzeit(uebergabe.getVUhrzeit());
+										 v.setVNiveau(uebergabe.getVNiveau());
+										 v.setVVorraussetzungen(uebergabe.getVVorraussetzungen());
+										 v.setGebaeudeIDRef(uebergabe.getGebaeudeIDRef());
+										 v.setVeranstalterIDRef(uebergabe.getGebaeudeIDRef());
+										 
+										 //s.getVeranstaltungenM().getVeranstaltung().set(m, uebergabe);
+
+										 //Output
+										 marshaller.marshal(sv, System.out);
+
 										return "Alles sauber verlaufen!";
 									}
 									
@@ -403,7 +415,7 @@ public class Rest_Service {
 		
 	}
 	
-
+	//DELETE - Lösche Veranstaltung
 	@DELETE
 	@Path("/{spgId}/sportarten/{spaId}/veranstaltungen/{vstId}")
 	/**
@@ -413,7 +425,7 @@ public class Rest_Service {
 	 * @param vstId - Um welche Veranstaltung handelt es sich genau? (Zu löschende Veranstaltung)
 	 * @return Gelöscht - Wenn die gewünschte Veranstaltung erfolgreich gelöscht wird.
 	 * @return Fehlgeschlagen.. - Wenn die Veranstaltung aufgrund von Fehlern nicht gelöscht wird.
-	 * @throws Exception - Für das unmarshallen. (TOODOO: Kann noch bearbeitet werden)
+	 * @throws Exception - Für das unmarshallen. (TOODOO: Sollte noch bearbeitet werden)
 	 * 
 	 * Löscht die gewünschte Veranstaltung.
 	 * Kaskadierendes Löschen ist noch nicht berücksichtigt.
@@ -470,6 +482,78 @@ public class Rest_Service {
 		}
 		return "Fehlgeschlagen die Veranstaltungs-ID " + vstId + " zu löschen";
 	}		
+	
+	//POST - Füge Veranstaltung hinzu
+	@POST
+	@Path("/{spgId}/sportarten/{spaId}/veranstaltungen/")
+	@Consumes (MediaType.APPLICATION_XML)
+	@Produces (MediaType.APPLICATION_XML)
+	public String postVeranstaltung(@PathParam("spgId") String spgId,
+			@PathParam("spaId") String spaId, Veranstaltung uebergabe) throws Exception{
+		
+
+
+		// Unmarshalling
+		JAXBContext jc = JAXBContext.newInstance("generated");
+		Unmarshaller unmarshaller = jc.createUnmarshaller();
+		Sportverzeichnis sv = (Sportverzeichnis) unmarshaller
+				.unmarshal(new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
+
+		for (int i = 0; i < sv.getSportgruppenM().size(); i++) {
+			// Liste aller Sportgruppen
+			SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM().get(i);
+
+			for (int j = 0; j < sgm.getSportgruppe().size(); j++) {
+				// konrete Sportgruppe
+				Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(j);
+
+	
+				if (spgId.equals(sg.getId())) {
+					
+					for (int k = 0; k < sg.getSportartenM().size(); k++) {
+						// Liste aller Sportarten dieser Sportgruppe
+						SportartenM sm = (SportartenM) sg.getSportartenM().get(k);
+
+						for (int l = 0; l < sm.getSportart().size(); l++) {
+							// Konkrete Sportart
+							Sportart s = (Sportart) sm.getSportart().get(l);
+							
+							if (spaId.equals(s.getId()) && s.getVeranstaltungenM().getVeranstaltung().size() > 0) {
+								//for (int m = 0; m < s.getVeranstaltungenM().getVeranstaltung().size(); m++) {
+									
+									int index = s.getVeranstaltungenM().getVeranstaltung().size();
+									
+									//s.getVeranstaltungenM().getVeranstaltung().set(index, uebergabe); -> für PUT?
+									
+									
+									s.getVeranstaltungenM().getVeranstaltung().add(index, uebergabe);
+									s.getVeranstaltungenM().getVeranstaltung().get(index).setId("V02");
+									Marshaller marshaller = jc.createMarshaller();
+									marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+									//Output
+									marshaller.marshal(sv, System.out);
+
+									return "Veranstaltung " + s.getVeranstaltungenM().getVeranstaltung()
+											.get(index).getVBeschreibung() + " hinzugefügt.";
+									
+									
+								//}
+								
+							}
+							
+						}
+				
+					}
+
+				}
+
+			}
+		}
+		return "Hinzufügen fehlgeschlagen!";
+		
+	}
+	
 
 	
 }
