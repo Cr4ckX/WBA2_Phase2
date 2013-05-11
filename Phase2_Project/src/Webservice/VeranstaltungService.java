@@ -70,12 +70,7 @@ public class VeranstaltungService {
 
 	
 	//Hole Sportgruppen-Liste
-	@GET
-	@Produces(MediaType.TEXT_PLAIN)
 	/**
-	 * 
-	 * @return konkrete Sportgruppen aus der Sportgruppen-Liste
-	 * @throws Exception
 	 * 
 	 * Sportgruppen-Liste per GET angefordert.
 	 * Gibt die konkreten Sportgruppen innerhalb der Sportgruppenliste aus.
@@ -83,7 +78,11 @@ public class VeranstaltungService {
 	 * nicht als Liste (o.Ä) übergeben, sondern wurden zu einem String konkateniert.
 	 * 
 	 * MIME-TYPE: text/plain. Momentan noch keine Unterstützung für application/xml.
+	 * @return konkrete Sportgruppen aus der Sportgruppen-Liste
+	 * @throws Exception
 	 */
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
 	public String getSportgruppen() throws Exception {
 
 		// Unmarshalling
@@ -104,9 +103,6 @@ public class VeranstaltungService {
 	}
 
 	//Hole konkrete Sportgruppe(ninformationen)
-	@GET
-	@Produces(MediaType.TEXT_PLAIN)
-	@Path("/{spgId}")
 	/**
 	 * 
 	 * @param spgId Sportgruppen URI-Parameter. Hierbei handelt es sich um die übergebene id in der URI.
@@ -120,7 +116,10 @@ public class VeranstaltungService {
 	 * 
 	 * MIME-TYPE: text/plain. Momentan noch keine Unterstützung für application/xml.
 	 */
-	public String getSportgruppen(@PathParam("spgId") String spgId)
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path("/{spgId}")
+	public String getSportgruppe(@PathParam("spgId") String spgId)
 			throws Exception {
 
 		// Unmarshalling
@@ -144,21 +143,21 @@ public class VeranstaltungService {
 		return "Failture falsche Sportgruppe";
 	}
 
+	
 	//Hole zur konkreten Sportgruppe die Sportarten-Liste
-	@GET
-	@Produces(MediaType.TEXT_PLAIN)
-	@Path("/{spgId}/sportarten")
 	/**
-	 * 
-	 * @param spgId Sportgruppen URI-Parameter. Hierbei handelt es sich um die übergebene id in der URI.
-	 * @return liefert die einzelnen konkreten Sportarten der zugehörigen Sportgruppe
-	 * @throws Exception
-	 * 
 	 * Sportarten-Liste per GET angefordert.
 	 * Bei der Ausgabe handelt es sich um einen zusammengesetzen String der einzelnen Sportarten. 
 	 * 
 	 * MIME-TYPE: text/plain. Momentan noch keine Unterstützung für application/xml.
+	 * 
+	 * @param spgId Sportgruppen URI-Parameter. Hierbei handelt es sich um die übergebene id in der URI.
+	 * @return liefert die einzelnen konkreten Sportarten der zugehörigen Sportgruppe
+	 * @throws Exception
 	 */
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path("/{spgId}/sportarten")
 	public String getSportarten(@PathParam("spgId") String spgId) throws Exception {
 
 		// Unmarshalling
@@ -425,9 +424,11 @@ public class VeranstaltungService {
 	}
 	
 	//DELETE - Lösche Veranstaltung
-	@DELETE
-	@Path("/{spgId}/sportarten/{spaId}/veranstaltungen/{vstId}")
 	/**
+	 * 
+	 * Löscht die gewünschte Veranstaltung.
+	 * Kaskadierendes Löschen ist noch nicht berücksichtigt.
+	 * Die Returnwerte müssen noch angepasst werden und am besten mit Exceptions behandelt werden
 	 * 
 	 * @param spgId - In welcher Sportgruppe befindet sich die Veranstaltung?
 	 * @param spaId - Zu welcher Sportart wird die Veranstaltung ausgetragen?
@@ -435,11 +436,9 @@ public class VeranstaltungService {
 	 * @return Gelöscht - Wenn die gewünschte Veranstaltung erfolgreich gelöscht wird.
 	 * @return Fehlgeschlagen.. - Wenn die Veranstaltung aufgrund von Fehlern nicht gelöscht wird.
 	 * @throws Exception - Für das unmarshallen. (TOODOO: Sollte noch bearbeitet werden)
-	 * 
-	 * Löscht die gewünschte Veranstaltung.
-	 * Kaskadierendes Löschen ist noch nicht berücksichtigt.
-	 * Die Returnwerte müssen noch angepasst werden und am besten mit Exceptions behandelt werden
 	 */
+	@DELETE
+	@Path("/{spgId}/sportarten/{spaId}/veranstaltungen/{vstId}")
 	public String deleteVeranstaltung(@PathParam("spgId") String spgId,
 			@PathParam("spaId") String spaId, @PathParam("vstId") String vstId) throws Exception {
 
@@ -489,28 +488,28 @@ public class VeranstaltungService {
 	}		
 	
 	//POST - Füge Veranstaltung hinzu
-	@POST
-	@Path("/{spgId}/sportarten/{spaId}/veranstaltungen/")
-	@Consumes (MediaType.APPLICATION_XML)
-	@Produces (MediaType.APPLICATION_XML)
 	/**
+	 * 	 
+	 *Die POST-Übergabe muss die XML-Struktur einer Veranstaltung aufweisen:
+	 * <Veranstaltung>
+	 * 		<VBeschreibung>VeranstaltungAdd</VBeschreibung>
+	 * 		<VDatum>2014-04-27</VDatum>
+	 * 		<VUhrzeit>15:00:00</VUhrzeit>
+	 * 		<GebaeudeIDRef>G00</GebaeudeIDRef>
+	 * 		<VeranstalterIDRef>VT00</VeranstalterIDRef>
+	 * </Veranstaltung>
 	 * 
+	 * TODO - Text anpassen:"Die Ressource wird vom Server gegeben."
 	 * @param spgId
 	 * @param spaId
 	 * @param uebergabe
 	 * @return
 	 * @throws Exception
-	 * 
-	 * Die POST-Übergabe muss die XML-Struktur einer Veranstaltung aufweisen:
-		 * <Veranstaltung>
-	   	 * 		<VBeschreibung>VeranstaltungAdd</VBeschreibung>
-	   	 * 		<VDatum>2014-04-27</VDatum>
-	     * 		<VUhrzeit>15:00:00</VUhrzeit>
-	   	 * 		<GebaeudeIDRef>G00</GebaeudeIDRef>
-	  	 * 		<VeranstalterIDRef>VT00</VeranstalterIDRef>
-	  	 * </Veranstaltung>
-	 * TODO - Text anpassen:"Die Ressource wird vom Server gegeben."
 	 */
+	@POST
+	@Path("/{spgId}/sportarten/{spaId}/veranstaltungen/")
+	@Consumes (MediaType.APPLICATION_XML)
+	@Produces (MediaType.APPLICATION_XML)
 	public String postVeranstaltung(@PathParam("spgId") String spgId,
 			@PathParam("spaId") String spaId, Veranstaltung uebergabe) throws Exception{
 		
