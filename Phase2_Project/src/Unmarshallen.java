@@ -49,32 +49,30 @@ public class Unmarshallen {
 		// Um ID spŠter um 1 erhšhen zu kšnnen
 		int anzahlVeranstaltungen = 0;
 
-		for (int i = 0; i < sv.getSportgruppenM().size(); i++) {
-			// Liste aller Sportgruppen
-			SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM().get(i);
-						
-			for (int j = 0; j < sgm.getSportgruppe().size(); j++) {
-				// konrete Sportgruppe
-				Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(j);
-				System.out.println("Name der Sporgruppe: " + sg.getSGName());
+		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
+					
+		for (int j = 0; j < sgm.getSportgruppe().size(); j++) {
+			// konrete Sportgruppe
+			Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(j);
+			System.out.println("Name der Sporgruppe: " + sg.getSGName());
 
-				for (int k = 0; k < sg.getSportartenM().size(); k++) {
-					// Liste aller Sportarten dieser Sporgruppe
-					SportartenM sm = (SportartenM) sg.getSportartenM().get(k);
+			for (int k = 0; k < sg.getSportartenM().size(); k++) {
+				// Liste aller Sportarten dieser Sporgruppe
+				SportartenM sm = (SportartenM) sg.getSportartenM().get(k);
 
-					for (int l = 0; l < sm.getSportart().size(); l++) {
-						// Konkrete Sportart
-						Sportart s = (Sportart) sm.getSportart().get(l);
+				for (int l = 0; l < sm.getSportart().size(); l++) {
+					// Konkrete Sportart
+					Sportart s = (Sportart) sm.getSportart().get(l);
 
-						System.out.println("Sportart: " + s.getSName());
+					System.out.println("Sportart: " + s.getSName());
 
-						for (int m = 0; m < s.getVeranstaltungenM().getVeranstaltung().size(); m++) {
-							// Konkrete Veranstaltungen (Veranstaltungsliste 1x
-							// fŸr gewisse Sportart):
-							Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(m);
-							anzahlVeranstaltungen++;
+					for (int m = 0; m < s.getVeranstaltungenM().getVeranstaltung().size(); m++) {
+						// Konkrete Veranstaltungen (Veranstaltungsliste 1x
+						// fŸr gewisse Sportart):
+						Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(m);
+						anzahlVeranstaltungen++;
 
-							System.out.println("Veranstaltung: " + v.getVBeschreibung());
+						System.out.println("Veranstaltung: " + v.getVBeschreibung());
 
 //							//Nachricht-Ressource
 //							@Path("nachricht")
@@ -84,28 +82,10 @@ public class Unmarshallen {
 //								
 //								public String nachricht(){
 //									return "Hat funktioniert!";
-//								}
-							
-						}
-
+//								}						
 					}
-
 				}
 			}
-
-			// Veranstalter
-
-			// Orte
-
-			// //EinfŸgen in die XML - marshallen
-			// Marshaller marshaller = jc.createMarshaller();
-			// marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			//
-			// //Output
-			// marshaller.marshal(sv, (new
-			// File("Ausarbeitungen/XmlFuerSchema.xml")));
-		}
+		}		
 	}
-	
-	
 }

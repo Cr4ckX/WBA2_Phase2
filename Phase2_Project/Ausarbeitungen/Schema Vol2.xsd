@@ -42,7 +42,7 @@
                     <xs:element ref="SGBeschreibung"/>
                     
                     <!-- Refs -->
-                    <xs:element ref="SportartenM" minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element ref="SportartenM"/>  <!-- genau eine Sportartenliste zu dieser Sportgruppe -->
                     <!-- /Refs -->             
                     
                 </xs:sequence>

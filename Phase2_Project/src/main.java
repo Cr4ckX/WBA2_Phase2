@@ -31,9 +31,8 @@ public class main {
 		// Um ID spŠter um 1 erhšhen zu kšnnen
 		int anzahlVeranstaltungen = 0;
 
-		for (int i = 0; i < sv.getSportgruppenM().size(); i++) {
-			// Liste aller Sportgruppen
-			SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM().get(i);
+
+		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
 
 			
 
@@ -95,7 +94,6 @@ public class main {
 			// File("Ausarbeitungen/XmlFuerSchema.xml")));
 		}
 
-	}
 	
 	@Path("sportgruppen")
 	@GET

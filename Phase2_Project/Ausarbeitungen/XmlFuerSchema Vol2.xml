@@ -3,13 +3,13 @@
     xsi:noNamespaceSchemaLocation="Schema Vol2.xsd">
     <SportgruppenM>
         
-        <Sportgruppe id="SG00">
+        <Sportgruppe id="0">
             
             <SGName>Kampfsport</SGName>
             <SGBeschreibung>Unter Kampfsport definiert man einen Sammelbegriff für diverse Sportarten in welchen Kampfstile integriert werden.</SGBeschreibung>
                         
             <SportartenM>
-                <Sportart id="S00">
+                <Sportart id="0">
                     
                     <SName>Judo</SName>
                     <SBeschreibung>Bla</SBeschreibung>
@@ -18,7 +18,7 @@
                     <SRegeln>Viele</SRegeln>
                     
                     <VeranstaltungenM>                      
-                        <Veranstaltung id="V00">
+                        <Veranstaltung id="0">
                             <VBeschreibung>Veranstaltung1</VBeschreibung>
                             <VDatum>2014-04-27</VDatum>
                             <VUhrzeit>13:00:00</VUhrzeit>
@@ -26,7 +26,7 @@
                             <VeranstalterIDRef>VT00</VeranstalterIDRef>
                         </Veranstaltung>
                         
-                        <Veranstaltung id="V01">
+                        <Veranstaltung id="1">
                             <VBeschreibung>Veranstaltung2</VBeschreibung>
                             <VDatum>2014-04-27</VDatum>
                             <VUhrzeit>15:00:00</VUhrzeit>
@@ -40,11 +40,11 @@
 
         </Sportgruppe>
         
-        <Sportgruppe id="SG01">
+        <Sportgruppe id="1">
             <SGName>Rückschlagsportart</SGName>
             <SGBeschreibung>Beschreibung1</SGBeschreibung>
             <SportartenM>
-                <Sportart id="S01">
+                <Sportart id="0">
                     <SName>Tennis</SName>
                     <SBeschreibung>..</SBeschreibung>
                     <SHerkunft>..</SHerkunft>
@@ -60,31 +60,31 @@
     </SportgruppenM>
     
     <OrteM>
-        <Ort id="O00">
+        <Ort id="0">
             <OName>Grevenbroich</OName>
             <GebaeudeM>
                 
-                <Gebaeude id="G00">
+                <Gebaeude id="0">
                     <GName>Hans-Sachs Halle</GName>
                     <GAnschrift>Hans-Sachs Straße 4</GAnschrift>
                     <EquipmentM>
-                        <Equipment id="E00" entliehen="true">
+                        <Equipment id="0" entliehen="true">
                             <EName>Judomatten</EName>
                             <VeranstalterIDRef>VT00</VeranstalterIDRef>
                         </Equipment>
                         
-                        <Equipment id="E01" entliehen="false">
+                        <Equipment id="1" entliehen="false">
                             <EName>Fußbälle</EName>
                         </Equipment>
                         
                     </EquipmentM>
                 </Gebaeude>
                 
-                <Gebaeude id="G01">
+                <Gebaeude id="1">
                     <GName>Tennishalle</GName>
                     <GAnschrift>Hautstraße 7</GAnschrift>
                     <EquipmentM>
-                        <Equipment id="E00" entliehen="false">
+                        <Equipment id="E0" entliehen="false">
                             <EName>Tennisschläger</EName>
                         </Equipment>
                     </EquipmentM>
@@ -93,10 +93,10 @@
             
         </Ort>
         
-        <Ort id="O01">
+        <Ort id="1">
             <OName>Jüchen</OName>
             <GebaeudeM>
-                <Gebaeude id="G00">
+                <Gebaeude id="0">
                     <GName>Halle 7</GName>
                     <GAnschrift>Günterstraße 13</GAnschrift>
                     <EquipmentM></EquipmentM>
@@ -106,7 +106,7 @@
     </OrteM>
     
     <VeranstalterM>
-        <Veranstalter id="V00">
+        <Veranstalter id="0">
             <VTName>Jen Kronenthal</VTName>
             <VTGeschlecht>m</VTGeschlecht>
             <VTEmail>jensi.kroni@gmx.de</VTEmail>
