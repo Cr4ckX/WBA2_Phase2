@@ -57,6 +57,51 @@
             </SportartenM>
         </Sportgruppe>
 
+        <Sportgruppe id="3">
+            
+            <SGName>Tanzen</SGName>
+            <SGBeschreibung>Beim Tanzsport wird Tanzen als Sportart ausgeübt.</SGBeschreibung>
+            
+            <SportartenM>
+                <Sportart id="0">
+                    
+                    <SName>Discofox</SName>
+                    <SBeschreibung>Leicht zu lernen und vielfältig nutzbar, mit Discofox kann man sich zu fast jeder Musik austoben - viele Variationen werden gezeigt, jede Menge Spaß ist angesagt. </SBeschreibung>
+                    <SHerkunft>Brasilien</SHerkunft>
+                    <SVorraussetzung>keine</SVorraussetzung>
+                    <SRegeln>keine</SRegeln>
+                    
+                    <VeranstaltungenM>                      
+                        <Veranstaltung id="0" deleted="true">
+                            <VBeschreibung>3. Kiddie Discofox Contest</VBeschreibung>
+                            <VDatum>2013-04-07</VDatum>
+                            <VUhrzeit>15:00:00</VUhrzeit>
+                            <GebaeudeIDRef>G03</GebaeudeIDRef>
+                            <VeranstalterIDRef>VT05</VeranstalterIDRef>
+                        </Veranstaltung>
+                        
+                        <Veranstaltung id="1" deleted="false">
+                            <VBeschreibung>Open Fox Concert</VBeschreibung>
+                            <VDatum>2011-06-23</VDatum>
+                            <VUhrzeit>15:00:00</VUhrzeit>
+                            <GebaeudeIDRef>G23</GebaeudeIDRef>
+                            <VeranstalterIDRef>VT14</VeranstalterIDRef>
+                        </Veranstaltung>
+                        
+                        <Veranstaltung id="3" deleted="false">
+                            <VBeschreibung>DiscoFox Olympia</VBeschreibung>
+                            <VDatum>2014-05-25</VDatum>
+                            <VUhrzeit>15:00:00</VUhrzeit>
+                            <GebaeudeIDRef>G13</GebaeudeIDRef>
+                            <VeranstalterIDRef>VT18</VeranstalterIDRef>
+                        </Veranstaltung>
+                    </VeranstaltungenM>
+                    
+                </Sportart>
+            </SportartenM>
+            
+        </Sportgruppe>
+
     </SportgruppenM>
     
     <OrteM>
@@ -89,6 +134,18 @@
                         </Equipment>
                     </EquipmentM>
                 </Gebaeude>
+                
+                <Gebaeude id="2">
+                    
+                    <GName>Dreifachhalle</GName>
+                    <GAnschrift>Hülchratherstraße 3</GAnschrift>
+                    <EquipmentM>
+                        <Equipment id="E0" entliehen="false">
+                            <EName>Tennisschläger</EName>
+                        </Equipment>
+                    </EquipmentM>
+                </Gebaeude>
+            
             </GebaeudeM>
             
         </Ort>
@@ -103,13 +160,97 @@
                 </Gebaeude>
             </GebaeudeM>
         </Ort>
+        
+        <Ort id="2">
+            <OName>Kaarst</OName>
+            <GebaeudeM>
+                
+                <Gebaeude id="0">
+                    <GName>Thomas Sabo Halle</GName>
+                    <GAnschrift>bibliothekastraße 3</GAnschrift>
+                    <EquipmentM>
+                        <Equipment id="E0" entliehen="true">
+                            <EName>Tennisbälle</EName>
+                            <VeranstalterIDRef>VT00</VeranstalterIDRef>
+                        </Equipment>
+                        
+                        <Equipment id="E1" entliehen="false">
+                            <EName>Fußbälle</EName>
+                        </Equipment>
+                        
+                        <Equipment id="E2" entliehen="false">
+                            <EName>Seilchen</EName>
+                        </Equipment>
+                        
+                        <Equipment id="E3" entliehen="true">
+                            <EName>Softbälle</EName>
+                        </Equipment>
+                        
+                    </EquipmentM>
+                </Gebaeude>
+                
+                <Gebaeude id="1">
+                    <GName>Tennishalle</GName>
+                    <GAnschrift>Hautstraße 7</GAnschrift>
+                    <EquipmentM>
+                        <Equipment id="E0" entliehen="false">
+                            <EName>Tennisschläger</EName>
+                        </Equipment>
+                    </EquipmentM>
+                </Gebaeude>
+            </GebaeudeM>
+            
+        </Ort>
+        
+        <Ort id="3">
+            <OName>Hememrden</OName>
+            <GebaeudeM>
+                
+                <Gebaeude id="0">
+                    <GName>Halle am Campusring</GName>
+                    <GAnschrift>Keglerstraße 3</GAnschrift>
+                    <EquipmentM>
+                        <Equipment id="E0" entliehen="false">
+                            <EName>Tennisbälle</EName>
+                            <VeranstalterIDRef>VT00</VeranstalterIDRef>
+                        </Equipment>
+                    </EquipmentM>
+                </Gebaeude>
+                
+                <Gebaeude id="1">
+                    <GName>Tennishalle</GName>
+                    <GAnschrift>Hautstraße 7</GAnschrift>
+                    <EquipmentM>
+                        <Equipment id="E0" entliehen="false">
+                            <EName>Tennisschläger</EName>
+                        </Equipment>
+                    </EquipmentM>
+                </Gebaeude>
+            </GebaeudeM>
+            
+        </Ort>
+   
     </OrteM>
     
     <VeranstalterM>
         <Veranstalter id="0">
-            <VTName>Jen Kronenthal</VTName>
+            <VTName>Jens Kronenthal</VTName>
             <VTGeschlecht>m</VTGeschlecht>
             <VTEmail>jensi.kroni@gmx.de</VTEmail>
+            <VTTelefon>0123456789</VTTelefon>
+        </Veranstalter>
+        
+        <Veranstalter id="1">
+            <VTName>Jenny Neukirchen</VTName>
+            <VTGeschlecht>w</VTGeschlecht>
+            <VTEmail>Jen@Neuki.de</VTEmail>
+            <VTTelefon>0123456789</VTTelefon>
+        </Veranstalter>
+        
+        <Veranstalter id="0">
+            <VTName>Max Moritz</VTName>
+            <VTGeschlecht>m</VTGeschlecht>
+            <VTEmail>Max.Moritz@gmx.de</VTEmail>
             <VTTelefon>0123456789</VTTelefon>
         </Veranstalter>
     </VeranstalterM>
