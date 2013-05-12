@@ -1,4 +1,4 @@
-package Webservice;
+package webservice;
 
 import generated.*;
 
@@ -18,23 +18,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 public class VeranstaltungService {
 
 	String ausgabe = "";
-	//String sportartinfo = "";
-
-	/*
-	// public static List<Sportgruppe> getSportgruppenListe() throws Exception{
-	// // Unmarshalling
-	// JAXBContext jc = JAXBContext.newInstance("generated");
-	// Unmarshaller unmarshaller = jc.createUnmarshaller();
-	// Sportverzeichnis sv = (Sportverzeichnis) unmarshaller.unmarshal(new
-	// File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
-	//
-	// SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM().get(0); //Hole
-	// die SportgruppenListe, im Schema nochmal anpassen, da es nur eine gibt.
-	//
-	// return sgm.getSportgruppe();
-	// }
-
-	*/
 
 	// Wie gehe ich mit Mengenwertigen ausgaben um?
 	
