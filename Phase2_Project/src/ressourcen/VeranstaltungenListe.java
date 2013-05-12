@@ -21,9 +21,19 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import jaxb.Unmarshalling;
+
 
 @Path("sportgruppen/{spgId}/sportarten/{spaId}/veranstaltungen")
 public class VeranstaltungenListe {
+	
+	Sportverzeichnis sv;
+	
+	public VeranstaltungenListe() throws Exception{
+		// Unmarshalling
+		Unmarshalling um = new Unmarshalling();
+		sv = um.xmlUnmarshallen();
+	}
 	
 	//GET - Hole zu der konkreten Sportart die Veranstaltungs-Liste
 	@GET
@@ -34,12 +44,6 @@ public class VeranstaltungenListe {
 			@QueryParam("deleted") boolean deleted) throws Exception {
 
 		String ausgabe = "";
-		
-		// Unmarshalling
-		JAXBContext jc = JAXBContext.newInstance("generated");
-		Unmarshaller unmarshaller = jc.createUnmarshaller();
-		Sportverzeichnis sv = (Sportverzeichnis) unmarshaller
-				.unmarshal(new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
 		
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
 
@@ -130,13 +134,6 @@ public class VeranstaltungenListe {
 			@PathParam("spaId") String spaId, 
 			Veranstaltung uebergabe) throws Exception{
 		
-
-		// Unmarshalling
-		JAXBContext jc = JAXBContext.newInstance("generated");
-		Unmarshaller unmarshaller = jc.createUnmarshaller();
-		Sportverzeichnis sv = (Sportverzeichnis) unmarshaller
-				.unmarshal(new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
-
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
 
 		for (int j = 0; j < sgm.getSportgruppe().size(); j++) {
@@ -167,6 +164,7 @@ public class VeranstaltungenListe {
 							//Attribut "deleted" noch auf false setzen
 							s.getVeranstaltungenM().getVeranstaltung().get(index).setDeleted(false);
 							
+							JAXBContext jc = JAXBContext.newInstance("generated");
 							Marshaller marshaller = jc.createMarshaller();
 							marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 							

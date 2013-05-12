@@ -16,8 +16,20 @@ import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 
+import jaxb.Unmarshalling;
+
 @Path("sportgruppen/{spgId}/sportarten/{spaId}/")
 public class SportartKonkret {
+	
+	Sportverzeichnis sv;
+	
+	public SportartKonkret() throws Exception{
+		// Unmarshalling
+		Unmarshalling um = new Unmarshalling();
+		sv = um.xmlUnmarshallen();
+	}
+	
+
 	//Hole zu der konkreten Sportart die zugehšrigen Informationen
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
@@ -36,12 +48,6 @@ public class SportartKonkret {
 	 */
 	public String getSportart(@PathParam("spgId") String spgId,
 			@PathParam("spaId") String spaId) throws Exception {
-
-		// Unmarshalling
-		JAXBContext jc = JAXBContext.newInstance("generated");
-		Unmarshaller unmarshaller = jc.createUnmarshaller();
-		Sportverzeichnis sv = (Sportverzeichnis) unmarshaller
-				.unmarshal(new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
 
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
 
@@ -74,4 +80,6 @@ public class SportartKonkret {
 
 		return "Keine Informationen zu der Sportart/Falsche Sportart";
 	}
+
+	
 }

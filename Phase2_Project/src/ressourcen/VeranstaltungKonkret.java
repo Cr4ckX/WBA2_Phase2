@@ -21,20 +21,24 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import jaxb.Unmarshalling;
+
 @Path("sportgruppen/{spgId}/sportarten/{spaId}/veranstaltungen/{vstId}")
 public class VeranstaltungKonkret {
+	
+	Sportverzeichnis sv;
+	
+	public VeranstaltungKonkret() throws Exception{
+		// Unmarshalling
+		Unmarshalling um = new Unmarshalling();
+		sv = um.xmlUnmarshallen();
+	}
 	
 	//GET - Hole Infos zu der konkreten Veranstaltung
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getVeranstaltung(@PathParam("spgId") String spgId,
 			@PathParam("spaId") String spaId, @PathParam("vstId") String vstId) throws Exception {
-
-		// Unmarshalling
-		JAXBContext jc = JAXBContext.newInstance("generated");
-		Unmarshaller unmarshaller = jc.createUnmarshaller();
-		Sportverzeichnis sv = (Sportverzeichnis) unmarshaller
-				.unmarshal(new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
 
 
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
@@ -87,14 +91,6 @@ public class VeranstaltungKonkret {
 			@PathParam("spaId") String spaId, 
 			@PathParam("vstId") String vstId, 
 			Veranstaltung uebergabe) throws Exception{
-		
-
-		// Unmarshalling
-		JAXBContext jc = JAXBContext.newInstance("generated");
-		Unmarshaller unmarshaller = jc.createUnmarshaller();
-		Sportverzeichnis sv = (Sportverzeichnis) unmarshaller
-				.unmarshal(new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
-
 
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
 
@@ -129,6 +125,7 @@ public class VeranstaltungKonkret {
 								 //Attribut "deleted" ist auf false gesetzt.
 								 v.setDeleted(false);
 								 
+								 JAXBContext jc = JAXBContext.newInstance("generated");
 								 Marshaller marshaller = jc.createMarshaller();
 								 marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 								 //Output
@@ -165,12 +162,6 @@ public class VeranstaltungKonkret {
 	public String deleteVeranstaltung(@PathParam("spgId") String spgId,
 			@PathParam("spaId") String spaId, @PathParam("vstId") String vstId) throws Exception {
 
-		// Unmarshalling
-		JAXBContext jc = JAXBContext.newInstance("generated");
-		Unmarshaller unmarshaller = jc.createUnmarshaller();
-		Sportverzeichnis sv = (Sportverzeichnis) unmarshaller
-				.unmarshal(new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
-
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
 
 		for (int j = 0; j < sgm.getSportgruppe().size(); j++) {
@@ -199,6 +190,8 @@ public class VeranstaltungKonkret {
 								 //s.getVeranstaltungenM().getVeranstaltung().remove(m);
 								 
 								 v.setDeleted(true);
+								 
+								 JAXBContext jc = JAXBContext.newInstance("generated");
 								 Marshaller marshaller = jc.createMarshaller();
 								 marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 								
