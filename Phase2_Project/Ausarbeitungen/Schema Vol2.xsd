@@ -140,6 +140,7 @@
                     
                 </xs:sequence>
                 <xs:attribute ref="id" use="required"/>
+                <xs:attribute ref="deleted" use="required"/>
             </xs:complexType>
         </xs:element>
     
@@ -317,6 +318,7 @@
     <!-- Attribute -->
         <xs:attribute name="id" type="xs:string"/> <!-- kein id, da keine eindeutigen Zahlen notwendig sind -->
         <xs:attribute name="entliehen" type="xs:boolean"/>
+        <xs:attribute name="deleted" type="xs:boolean"/>
     <!-- /Attribute -->
     
     
