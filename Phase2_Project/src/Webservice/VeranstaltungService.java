@@ -1,4 +1,4 @@
-package Webservice;
+package webservice;
 
 import generated.*;
 

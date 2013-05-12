@@ -14,7 +14,7 @@ import javax.xml.bind.Unmarshaller;
 
 import javax.ws.rs.*;
 
-import Webservice.VeranstaltungService;
+//import webservice.VeranstaltungService;
 
 public class main {
 
