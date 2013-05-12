@@ -255,8 +255,10 @@ public class VeranstaltungService {
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("/{spgId}/sportarten/{spaId}/veranstaltungen")
-	public String getVeranstaltungen(@PathParam("spgId") String spgId,
-			@PathParam("spaId") String spaId) throws Exception {
+	public String getVeranstaltungen(
+			@PathParam("spgId") String spgId,
+			@PathParam("spaId") String spaId,
+			@QueryParam("deleted") boolean deleted) throws Exception {
 
 		// Unmarshalling
 		JAXBContext jc = JAXBContext.newInstance("generated");
@@ -286,12 +288,35 @@ public class VeranstaltungService {
 							// Konkrete Veranstaltungen (Veranstaltungsliste 1x für gewisse Sportart):
 							Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(m);
 							
-							if (v.isDeleted() == false){
-							ausgabe += v.getId() + " " + v.getVBeschreibung();
 							
-							//Damit am Ende nicht noch ein "\n" angefügt wird.
-							if(m+1<s.getVeranstaltungenM().getVeranstaltung().size())
-								ausgabe += "\n";
+							if (deleted == true){
+								if (v.isDeleted() == true){
+									ausgabe += v.getId() + " " + v.getVBeschreibung();
+									
+									//Damit am Ende nicht noch ein "\n" angefügt wird.
+									if(m+1<s.getVeranstaltungenM().getVeranstaltung().size())
+										ausgabe += "\n";
+								}
+							}
+							else if (deleted == false){
+								if (v.isDeleted() == false){
+									ausgabe += v.getId() + " " + v.getVBeschreibung();
+									
+									//Damit am Ende nicht noch ein "\n" angefügt wird.
+									if(m+1<s.getVeranstaltungenM().getVeranstaltung().size())
+										ausgabe += "\n";
+								}
+							}
+							
+							//Standard / keine Eingabe.
+							else{
+								if (v.isDeleted() == false){
+									ausgabe += v.getId() + " " + v.getVBeschreibung();
+									
+										//Damit am Ende nicht noch ein "\n" angefügt wird.
+										if(m+1<s.getVeranstaltungenM().getVeranstaltung().size())
+											ausgabe += "\n";
+								}
 							}
 						}
 						return ausgabe;
@@ -380,10 +405,8 @@ public class VeranstaltungService {
 			// konrete Sportgruppe
 			Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(j);
 
-
 			if (spgId.equals(sg.getId())) {
-				
-			
+						
 				// Liste aller Sportarten dieser Sportgruppe
 				SportartenM sm = (SportartenM) sg.getSportartenM();
 
@@ -396,18 +419,21 @@ public class VeranstaltungService {
 							// Konkrete Veranstaltungen (Veranstaltungsliste 1x für gewisse Sportart):
 							Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(m);
 							
+							int aktuelleVeranstaltungId = Integer.parseInt(v.getId());
+							aktuelleVeranstaltungId = aktuelleVeranstaltungId + 1;
+							System.out.print(aktuelleVeranstaltungId);
 							if (v.getId().equals(vstId) && v.isDeleted() == false){
 								
-								 Marshaller marshaller = jc.createMarshaller();
-								 marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);																				
-
-								 s.getVeranstaltungenM().getVeranstaltung().set(m, uebergabe);
-								 
 								 //ID wird vom Client bestimmt.
-								 v.setId(vstId);
-								 //Attribut gelöscht ist auf false gesetzt.
-							//	 v.setDeleted(false);
+								 uebergabe.setId(vstId);
 								 
+								 s.getVeranstaltungenM().getVeranstaltung().set(m, uebergabe);
+
+								 //Attribut "deleted" ist auf false gesetzt.
+								 v.setDeleted(false);
+								 
+								 Marshaller marshaller = jc.createMarshaller();
+								 marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 								 //Output
 								 marshaller.marshal(sv, System.out);
 								 
@@ -415,7 +441,6 @@ public class VeranstaltungService {
 							}	
 						}	
 						//TODO: Veranstaltung mittels Put hinzufügen
-						//if ()
 					}
 				}
 			}
@@ -573,6 +598,7 @@ public class VeranstaltungService {
 		return "Hinzufügen fehlgeschlagen!";
 		
 	}
+	
 	
 
 	
