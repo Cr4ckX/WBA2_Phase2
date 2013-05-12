@@ -6,6 +6,7 @@ import generated.Sportgruppe;
 import generated.SportgruppenM;
 import generated.Sportverzeichnis;
 
+
 import java.io.File;
 
 import javax.ws.rs.GET;
@@ -16,8 +17,19 @@ import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 
+import jaxb.Unmarshalling;
+
 @Path("sportgruppen/{spgId}/sportarten")
 public class SportartenListe {
+	
+	Sportverzeichnis sv;
+	
+	public SportartenListe() throws Exception{
+		// Unmarshalling
+		Unmarshalling um = new Unmarshalling();
+		sv = um.xmlUnmarshallen();
+	}
+	
 	//Hole zur konkreten Sportgruppe die Sportarten-Liste
 	/**
 	 * Sportarten-Liste per GET angefordert.
@@ -34,11 +46,6 @@ public class SportartenListe {
 	public String getSportarten(@PathParam("spgId") String spgId) throws Exception {
 
 		String ausgabe = "";
-		// Unmarshalling
-		JAXBContext jc = JAXBContext.newInstance("generated");
-		Unmarshaller unmarshaller = jc.createUnmarshaller();
-		Sportverzeichnis sv = (Sportverzeichnis) unmarshaller
-				.unmarshal(new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
 
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
 

@@ -14,8 +14,19 @@ import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 
+import jaxb.Unmarshalling;
+
 @Path("sportgruppen/{spgId}")
 public class SportgruppeKonkret {
+	
+	Sportverzeichnis sv;
+	
+	public SportgruppeKonkret() throws Exception{
+		// Unmarshalling
+		Unmarshalling um = new Unmarshalling();
+		sv = um.xmlUnmarshallen();
+	}
+	
 	//Hole konkrete Sportgruppe(ninformationen)
 	/**
 	 * 
@@ -34,12 +45,6 @@ public class SportgruppeKonkret {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getSportgruppe(@PathParam("spgId") String spgId)
 			throws Exception {
-
-		// Unmarshalling
-		JAXBContext jc = JAXBContext.newInstance("generated");
-		Unmarshaller unmarshaller = jc.createUnmarshaller();
-		Sportverzeichnis sv = (Sportverzeichnis) unmarshaller
-				.unmarshal(new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
 
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
 

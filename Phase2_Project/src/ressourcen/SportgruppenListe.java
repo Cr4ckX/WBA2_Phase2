@@ -13,8 +13,19 @@ import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 
+import jaxb.Unmarshalling;
+
 @Path("sportgruppen")
 public class SportgruppenListe {
+	
+	Sportverzeichnis sv;
+	
+	public SportgruppenListe() throws Exception{
+		// Unmarshalling
+		Unmarshalling um = new Unmarshalling();
+		sv = um.xmlUnmarshallen();
+	}
+	
 	//Hole Sportgruppen-Liste
 	/**
 	 * 
@@ -32,12 +43,6 @@ public class SportgruppenListe {
 	public String getSportgruppen() throws Exception {
 		
 		String ausgabe = "";
-
-		// Unmarshalling
-		JAXBContext jc = JAXBContext.newInstance("generated");
-		Unmarshaller unmarshaller = jc.createUnmarshaller();
-		Sportverzeichnis sv = (Sportverzeichnis) unmarshaller
-				.unmarshal(new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
 
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM(); 
 		
