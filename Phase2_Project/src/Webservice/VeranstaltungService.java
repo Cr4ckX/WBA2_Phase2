@@ -142,7 +142,6 @@ public class VeranstaltungService {
 		}
 		return "Failture falsche Sportgruppe";
 	}
-
 	
 	//Hole zur konkreten Sportgruppe die Sportarten-Liste
 	/**
@@ -211,7 +210,7 @@ public class VeranstaltungService {
 	 * 
 	 * MIME-TYPE: text/plain. Momentan noch keine Unterstützung für application/xml.
 	 */
-	public String getSportarten(@PathParam("spgId") String spgId,
+	public String getSportart(@PathParam("spgId") String spgId,
 			@PathParam("spaId") String spaId) throws Exception {
 
 		// Unmarshalling
@@ -308,7 +307,7 @@ public class VeranstaltungService {
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("/{spgId}/sportarten/{spaId}/veranstaltungen/{vstId}")
-	public String getVeranstaltungen(@PathParam("spgId") String spgId,
+	public String getVeranstaltung(@PathParam("spgId") String spgId,
 			@PathParam("spaId") String spaId, @PathParam("vstId") String vstId) throws Exception {
 
 		// Unmarshalling
@@ -354,9 +353,8 @@ public class VeranstaltungService {
 
 		return "Keine Veranstaltungen zu der Sportart/Falsche Sportart";
 	}
-	
-	
-	//PUT - Setze Veranstaltungselemente - noch Buggy!
+		
+	//PUT - Setze Veranstaltungselemente
 	@PUT
 	@Path("/{spgId}/sportarten/{spaId}/veranstaltungen/{vstId}")
 	@Consumes (MediaType.APPLICATION_XML)
@@ -398,29 +396,22 @@ public class VeranstaltungService {
 								
 								 Marshaller marshaller = jc.createMarshaller();
 								 marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);																				
-
-								 v.setVBeschreibung(uebergabe.getVBeschreibung());
-								 v.setVInfo(uebergabe.getVBeschreibung());
-								 v.setVDatum(uebergabe.getVDatum());
-								 v.setVUhrzeit(uebergabe.getVUhrzeit());
-								 v.setVNiveau(uebergabe.getVNiveau());
-								 v.setVVorraussetzungen(uebergabe.getVVorraussetzungen());
-								 v.setGebaeudeIDRef(uebergabe.getGebaeudeIDRef());
-								 v.setVeranstalterIDRef(uebergabe.getGebaeudeIDRef());
 								 
-								 //s.getVeranstaltungenM().getVeranstaltung().set(m, uebergabe);
+								 s.getVeranstaltungenM().getVeranstaltung().set(m, uebergabe);
 
 								 //Output
 								 marshaller.marshal(sv, System.out);
-
-								return "Alles sauber verlaufen!";
+								 
+								return "Veranstaltung mit der ID " +vstId + " aktualisiert";
 							}	
 						}	
+						//TODO: Veranstaltung mittels Put hinzufügen
+						//if ()
 					}
 				}
 			}
 		}
-		return "Keine Ahnung was als Return-Wert erwartet wird";	
+		return "Das aktualisieren der Veranstaltung mit der ID " + vstId + " hat nicht funktioniert.";	
 	}
 	
 	//DELETE - Lösche Veranstaltung
