@@ -34,6 +34,45 @@
                             <VeranstalterIDRef>VT00</VeranstalterIDRef>
                         </Veranstaltung>
                     </VeranstaltungenM>
+                </Sportart>
+                
+                <Sportart id="1">
+                    
+                    <SName>Taekwondo</SName>
+                    <SBeschreibung>Taekwondo ist klassische koreanische Selbstverteidigung von höchster Effizienz. In keiner asiatischen Kampfkunst wurde die Beintechnik in Folge höherer Muskelkraft und größerer Reichweite so präzise weiter entwickelt, wie im Taekwondo.</SBeschreibung>
+                    <SHerkunft>Korea</SHerkunft>
+                    <SVorraussetzung>Keine</SVorraussetzung>
+                    <SRegeln>Viele</SRegeln>
+                    
+                    <VeranstaltungenM>                      
+                        <Veranstaltung id="0" deleted="false">
+                            <VBeschreibung>1. MexTex Turnier</VBeschreibung>
+                            <VDatum>2015-03-12</VDatum>
+                            <VUhrzeit>15:00:00</VUhrzeit>
+                            <GebaeudeIDRef>02</GebaeudeIDRef>
+                            <VeranstalterIDRef>00</VeranstalterIDRef>
+                        </Veranstaltung>
+                        
+                        <Veranstaltung id="1" deleted="false">
+                            <VBeschreibung>Veranstaltung2</VBeschreibung>
+                            <VDatum>2014-04-27</VDatum>
+                            <VUhrzeit>15:00:00</VUhrzeit>
+                            <GebaeudeIDRef>G00</GebaeudeIDRef>
+                            <VeranstalterIDRef>VT00</VeranstalterIDRef>
+                        </Veranstaltung>
+                    </VeranstaltungenM>
+                    
+                </Sportart>
+                
+                <Sportart id="2">
+                    
+                    <SName>Kung-Fu</SName>
+                    <SBeschreibung>Im Kung Fu Kian vereinigen sich dynamische Bewegungen, schnelle spektakuläre Fußtechniken und kraftvolle präzise Handtechniken zu einem modernen Stil, der den Geist traditioneller Kampfkünste weiterträgt.</SBeschreibung>
+                    <SHerkunft>Korea</SHerkunft>
+                    <SVorraussetzung>Keine</SVorraussetzung>
+                    <SRegeln>Viele</SRegeln>
+                    
+                    <VeranstaltungenM></VeranstaltungenM> <!-- Keine Veranstaltungen vorhanden -->
                     
                 </Sportart>
             </SportartenM>
@@ -53,11 +92,29 @@
                     <VeranstaltungenM></VeranstaltungenM> <!-- keine Veranstaltungen momentan -->
                 </Sportart>
                 
+                <Sportart id="0">
+                    <SName>Tennis</SName>
+                    <SBeschreibung>Dynamik, Spaß und Power, das alles bietet diese wunderschöne Sportart. Unsere Angebote richten sich an AnfängerInnen, Fortgeschrittene, WettkampfspielerInnen und an diejenigen, die bloß spielen wollen.</SBeschreibung>
+                    <SHerkunft>China</SHerkunft>
+                    <SVorraussetzung>Keine</SVorraussetzung>
+                    <SRegeln>Werden noch erklärt.</SRegeln>
+                    <VeranstaltungenM>
+                        <Veranstaltung id="0" deleted="false">
+                            <VBeschreibung>Badminton Paralympia</VBeschreibung>
+                            <VDatum>2013-04-07</VDatum>
+                            <VUhrzeit>12:00:00</VUhrzeit>
+                            <GebaeudeIDRef>2</GebaeudeIDRef>
+                            <VeranstalterIDRef>2</VeranstalterIDRef>
+                        </Veranstaltung>
+                    </VeranstaltungenM> 
+                </Sportart>
+                
+                
           
             </SportartenM>
         </Sportgruppe>
 
-        <Sportgruppe id="3">
+        <Sportgruppe id="2">
             
             <SGName>Tanzen</SGName>
             <SGBeschreibung>Beim Tanzsport wird Tanzen als Sportart ausgeübt.</SGBeschreibung>
@@ -72,28 +129,28 @@
                     <SRegeln>keine</SRegeln>
                     
                     <VeranstaltungenM>                      
-                        <Veranstaltung id="0" deleted="true">
+                        <Veranstaltung id="0" deleted="false">
                             <VBeschreibung>3. Kiddie Discofox Contest</VBeschreibung>
                             <VDatum>2013-04-07</VDatum>
                             <VUhrzeit>15:00:00</VUhrzeit>
-                            <GebaeudeIDRef>G03</GebaeudeIDRef>
-                            <VeranstalterIDRef>VT05</VeranstalterIDRef>
+                            <GebaeudeIDRef>2</GebaeudeIDRef>
+                            <VeranstalterIDRef>2</VeranstalterIDRef>
                         </Veranstaltung>
                         
-                        <Veranstaltung id="1" deleted="false">
+                        <Veranstaltung id="1" deleted="true">
                             <VBeschreibung>Open Fox Concert</VBeschreibung>
                             <VDatum>2011-06-23</VDatum>
                             <VUhrzeit>15:00:00</VUhrzeit>
-                            <GebaeudeIDRef>G23</GebaeudeIDRef>
-                            <VeranstalterIDRef>VT14</VeranstalterIDRef>
+                            <GebaeudeIDRef>0</GebaeudeIDRef>
+                            <VeranstalterIDRef>01</VeranstalterIDRef>
                         </Veranstaltung>
                         
-                        <Veranstaltung id="3" deleted="false">
+                        <Veranstaltung id="2" deleted="false">
                             <VBeschreibung>DiscoFox Olympia</VBeschreibung>
                             <VDatum>2014-05-25</VDatum>
                             <VUhrzeit>15:00:00</VUhrzeit>
-                            <GebaeudeIDRef>G13</GebaeudeIDRef>
-                            <VeranstalterIDRef>VT18</VeranstalterIDRef>
+                            <GebaeudeIDRef>02</GebaeudeIDRef>
+                            <VeranstalterIDRef>01</VeranstalterIDRef>
                         </Veranstaltung>
                     </VeranstaltungenM>
                     
@@ -102,6 +159,57 @@
             
         </Sportgruppe>
 
+        <Sportgruppe id="3">
+            
+            <SGName>Natursport</SGName>
+            <SGBeschreibung>Sport in der Natur.</SGBeschreibung>
+            
+            <SportartenM>
+                <Sportart id="0">
+                    
+                    <SName>Inline Skating</SName>
+                    <SBeschreibung>Schrittweise werden die Grundtechniken (sicheres Fallen, Bremsen, Rollen) vermittelt. Aufbauend üben wir das Kurven fahren, Ausweichen und Gleiten. Bei allen Aktionen ist die komplette Schutzausrüstung Pflicht (Knie-, Ellenbogen-, Handprotektoren)! Helm ist ratsam!</SBeschreibung>
+                    <SHerkunft>Deutschland</SHerkunft>
+                    <SVorraussetzung>Inliner mitbringen</SVorraussetzung>
+                    <SRegeln>keine</SRegeln>
+                    
+                    <VeranstaltungenM>                      
+                        <Veranstaltung id="0" deleted="false">
+                            <VBeschreibung>Training wöchentlich</VBeschreibung>
+                            <VDatum>2013-04-07</VDatum>
+                            <VUhrzeit>15:00:00</VUhrzeit>
+                            <GebaeudeIDRef>2</GebaeudeIDRef>
+                            <VeranstalterIDRef>2</VeranstalterIDRef>
+                        </Veranstaltung>
+                       
+                    </VeranstaltungenM>
+                    
+                </Sportart>
+                
+                <Sportart id="1">
+                    
+                    <SName>Klettern</SName>
+                    <SBeschreibung>Klettern lernen im Herzen Gummersbachs</SBeschreibung>
+                    <SHerkunft>Deutschland</SHerkunft>
+                    <SVorraussetzung>Keine</SVorraussetzung>
+                    <SRegeln>keine</SRegeln>
+                    
+                    <VeranstaltungenM>                      
+                        <Veranstaltung id="0" deleted="false">
+                            <VBeschreibung>Training wöchentlich</VBeschreibung>
+                            <VDatum>2012-02-07</VDatum>
+                            <VUhrzeit>15:00:00</VUhrzeit>
+                            <GebaeudeIDRef>2</GebaeudeIDRef>
+                            <VeranstalterIDRef>2</VeranstalterIDRef>
+                        </Veranstaltung>
+                        
+                    </VeranstaltungenM>
+                    
+                </Sportart>
+            </SportartenM>
+            
+        </Sportgruppe>
+  
     </SportgruppenM>
     
     <OrteM>
@@ -129,7 +237,7 @@
                     <GName>Tennishalle</GName>
                     <GAnschrift>Hautstraße 7</GAnschrift>
                     <EquipmentM>
-                        <Equipment id="E0" entliehen="false">
+                        <Equipment id="0" entliehen="false">
                             <EName>Tennisschläger</EName>
                         </Equipment>
                     </EquipmentM>
@@ -140,7 +248,7 @@
                     <GName>Dreifachhalle</GName>
                     <GAnschrift>Hülchratherstraße 3</GAnschrift>
                     <EquipmentM>
-                        <Equipment id="E0" entliehen="false">
+                        <Equipment id="0" entliehen="false">
                             <EName>Tennisschläger</EName>
                         </Equipment>
                     </EquipmentM>
@@ -169,20 +277,20 @@
                     <GName>Thomas Sabo Halle</GName>
                     <GAnschrift>bibliothekastraße 3</GAnschrift>
                     <EquipmentM>
-                        <Equipment id="E0" entliehen="true">
+                        <Equipment id="0" entliehen="true">
                             <EName>Tennisbälle</EName>
                             <VeranstalterIDRef>VT00</VeranstalterIDRef>
                         </Equipment>
                         
-                        <Equipment id="E1" entliehen="false">
+                        <Equipment id="1" entliehen="false">
                             <EName>Fußbälle</EName>
                         </Equipment>
                         
-                        <Equipment id="E2" entliehen="false">
+                        <Equipment id="2" entliehen="false">
                             <EName>Seilchen</EName>
                         </Equipment>
                         
-                        <Equipment id="E3" entliehen="true">
+                        <Equipment id="3" entliehen="true">
                             <EName>Softbälle</EName>
                         </Equipment>
                         
@@ -193,7 +301,7 @@
                     <GName>Tennishalle</GName>
                     <GAnschrift>Hautstraße 7</GAnschrift>
                     <EquipmentM>
-                        <Equipment id="E0" entliehen="false">
+                        <Equipment id="0" entliehen="false">
                             <EName>Tennisschläger</EName>
                         </Equipment>
                     </EquipmentM>
@@ -210,7 +318,7 @@
                     <GName>Halle am Campusring</GName>
                     <GAnschrift>Keglerstraße 3</GAnschrift>
                     <EquipmentM>
-                        <Equipment id="E0" entliehen="false">
+                        <Equipment id="0" entliehen="false">
                             <EName>Tennisbälle</EName>
                             <VeranstalterIDRef>VT00</VeranstalterIDRef>
                         </Equipment>
@@ -221,7 +329,7 @@
                     <GName>Tennishalle</GName>
                     <GAnschrift>Hautstraße 7</GAnschrift>
                     <EquipmentM>
-                        <Equipment id="E0" entliehen="false">
+                        <Equipment id="0" entliehen="false">
                             <EName>Tennisschläger</EName>
                         </Equipment>
                     </EquipmentM>
@@ -247,7 +355,7 @@
             <VTTelefon>0123456789</VTTelefon>
         </Veranstalter>
         
-        <Veranstalter id="0">
+        <Veranstalter id="2">
             <VTName>Max Moritz</VTName>
             <VTGeschlecht>m</VTGeschlecht>
             <VTEmail>Max.Moritz@gmx.de</VTEmail>
