@@ -49,7 +49,7 @@ public class SportgruppeKonkret {
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
 
 		for (int i = 0; i < sgm.getSportgruppe().size(); i++) {
-			// konrete Sportgruppe
+			// konkrete Sportgruppe
 			Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(i);
 
 			//Wenn Ÿbergebene URI-id mit Sportgruppenid Ÿbereinstimmt, gib die Infos aus.
