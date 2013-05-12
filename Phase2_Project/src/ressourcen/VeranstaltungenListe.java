@@ -48,7 +48,7 @@ public class VeranstaltungenListe {
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
 
 		for (int j = 0; j < sgm.getSportgruppe().size(); j++) {
-			// konrete Sportgruppe
+			// konkrete Sportgruppe
 			Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(j);
 
 
@@ -137,7 +137,7 @@ public class VeranstaltungenListe {
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
 
 		for (int j = 0; j < sgm.getSportgruppe().size(); j++) {
-			// konrete Sportgruppe
+			// konkrete Sportgruppe
 			Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(j);
 
 

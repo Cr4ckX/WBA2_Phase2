@@ -48,7 +48,7 @@ public class SportgruppenListe {
 		
 		for (int i = 0; i < sgm.getSportgruppe().size(); i++) {
 			
-			// konrete Sportgruppe
+			// konkrete Sportgruppe
 			Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(i);
 			ausgabe += sg.getId() + " " + sg.getSGName() + "\n";
 			

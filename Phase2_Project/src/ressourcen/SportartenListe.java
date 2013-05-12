@@ -50,7 +50,7 @@ public class SportartenListe {
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
 
 		for (int j = 0; j < sgm.getSportgruppe().size(); j++) {
-			// konrete Sportgruppe
+			// konkrete Sportgruppe
 			Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(j);
 
 			if (spgId.equals(sg.getId())) {
