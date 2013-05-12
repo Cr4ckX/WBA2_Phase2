@@ -7,14 +7,14 @@
 	<classpathentry kind="lib" path="jaxb-ri-2.2.6 2/lib/jaxb-impl.jar"/>
 	<classpathentry kind="lib" path="jaxb-ri-2.2.6 2/lib/jaxb-xjc-javadoc.jar"/>
 	<classpathentry kind="lib" path="jaxb-ri-2.2.6 2/lib/jaxb-xjc.jar"/>
-	<classpathentry kind="lib" path="/Users/CrackX/Box Documents/Studium/Unterlagen/Semester 4/WBA2/Phase 2 Workspace/WBA2_Phase2/Phase2_Project/lib/grizzly-servlet-webserver-1.9.18.jar"/>
-	<classpathentry kind="lib" path="/Users/CrackX/Box Documents/Studium/Unterlagen/Semester 4/WBA2/Phase 2 Workspace/WBA2_Phase2/Phase2_Project/lib/asm-3.1.jar"/>
-	<classpathentry kind="lib" path="/Users/CrackX/Box Documents/Studium/Unterlagen/Semester 4/WBA2/Phase 2 Workspace/WBA2_Phase2/Phase2_Project/lib/jackson-core-asl-1.1.1.jar"/>
-	<classpathentry kind="lib" path="/Users/CrackX/Box Documents/Studium/Unterlagen/Semester 4/WBA2/Phase 2 Workspace/WBA2_Phase2/Phase2_Project/lib/jersey-client-1.1.5.1.jar"/>
-	<classpathentry kind="lib" path="/Users/CrackX/Box Documents/Studium/Unterlagen/Semester 4/WBA2/Phase 2 Workspace/WBA2_Phase2/Phase2_Project/lib/jersey-core-1.1.5.1.jar"/>
-	<classpathentry kind="lib" path="/Users/CrackX/Box Documents/Studium/Unterlagen/Semester 4/WBA2/Phase 2 Workspace/WBA2_Phase2/Phase2_Project/lib/jersey-json-1.1.5.1.jar"/>
-	<classpathentry kind="lib" path="/Users/CrackX/Box Documents/Studium/Unterlagen/Semester 4/WBA2/Phase 2 Workspace/WBA2_Phase2/Phase2_Project/lib/jersey-server-1.1.5.1.jar"/>
-	<classpathentry kind="lib" path="/Users/CrackX/Box Documents/Studium/Unterlagen/Semester 4/WBA2/Phase 2 Workspace/WBA2_Phase2/Phase2_Project/lib/jettison-1.1.jar"/>
-	<classpathentry kind="lib" path="/Users/CrackX/Box Documents/Studium/Unterlagen/Semester 4/WBA2/Phase 2 Workspace/WBA2_Phase2/Phase2_Project/lib/jsr311-api-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/asm-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/grizzly-servlet-webserver-1.9.18.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-core-asl-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/jersey-client-1.1.5.1.jar"/>
+	<classpathentry kind="lib" path="lib/jersey-core-1.1.5.1.jar"/>
+	<classpathentry kind="lib" path="lib/jersey-json-1.1.5.1.jar"/>
+	<classpathentry kind="lib" path="lib/jersey-server-1.1.5.1.jar"/>
+	<classpathentry kind="lib" path="lib/jettison-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/jsr311-api-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
