@@ -286,13 +286,13 @@ public class VeranstaltungService {
 							// Konkrete Veranstaltungen (Veranstaltungsliste 1x für gewisse Sportart):
 							Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(m);
 							
+							if (v.isDeleted() == false){
 							ausgabe += v.getId() + " " + v.getVBeschreibung();
 							
 							//Damit am Ende nicht noch ein "\n" angefügt wird.
 							if(m+1<s.getVeranstaltungenM().getVeranstaltung().size())
 								ausgabe += "\n";
-							
-							
+							}
 						}
 						return ausgabe;
 					}					
@@ -337,21 +337,25 @@ public class VeranstaltungService {
 							// Konkrete Veranstaltungen 
 							Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(m);
 							
-							if (v.getId().equals(vstId)){
+							
+							if (v.getId().equals(vstId) && v.isDeleted() == false){
 								return "Beschreibung: " + v.getVBeschreibung() +
 										"\nInfo: " + v.getVInfo() + 
 										"\nDatum " + v.getVDatum() +
 										"\nUhrzeit: " + v.getVUhrzeit() + 
 										"\nNiveau: " + v.getVNiveau() + 
 										"\nVorraussetzungen: " + v.getVVorraussetzungen();
-							}								
+							}
+							else if(v.getId().equals(vstId)){
+								return "Die Veranstaltung mit der id " + vstId + " ist gelöscht und daher nicht aufrufbar.";
+							}
 						}							
 					}					
 				}			
 			}
 		}
 
-		return "Keine Veranstaltungen zu der Sportart/Falsche Sportart";
+		return "Keine Infos zu der Veranstaltung/falsche Veranstaltung";
 	}
 		
 	//PUT - Setze Veranstaltungselemente
@@ -392,17 +396,22 @@ public class VeranstaltungService {
 							// Konkrete Veranstaltungen (Veranstaltungsliste 1x für gewisse Sportart):
 							Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(m);
 							
-							if (v.getId().equals(vstId)){
+							if (v.getId().equals(vstId) && v.isDeleted() == false){
 								
 								 Marshaller marshaller = jc.createMarshaller();
 								 marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);																				
-								 
-								 s.getVeranstaltungenM().getVeranstaltung().set(m, uebergabe);
 
+								 s.getVeranstaltungenM().getVeranstaltung().set(m, uebergabe);
+								 
+								 //ID wird vom Client bestimmt.
+								 v.setId(vstId);
+								 //Attribut gelöscht ist auf false gesetzt.
+							//	 v.setDeleted(false);
+								 
 								 //Output
 								 marshaller.marshal(sv, System.out);
 								 
-								return "Veranstaltung mit der ID " +vstId + " aktualisiert";
+								return "Veranstaltung mit der ID " +vstId+ " aktualisiert";
 							}	
 						}	
 						//TODO: Veranstaltung mittels Put hinzufügen
@@ -417,7 +426,9 @@ public class VeranstaltungService {
 	//DELETE - Lösche Veranstaltung
 	/**
 	 * 
-	 * Löscht die gewünschte Veranstaltung.
+	 * "Löscht" die gewünschte Veranstaltung - Das 'deleted' Attribut wird auf true gesetzt. Die Veranstaltung
+	 * bleibt weiterhin vorhanden, jedoch wird sie bei der Abfrage nicht mehr gelistet, da dort nur Veranstaltungen
+	 * mit dem Attribut 'deleted=false' behandelet werden. 
 	 * Kaskadierendes Löschen ist noch nicht berücksichtigt.
 	 * Die Returnwerte müssen noch angepasst werden und am besten mit Exceptions behandelt werden
 	 * 
@@ -425,7 +436,7 @@ public class VeranstaltungService {
 	 * @param spaId - Zu welcher Sportart wird die Veranstaltung ausgetragen?
 	 * @param vstId - Um welche Veranstaltung handelt es sich genau? (Zu löschende Veranstaltung)
 	 * @return Gelöscht - Wenn die gewünschte Veranstaltung erfolgreich gelöscht wird.
-	 * @return Fehlgeschlagen.. - Wenn die Veranstaltung aufgrund von Fehlern nicht gelöscht wird.
+	 * Fehlgeschlagen.. - Wenn die Veranstaltung aufgrund von Fehlern nicht gelöscht wird.
 	 * @throws Exception - Für das unmarshallen. (TOODOO: Sollte noch bearbeitet werden)
 	 */
 	@DELETE
@@ -455,23 +466,28 @@ public class VeranstaltungService {
 					// Konkrete Sportart
 					Sportart s = (Sportart) sm.getSportart().get(l);
 					
-					 for (int m = 0; m < s.getVeranstaltungenM().getVeranstaltung().size(); m++){
-						 Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(m);
-						 
-						 System.out.println("Übergebene ID: "+ vstId + ", Veranstaltung-ID: " + v.getId());
-						 if (vstId.equals(v.getId()))
-						 {
-							 //Remove erwartet Index, nicht ID ! (Deswegen rm(m)!)
-							 s.getVeranstaltungenM().getVeranstaltung().remove(m);
-							 Marshaller marshaller = jc.createMarshaller();
-							 marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-							
-							 //Output: Konsole
-							 marshaller.marshal(sv, System.out);
-							return "Gelöscht"; //Kaskadierendes Löschen fehlt noch.
-						 }
-					 }		
-				}														
+					if(spaId.equals(s.getId()))
+					{	
+						 for (int m = 0; m < s.getVeranstaltungenM().getVeranstaltung().size(); m++){
+							 Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(m);
+							 
+							 System.out.println("Übergebene ID: "+ vstId + ", Veranstaltung-ID: " + v.getId());
+							 if (vstId.equals(v.getId()))
+							 {
+								 //Remove erwartet Index, nicht ID ! (Deswegen rm(m)!)
+								 //s.getVeranstaltungenM().getVeranstaltung().remove(m);
+								 
+								 v.setDeleted(true);
+								 Marshaller marshaller = jc.createMarshaller();
+								 marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+								
+								 //Output: Konsole
+								 marshaller.marshal(sv, System.out);
+								return "Veranstaltung mit der id " + vstId + " wurde gelöscht."; //Kaskadierendes Löschen fehlt noch.
+							 }
+						 }		
+					}
+				}
 			}
 		}
 
@@ -529,13 +545,22 @@ public class VeranstaltungService {
 					
 					if (spaId.equals(s.getId()) && s.getVeranstaltungenM().getVeranstaltung().size() > 0) {
 			
+							//Index: Die wievielte Veranstaltung in zu dieser Sportart + 1
 							int index = s.getVeranstaltungenM().getVeranstaltung().size();
+							
+							//Setze die übergebene Veranstaltung an der Position index ein.
 							s.getVeranstaltungenM().getVeranstaltung().add(index, uebergabe);
+							
+							//Setze die ID noch richtig (POST = Server setzt ID/Ressource)
 							s.getVeranstaltungenM().getVeranstaltung().get(index).setId(String.valueOf(index));
+							
+							//Attribut "deleted" noch auf false setzen
+							s.getVeranstaltungenM().getVeranstaltung().get(index).setDeleted(false);
+							
 							Marshaller marshaller = jc.createMarshaller();
 							marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-							//Output
+							
+							//Output: Console
 							marshaller.marshal(sv, System.out);
 
 							return "Veranstaltung " + s.getVeranstaltungenM().getVeranstaltung()

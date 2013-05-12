@@ -18,15 +18,15 @@
                     <SRegeln>Viele</SRegeln>
                     
                     <VeranstaltungenM>                      
-                        <Veranstaltung id="0">
+                        <Veranstaltung id="0" deleted="false">
                             <VBeschreibung>Veranstaltung1</VBeschreibung>
-                            <VDatum>2014-04-27</VDatum>
+                            <VDatum>2013-04-27</VDatum>
                             <VUhrzeit>13:00:00</VUhrzeit>
                             <GebaeudeIDRef>G00</GebaeudeIDRef>
                             <VeranstalterIDRef>VT00</VeranstalterIDRef>
                         </Veranstaltung>
                         
-                        <Veranstaltung id="1">
+                        <Veranstaltung id="1" deleted="false">
                             <VBeschreibung>Veranstaltung2</VBeschreibung>
                             <VDatum>2014-04-27</VDatum>
                             <VUhrzeit>15:00:00</VUhrzeit>
