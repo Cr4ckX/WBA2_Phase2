@@ -4,11 +4,8 @@ import generated.Gebaeude;
 import generated.GebaeudeM;
 import generated.Ort;
 import generated.OrteM;
-<<<<<<< HEAD
-=======
 import generated.Sportgruppe;
 import generated.SportgruppenM;
->>>>>>> BranchWebserviceImplemented
 import generated.Sportverzeichnis;
 import java.io.File;
 import javax.ws.rs.GET;
@@ -22,12 +19,6 @@ import javax.xml.bind.Unmarshaller;
 
 import jaxb.Unmarshalling;
 
-<<<<<<< HEAD
-@Path("/orte/{oId}/gebaeude")
-=======
-@Path("orte")
->>>>>>> BranchWebserviceImplemented
-
 
 
 public class OrteListe {
@@ -40,9 +31,6 @@ Sportverzeichnis sv;
 		sv = um.xmlUnmarshallen();
 	}
 	
-<<<<<<< HEAD
-
-=======
 	//Hole Orte-Liste
 		/**
 		 * 
@@ -70,6 +58,4 @@ Sportverzeichnis sv;
 			}
 			return ausgabe;
 		}
-	
->>>>>>> BranchWebserviceImplemented
 }
