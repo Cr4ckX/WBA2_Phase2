@@ -20,7 +20,7 @@ import javax.xml.bind.Unmarshaller;
 import jaxb.Unmarshalling;
 
 
-
+//Path angabe fehlt
 public class OrteListe {
 
 Sportverzeichnis sv;

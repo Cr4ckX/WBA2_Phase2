@@ -18,8 +18,6 @@ import javax.xml.bind.Unmarshaller;
 import jaxb.Unmarshalling;
 
 @Path("/orte/{oId}/gebaeude")
-
-
 public class GebaeudeListe {
 	
 Sportverzeichnis sv;
