@@ -115,7 +115,7 @@ public class VeranstaltungKonkret {
 							int aktuelleVeranstaltungId = Integer.parseInt(v.getId());
 							aktuelleVeranstaltungId = aktuelleVeranstaltungId + 1;
 							System.out.print(aktuelleVeranstaltungId);
-							if (v.getId().equals(vstId) && v.isDeleted() == false){
+							if (v.getId().equals(vstId) && v.isDeleted() == false){ //letzere Bed. weglassen, falls gelöschte Veranstaltungen wiederaufgesetzt werden dürfen
 								
 								 //ID wird vom Client bestimmt.
 								 uebergabe.setId(vstId);
