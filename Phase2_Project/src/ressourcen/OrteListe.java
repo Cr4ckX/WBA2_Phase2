@@ -1,13 +1,7 @@
 package ressourcen;
-
-import generated.Gebaeude;
-import generated.GebaeudeM;
 import generated.Ort;
 import generated.OrteM;
-import generated.Sportgruppe;
-import generated.SportgruppenM;
 import generated.Sportverzeichnis;
-import java.io.File;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -20,7 +14,7 @@ import javax.xml.bind.Unmarshaller;
 import jaxb.Unmarshalling;
 
 
-//Path angabe fehlt
+@Path("orte")
 public class OrteListe {
 
 Sportverzeichnis sv;
