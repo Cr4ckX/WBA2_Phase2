@@ -17,12 +17,12 @@ import javax.xml.bind.Unmarshaller;
 
 import jaxb.Unmarshalling;
 
-@Path("/orte/{oId}/gebaeude")
-public class GebaeudeListe {
+@Path("/orte/{oId}/")
+public class OrtKonkret {
 	
 Sportverzeichnis sv;
 	
-	public GebaeudeListe() throws Exception{
+	public OrtKonkret() throws Exception{
 		// Unmarshalling
 		Unmarshalling um = new Unmarshalling();
 		sv = um.xmlUnmarshallen();
@@ -51,26 +51,11 @@ Sportverzeichnis sv;
 			//konkreter Ort
 			Ort o = (Ort) om.getOrt().get(k);
 		
-			if (oId.equals(o.getId())) {
-			
-				// Liste aller Gebaeude dieses Ortes
-				GebaeudeM gm = (GebaeudeM) o.getGebaeudeM();
+			if (oId.equals(o.getId())) 
+				return o.getOName();	
 
-				for (int l = 0; l < gm.getGebaeude().size(); l++) {
-					// Konkretes Gebaeude
-					Gebaeude g = (Gebaeude) gm.getGebaeude().get(l);
-
-					ausgabe += g.getId() + " " + g.getGName();
-					
-					//Damit am Ende nicht noch ein "\n" angefŸgt wird.
-					if(l+1 < gm.getGebaeude().size())
-						ausgabe += "\n";
-					
-				}	
-			return ausgabe;	
-			}
 		}
 
-		return "Failture (kein Gebaeude in diesem Ort /Falscher Ort)";
+		return "Failture (kein Ort in dieser Liste /Falscher Ort)";
 		}
 }
