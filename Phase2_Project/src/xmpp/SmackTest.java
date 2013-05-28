@@ -23,8 +23,8 @@ public class SmackTest {
 		
 		try {
 			cn1.connect();
-			if (cn1.isConnected()){}
-				//cn1.login("Client", "client");
+			if (cn1.isConnected())
+				cn1.login("Client", "client");
 		} 
 		
 		catch (XMPPException e) {
