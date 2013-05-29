@@ -209,7 +209,7 @@
                     <xs:element ref="GAnschrift"/>
                     
                     <!-- ElementRefs --> <!-- Ort-Ref durch Verzeweigungen, daher weggelassen -->
-                    <xs:element ref="VeranstaltungIDRef" minOccurs="0" maxOccurs="unbounded"/> 
+                    <xs:element ref="VeranstaltungRef" minOccurs="0" maxOccurs="unbounded"/> 
                     <!-- /ElementRefs -->
                     
                     <!-- Refs -->
@@ -293,7 +293,7 @@
                     <xs:element ref="VTTelefon"/>
                     
                     <!--  ElementRefs -->
-                    <xs:element ref="VeranstaltungIDRef" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element ref="VeranstaltungRef" minOccurs="0" maxOccurs="unbounded"/>
                     <xs:element ref="EquipmentIDRef" minOccurs="0" maxOccurs="unbounded"/>
                     <!-- /ElementRefs -->
 
@@ -307,10 +307,22 @@
 <!-- ______________________________________________________________________________________________________________ -->
    
     <!-- !!! Referenzierungselemente !!! -->
+        <xs:element name="SportgruppeIDRef"/>
+        <xs:element name="SportartIDRef"/>
         <xs:element name="VeranstaltungIDRef"/>
         <xs:element name="VeranstalterIDRef"/>
         <xs:element name="GebaeudeIDRef"/>
         <xs:element name="EquipmentIDRef"/>
+    
+        <xs:element name="VeranstaltungRef">
+            <xs:complexType>
+                <xs:sequence>
+                    <xs:element ref="SportgruppeIDRef"/>
+                    <xs:element ref="SportartIDRef"/>
+                    <xs:element ref="VeranstaltungIDRef"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:element>
     <!-- !!! Referenzierungselemente !!! -->
  
  
