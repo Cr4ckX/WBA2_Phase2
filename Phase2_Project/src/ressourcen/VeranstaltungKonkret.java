@@ -1,11 +1,16 @@
 package ressourcen;
 
+import generated.Gebaeude;
+import generated.GebaeudeM;
+import generated.Ort;
+import generated.OrteM;
 import generated.Sportart;
 import generated.SportartenM;
 import generated.Sportgruppe;
 import generated.SportgruppenM;
 import generated.Sportverzeichnis;
 import generated.Veranstaltung;
+import generated.VeranstaltungRef;
 
 import java.io.File;
 
@@ -83,6 +88,7 @@ public class VeranstaltungKonkret {
 	}
 
 	//PUT - Setze Veranstaltungselemente
+	//Veranstaltungen mittels PUT hinzuzufŸgen wird nicht unterstŸtzt
 	@PUT
 	@Consumes (MediaType.APPLICATION_XML)
 	@Produces (MediaType.APPLICATION_XML)
@@ -116,14 +122,19 @@ public class VeranstaltungKonkret {
 							aktuelleVeranstaltungId = aktuelleVeranstaltungId + 1;
 							System.out.print(aktuelleVeranstaltungId);
 							if (v.getId().equals(vstId) && v.isDeleted() == false){ //letzere Bed. weglassen, falls gelšschte Veranstaltungen wiederaufgesetzt werden dŸrfen
+
+								// ---- Veranstaltung aktualisieren ----
 								
 								 //ID wird vom Client bestimmt.
 								 uebergabe.setId(vstId);
-								 
+				
 								 s.getVeranstaltungenM().getVeranstaltung().set(m, uebergabe);
 
 								 //Attribut "deleted" ist auf false gesetzt.
 								 v.setDeleted(false);
+								
+								 								 
+								// ---- in XML-Datei schreiben ---- 
 								 
 								 JAXBContext jc = JAXBContext.newInstance("generated");
 								 Marshaller marshaller = jc.createMarshaller();
@@ -134,7 +145,6 @@ public class VeranstaltungKonkret {
 								return "Veranstaltung mit der ID " +vstId+ " aktualisiert";
 							}	
 						}	
-						//TODO: Veranstaltung mittels Put hinzufŸgen
 					}
 				}
 			}
@@ -190,11 +200,49 @@ public class VeranstaltungKonkret {
 								 //s.getVeranstaltungenM().getVeranstaltung().remove(m);
 								 
 								 v.setDeleted(true);
+							
+								/*TODO: GebŠude wird korrekt aktualisiert, jedoch muss dazu 
+								 * 1. Die XML Datei natŸrlich an das Schema angepasst werden.
+								 *  -> GebŠudeRef-Element richtig hinzugefŸgt und einer Veranstaltung zugeordnet werden.
+								 *  
+								 * 2. Die Veranstaltung ebenfalls richtig zum GebŠude referenziert werden.
+								 * 	-> Also Schema entsprechend fŸr Orte + GebŠude Durchlauf anpassen.
+								 * 
+								 * 3. Veranstalter noch als Referenzierung richtig in der XML-Datei anpassen
+								 *  -> Und dazu natŸrlich noch die Ressource erstellen.
+								 */
 								 
+								// ---- GebŠude aktualisieren (Veranstaltung aus GebŠude entfernen) ---- 
+								OrteM om = sv.getOrteM();
+								for (int n = 0; n < om.getOrt().size(); n++) {
+									//konkreter Ort
+									Ort o = (Ort) om.getOrt().get(n);
+
+									// Liste aller Gebaeude dieses Ortes
+									GebaeudeM gm = (GebaeudeM) o.getGebaeudeM();
+
+									for (int p = 0; p < gm.getGebaeude().size(); p++) {
+										// Konkretes Gebaeude
+										Gebaeude g = (Gebaeude) gm.getGebaeude().get(p);
+										for (int q = 0; q < g.getVeranstaltungRef().size(); q++){
+											
+											VeranstaltungRef vref = g.getVeranstaltungRef().get(q);
+											if (vref.getSportgruppeIDRef().equals(spgId)
+													&& vref.getSportartIDRef().equals(spaId)
+													&& vref.getVeranstaltungIDRef().equals(vstId))
+											{
+												g.getVeranstaltungRef().remove(p);
+											}
+											
+											break; //Schleife beenden, weil Veranstaltung gefunden
+										}
+									}
+								}
+									
+								// ---- In XML-Datei schreiben ----
 								 JAXBContext jc = JAXBContext.newInstance("generated");
 								 Marshaller marshaller = jc.createMarshaller();
 								 marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-								
 								 //Output: Konsole
 								 marshaller.marshal(sv, System.out);
 								return "Veranstaltung mit der id " + vstId + " wurde gelšscht."; //Kaskadierendes Lšschen fehlt noch.
