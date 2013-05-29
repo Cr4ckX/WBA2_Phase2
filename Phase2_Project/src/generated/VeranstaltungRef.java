@@ -25,9 +25,9 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{}SportgruppenM"/>
- *         &lt;element ref="{}OrteM"/>
- *         &lt;element ref="{}VeranstalterM"/>
+ *         &lt;element ref="{}SportgruppeIDRef"/>
+ *         &lt;element ref="{}SportartIDRef"/>
+ *         &lt;element ref="{}VeranstaltungIDRef"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -38,90 +38,90 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "sportgruppenM",
-    "orteM",
-    "veranstalterM"
+    "sportgruppeIDRef",
+    "sportartIDRef",
+    "veranstaltungIDRef"
 })
-@XmlRootElement(name = "Sportverzeichnis")
-public class Sportverzeichnis {
+@XmlRootElement(name = "VeranstaltungRef")
+public class VeranstaltungRef {
 
-    @XmlElement(name = "SportgruppenM", required = true)
-    protected SportgruppenM sportgruppenM;
-    @XmlElement(name = "OrteM", required = true)
-    protected OrteM orteM;
-    @XmlElement(name = "VeranstalterM", required = true)
-    protected VeranstalterM veranstalterM;
+    @XmlElement(name = "SportgruppeIDRef", required = true)
+    protected Object sportgruppeIDRef;
+    @XmlElement(name = "SportartIDRef", required = true)
+    protected Object sportartIDRef;
+    @XmlElement(name = "VeranstaltungIDRef", required = true)
+    protected Object veranstaltungIDRef;
 
     /**
-     * Gets the value of the sportgruppenM property.
+     * Gets the value of the sportgruppeIDRef property.
      * 
      * @return
      *     possible object is
-     *     {@link SportgruppenM }
+     *     {@link Object }
      *     
      */
-    public SportgruppenM getSportgruppenM() {
-        return sportgruppenM;
+    public Object getSportgruppeIDRef() {
+        return sportgruppeIDRef;
     }
 
     /**
-     * Sets the value of the sportgruppenM property.
+     * Sets the value of the sportgruppeIDRef property.
      * 
      * @param value
      *     allowed object is
-     *     {@link SportgruppenM }
+     *     {@link Object }
      *     
      */
-    public void setSportgruppenM(SportgruppenM value) {
-        this.sportgruppenM = value;
+    public void setSportgruppeIDRef(Object value) {
+        this.sportgruppeIDRef = value;
     }
 
     /**
-     * Gets the value of the orteM property.
+     * Gets the value of the sportartIDRef property.
      * 
      * @return
      *     possible object is
-     *     {@link OrteM }
+     *     {@link Object }
      *     
      */
-    public OrteM getOrteM() {
-        return orteM;
+    public Object getSportartIDRef() {
+        return sportartIDRef;
     }
 
     /**
-     * Sets the value of the orteM property.
+     * Sets the value of the sportartIDRef property.
      * 
      * @param value
      *     allowed object is
-     *     {@link OrteM }
+     *     {@link Object }
      *     
      */
-    public void setOrteM(OrteM value) {
-        this.orteM = value;
+    public void setSportartIDRef(Object value) {
+        this.sportartIDRef = value;
     }
 
     /**
-     * Gets the value of the veranstalterM property.
+     * Gets the value of the veranstaltungIDRef property.
      * 
      * @return
      *     possible object is
-     *     {@link VeranstalterM }
+     *     {@link Object }
      *     
      */
-    public VeranstalterM getVeranstalterM() {
-        return veranstalterM;
+    public Object getVeranstaltungIDRef() {
+        return veranstaltungIDRef;
     }
 
     /**
-     * Sets the value of the veranstalterM property.
+     * Sets the value of the veranstaltungIDRef property.
      * 
      * @param value
      *     allowed object is
-     *     {@link VeranstalterM }
+     *     {@link Object }
      *     
      */
-    public void setVeranstalterM(VeranstalterM value) {
-        this.veranstalterM = value;
+    public void setVeranstaltungIDRef(Object value) {
+        this.veranstaltungIDRef = value;
     }
 
 }
