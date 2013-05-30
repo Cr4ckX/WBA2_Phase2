@@ -28,5 +28,7 @@
 			<attribute name="javadoc_location" value="file:/Users/CrackX/Box Documents/Studium/Unterlagen/Semester 4/WBA2/Phase 2 Workspace/WBA2_Phase2/Phase2_Project/smack_3_3_0/javadoc/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/Users/Laura/Downloads/vysper-core-0.7.jar"/>
+	<classpathentry kind="lib" path="/Users/Laura/Downloads/nbxml-0.7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
