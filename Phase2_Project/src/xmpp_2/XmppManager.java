@@ -1,7 +1,12 @@
 package xmpp_2;
 
+import java.util.Iterator;
+
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smackx.ServiceDiscoveryManager;
+import org.jivesoftware.smackx.packet.DiscoverInfo;
+import org.jivesoftware.smackx.packet.DiscoverItems;
 import org.jivesoftware.smackx.pubsub.Item;
 import org.jivesoftware.smackx.pubsub.LeafNode;
 import org.jivesoftware.smackx.pubsub.PayloadItem;
@@ -32,7 +37,7 @@ public class XmppManager {
 	
 	public boolean managePubSub(){
 		if (cn.isConnected() || cn.isSecureConnection()){
-			psm = new PubSubManager(cn);
+			psm = new PubSubManager(cn, "pubsub." + cn.getHost());
 			return true;
 		}
 		else
@@ -65,11 +70,7 @@ public class XmppManager {
 			return false;
 		}	
 	}
-	
-//	public List<String> getLeafs(){
-//		psm.discoverNodes();
-//	}
-	
+		
 	
 	/**
 	 * Versucht zu dem angegebenen Leaf zu publishen. Mit dem Parameter 'erzeuge' kann angegeben werden,
@@ -88,11 +89,26 @@ public class XmppManager {
 		try {
 			pubLeaf = psm.getNode(leafName);
 		} catch (XMPPException e) {
+			/* Beim Holen des Nodes ist ein Fehler aufgetreten.
+			 * Ist der LeafNode evtl. noch nicht vorhanden?
+			 * 
+			 * Wenn die 'erzeuge' variable 'true' ist, so ist es mšglich,
+			 * zu dem zu publishendem Leaf zu erzeugen. Daraufhin wird der LeafNode
+			 * wieder geholt.
+			 */ 
 			System.out.println("Beim publishen ist ein Fehler aufgetreten.");
 			e.printStackTrace();
 			if (erzeuge == true){
 				System.out.println("Es wird versucht, diesen Leaf zu erstellen.");
-				return createLeaf(leafName);
+				createLeaf(leafName);
+				try {
+					pubLeaf = psm.getNode(leafName);
+				} catch (XMPPException e1) {
+					//Auch der neu erstellte Node konnte nicht dem zugeordnet werden. Das Publishen wird abgebrochen.
+					System.out.println("Der neu erstellte LeafNode konnte nicht zugeordnet werden.");
+					e1.printStackTrace();
+					return false;
+				}
 			}
 			else
 				return false;
@@ -116,10 +132,53 @@ public class XmppManager {
 			return false;
 		}	
 	}
+	
 		
-	//Vorhandene Leafs noch suchen! 
+	//Vorhandenen Leafs noch suchen
+	public void getLeafs() throws XMPPException{
+		if (cn.isConnected() == false || cn.isSecureConnection() == false){
+			System.out.println("Es besteht keine Verbindung!");
+			//return "failture, no connection!";
+		}
+		ServiceDiscoveryManager sdm = ServiceDiscoveryManager.getInstanceFor(cn);
+		DiscoverItems dci = psm.discoverNodes(null);
+		
+		Iterator it = dci.getItems();
+		while (it.hasNext()) {
+	          DiscoverItems.Item item = (DiscoverItems.Item) it.next();
+	          System.out.println("Node: " + item.getNode());
+	      }
+}
+	
+
+	//Eigenschaften eines Leafs anzeigen!
+	public String getLeafService(String LeafNode) throws XMPPException{
+		String discoveredService = "";
+		
+		if (cn.isConnected() == false || cn.isSecureConnection() == false){
+			System.out.println("Es besteht keine Verbindung!");
+			return "failture, no connection!";
+		}
+		
+		ServiceDiscoveryManager sdm = ServiceDiscoveryManager.getInstanceFor(cn);
+		
+		DiscoverInfo dci = sdm.discoverInfo("pubsub."+cn.getHost(), LeafNode);
+		Iterator it = dci.getIdentities();
+		while (it.hasNext()) {
+			DiscoverInfo.Identity identity = (DiscoverInfo.Identity) it.next();
+			discoveredService += 
+					"Name: " + identity.getName() + 
+					"\nType: " + identity.getType() + 
+					"\nCategory: " + identity.getCategory() + "\n";	
+		}
+		return discoveredService;
+	}
+	
+
+	
 	public boolean subscribeLeaf(String leafNode){
 
+		
 		LeafNode subLeaf;
 		try {
 			subLeaf = psm.getNode(leafNode);
@@ -133,9 +192,6 @@ public class XmppManager {
 		}
 
 	}
-	
-	
-	
 	
 	public boolean disconnect(){
 		cn.disconnect();
