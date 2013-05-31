@@ -1,5 +1,7 @@
 package xmpp_2;
 
+import java.util.Scanner;
+
 import org.jivesoftware.smack.XMPPException;
 
 public class ProgrammStart {
@@ -11,6 +13,8 @@ public class ProgrammStart {
 	 */
 	public static void main(String[] args) throws XMPPException {
 		
+		Scanner sc = new Scanner(System.in);
+		int wahl;
 		boolean erfolgreich = true;
 		
 		while(erfolgreich){
@@ -19,16 +23,33 @@ public class ProgrammStart {
 			if (verbindung.verbinden() == false){
 				System.out.println("Nicht erfolgreich zum Server verbunden.");
 				erfolgreich = false;
+				continue;
 			}
 			System.out.println("Erfolgreich mit dem Server verbunden.");
 			
 			verbindung.managePubSub();
 			
 			//Wahl zwischen Veranstalter oder Interessent:
-			Veranstalter veranstalter = new Veranstalter();
-			veranstalter.veranstalterErzeugen(verbindung);
-			erfolgreich = false;
+			System.out.println("Bitte wählen Sie zwischen Veranstalter (1) und Interessent (2).");
+			wahl = sc.nextInt();
+			sc.nextLine(); //EOL entfernen
+			
+			switch (wahl){
 		
+				case 1:
+					Veranstalter veranstalter = new Veranstalter();
+					veranstalter.veranstalterErzeugen(verbindung);
+					verbindung.disconnect();
+					erfolgreich = false;
+					break;
+					
+				case 2:
+					Interessent interessent = new Interessent();
+					interessent.interessentErzeugen(verbindung);
+					verbindung.disconnect();
+					erfolgreich = false;
+					break;
+			}
 		}
 	}
 }
