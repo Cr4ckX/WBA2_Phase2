@@ -6,16 +6,22 @@ import java.awt.*;
 /*Von javax.swing abgeleitet*/
 public class swing_tests extends JFrame{
 	
+	//Für Button
+	private JButton button1, button2;
+	
+	
 	swing_tests(){
 		
 		//Konstruktor der Elternklasse aufrufen
 		super();
-		//Titel setzen (Vom Fenster)
 		
+		
+		//Titel setzen (Vom Fenster)
 		this.setTitle("Sportverzeichnis WBA");
 		
 		//Layouter setzen
 		this.getContentPane().setLayout( new GridLayout(2,1));
+		//this.getContentPane().setLayout( null );
 		
 		//Erstellen eines Labels und Platizierung in der Mitte
 		JLabel label = new JLabel("Willkommen", JLabel.CENTER);
@@ -24,6 +30,9 @@ public class swing_tests extends JFrame{
 		//Kontainer hinzufügen
 		this.getContentPane().add( label);
 		this.getContentPane().add( button );
+		
+		//Fenster schließen
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	/**
