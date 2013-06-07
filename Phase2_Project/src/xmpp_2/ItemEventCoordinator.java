@@ -9,7 +9,7 @@ public class ItemEventCoordinator<T> implements ItemEventListener {
     public void handlePublishedItems(ItemPublishEvent items)
     {
         System.out.println("Item count: " + items.getItems().size());
-        System.out.println(items);
+        System.out.println(items.getItems().get(0));
 	}
 
 }
