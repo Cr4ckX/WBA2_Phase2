@@ -8,7 +8,7 @@ import java.awt.event.*;
 
 
 /*Von javax.swing abgeleitet*/
-public class radio extends JFrame{
+public class Radio extends JFrame{
 	
 	private JButton btnAuswahl;
 	private JRadioButton rbInteressent, rbVeranstalter;
@@ -17,9 +17,11 @@ public class radio extends JFrame{
 	
 	
 	
-	radio(){
+	
+	Radio(){
 		//Konstruktor der Elternklasse aufrufen
 		super();
+		
 	
 		//Titel setzen (Vom Fenster)
 		this.setTitle("Herzlich Willkommen");
@@ -28,45 +30,53 @@ public class radio extends JFrame{
 		/*****************************Layout****************************/
 		/***************************************************************/
 										//7 Zeilen, 0 Spalten
-		getContentPane().setLayout(new GridLayout(7,0,10,10));
-//		this.setLayout(null);
-//		labelAnweisung.setBounds(20, 20, 100, 20);
-		
+		//getContentPane().setLayout(new GridLayout(7,0,10,10));
+		this.setLayout(null);
 		
 		
 		/***************************************************************/
 		/*****************************Beschriftung**********************/
 		/***************************************************************/
 		final JLabel labelAnweisung = new JLabel ("Bitte wählen Sie eine Rolle aus!", JLabel.CENTER);
+		final JLabel loginI = new JLabel("Sie haben sich erfolgreich als Interessent eingeloggt!");
+		final JLabel loginV = new JLabel ("Sie haben sich ersolgreich als Veranstalter eingeloggt!");
+		labelAnweisung.setBounds(60, 20, 300, 25);
 		
+		//Erstmal nicht anzeigen lassen!
+		loginV.setVisible(false);
+		loginI.setVisible(false);
 		
 		
 		/***************************************************************/
 		/*****************************Button****************************/
 		/***************************************************************/
 		//Erstellen der RadioButtons
-		final JRadioButton rbInteressent = new JRadioButton( "Interessent" );
-		final JRadioButton rbVeranstalter = new JRadioButton( "Veranstalter" );
+		final JRadioButton rbtnI = new JRadioButton( "Interessent" );
+		final JRadioButton rbtnV = new JRadioButton( "Veranstalter" );
+		rbtnI.setBounds(50, 60, 300, 25);
+		rbtnV.setBounds(250, 60, 300, 25);
+		
 		
 		rbtngroup = new ButtonGroup ();
-		rbtngroup.add(rbVeranstalter);
-		rbtngroup.add(rbInteressent);
+		rbtngroup.add(rbtnV);
+		rbtngroup.add(rbtnI);
 		
 		//AuswahlBtn - Definieren, Größe festlegen
-		JButton btnAuswahl = new JButton("Auswahl");
-		btnAuswahl.setSize(100, 25);
+		final JButton btnAuswahl = new JButton("Auswahl");
+		btnAuswahl.setBounds(150, 90, 100, 25);
 	
-		rbInteressent.setSelected( true );
+		rbtnI.setSelected( true );
 	
 		/***************************************************************/
 		/*******************Einfuegen in die Pane***********************/
 		/***************************************************************/	
 		/*Einfuegen in die Pane*/
 		this.getContentPane().add(labelAnweisung);
-		this.getContentPane().add(rbInteressent);
-		this.getContentPane().add(rbVeranstalter);
+		this.getContentPane().add(rbtnI);
+		this.getContentPane().add(rbtnV);
 		this.getContentPane().add(btnAuswahl);
-		
+		this.getContentPane().add(loginI);
+		this.getContentPane().add(loginV);
 		
 	
 	
@@ -78,9 +88,32 @@ public class radio extends JFrame{
 		{
 	        public void actionPerformed(ActionEvent e)
 	        {
-	            labelAnweisung.setVisible(false);
-	            rbInteressent.setVisible(false);
-	            rbVeranstalter.setVisible(false);
+	        	
+	        	/***************************************************************/
+	    		/********************Unterscheidung der Rolle*******************/
+	    		/***************************************************************/
+	        	if (rbtnI.isSelected())
+	        	{
+	        		
+	        		labelAnweisung.setVisible(false);
+		            rbtnI.setVisible(false);
+		            rbtnV.setVisible(false);
+		            btnAuswahl.setVisible(false);	
+		            loginI.setVisible(true);
+		            
+	        		
+	        	}
+	        	
+	        	
+	        	if (rbtnV.isSelected())
+	        	{
+	        		labelAnweisung.setVisible(false);
+		            rbtnI.setVisible(false);
+		            rbtnV.setVisible(false);
+		            btnAuswahl.setVisible(false);	
+		            loginV.setVisible(true);
+	        	}
+	            
 	        }
 	    });
 	
@@ -89,12 +122,11 @@ public class radio extends JFrame{
 	
 
 	public static void main(String[] args) {
-		radio fenster = new radio();
-		fenster.setSize(1200,700);
-		fenster.setLocation(200, 100);
-		//Fenster sichtbar machen
-		fenster.setVisible(true);
-		fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Radio windowfirst = new Radio();
+		windowfirst.setBounds(100, 100, 1000, 600);
+        windowfirst.setLocationRelativeTo(null);
+		windowfirst.setVisible(true);
+		windowfirst.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
 
