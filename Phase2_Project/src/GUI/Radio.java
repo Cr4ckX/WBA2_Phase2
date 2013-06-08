@@ -12,9 +12,10 @@ public class Radio extends JFrame{
 	
 	private JButton btnAuswahl, btnZurueck;
 	private JRadioButton rbtnI, rbtnV;
-	private JLabel labelAnweisung, loginI, loginV, labelOK, labelUKSG, labelUUK; 
+	private JLabel labelAnweisung, loginI, loginV, labelOK, labelUKSG, labelUKSA, labelUUK; 
 	private ButtonGroup rbtngroup;
 	private JComboBox dropdownOK, dropdownUK, dropdownUUK;
+	private TextArea TextArea;
 	
 	
 	
@@ -41,7 +42,8 @@ public class Radio extends JFrame{
 		loginI = new JLabel("Eingeloggt als: Interessent");
 		loginV = new JLabel ("Eingeloggt als: Veranstalter");
 		labelOK = new JLabel("Bitte wählen Sie eine Kategorie!");
-		labelUKSG = new JLabel("Bitte wählen Sie einen Sportart!");
+		labelUKSG = new JLabel("Bitte wählen Sie einen Sportgruppe!");
+		labelUKSA = new JLabel("Bitte wählen Sie eine Sportart");
 		labelUUK = new JLabel("Bitte wählen Sie einen Ort!");
 		
 		
@@ -219,6 +221,8 @@ public class Radio extends JFrame{
 				
 				JComboBox item = (JComboBox) dropdownOK.getSource();
 				//0. DEFAULT 1.SG 2.V 3. O
+				
+				//Ich waehle Sportgruppen aus!
 				if(item.getSelectedIndex() == 1){
 					System.out.println("Klappt :)");
 					labelUKSG.setVisible(true);
