@@ -1,6 +1,5 @@
 package GUI;
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +18,6 @@ public class radio extends JFrame{
 	
 	
 	radio(){
-		
 		//Konstruktor der Elternklasse aufrufen
 		super();
 	
@@ -39,16 +37,16 @@ public class radio extends JFrame{
 		/***************************************************************/
 		/*****************************Beschriftung**********************/
 		/***************************************************************/
-		JLabel labelAnweisung = new JLabel ("Bitte wählen Sie eine Rolle aus!", JLabel.CENTER);
+		final JLabel labelAnweisung = new JLabel ("Bitte wählen Sie eine Rolle aus!", JLabel.CENTER);
 		
 		
 		
 		/***************************************************************/
-		/***********************Radio-Button****************************/
+		/*****************************Button****************************/
 		/***************************************************************/
 		//Erstellen der RadioButtons
-		JRadioButton rbInteressent = new JRadioButton( "Interessent" );
-		JRadioButton rbVeranstalter = new JRadioButton( "Veranstalter" );
+		final JRadioButton rbInteressent = new JRadioButton( "Interessent" );
+		final JRadioButton rbVeranstalter = new JRadioButton( "Veranstalter" );
 		
 		rbtngroup = new ButtonGroup ();
 		rbtngroup.add(rbVeranstalter);
@@ -56,9 +54,8 @@ public class radio extends JFrame{
 		
 		//AuswahlBtn - Definieren, Größe festlegen
 		JButton btnAuswahl = new JButton("Auswahl");
-		
-		
-		
+		btnAuswahl.setSize(100, 25);
+	
 		rbInteressent.setSelected( true );
 	
 		/***************************************************************/
@@ -70,44 +67,34 @@ public class radio extends JFrame{
 		this.getContentPane().add(rbVeranstalter);
 		this.getContentPane().add(btnAuswahl);
 		
-		btnAuswahl.addActionListener( new meinListener());
-	
 		
-		//Fenster schließen
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
+	
+	
+		/***************************************************************/
+		/**************************Actions******************************/
+		/***************************************************************/
+	
+		btnAuswahl.addActionListener(new ActionListener() 
+		{
+	        public void actionPerformed(ActionEvent e)
+	        {
+	            labelAnweisung.setVisible(false);
+	            rbInteressent.setVisible(false);
+	            rbVeranstalter.setVisible(false);
+	        }
+	    });
+	
 	}
 	
-	/***************************************************************/
-	/**************************Actions******************************/
-	/***************************************************************/
 	
-	class meinListener implements ActionListener{
-		
-		public void actionPerformed ( ActionEvent e){
-			
-			labelAnweisung.setVisible(false);	
-			
-		}
-		
-		
-		
-	}
-	/**
-	 * @param args
-	 */
+
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 		radio fenster = new radio();
-		
-		/**/
-		fenster.setSize(700,300);
+		fenster.setSize(1200,700);
 		fenster.setLocation(200, 100);
 		//Fenster sichtbar machen
 		fenster.setVisible(true);
-		
+		fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
 
