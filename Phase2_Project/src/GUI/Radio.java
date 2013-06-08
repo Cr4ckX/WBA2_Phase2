@@ -29,8 +29,7 @@ public class Radio extends JFrame{
 		/***************************************************************/
 		/*****************************Layout****************************/
 		/***************************************************************/
-										//7 Zeilen, 0 Spalten
-		//getContentPane().setLayout(new GridLayout(7,0,10,10));
+		
 		this.setLayout(null);
 		
 		
@@ -53,20 +52,30 @@ public class Radio extends JFrame{
 		//Erstellen der RadioButtons
 		final JRadioButton rbtnI = new JRadioButton( "Interessent" );
 		final JRadioButton rbtnV = new JRadioButton( "Veranstalter" );
-		rbtnI.setBounds(50, 60, 300, 25);
-		rbtnV.setBounds(250, 60, 300, 25);
+		
 		
 		
 		rbtngroup = new ButtonGroup ();
 		rbtngroup.add(rbtnV);
 		rbtngroup.add(rbtnI);
+		rbtnI.setSelected( true );
 		
 		//AuswahlBtn - Definieren, Grš§e festlegen
 		final JButton btnAuswahl = new JButton("Auswahl");
+		
+	
+		
+		
+		
+		/***************************************************************/
+		/*************************Button-Position***********************/
+		/***************************************************************/
+	
+		rbtnI.setBounds(50, 60, 300, 25);
+		rbtnV.setBounds(250, 60, 300, 25);
 		btnAuswahl.setBounds(150, 90, 100, 25);
-	
-		rbtnI.setSelected( true );
-	
+		
+		
 		/***************************************************************/
 		/*******************Einfuegen in die Pane***********************/
 		/***************************************************************/	
@@ -100,6 +109,7 @@ public class Radio extends JFrame{
 		            rbtnV.setVisible(false);
 		            btnAuswahl.setVisible(false);	
 		            loginI.setVisible(true);
+		            loginI.setBounds(150, 120, 300, 300);
 		            
 	        		
 	        	}
