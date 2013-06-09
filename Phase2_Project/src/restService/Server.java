@@ -1,4 +1,4 @@
-package webservice;
+package restService;
 
 
 import javax.swing.JOptionPane;

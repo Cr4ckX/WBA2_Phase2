@@ -1,4 +1,4 @@
-package xmpp_2;
+package xmppService;
 
 import java.util.Scanner;
 

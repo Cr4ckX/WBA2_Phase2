@@ -1,4 +1,4 @@
-package webservice;
+package restService;
 
 import javax.ws.rs.core.MediaType;
 
