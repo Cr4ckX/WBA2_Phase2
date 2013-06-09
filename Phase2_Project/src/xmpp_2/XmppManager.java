@@ -1,4 +1,4 @@
-package xmppService;
+package xmpp_2;
 
 import java.util.Iterator;
 

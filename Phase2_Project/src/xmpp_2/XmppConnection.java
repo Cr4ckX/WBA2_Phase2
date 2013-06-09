@@ -1,4 +1,4 @@
-package xmppService;
+package xmpp_2;
 
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.ConnectionConfiguration;

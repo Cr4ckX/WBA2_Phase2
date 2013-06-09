@@ -1,4 +1,3 @@
-package restService;
 //package webservice;
 //
 //import generated.*;
