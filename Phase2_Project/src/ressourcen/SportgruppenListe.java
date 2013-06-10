@@ -5,6 +5,8 @@ import generated.SportgruppenM;
 import generated.Sportverzeichnis;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -12,6 +14,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
+
+import restService.Stringteger;
 
 import jaxb.Unmarshalling;
 
@@ -40,8 +44,9 @@ public class SportgruppenListe {
 	 */
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
-	public String getSportgruppen() throws Exception {
+	public List<Stringteger> getSportgruppen() throws Exception {
 		
+		List<Stringteger> liste = new ArrayList<Stringteger>();
 		String ausgabe = "";
 
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM(); 
@@ -50,9 +55,12 @@ public class SportgruppenListe {
 			
 			// konkrete Sportgruppe
 			Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(i);
-			ausgabe += sg.getId() + " " + sg.getSGName() + "\n";
+			ausgabe = sg.getId() + " " + sg.getSGName() + "\n";
+			Stringteger si = new Stringteger(sg.getSGName(), Integer.parseInt(sg.getId()));
 			
+			liste.add(si);
+	
 		}
-		return ausgabe;
+		return liste;
 	}
 }
