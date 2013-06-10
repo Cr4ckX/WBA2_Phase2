@@ -5,13 +5,14 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
  
-public class neu {
+public class neu 
+{
 	
-		private static JLabel labelAnweisung, labelSG, labelSA, labelV, labelArea;
+		private static JLabel labelAnweisung, labelSG, labelSA, labelV, labelO, labelAreaSG, labelAreaV, labelAreaO, labelVS;
 		private static JRadioButton rbtnI;
 		private static JRadioButton rbtnV;
-		private static JComboBox dropdownSG, dropdownSA, dropdownV;
-		private static JTextArea textPayload;
+		private static JComboBox dropdownSG, dropdownSA, dropdownV, dropdownVS, dropdownO;
+		private static JTextArea AreaSG, AreaV, AreaO;
 	
 	
  
@@ -35,17 +36,43 @@ public class neu {
                 //Also wurde Interessent gewählt!
                 if(selected == 0){
                 	
-                //TAB-Leiste!
-                JTabbedPane tabLeiste = new JTabbedPane();
                 	
-                JPanel panelSG = new JPanel();
-                panelSG.setLayout(null);
+                	/***************************************************************/
+                	/**************************PANEL********************************/
+                	/***************************************************************/	
+                	//TAB-Leiste!
+                    JTabbedPane tabLeiste = new JTabbedPane();
+                    	
+                    JPanel panelSG = new JPanel();
+                    panelSG.setLayout(null);	
+                    tabLeiste.addTab("Sportgruppen", panelSG);
+                        
+                        
+                        
+         
+                    JPanel panelV = new JPanel();
+                    panelV.setLayout(null);
+                    tabLeiste.addTab("Veranstalter", panelV);
+        
+                        
+                    JPanel panelO = new JPanel();
+                    panelO.setLayout(null);
+                    panelO.add(new JButton("Button des zweiten Tabs"));
+                    tabLeiste.addTab("Orte", panelO);
+                	
+                
                 
                 
                 /***************************************************************/
             	/**************************Labels*******************************/
             	/***************************************************************/
-                
+                    
+                    
+                /*********************************/
+              	/************LabelsSG*************/
+               	/*********************************/ 
+                    
+                    
                 labelSG = new JLabel("Bitte wählen Sie eine Sportgruppe!");
                 labelSG.setBounds(10, 10, 300, 100);
                 panelSG.add(labelSG);
@@ -57,37 +84,92 @@ public class neu {
                 labelSA.setVisible(false);
 
         		labelV = new JLabel("Bitte wählen Sie eine Veranstaltung!");
-        		labelV.setBounds(10, 130, 300, 100);
+        		labelV.setBounds(10, 120, 300, 100);
                 panelSG.add(labelV);
                 labelV.setVisible(false);
+                
 
-
+                /***************************************/
+            	/***************LabelsV*****************/
+            	/***************************************/
+                
+                labelVS = new JLabel("Bitte wählen Sie eine(n) Veranstalter/in!");
+                labelVS.setBounds(10, 10, 300, 100);
+                panelV.add(labelVS);
+                labelVS.setVisible(true);
+                
+                
+                /***************************************/
+            	/***************LabelsO*****************/
+            	/***************************************/
+                
+                labelO = new JLabel("Bitte wählen Sie einen Ort");
+                labelO.setBounds(10, 10, 300, 100);
+                panelO.add(labelO);
+                labelO.setVisible(true);
         		
+        	
                 
                 
                 /***************************************************************/
             	/**************************Text-Area****************************/
             	/***************************************************************/	
             	
-                labelArea = new JLabel("Informationen bezüglich: ");
-                labelArea.setBounds(600, 10, 300, 100);
-                panelSG.add(labelArea);
-                labelArea.setVisible(false);
+                /***************************************/
+            	/***************AreaSG******************/
+            	/***************************************/
+                
+                
+                labelAreaSG = new JLabel("Informationen bezüglich: ");
+                labelAreaSG.setBounds(600, 10, 300, 100);
+                panelSG.add(labelAreaSG);
+                labelAreaSG.setVisible(false);
 
-                textPayload = new JTextArea();
-                textPayload.setLineWrap(true);
-        		textPayload.setBounds(600, 60, 350, 300);
-        		panelSG.add(textPayload);
-
-                    
+                AreaSG = new JTextArea();
+                AreaSG.setLineWrap(true);
+        		AreaSG.setBounds(600, 90, 350, 300);
+        		panelSG.add(AreaSG);
                 //Erstmal unsichtbar
-                textPayload.setVisible(false);
+                AreaSG.setVisible(false);
                     
+                
+                /***************************************/
+            	/***************AreaV*******************/
+            	/***************************************/
+                
+                labelAreaV = new JLabel("Informationen bezüglich: ");
+                labelAreaV.setBounds(600, 10, 300, 100);
+                panelV.add(labelAreaV);
+                
+
+                AreaV = new JTextArea();
+                AreaV.setLineWrap(true);
+        		AreaV.setBounds(600, 90, 350, 300);
+        		panelV.add(AreaV);
+        		
+        		/***************************************/
+            	/***************AreaO*******************/
+            	/***************************************/
+                
+                labelAreaO = new JLabel("Informationen bezüglich: ");
+                labelAreaO.setBounds(600, 10, 300, 100);
+                panelO.add(labelAreaO);
+                
+
+                AreaO = new JTextArea();
+                AreaO.setLineWrap(true);
+        		AreaO.setBounds(600, 90, 350, 300);
+        		panelO.add(AreaO);
+                
                 
                 /***************************************************************/
             	/**************************DROP-DOWN****************************/
             	/***************************************************************/	
                 
+        		/***************************************/
+            	/***************DropDownSG**************/
+            	/***************************************/
+        		
                 final String[] DropDownSG = new String[] {"Sportgruppen", "Kampf", "Ball", "Example", "Ejemplo"};
             	dropdownSG = new JComboBox(DropDownSG);
             	dropdownSG.setBounds(10, 40, 200, 100);
@@ -104,24 +186,26 @@ public class neu {
             	dropdownV.setBounds(10, 140, 200, 100);
             	panelSG.add(dropdownV);
             	dropdownV.setVisible(false);
+            	
+            	/***************************************/
+            	/***************DropDownVS**************/
+            	/***************************************/
+            	final String[] DropDownVS = new String[] {"Veranstalter", "David", "Laura", "Super", "Mentor"};
+            	dropdownVS = new JComboBox(DropDownVS);
+            	dropdownVS.setBounds(10, 40, 200, 100);
+            	panelV.add(dropdownVS);
+            	dropdownVS.setVisible(true);	
             		
-            		
-            		
-            		
-            	panelSG.add(new JButton("Button des ersten Tabs"));
-                tabLeiste.addTab("Sportgruppen", panelSG);
-                    
-                    
-                    
-     
-                JPanel panelV = new JPanel();
-                panelV.add(new JButton("Button des zweiten Tabs"));
-                tabLeiste.addTab("Veranstalter", panelV);
-    
-                    
-                JPanel panelO = new JPanel();
-                panelO.add(new JButton("Button des zweiten Tabs"));
-                tabLeiste.addTab("Orte", panelO);
+            	
+            	/***************************************/
+            	/***************DropDownO**************/
+            	/***************************************/
+            	final String[] DropDownO = new String[] {"Orte", "Bernberg", "Hesselbach", "Niederseßmar", "Wiehl"};
+            	dropdownO = new JComboBox(DropDownO);
+            	dropdownO.setBounds(10, 40, 200, 100);
+            	panelO.add(dropdownO);
+            	dropdownO.setVisible(true);
+            	
                    
                 /*ACTIONS*/
                 
@@ -138,8 +222,8 @@ public class neu {
         				if (item.getSelectedIndex() != 0 && item.getSelectedIndex() < DropDownSG.length){
         					dropdownSA.setVisible(true);
         					labelSA.setVisible(true);
-        					textPayload.setVisible(true);
-        					labelArea.setVisible(true);
+        					AreaSG.setVisible(true);
+        					labelAreaSG.setVisible(true);
         				
         				}
         			}
@@ -151,7 +235,7 @@ public class neu {
         			@Override
         		public void actionPerformed(ActionEvent dropdownSA) 
         		{ 			
-        				textPayload.setVisible(true);
+        				AreaSG.setVisible(true);
         				JComboBox item = (JComboBox) dropdownSA.getSource();
         				
         				if (item.getSelectedIndex() != 0 && item.getSelectedIndex() < DropDownSA.length){
@@ -167,7 +251,7 @@ public class neu {
                     fenster.add(tabLeiste);
                     fenster.setVisible(true);
                 	
-                }
+            } //Ende der If
                 
                 
         }
