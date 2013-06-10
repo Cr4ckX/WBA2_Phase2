@@ -15,7 +15,7 @@ public class Radio extends JFrame{
 	
 	private JButton btnAuswahl, btnZurueck;
 	private JRadioButton rbtnI, rbtnV;
-	private JLabel labelAnweisung, loginI, loginV, labelOK, labelUKSG, labelUUK; 
+	private JLabel labelAnweisung, loginI, loginV, labelOK, labelUKSG, labelUUK, labelArea; 
 	private ButtonGroup rbtngroup;
 	private JComboBox dropdownOK, dropdownUK, dropdownUUK;
 	private JTextArea textPayload;
@@ -45,11 +45,12 @@ public class Radio extends JFrame{
 		/*****************************Beschriftung**********************/
 		/***************************************************************/
 		labelAnweisung = new JLabel ("Bitte wählen Sie eine Rolle aus!", JLabel.CENTER);
-		loginI = new JLabel("Eingeloggt als: Interessent");
-		loginV = new JLabel ("Eingeloggt als: Veranstalter");
+		loginI = new JLabel("Eingeloggt als: TODO");
+		loginV = new JLabel ("Eingeloggt als: TODO");
 		labelOK = new JLabel("Bitte wählen Sie eine Kategorie!");
 		labelUKSG = new JLabel("Bitte wählen Sie einen Sportart!");
 		labelUUK = new JLabel("Bitte wählen Sie einen Ort!");
+		labelArea = new JLabel("Informationen bezüglich:");
 		
 		
 		
@@ -59,6 +60,7 @@ public class Radio extends JFrame{
 		labelOK.setVisible(false);
 		labelUKSG.setVisible(false);
 		labelUUK.setVisible(false);
+		labelArea.setVisible(false);
 		
 		/***************************************************************/
 		/*****************************Button****************************/
@@ -91,8 +93,8 @@ public class Radio extends JFrame{
 		String[] oberkategorie = new String[] {"Kategorien", "Sportgruppen", "Veranstalter", "Orte"};
 		dropdownOK = new JComboBox(oberkategorie);
 		
-		String[] Veranstalter = new String[] {"Sportarten", "Kampfsport", "Rückschlag", "Schnee", "Soooonenschein"};
-		dropdownUK = new JComboBox(Veranstalter);
+		final String[] unterkategorie = new String[] {"Sportarten", "Kampfsport", "Rückschlag", "Schnee", "Soooonenschein"};
+		dropdownUK = new JComboBox(unterkategorie);
 		
 		String[] Orte = new String[] {"Hemmerden", "NiebŸll", "Leck", "Grevenbroich", "Hamburg(meinePerle)"};
 		dropdownUUK = new JComboBox(Orte);
@@ -111,7 +113,7 @@ public class Radio extends JFrame{
         textPayload.setLineWrap(true);
         
         //Erstmal unsichtbar
-        textPayload.setVisible(true);
+        textPayload.setVisible(false);
        
 		
 		/***************************************************************/
@@ -136,7 +138,9 @@ public class Radio extends JFrame{
 		dropdownUUK.setBounds(10, 150, 200, 100);
 		
 		
-		textPayload.setBounds(600, 50, 350, 300);
+		textPayload.setBounds(600, 70, 350, 300);
+		
+		labelArea.setBounds(600, 10, 300, 100);
 		
 		
 		
@@ -158,6 +162,7 @@ public class Radio extends JFrame{
 		contentPane.add(labelUKSG);
 		contentPane.add(labelUUK);
 		contentPane.add(textPayload);
+		contentPane.add(labelArea);
 		
 	
 	
@@ -225,6 +230,8 @@ public class Radio extends JFrame{
 	            dropdownUUK.setVisible(false);
 	            btnZurueck.setVisible(false);
 	            labelOK.setVisible(false);
+	            labelArea.setVisible(true);
+	            labelUKSG.setVisible(false);
 	            
 				
 			}
@@ -238,13 +245,17 @@ public class Radio extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent dropdownOK) {
 				
+				textPayload.setVisible(false);
+				
 				
 				JComboBox item = (JComboBox) dropdownOK.getSource();
 				//0. DEFAULT 1.SG 2.V 3. O
+				//Sportgruppe wurde ausgewählt
 				if(item.getSelectedIndex() == 1){
 					System.out.println("Klappt :)");
 					labelUKSG.setVisible(true);
 					dropdownUK.setVisible(true);
+					
 				}
 				//Wenn also der Default-Wert ausgewählt wurde.
 				else if (item.getSelectedIndex() == 0){
@@ -266,7 +277,30 @@ public class Radio extends JFrame{
 					
 			}
 			
-			
+		});
+		
+		dropdownUK.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent dropdownUK) {
+				
+				JComboBox item2 = (JComboBox) dropdownUK.getSource();
+				
+				//Wenn ein richtiges gewählt wurde
+				if (item2.getSelectedIndex() < unterkategorie.length && item2.getSelectedIndex() != 0){
+					textPayload.setVisible(true);
+					labelArea.setVisible(true);
+					
+				}
+					
+					
+				for (int i = 0; i < unterkategorie.length; i++) {
+					if(item2.getSelectedIndex() == i){
+						//Aktualisieren LISTE mit Informationen bezüglich der Sportart
+					}
+					
+				}
+			}
 		});
 	
 		
