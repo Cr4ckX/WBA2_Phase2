@@ -93,8 +93,7 @@ public class Radio extends JFrame{
 		String[] oberkategorie = new String[] {"Kategorien", "Sportgruppen", "Veranstalter", "Orte"};
 		dropdownOK = new JComboBox(oberkategorie);
 		
-		final String[] unterkategorie = new String[] {"Sportarten", "Kampfsport", "RŸckschlag", "Schnee", "Soooonenschein"};
-		dropdownUK = new JComboBox(unterkategorie);
+		
 		
 		String[] Orte = new String[] {"Hemmerden", "NiebÙll", "Leck", "Grevenbroich", "Hamburg(meinePerle)"};
 		dropdownUUK = new JComboBox(Orte);

@@ -40,7 +40,7 @@ public class tabs {
                 PanelO.add(new JButton("Button des zweiten Tabs"));
                 tabLeisteI.addTab("Orte", PanelO);
                 
-                tabLeisteI.setVisible(false);
+                tabLeisteI.setVisible(true);
                 
                 
                 /***************************************************************/
