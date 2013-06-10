@@ -1,10 +1,13 @@
 package GUI;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.EventListener;
 import java.awt.event.*;
+import javax.swing.JScrollPane;
 
 
 /*Von javax.swing abgeleitet*/
@@ -15,7 +18,9 @@ public class Radio extends JFrame{
 	private JLabel labelAnweisung, loginI, loginV, labelOK, labelUKSG, labelUUK; 
 	private ButtonGroup rbtngroup;
 	private JComboBox dropdownOK, dropdownUK, dropdownUUK;
-	
+	private JTextArea textPayload;
+	private JPanel contentPane;
+
 	
 	
 	
@@ -23,15 +28,17 @@ public class Radio extends JFrame{
 		//Konstruktor der Elternklasse aufrufen
 		super();
 		
-	
-		//Titel setzen (Vom Fenster)
-		this.setTitle("Herzlich Willkommen");
+		contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+		
+
 		
 		/***************************************************************/
 		/*****************************Layout****************************/
 		/***************************************************************/
 		
-		this.setLayout(null);
+		contentPane.setLayout(null);
 		
 		
 		/***************************************************************/
@@ -67,7 +74,7 @@ public class Radio extends JFrame{
 		
 		//Auswahl/ZurŸckButton
 		btnAuswahl = new JButton("Auswahl");
-		btnZurueck = new JButton("ZurŸck");
+		btnZurueck = new JButton("Zurück");
 		
 		//Erstmal unsichtbar
 		btnZurueck.setVisible(false);
@@ -81,10 +88,10 @@ public class Radio extends JFrame{
 		 * /
 		/***************************************************************/
 		
-		String[] oberkategorie = new String[] {"DEFAULT", "Sportgruppen", "Veranstalter", "Orte"};
+		String[] oberkategorie = new String[] {"Kategorien", "Sportgruppen", "Veranstalter", "Orte"};
 		dropdownOK = new JComboBox(oberkategorie);
 		
-		String[] Veranstalter = new String[] {"Kampfsport", "RŸckschlag", "Schnee", "Soooonenschein"};
+		String[] Veranstalter = new String[] {"Sportarten", "Kampfsport", "Rückschlag", "Schnee", "Soooonenschein"};
 		dropdownUK = new JComboBox(Veranstalter);
 		
 		String[] Orte = new String[] {"Hemmerden", "NiebŸll", "Leck", "Grevenbroich", "Hamburg(meinePerle)"};
@@ -95,6 +102,17 @@ public class Radio extends JFrame{
 		dropdownUK.setVisible(false);
 		dropdownUUK.setVisible(false);
 		
+		
+		/***************************************************************/
+		/**************************Text-Area****************************/
+		/***************************************************************/	
+		
+		textPayload = new JTextArea();
+        textPayload.setLineWrap(true);
+        
+        //Erstmal unsichtbar
+        textPayload.setVisible(true);
+       
 		
 		/***************************************************************/
 		/*************************Positionierung************************/
@@ -118,24 +136,28 @@ public class Radio extends JFrame{
 		dropdownUUK.setBounds(10, 150, 200, 100);
 		
 		
+		textPayload.setBounds(600, 50, 350, 300);
+		
+		
 		
 		/***************************************************************/
 		/*******************Einfuegen in die Pane***********************/
 		/***************************************************************/	
 		/*Einfuegen in die Pane*/
-		this.getContentPane().add(labelAnweisung);
-		this.getContentPane().add(rbtnI);
-		this.getContentPane().add(rbtnV);
-		this.getContentPane().add(btnAuswahl);
-		this.getContentPane().add(btnZurueck);
-		this.getContentPane().add(loginI);
-		this.getContentPane().add(loginV);
-		this.getContentPane().add(dropdownOK);
-		this.getContentPane().add(dropdownUK);
-		this.getContentPane().add(dropdownUUK);
-		this.getContentPane().add(labelOK);
-		this.getContentPane().add(labelUKSG);
-		this.getContentPane().add(labelUUK);
+		contentPane.add(labelAnweisung);
+		contentPane.add(rbtnI);
+		contentPane.add(rbtnV);
+		contentPane.add(btnAuswahl);
+		contentPane.add(btnZurueck);
+		contentPane.add(loginI);
+		contentPane.add(loginV);
+		contentPane.add(dropdownOK);
+		contentPane.add(dropdownUK);
+		contentPane.add(dropdownUUK);
+		contentPane.add(labelOK);
+		contentPane.add(labelUKSG);
+		contentPane.add(labelUUK);
+		contentPane.add(textPayload);
 		
 	
 	
@@ -224,11 +246,22 @@ public class Radio extends JFrame{
 					labelUKSG.setVisible(true);
 					dropdownUK.setVisible(true);
 				}
+				//Wenn also der Default-Wert ausgewählt wurde.
+				else if (item.getSelectedIndex() == 0){
+					labelUKSG.setVisible(false);
+					dropdownUK.setVisible(false);
+				}
+				
+				//Wenn also Veranstalter ausgewählt wurde ausgewählt wurde.
 				else if (item.getSelectedIndex() == 2){
 					labelUKSG.setVisible(false);
 					dropdownUK.setVisible(false);
-					
-					
+				}
+				
+				//Wenn also Orte ausgewählt wurde ausgewählt wurde.
+				else if (item.getSelectedIndex() == 3){
+					labelUKSG.setVisible(false);
+					dropdownUK.setVisible(false);
 				}
 					
 			}
