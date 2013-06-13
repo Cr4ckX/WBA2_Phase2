@@ -30,34 +30,28 @@ public class SportgruppeKonkret {
 	//Hole konkrete Sportgruppe(ninformationen)
 	/**
 	 * 
+	 * Konkrete Sportgruppe per GET angefordert.
+	 * Lieftert das JAXB-Object 'Sportgruppe'. Aus diesem können dann für die Sportgruppe
+	 * zugehörigen Informationen ausgelesen werden.
+	 * 
+	 * MIME-TYPE: application/xml.
+	 * 
 	 * @param spgId Sportgruppen URI-Parameter. Hierbei handelt es sich um die übergebene id in der URI.
-	 * @return Liefert Sportgruppeninformationen bei vorhandener id. Bei nichtvorhandener id wird 
-	 * ein Fehler in textueller Form ausgegeben. TODO: exception-Handling wäre wünschenswert.
-	 * @throws Exception
+	 * @return Liefert Sportgruppeninformationen bei vorhandener id. Bei nichtvorhandener id wird NULL zurückgegeben.
 	 * 
-	 * Konkrete Sporgruppe per GET angefordert.
-	 * Es wird die zugehörigen Sporgruppeninformationen (Name + Beschreibung) in textueller
-	 * form (return value: String) ausgegeben. 
-	 * 
-	 * MIME-TYPE: text/plain. Momentan noch keine Unterstützung für application/xml.
 	 */
 	@GET
-	@Produces(MediaType.TEXT_PLAIN)
-	public String getSportgruppe(@PathParam("spgId") String spgId)
-			throws Exception {
+	@Produces(MediaType.APPLICATION_XML)
+	public Sportgruppe getSportgruppe(@PathParam("spgId") String spgId){
 
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
+		Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(Integer.parseInt(spgId));
 
-		for (int i = 0; i < sgm.getSportgruppe().size(); i++) {
-			// konkrete Sportgruppe
-			Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(i);
-
-			//Wenn übergebene URI-id mit Sportgruppenid übereinstimmt, gib die Infos aus.
-			if (spgId.equals(sg.getId())) {
-				return	"Name: " +sg.getSGName() + 
-						"\nBeschreibung: " + sg.getSGBeschreibung();
-			}
+		if (spgId.equals(sg.getId())){
+			return sg;
 		}
-		return "Failture falsche Sportgruppe";
+		
+		System.out.println("Die angeforderte Sporgruppen-ID ist nicht vorhanden");
+		return null;
 	}
 }

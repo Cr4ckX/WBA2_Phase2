@@ -6,6 +6,7 @@ import generated.Sportgruppe;
 import generated.SportgruppenM;
 import generated.Sportverzeichnis;
 import generated.Veranstaltung;
+import generated.VeranstaltungenM;
 
 import java.io.File;
 
@@ -36,51 +37,40 @@ public class VeranstaltungKonkret {
 	
 	//GET - Hole Infos zu der konkreten Veranstaltung
 	@GET
-	@Produces(MediaType.TEXT_PLAIN)
-	public String getVeranstaltung(@PathParam("spgId") String spgId,
-			@PathParam("spaId") String spaId, @PathParam("vstId") String vstId) throws Exception {
+	@Produces(MediaType.APPLICATION_XML)
+	public Veranstaltung getVeranstaltung(
+			@PathParam("spgId") String spgId,
+			@PathParam("spaId") String spaId, 
+			@PathParam("vstId") String vstId) throws Exception {
 
 
-		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
+		//Sportgruppen (mehrzahl)
+		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();		
+		//Sportgruppe (einzahl)
+		Sportgruppe sg = sgm.getSportgruppe().get(Integer.parseInt(spgId));		
+		//Sportarten (mehrzahl)
+		SportartenM sm = sg.getSportartenM();
+		//Sportarte (einzahl)
+		Sportart s = sm.getSportart().get(Integer.parseInt(spaId));
+		//Veranstaltungen (mehrzahl)
+		VeranstaltungenM vm = s.getVeranstaltungenM();
+		//Veranstaltung (einzahl)
+		Veranstaltung v = vm.getVeranstaltung().get(Integer.parseInt(vstId));
 
-		for (int j = 0; j < sgm.getSportgruppe().size(); j++) {
-			// konkrete Sportgruppe
-			Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(j);
-
-			if (spgId.equals(sg.getId())) {
-				
-				// Liste aller Sportarten dieser Sportgruppe
-				SportartenM sm = (SportartenM) sg.getSportartenM();
-
-				for (int l = 0; l < sm.getSportart().size(); l++) {
-					// Konkrete Sportart
-					Sportart s = (Sportart) sm.getSportart().get(l);
-					
-					if (spaId.equals(s.getId()) && s.getVeranstaltungenM().getVeranstaltung().size() > 0) {
-						for (int m = 0; m < s.getVeranstaltungenM().getVeranstaltung().size(); m++) {
-							// Konkrete Veranstaltungen 
-							Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(m);
-							
-							
-							if (v.getId().equals(vstId) && v.isDeleted() == false){
-								return "Beschreibung: " + v.getVBeschreibung() +
-										"\nInfo: " + v.getVInfo() + 
-										"\nDatum " + v.getVDatum() +
-										"\nUhrzeit: " + v.getVUhrzeit() + 
-										"\nNiveau: " + v.getVNiveau() + 
-										"\nVorraussetzungen: " + v.getVVorraussetzungen();
-							}
-							else if(v.getId().equals(vstId)){
-								return "Die Veranstaltung mit der id " + vstId + " ist gelšscht und daher nicht aufrufbar.";
-							}
-						}							
-					}					
-				}			
+		if(spgId.equals(sg.getId()) && spaId.equals(s.getId()) && vstId.equals(v.getId())){
+			if(v.isDeleted() == false){
+				return v;
 			}
+			else if(v.getId().equals(vstId)){
+				System.out.println("Die Veranstaltung mit der id " + vstId + " ist gelšscht und daher nicht aufrufbar.");
+				return null;
+			}			
 		}
-
-		return "Keine Infos zu der Veranstaltung/falsche Veranstaltung";
+		System.out.println("Die angeforderte Sporgruppen-ID oder Sportart-ID oder Veranstaltung-ID ist nicht vorhanden");
+		return null;
 	}
+
+
 
 	//PUT - Setze Veranstaltungselemente
 	@PUT
@@ -93,7 +83,7 @@ public class VeranstaltungKonkret {
 			Veranstaltung uebergabe) throws Exception{
 
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
-
+		
 		for (int j = 0; j < sgm.getSportgruppe().size(); j++) {
 			// konkrete Sportgruppe
 			Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(j);

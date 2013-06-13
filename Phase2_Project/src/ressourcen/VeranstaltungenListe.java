@@ -6,6 +6,7 @@ import generated.Sportgruppe;
 import generated.SportgruppenM;
 import generated.Sportverzeichnis;
 import generated.Veranstaltung;
+import generated.VeranstaltungenM;
 
 import java.io.File;
 
@@ -37,75 +38,58 @@ public class VeranstaltungenListe {
 	
 	//GET - Hole zu der konkreten Sportart die Veranstaltungs-Liste
 	@GET
-	@Produces(MediaType.TEXT_PLAIN)
-	public String getVeranstaltungen(
+	@Produces(MediaType.APPLICATION_XML)
+	public VeranstaltungenM getVeranstaltungen(
 			@PathParam("spgId") String spgId,
 			@PathParam("spaId") String spaId,
 			@QueryParam("deleted") boolean deleted) throws Exception {
 
-		String ausgabe = "";
+		//Sportgruppen (mehrzahl)
+		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();		
+		//Sportgruppe (einzahl)
+		Sportgruppe sg = sgm.getSportgruppe().get(Integer.parseInt(spgId));		
+		//Sportarten (mehrzahl)
+		SportartenM sm = sg.getSportartenM();
+		//Sportarte (einzahl)
+		Sportart s = sm.getSportart().get(Integer.parseInt(spaId));
+		//Veranstaltungen (mehrzahl)
+		VeranstaltungenM vm = s.getVeranstaltungenM();
 		
-		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
+		VeranstaltungenM vmUebergabe = new VeranstaltungenM();
 
-		for (int j = 0; j < sgm.getSportgruppe().size(); j++) {
-			// konkrete Sportgruppe
-			Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(j);
-
-
-			if (spgId.equals(sg.getId())) {
-				
-
-				// Liste aller Sportarten dieser Sportgruppe
-				SportartenM sm = (SportartenM) sg.getSportartenM();
-
-				for (int l = 0; l < sm.getSportart().size(); l++) {
-					// Konkrete Sportart
-					Sportart s = (Sportart) sm.getSportart().get(l);
+		if(spgId.equals(sg.getId()) && spaId.equals(s.getId())){	
+			if(vm.getVeranstaltung().size() > 0){
+				for (int i = 0; i < vm.getVeranstaltung().size(); i++){
+					Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(i);
 					
-					if (spaId.equals(s.getId()) && s.getVeranstaltungenM().getVeranstaltung().size() > 0) {
-						for (int m = 0; m < s.getVeranstaltungenM().getVeranstaltung().size(); m++) {
-							// Konkrete Veranstaltungen (Veranstaltungsliste 1x fŸr gewisse Sportart):
-							Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(m);
-							
-							
-							if (deleted == true){
-								if (v.isDeleted() == true){
-									ausgabe += v.getId() + " " + v.getVBeschreibung();
-									
-									//Damit am Ende nicht noch ein "\n" angefŸgt wird.
-									if(m+1<s.getVeranstaltungenM().getVeranstaltung().size())
-										ausgabe += "\n";
-								}
-							}
-							else if (deleted == false){
-								if (v.isDeleted() == false){
-									ausgabe += v.getId() + " " + v.getVBeschreibung();
-									
-									//Damit am Ende nicht noch ein "\n" angefŸgt wird.
-									if(m+1<s.getVeranstaltungenM().getVeranstaltung().size())
-										ausgabe += "\n";
-								}
-							}
-							
-							//Standard/kein Query-Parameter.
-							else{
-								if (v.isDeleted() == false){
-									ausgabe += v.getId() + " " + v.getVBeschreibung();
-									
-										//Damit am Ende nicht noch ein "\n" angefŸgt wird.
-										if(m+1<s.getVeranstaltungenM().getVeranstaltung().size())
-											ausgabe += "\n";
-								}
-							}
-						}
-						return ausgabe;
-					}					
-				}
-			}
-		}
+					//true
+					if(deleted == true){
+						if(v.isDeleted() == true)
+							vmUebergabe.getVeranstaltung().add(v);
+					}
+					
+					//Kein QueryParam / false
+					else if(deleted == false){
+						if (v.isDeleted() == false)
+							vmUebergabe.getVeranstaltung().add(v);
+					}
+
+					//Falscher QueryParam
+					else if(deleted != true && deleted != false){
+						System.out.println("Query Param fehlerhaft!");
+						return null;
+					}
 	
-		return "Keine Veranstaltungen zu der Sportart/Falsche Sportart";
+				}
+				return vmUebergabe;
+			}
+			System.out.println("Keine Veranstaltungen zu der Sportart.");
+			return null;	
+		}
+		System.out.println("Die angeforderte Sporgruppen-ID oder Sportart-ID ist nicht vorhanden.");
+		return null;
 	}
+
 
 	//POST - FŸge Veranstaltung hinzu
 	/**

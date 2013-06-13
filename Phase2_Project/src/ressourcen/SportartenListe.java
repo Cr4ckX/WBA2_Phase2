@@ -1,21 +1,16 @@
 package ressourcen;
 
-import generated.Sportart;
 import generated.SportartenM;
 import generated.Sportgruppe;
 import generated.SportgruppenM;
 import generated.Sportverzeichnis;
-
-
-import java.io.File;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
+
 
 import jaxb.Unmarshalling;
 
@@ -24,10 +19,16 @@ public class SportartenListe {
 	
 	Sportverzeichnis sv;
 	
-	public SportartenListe() throws Exception{
+	public SportartenListe(){
 		// Unmarshalling
 		Unmarshalling um = new Unmarshalling();
-		sv = um.xmlUnmarshallen();
+		try {
+			sv = um.xmlUnmarshallen();
+		} catch (Exception e) {
+			System.out.println("Fehler beim Unmarshallen!");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	//Hole zur konkreten Sportgruppe die Sportarten-Liste
@@ -35,43 +36,31 @@ public class SportartenListe {
 	 * Sportarten-Liste per GET angefordert.
 	 * Bei der Ausgabe handelt es sich um einen zusammengesetzen String der einzelnen Sportarten. 
 	 * 
-	 * MIME-TYPE: text/plain. Momentan noch keine Unterstützung für application/xml.
+	 * Lieftert das JAXB-Object 'SportartenM'.
+	 * 
+	 * MIME-TYPE: application/xml.
 	 * 
 	 * @param spgId Sportgruppen URI-Parameter. Hierbei handelt es sich um die übergebene id in der URI.
-	 * @return liefert die einzelnen konkreten Sportarten der zugehörigen Sportgruppe
+	 * @return liefert Sportarten-Liste bzw. NULL wenn Sportgruppen-ID falsch. 
 	 * @throws Exception
 	 */
 	@GET
-	@Produces(MediaType.TEXT_PLAIN)
-	public String getSportarten(@PathParam("spgId") String spgId) throws Exception {
+	@Produces(MediaType.APPLICATION_XML)
+	public SportartenM getSportarten(@PathParam("spgId") String spgId) throws Exception {
 
-		String ausgabe = "";
-
-		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
-
-		for (int j = 0; j < sgm.getSportgruppe().size(); j++) {
-			// konkrete Sportgruppe
-			Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(j);
-
-			if (spgId.equals(sg.getId())) {
-				
-				// Liste aller Sportarten dieser Sportgruppe
-				SportartenM sm = (SportartenM) sg.getSportartenM();
-
-				for (int l = 0; l < sm.getSportart().size(); l++) {
-					// Konkrete Sportart
-					Sportart s = (Sportart) sm.getSportart().get(l);
-					
-					ausgabe += s.getId() + " " + s.getSName();
-					
-					//Damit am Ende nicht noch ein "\n" angefügt wird.
-					if(l+1 < sm.getSportart().size())
-						ausgabe += "\n";
-
-				}	
-				return ausgabe;	
-			}
+		//Sportgruppen (mehrzahl)
+		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();		
+		//Sportgruppe (einzahl)
+		Sportgruppe sg = sgm.getSportgruppe().get(Integer.parseInt(spgId));		
+		//Sportarten (mehrzahl)
+		SportartenM sm = sg.getSportartenM();
+		
+		if (spgId.equals(sg.getId())){
+			return sm;
 		}
-		return "Failture (keine Sportarten in dieser Gruppe/Falsche Gruppe)";
+		
+		System.out.println("Die angeforderte Sporgruppen-ID ist nicht vorhanden");
+		return null;	
+		
 	}
 }

@@ -32,7 +32,7 @@ public class SportartKonkret {
 
 	//Hole zu der konkreten Sportart die zugehörigen Informationen
 	@GET
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_XML)
 	/**
 	 * 
 	 * @param spgId spgId Sportgruppen URI-Parameter. Hierbei handelt es sich um die übergebene id in der URI.
@@ -46,39 +46,24 @@ public class SportartKonkret {
 	 * 
 	 * MIME-TYPE: text/plain. Momentan noch keine Unterstützung für application/xml.
 	 */
-	public String getSportart(@PathParam("spgId") String spgId,
+	public Sportart getSportart(@PathParam("spgId") String spgId,
 			@PathParam("spaId") String spaId) throws Exception {
 
-		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
+		//Sportgruppen (mehrzahl)
+		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();		
+		//Sportgruppe (einzahl)
+		Sportgruppe sg = sgm.getSportgruppe().get(Integer.parseInt(spgId));		
+		//Sportarten (mehrzahl)
+		SportartenM sm = sg.getSportartenM();
+		//Sportarte (einzahl)
+		Sportart s = sm.getSportart().get(Integer.parseInt(spaId));
 
-		for (int j = 0; j < sgm.getSportgruppe().size(); j++) {
-			// konkrete Sportgruppe
-			Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(j);
-
-			if (spgId.equals(sg.getId())) {
-				
-
-				// Liste aller Sportarten dieser Sportgruppe
-				SportartenM sm = (SportartenM) sg.getSportartenM();
-
-				for (int l = 0; l < sm.getSportart().size(); l++) {
-					// Konkrete Sportart
-					Sportart s = (Sportart) sm.getSportart().get(l);
-					
-					if (spaId.equals(s.getId())) {
-						
-						return "Sportart: " + s.getSName() +
-							   "\nBeschreibung: " + s.getSBeschreibung() + 
-							   "\nHerkunft: " + s.getSHerkunft() +
-							   "\nVorraussetzungen: " + s.getSVorraussetzung() + 
-							   "\nRegeln: " + s.getSRegeln();
-					}				
-				}
-			}
-
+		if(spgId.equals(sg.getId()) && spaId.equals(s.getId())){
+			return s;
 		}
-
-		return "Keine Informationen zu der Sportart/Falsche Sportart";
+			
+		System.out.println("Die angeforderte Sporgruppen-ID oder Sportart-ID ist nicht vorhanden");
+		return null;
 	}
 
 	
