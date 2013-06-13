@@ -4,20 +4,21 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import com.sun.org.apache.xerces.internal.impl.RevalidationHandler;
  
 public class neu 
 {
 	
 		private static JLabel labelAnweisung, labelSG, labelSA, labelV, labelO, labelAreaSG, labelAreaV, labelAreaO, labelVS;
-		private static JRadioButton rbtnI;
-		private static JRadioButton rbtnV;
 		private static JComboBox dropdownSG, dropdownSA, dropdownV, dropdownVS, dropdownO;
 		private static JTextArea AreaSG, AreaV, AreaO;
-		private static JButton btnsubscribe, btnunsubscribe ,btnpublish, btnzurueck;  
+		private static JButton btnsubscribe, btnunsubscribe ,btnpublish, btnzurueck, btnzurueckV, btnzurueckO;  
 		
 		final static JFrame fenster = new JFrame("Herzlich Willkommen");
         final static JTabbedPane tabLeiste = new JTabbedPane();
         final static JTabbedPane tabLeiste2 = new JTabbedPane();
+        static JPanel PanelMain = new JPanel ();
 		static JPanel panelSG = new JPanel();
 		static JPanel panelV = new JPanel();
 		static JPanel panelO = new JPanel();
@@ -30,6 +31,7 @@ public class neu
                 fenster.setSize(1000, 600);
                 fenster.setLocationRelativeTo(null);
                 fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                
                 
                 
                 Object[] options = {"Interessent", "Veranstalter"};
@@ -49,11 +51,21 @@ public class neu
                 	showDropdownSG();
                 	showDropdownVS();
                 	showDropdownO();
+                	showAreaO();
+                	showAreaV();
              
                     fenster.add(tabLeiste);
                     fenster.setVisible(true);
                 	
-                } //Ende der If
+                } 
+
+                if(selected == 1)
+                {
+                	showPanelsV();
+                	
+                	fenster.add(tabLeiste2);
+                    fenster.setVisible(true);
+                }
                 
                              
                 
@@ -61,7 +73,16 @@ public class neu
         }
  
      
-    	
+    	public static void showPanelMain(){
+    		
+    		PanelMain.add(btnsubscribe);
+    		PanelMain.add(btnunsubscribe);
+    		PanelMain.add(btnzurueck);
+    		showButtonSubsribe();
+    		showButtonUnsubsribe();
+    		showButtonZurueck();
+    		showArea();
+    	}
     	
     	public static void showPanelsI(){
     		
@@ -69,6 +90,8 @@ public class neu
 	    	/**************************PANEL********************************/
 	    	/***************************************************************/	
 	        
+    		PanelMain.setLayout(null);
+    		
 	        panelSG.setLayout(null);	
 	        tabLeiste.addTab("Sportgruppen", panelSG);
 	            
@@ -119,6 +142,9 @@ public class neu
 //	        				
 //	        				if (item.getSelectedIndex() != 0 && item.getSelectedIndex() < DropDownSG.length){
 	        				showDropdownSA();	
+	        				showArea();
+	        				
+	        				
 	        					
 	        		}
 	        	});
@@ -130,19 +156,19 @@ public class neu
     		labelSA = new JLabel("Bitte wŠhlen Sie eine Sportart!");
     		labelSA.setBounds(10, 70, 300, 100);
             panelSG.add(labelSA);
+            panelSG.validate();
     		
             final String[] DropDownSA = new String[] {"Sportarten", "Kampfsport", "RŸckschlag", "Schnee", "Soooonenschein"};
         	dropdownSA = new JComboBox(DropDownSA);
         	dropdownSA.setBounds(10, 90, 200, 100);
         	panelSG.add(dropdownSA);
-
+        	panelSG.validate();
         	
         	dropdownSA.addActionListener(new ActionListener()
         	{
         		public void actionPerformed(ActionEvent dropdownSAe) 
         		{ 			
     				showDropdownV();
-    				showAreaSG();
         		}
    			});
     	}
@@ -151,14 +177,35 @@ public class neu
     		
     		labelV = new JLabel("Bitte wŠhlen Sie eine Veranstaltung!");
     		labelV.setBounds(10, 120, 300, 100);
-            panelSG.add(labelV);
+            panelV.add(labelV);
+            panelV.validate();
 
     		
-            final String[] DropDownV = new String[] {"Veranstaltungen", "Bla", "Beispiel1", "Example", "Ejemplo"};
-        	dropdownV = new JComboBox(DropDownV);
+            String[] DropDownV = new String[] {"Veranstaltungen", "Bla", "Beispiel1", "Example", "Ejemplo"};
+        	
+            dropdownV = new JComboBox(DropDownV);
         	dropdownV.setBounds(10, 140, 200, 100);
-        	panelSG.add(dropdownV);
+        	panelV.add(dropdownV);
+        	panelV.validate();
 
+    	
+        	
+        	dropdownV.addActionListener(new ActionListener()
+        	{
+        		public void actionPerformed(ActionEvent dropdownVe) 
+        		{ 			
+//        				JComboBox item = (JComboBox) dropdownSGe.getSource();
+//        				
+//        				if (item.getSelectedIndex() != 0 && item.getSelectedIndex() < DropDownSG.length){
+        				showButtonZurueckV();
+        				showButtonSubsribe();
+        				showButtonUnsubsribe();
+        				
+        					
+        		}
+        	});
+    	
+    	
     	}
 
     	public static void showDropdownVS(){
@@ -166,14 +213,14 @@ public class neu
     		labelVS = new JLabel("Bitte wŠhlen Sie eine(n) Veranstalter/in!");
             labelVS.setBounds(10, 10, 300, 100);
             panelV.add(labelVS);
-            labelVS.setVisible(true);
-    		
+            panelV.validate();
+            
         	final String[] DropDownVS = new String[] {"Veranstalter", "David", "Laura", "Super", "Mentor"};
         	dropdownVS = new JComboBox(DropDownVS);
         	dropdownVS.setBounds(10, 40, 200, 100);
         	panelV.add(dropdownVS);
-        	dropdownVS.setVisible(true);	
-    		
+        	panelV.validate();
+        	
     	}
 
     	public static void showDropdownO(){
@@ -182,26 +229,29 @@ public class neu
             labelO.setBounds(10, 10, 300, 100);
             panelO.add(labelO);
             labelO.setVisible(true);
+            labelO.validate();
     		
     		final String[] DropDownO = new String[] {"Orte", "Bernberg", "Hesselbach", "Niederse§mar", "Wiehl"};
         	dropdownO = new JComboBox(DropDownO);
         	dropdownO.setBounds(10, 40, 200, 100);
         	panelO.add(dropdownO);
-        	dropdownO.setVisible(true);
+        	panelO.validate();
     	}
 
     	public static void showButtonZurueck(){
     		
     		btnzurueck = new JButton ("ZurŸck");
         	btnzurueck.setBounds(800, 500, 150, 25);
-        	panelSG.add(btnzurueck);
+        	PanelMain.add(btnzurueck);
+        	PanelMain.validate();
+
         	
         	
         	btnzurueck.addActionListener(new ActionListener() {
 				
 				
             	public void actionPerformed(ActionEvent btnzuruecke) {
-					
+				
             	fenster.dispose();
             	
             	Object[] options = {"Interessent", "Veranstalter"};
@@ -213,6 +263,109 @@ public class neu
                   JOptionPane.INFORMATION_MESSAGE, 
                   null, options, options[0]);
 					
+	                if(selected == 0)
+	                {
+	                	fenster.repaint();
+	                	fenster.validate();
+	                	showPanelsI();
+	                	showDropdownSG();
+	                	showDropdownVS();
+	                	showDropdownO();
+	             
+	                    fenster.add(tabLeiste);
+	                    fenster.setVisible(true);
+	                	
+	                }
+	                
+//	                if(selected == 1)
+				}
+			});
+    	}
+    	
+    	public static void showButtonZurueckV(){
+    		
+    		btnzurueckV = new JButton ("ZurŸck");
+        	btnzurueckV.setBounds(800, 500, 150, 25);
+        	panelV.add(btnzurueckV);
+        	panelV.validate();
+
+        	
+        	
+        	btnzurueckV.addActionListener(new ActionListener() {
+				
+				
+            	public void actionPerformed(ActionEvent btnzurueckVe) {
+				
+            	fenster.dispose();
+            	
+            	Object[] options = {"Interessent", "Veranstalter"};
+                
+                int selected = JOptionPane.showOptionDialog(null,
+                  "Welche Rolle haben Sie?",
+                  "Alternativen",
+                  JOptionPane.DEFAULT_OPTION, 
+                  JOptionPane.INFORMATION_MESSAGE, 
+                  null, options, options[0]);
+					
+	                if(selected == 0)
+	                {
+	                	fenster.repaint();
+	                	fenster.validate();
+	                	showPanelsI();
+	                	showDropdownSG();
+	                	showDropdownVS();
+	                	showDropdownO();
+	             
+	                    fenster.add(tabLeiste);
+	                    fenster.setVisible(true);
+	                	
+	                }
+	                
+//	                if(selected == 1)
+				}
+			});
+    	}
+
+    	public static void showButtonZurueckO(){
+    		
+    		btnzurueckO = new JButton ("ZurŸck");
+        	btnzurueckO.setBounds(800, 500, 150, 25);
+        	panelO.add(btnzurueckV);
+        	panelO.validate();
+
+        	
+        	
+        	btnzurueckO.addActionListener(new ActionListener() {
+				
+				
+            	public void actionPerformed(ActionEvent btnzurueckOe) {
+				
+            	fenster.dispose();
+            	
+            	Object[] options = {"Interessent", "Veranstalter"};
+                
+                int selected = JOptionPane.showOptionDialog(null,
+                  "Welche Rolle haben Sie?",
+                  "Alternativen",
+                  JOptionPane.DEFAULT_OPTION, 
+                  JOptionPane.INFORMATION_MESSAGE, 
+                  null, options, options[0]);
+					
+	                if(selected == 0)
+	                {
+	                	fenster.repaint();
+	                	fenster.validate();
+	                	showPanelsI();
+	                	showDropdownSG();
+	                	showDropdownVS();
+	                	showDropdownO();
+	             
+	                    fenster.add(tabLeiste);
+	                    fenster.setVisible(true);
+	                	
+	                }
+	                
+//	                if(selected == 1)
 				}
 			});
     	}
@@ -222,6 +375,9 @@ public class neu
         	btnsubscribe = new JButton("Abonnieren");
         	btnsubscribe.setBounds(600, 400, 150, 25);
         	panelSG.add(btnsubscribe);
+        	panelSG.validate();
+        	panelSG.repaint();
+
         	
     	}
     	
@@ -230,19 +386,27 @@ public class neu
         	btnunsubscribe = new JButton("EntAbonnieren");
         	btnunsubscribe.setBounds(800, 400, 150, 25);
         	panelSG.add(btnunsubscribe);
+        	panelSG.validate();
+        	panelSG.repaint();
+
     	}
 
-    	public static void showAreaSG(){
+    	public static void showArea(){
     		
     		labelAreaSG = new JLabel("Informationen bezŸglich: ");
             labelAreaSG.setBounds(600, 10, 300, 100);
             panelSG.add(labelAreaSG);
+        	panelSG.validate();
+        	panelSG.repaint();
+
 
 
             AreaSG = new JTextArea();
             AreaSG.setLineWrap(true);
     		AreaSG.setBounds(600, 90, 350, 300);
     		panelSG.add(AreaSG);
+        	panelSG.validate();
+
             
     	}
     	
@@ -252,12 +416,14 @@ public class neu
             labelAreaV = new JLabel("Informationen bezŸglich: ");
             labelAreaV.setBounds(600, 10, 300, 100);
             panelV.add(labelAreaV);
+            panelV.validate();
             
 
             AreaV = new JTextArea();
             AreaV.setLineWrap(true);
     		AreaV.setBounds(600, 90, 350, 300);
     		panelV.add(AreaV);
+    		panelV.validate();
     		
     	}
     	
@@ -267,12 +433,16 @@ public class neu
             labelAreaO = new JLabel("Informationen bezŸglich: ");
             labelAreaO.setBounds(600, 10, 300, 100);
             panelO.add(labelAreaO);
+        	panelO.validate();
+
             
 
             AreaO = new JTextArea();
             AreaO.setLineWrap(true);
     		AreaO.setBounds(600, 90, 350, 300);
     		panelO.add(AreaO);
+        	panelO.validate();
+
             
     		
     	}
