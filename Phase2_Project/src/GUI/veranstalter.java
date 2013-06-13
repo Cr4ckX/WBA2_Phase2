@@ -1,63 +1,44 @@
-package GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
- 
-public class neu 
-{
-	
-		private static JLabel labelAnweisung, labelSG, labelSA, labelV, labelO, labelAreaSG, labelAreaV, labelAreaO, labelVS;
-		private static JRadioButton rbtnI;
-		private static JRadioButton rbtnV;
-		private static JComboBox dropdownSG, dropdownSA, dropdownV, dropdownVS, dropdownO;
-		private static JTextArea AreaSG, AreaV, AreaO;
-		private static JButton btnsubscribe, btnunsubscribe ,btnpublish, btnzurueck;  
-		
-		//TAB-Leiste!
-        final static JTabbedPane tabLeiste = new JTabbedPane();
-		
-		static JPanel panelSG = new JPanel();
-		static JPanel panelV = new JPanel();
-		static JPanel panelO = new JPanel();
-		
-		
-		
-        public static void main(String[] args) {
-                final JFrame fenster = new JFrame("Herzlich Willkommen");
-                fenster.setSize(1000, 600);
-                fenster.setLocationRelativeTo(null);
-                fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
+
+/***************************************************************/
+                /**************************Veranstalter*************************/
+                /***************************************************************/	                
                 
                 
-                Object[] options = {"Interessent", "Veranstalter"};
-                
-                int selected = JOptionPane.showOptionDialog(null,
-                  "Welche Rolle haben Sie?",
-                  "Alternativen",
-                  JOptionPane.DEFAULT_OPTION, 
-                  JOptionPane.INFORMATION_MESSAGE, 
-                  null, options, options[0]);
-                
-                
-                //Also wurde Interessent gewählt!
-                if(selected == 0){
+                //Wenn Veranstalter gewählt wurde
+                if(selected == 1){
                 	
                 	
                 	/***************************************************************/
                 	/**************************PANEL********************************/
                 	/***************************************************************/	
-                    
+                	//TAB-Leiste!
+                    JTabbedPane tabLeiste2 = new JTabbedPane();
+                    	
+                    JPanel panelSG = new JPanel();
                     panelSG.setLayout(null);	
-                    tabLeiste.addTab("Sportgruppen", panelSG);
+                    tabLeiste2.addTab("Equipment", panelSG);
                         
-                    
+                        
+                        
+         
+                    JPanel panelV = new JPanel();
                     panelV.setLayout(null);
-                    tabLeiste.addTab("Veranstalter", panelV);
+                    tabLeiste2.addTab("Beispiel", panelV);
         
+                        
+                    JPanel panelO = new JPanel();
                     panelO.setLayout(null);
-                    tabLeiste.addTab("Orte", panelO);
+                    panelO.add(new JButton("Button des zweiten Tabs"));
+                    tabLeiste2.addTab("Beispiel", panelO);
                 	
                 
                 
@@ -186,7 +167,15 @@ public class neu
             	panelSG.add(dropdownV);
             	dropdownV.setVisible(false);
             	
-            	
+            	/***************************************/
+            	/***************DropDownVS**************/
+            	/***************************************/
+            	final String[] DropDownVS = new String[] {"Veranstalter", "David", "Laura", "Super", "Mentor"};
+            	dropdownVS = new JComboBox(DropDownVS);
+            	dropdownVS.setBounds(10, 40, 200, 100);
+            	panelV.add(dropdownVS);
+            	dropdownVS.setVisible(true);	
+            		
             	
             	/***************************************/
             	/***************DropDownO**************/
@@ -197,128 +186,49 @@ public class neu
             	panelO.add(dropdownO);
             	dropdownO.setVisible(true);
             	
-            	
-            	/***************************************************************/
-            	/**************************Button*******************************/
-            	/***************************************************************/
-                
-            	btnzurueck = new JButton ("Zurück");
-            	btnzurueck.setBounds(800, 500, 150, 25);
-            	panelSG.add(btnzurueck);
-            	
-            	
-//            	panelV.add(btnzurueck);
-//            	panelO.add(btnzurueck);
-                    
-                /*********************************/
-              	/************ButtonSG*************/
-               	/*********************************/ 
-            	
-            	btnsubscribe = new JButton("Abonnieren");
-            	btnsubscribe.setBounds(600, 400, 150, 25);
-            	panelSG.add(btnsubscribe);
-            	btnsubscribe.setVisible(false);
-            	
-            	
-            	btnunsubscribe = new JButton("EntAbonnieren");
-            	btnunsubscribe.setBounds(800, 400, 150, 25);
-            	panelSG.add(btnunsubscribe);
-            	btnunsubscribe.setVisible(false);
-            	/***************************************************************/
-            	/**************************Actions******************************/
-            	/***************************************************************/
-                    
-                    
-                /*********************************/
-              	/************ActionsSG************/
-               	/*********************************/ 
                    
                 /*ACTIONS*/
-                         	
-                btnzurueck.addActionListener(new ActionListener() {
-					
-				
-                	public void actionPerformed(ActionEvent btnzuruecke) {
-						
-                	fenster.dispose();
-                	
-                	Object[] options = {"Interessent", "Veranstalter"};
-                    
-                    int selected = JOptionPane.showOptionDialog(null,
-                      "Welche Rolle haben Sie?",
-                      "Alternativen",
-                      JOptionPane.DEFAULT_OPTION, 
-                      JOptionPane.INFORMATION_MESSAGE, 
-                      null, options, options[0]);
-						
-					}
-				});
                 
                 
                 dropdownSG.addActionListener(new ActionListener(){
 
         			@Override
-        		public void actionPerformed(ActionEvent dropdownSGe) 
+        		public void actionPerformed(ActionEvent dropdownSG) 
         		{ 			
         				
+        		
+        				JComboBox item = (JComboBox) dropdownSG.getSource();
         				
-//        				JComboBox item = (JComboBox) dropdownSGe.getSource();
-//        				
-//        				if (item.getSelectedIndex() != 0 && item.getSelectedIndex() < DropDownSG.length){
+        				if (item.getSelectedIndex() != 0 && item.getSelectedIndex() < DropDownSG.length){
         					dropdownSA.setVisible(true);
         					labelSA.setVisible(true);
         					AreaSG.setVisible(true);
         					labelAreaSG.setVisible(true);
-        					btnsubscribe.setVisible(true);
-        					btnunsubscribe.setVisible(true);
         				
         				}
         			}
         			
-        		);
+        		});
                 
                 dropdownSA.addActionListener(new ActionListener(){
 
         			@Override
-        		public void actionPerformed(ActionEvent dropdownSAe) 
+        		public void actionPerformed(ActionEvent dropdownSA) 
         		{ 			
         				AreaSG.setVisible(true);
-//        				JComboBox item = (JComboBox) dropdownSAe.getSource();
-//        				
-//        				if (item.getSelectedIndex() != 0 && item.getSelectedIndex() < DropDownSA.length){
+        				JComboBox item = (JComboBox) dropdownSA.getSource();
+        				
+        				if (item.getSelectedIndex() != 0 && item.getSelectedIndex() < DropDownSA.length){
         					dropdownV.setVisible(true);
         					labelV.setVisible(true);
-        					btnsubscribe.setVisible(true);
-        					btnunsubscribe.setVisible(true);
-        					
         					
         				}
         			}
         			
-        		);
+        		});
                     
                     
-                    fenster.add(tabLeiste);
+                    fenster.add(tabLeiste2);
                     fenster.setVisible(true);
                 	
-            } //Ende der If
-                
-                             
-                
-                
-        }
- 
-        /***************************************/
-    	/***************DropDownVS**************/
-    	/***************************************/
-    	
-    	public void dropdownVS(){
-    	
-        	final String[] DropDownVS = new String[] {"Veranstalter", "David", "Laura", "Super", "Mentor"};
-        	dropdownVS = new JComboBox(DropDownVS);
-        	dropdownVS.setBounds(10, 40, 200, 100);
-        	panelV.add(dropdownVS);
-        	dropdownVS.setVisible(true);	
-    		
-    	}
-}
+            } //Ende der If   
