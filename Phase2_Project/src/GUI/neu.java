@@ -133,6 +133,7 @@ public class neu
 //	        				if (item.getSelectedIndex() != 0 && item.getSelectedIndex() < DropDownSG.length){
 	        				showDropdownSA();	
 	        				showArea();
+	        				showButtonZurueckSG();
 	        				
 	        				
 	        					
@@ -178,8 +179,6 @@ public class neu
         	panelSG.add(dropdownV);
         	panelSG.validate();
 
-    	
-        	
         	dropdownV.addActionListener(new ActionListener()
         	{
         		public void actionPerformed(ActionEvent dropdownVe) 
@@ -225,6 +224,21 @@ public class neu
         	dropdownO.setBounds(10, 40, 200, 100);
         	panelO.add(dropdownO);
         	panelO.validate();
+        	
+        	
+        	dropdownO.addActionListener(new ActionListener()
+        	{
+        		public void actionPerformed(ActionEvent dropdownOe) 
+        		{ 			
+//        				JComboBox item = (JComboBox) dropdownSGe.getSource();
+//        				
+//        				if (item.getSelectedIndex() != 0 && item.getSelectedIndex() < DropDownSG.length){
+        				showButtonZurueckO();
+        				
+        				
+        					
+        		}
+        	});
     	}
 
     	public static void showButtonZurueckSG(){
@@ -317,47 +331,46 @@ public class neu
 
     	public static void showButtonZurueckO(){
     		
-    		btnzurueckO = new JButton ("ZurŸck");
-        	btnzurueckO.setBounds(800, 500, 150, 25);
-        	panelO.add(btnzurueckV);
-        	panelO.validate();
-
-        	
-        	
-        	btnzurueckO.addActionListener(new ActionListener() {
-				
-				
-            	public void actionPerformed(ActionEvent btnzurueckOe) {
-				
-            	fenster.dispose();
-            	
-            	Object[] options = {"Interessent", "Veranstalter"};
-                
-                int selected = JOptionPane.showOptionDialog(null,
-                  "Welche Rolle haben Sie?",
-                  "Alternativen",
-                  JOptionPane.DEFAULT_OPTION, 
-                  JOptionPane.INFORMATION_MESSAGE, 
-                  null, options, options[0]);
-					
-	                if(selected == 0)
-	                {
-	                	fenster.repaint();
-	                	fenster.validate();
-	                	showPanelsI();
-	                	showDropdownSG();
-	                	showDropdownVS();
-	                	showDropdownO();
-	             
-	                    fenster.add(tabLeiste);
-	                    fenster.setVisible(true);
-	                	
-	                }
-	                
-//	                if(selected == 1)
-				}
-			});
-    	}
+        	btnzurueckO = new JButton ("ZurŸck");
+           	btnzurueckO.setBounds(800, 500, 150, 25);
+           	panelO.add(btnzurueckSG);
+           	panelO.validate();
+           	
+           	
+           	btnzurueckO.addActionListener(new ActionListener() {
+    				
+           	public void actionPerformed(ActionEvent btnzurueckOe) {
+    				
+                	fenster.dispose();
+                	
+                	Object[] options = {"Interessent", "Veranstalter"};
+                    
+                    int selected = JOptionPane.showOptionDialog(null,
+                      "Welche Rolle haben Sie?",
+                      "Alternativen",
+                      JOptionPane.DEFAULT_OPTION, 
+                      JOptionPane.INFORMATION_MESSAGE, 
+                      null, options, options[0]);
+    					
+    	                if(selected == 0)
+    	                {
+    	                	fenster.repaint();
+    	                	fenster.validate();
+    	                	showPanelsI();
+    	                	showDropdownSG();
+    	                	showDropdownVS();
+    	                	showDropdownO();
+    	             
+    	                    fenster.add(tabLeiste);
+    	                    fenster.setVisible(true);
+    	                	
+    	                }
+    	                
+//    	                if(selected == 1)
+    				}
+    			});
+        	}
+    	
 
     	public static void showButtonSubsribe(){
     		
