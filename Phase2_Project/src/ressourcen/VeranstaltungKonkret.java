@@ -1,15 +1,6 @@
 package ressourcen;
 
-import generated.Sportart;
-import generated.SportartenM;
-import generated.Sportgruppe;
-import generated.SportgruppenM;
-import generated.Sportverzeichnis;
-import generated.Veranstaltung;
-import generated.VeranstaltungenM;
-
-import java.io.File;
-
+import generated.*;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -20,7 +11,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 
 import jaxb.Unmarshalling;
 

@@ -3,16 +3,11 @@ package ressourcen;
 import generated.Sportgruppe;
 import generated.SportgruppenM;
 import generated.Sportverzeichnis;
-
-import java.io.File;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
 
 import jaxb.Unmarshalling;
 

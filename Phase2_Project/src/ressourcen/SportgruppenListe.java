@@ -1,6 +1,5 @@
 package ressourcen;
 
-
 import generated.SportgruppenM;
 import generated.Sportverzeichnis;
 import javax.ws.rs.GET;
