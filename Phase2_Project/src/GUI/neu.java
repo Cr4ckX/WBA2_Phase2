@@ -13,7 +13,12 @@ public class neu
 		private static JLabel labelAnweisung, labelSG, labelSA, labelV, labelO, labelAreaSG, labelAreaV, labelAreaO, labelVS;
 		private static JComboBox dropdownSG, dropdownSA, dropdownV, dropdownVS, dropdownO;
 		private static JTextArea AreaSG, AreaV, AreaO;
-		private static JButton btnSubscribeSG, btnUnsubscribeSG, btnUnsubscribeO, btnUnsubscribeV, btnSubscribeV, btnSubscribeO ,btnpublish, btnzurueckSG, btnzurueckV, btnzurueckO;  
+		
+		//Button Interessenten
+		private static JButton btnSubscribeSG, btnUnsubscribeSG, btnUnsubscribeO, btnUnsubscribeV, btnSubscribeV, btnSubscribeO, btnzurueckSG, btnzurueckV, btnzurueckO;  
+		//Button Veranstalter
+		private static JButton btnPublishE, btnPublishV, btnPublishG, btnSubscribeE, btnSubscribeG;
+		
 		
 		final static JFrame fenster = new JFrame("Herzlich Willkommen");
         final static JTabbedPane tabLeiste = new JTabbedPane();
@@ -21,7 +26,7 @@ public class neu
         static JPanel PanelMain = new JPanel ();
 		static JPanel panelSG = new JPanel();
 		static JPanel panelV = new JPanel();
-		static JPanel panelO = new JPanel();
+		static JPanel panelG = new JPanel();
 		static JPanel panelE = new JPanel();
 		static JPanel panelVV = new JPanel();
 		
@@ -89,9 +94,10 @@ public class neu
 	        panelV.setLayout(null);
 	        tabLeiste.addTab("Veranstalter", panelV);
 	
-	        panelO.setLayout(null);
-	        tabLeiste.addTab("Orte", panelO);
+	        panelG.setLayout(null);
+	        tabLeiste.addTab("Orte", panelG);
     	}
+    	
     	
     	public static void showPanelsV(){
     		
@@ -104,10 +110,10 @@ public class neu
 	            
 	        
 	        panelVV.setLayout(null);
-	        tabLeiste2.addTab("Veranstaltungen", panelVV);
+	        tabLeiste2.addTab("Gebäude", panelVV);
 	
-	        panelO.setLayout(null);
-	        tabLeiste2.addTab("Orte", panelO);
+	        panelG.setLayout(null);
+	        tabLeiste2.addTab("meine Veranstaltungen", panelG);
     	}
     	
     	public static void showDropdownSG()
@@ -212,15 +218,15 @@ public class neu
     		
     		labelO = new JLabel("Bitte wählen Sie einen Ort");
             labelO.setBounds(10, 10, 300, 100);
-            panelO.add(labelO);
+            panelG.add(labelO);
             labelO.setVisible(true);
             labelO.validate();
     		
     		final String[] DropDownO = new String[] {"Orte", "Bernberg", "Hesselbach", "Niederseßmar", "Wiehl"};
         	dropdownO = new JComboBox(DropDownO);
         	dropdownO.setBounds(10, 40, 200, 100);
-        	panelO.add(dropdownO);
-        	panelO.validate();
+        	panelG.add(dropdownO);
+        	panelG.validate();
         	
         	
         	dropdownO.addActionListener(new ActionListener()
@@ -329,8 +335,8 @@ public class neu
     		
         	btnzurueckO = new JButton ("Zurück");
            	btnzurueckO.setBounds(800, 500, 150, 25);
-           	panelO.add(btnzurueckSG);
-           	panelO.validate();
+           	panelG.add(btnzurueckSG);
+           	panelG.validate();
            	
            	
            	btnzurueckO.addActionListener(new ActionListener() {
@@ -394,9 +400,9 @@ public class neu
     		
         	btnSubscribeO = new JButton("Abonnieren");
         	btnSubscribeO.setBounds(600, 400, 150, 25);
-        	panelO.add(btnSubscribeO);
-        	panelO.validate();
-        	panelO.repaint();
+        	panelG.add(btnSubscribeO);
+        	panelG.validate();
+        	panelG.repaint();
 
         	
     	}
@@ -425,9 +431,9 @@ public class neu
 	
     		btnUnsubscribeO = new JButton("Unsubscribe");
     		btnUnsubscribeO.setBounds(800, 400, 150, 25);
-    		panelO.add(btnUnsubscribeO);
-    		panelO.validate();
-    		panelO.repaint();
+    		panelG.add(btnUnsubscribeO);
+    		panelG.validate();
+    		panelG.repaint();
     	}
 
     	public static void showArea(){
@@ -471,21 +477,45 @@ public class neu
             
             labelAreaO = new JLabel("Informationen bezüglich: ");
             labelAreaO.setBounds(600, 10, 300, 100);
-            panelO.add(labelAreaO);
-        	panelO.validate();
+            panelG.add(labelAreaO);
+        	panelG.validate();
 
             
 
             AreaO = new JTextArea();
             AreaO.setLineWrap(true);
     		AreaO.setBounds(600, 90, 350, 300);
-    		panelO.add(AreaO);
-        	panelO.validate();
+    		panelG.add(AreaO);
+        	panelG.validate();
 
             
     		
     	}
     	
     	
+    	
+    	/********************************************/
+    	/**********Methoden Veranstalter*************/
+    	/********************************************/
+    	
+    	public static void showButtonPublishE(){
+    		
+        	btnPublishE = new JButton("Publish");
+        	btnPublishE.setBounds(800, 400, 150, 25);
+        	panelE.add(btnUnsubscribeSG);
+        	panelE.validate();
+        	panelE.repaint();
+
+    	}
+    	
+    	public static void showButtonPublishG(){
+    		
+        	btnSubscribeG = new JButton("Unsubscribe");
+        	btnSubscribeG.setBounds(800, 400, 150, 25);
+        	panelG.add(btnSubscribeG);
+        	panelG.validate();
+        	panelG.repaint();
+
+    	}
 
 }
