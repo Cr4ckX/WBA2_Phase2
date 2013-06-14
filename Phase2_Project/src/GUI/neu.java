@@ -13,7 +13,7 @@ public class neu
 		private static JLabel labelAnweisung, labelSG, labelSA, labelV, labelO, labelAreaSG, labelAreaV, labelAreaO, labelVS;
 		private static JComboBox dropdownSG, dropdownSA, dropdownV, dropdownVS, dropdownO;
 		private static JTextArea AreaSG, AreaV, AreaO;
-		private static JButton btnsubscribe, btnunsubscribe ,btnpublish, btnzurueck, btnzurueckV, btnzurueckO;  
+		private static JButton btnsubscribe, btnunsubscribe ,btnpublish, btnzurueckSG, btnzurueckV, btnzurueckO;  
 		
 		final static JFrame fenster = new JFrame("Herzlich Willkommen");
         final static JTabbedPane tabLeiste = new JTabbedPane();
@@ -72,17 +72,7 @@ public class neu
                 
         }
  
-     
-    	public static void showPanelMain(){
-    		
-    		PanelMain.add(btnsubscribe);
-    		PanelMain.add(btnunsubscribe);
-    		PanelMain.add(btnzurueck);
-    		showButtonSubsribe();
-    		showButtonUnsubsribe();
-    		showButtonZurueck();
-    		showArea();
-    	}
+    
     	
     	public static void showPanelsI(){
     		
@@ -177,16 +167,16 @@ public class neu
     		
     		labelV = new JLabel("Bitte wählen Sie eine Veranstaltung!");
     		labelV.setBounds(10, 120, 300, 100);
-            panelV.add(labelV);
-            panelV.validate();
+            panelSG.add(labelV);
+            panelSG.validate();
 
     		
             String[] DropDownV = new String[] {"Veranstaltungen", "Bla", "Beispiel1", "Example", "Ejemplo"};
         	
             dropdownV = new JComboBox(DropDownV);
         	dropdownV.setBounds(10, 140, 200, 100);
-        	panelV.add(dropdownV);
-        	panelV.validate();
+        	panelSG.add(dropdownV);
+        	panelSG.validate();
 
     	
         	
@@ -198,8 +188,7 @@ public class neu
 //        				
 //        				if (item.getSelectedIndex() != 0 && item.getSelectedIndex() < DropDownSG.length){
         				showButtonZurueckV();
-        				showButtonSubsribe();
-        				showButtonUnsubsribe();
+        				
         				
         					
         		}
@@ -238,16 +227,16 @@ public class neu
         	panelO.validate();
     	}
 
-    	public static void showButtonZurueck(){
+    	public static void showButtonZurueckSG(){
     		
-    		btnzurueck = new JButton ("Zurück");
-        	btnzurueck.setBounds(800, 500, 150, 25);
-        	PanelMain.add(btnzurueck);
-        	PanelMain.validate();
+    		btnzurueckSG = new JButton ("Zurück");
+        	btnzurueckSG.setBounds(800, 500, 150, 25);
+        	panelSG.add(btnzurueckSG);
+        	panelSG.validate();
 
         	
         	
-        	btnzurueck.addActionListener(new ActionListener() {
+        	btnzurueckSG.addActionListener(new ActionListener() {
 				
 				
             	public void actionPerformed(ActionEvent btnzuruecke) {
