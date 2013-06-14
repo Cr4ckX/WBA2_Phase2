@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 
 import jaxb.Unmarshalling;
 
-@Path("/orte/{oId}/gebaeude/{gId}")
+@Path("/veranstalter/")
 public class VeranstalterListe {
 	
 Sportverzeichnis sv;

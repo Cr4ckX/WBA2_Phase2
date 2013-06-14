@@ -1,9 +1,5 @@
 package ressourcen;
 
-import generated.Gebaeude;
-import generated.GebaeudeM;
-import generated.Ort;
-import generated.OrteM;
 import generated.Sportverzeichnis;
 import generated.Veranstalter;
 import generated.VeranstalterM;
@@ -17,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 
 import jaxb.Unmarshalling;
 
-@Path("/orte/{oId}/gebaeude/{gId}")
+@Path("veranstalter/{vrId}")
 public class VeranstalterKonkret {
 	
 Sportverzeichnis sv;
@@ -38,7 +34,7 @@ Sportverzeichnis sv;
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
-	public Veranstalter getVeranstalter(String vrId){
+	public Veranstalter getVeranstalter(@PathParam("vrId") String vrId){
 		
 		VeranstalterM vrm = (VeranstalterM) sv.getVeranstalterM();
 		
@@ -46,6 +42,7 @@ Sportverzeichnis sv;
 			System.out.println("Die angeforderte Veranstalter-ID ist nicht vorhanden.");
 			return null;
 		}
+		
 		Veranstalter vr = vrm.getVeranstalter().get(Integer.parseInt(vrId));
 		return vr;
 	}
