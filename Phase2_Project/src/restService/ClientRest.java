@@ -28,7 +28,6 @@ public class ClientRest {
 		return sportgruppenListe.get(SportgruppenM.class);
 	}	
 
-	
 	/**
 	 * Holt die angefordertere Sportgruppe als JAXB-Object: 'Sportgruppe'.
 	 * (einzahl)
@@ -80,9 +79,9 @@ public class ClientRest {
 		
 		sportartKonkret.accept(xml);
 
-		return sportartKonkret.get(Sportart.class);
-		
+		return sportartKonkret.get(Sportart.class);	
 	}
+	
 	/**
 	 * Holt die Veranstaltungsliste einer konkreten Sportart als JAXB-Object: 'VeranstaltungenM' (mit QueryParameter).
 	 * @param sportgruppeId ID der Sportgruppe.
@@ -106,6 +105,7 @@ public class ClientRest {
 		
 		return veranstaltungenListe.get(VeranstaltungenM.class);	
 	}
+	
 	/**
 	 * Holt die Veranstaltungsliste einer konkreten Sportart als JAXB-Object: 'VeranstaltungenM'. Ohne QueryParameter.
 	 * Es werden alle Veranstaltungen zurückgegeben, die nicht gelöscht sind.
@@ -174,6 +174,7 @@ public class ClientRest {
 		
 		return ortKonkret.get(Ort.class);
 	}
+	
 	/**
 	 * Holt die Liste aller Veranstalter (mehrzahl) als JAXB-Object: 'VeranstalterM'.
 	 * @return Die Veranstalter-Liste als JAXB-Object.
@@ -185,6 +186,7 @@ public class ClientRest {
 		return veranstalterListe.get(VeranstalterM.class);
 		
 	}
+	
 	/**
 	 * Holt einen konkreten Veranstalter als JAXB-Object: 'Veranstalter'.
 	 * @param vrId ID des zu holenden Veranstalters.
