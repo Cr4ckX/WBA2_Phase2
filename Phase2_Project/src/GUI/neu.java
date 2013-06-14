@@ -13,7 +13,7 @@ public class neu
 		private static JLabel labelAnweisung, labelSG, labelSA, labelV, labelO, labelAreaSG, labelAreaV, labelAreaO, labelVS;
 		private static JComboBox dropdownSG, dropdownSA, dropdownV, dropdownVS, dropdownO;
 		private static JTextArea AreaSG, AreaV, AreaO;
-		private static JButton btnsubscribe, btnunsubscribe ,btnpublish, btnzurueckSG, btnzurueckV, btnzurueckO;  
+		private static JButton btnSubscribeSG, btnUnsubscribeSG, btnUnsubscribeO, btnUnsubscribeV, btnSubscribeV, btnSubscribeO ,btnpublish, btnzurueckSG, btnzurueckV, btnzurueckO;  
 		
 		final static JFrame fenster = new JFrame("Herzlich Willkommen");
         final static JTabbedPane tabLeiste = new JTabbedPane();
@@ -134,6 +134,8 @@ public class neu
 	        				showDropdownSA();	
 	        				showArea();
 	        				showButtonZurueckSG();
+	        				showButtonSubsribeSG();
+	        				showButtonUnsubsribeSG();
 	        				
 	        				
 	        					
@@ -178,22 +180,6 @@ public class neu
         	dropdownV.setBounds(10, 140, 200, 100);
         	panelSG.add(dropdownV);
         	panelSG.validate();
-
-        	dropdownV.addActionListener(new ActionListener()
-        	{
-        		public void actionPerformed(ActionEvent dropdownVe) 
-        		{ 			
-//        				JComboBox item = (JComboBox) dropdownSGe.getSource();
-//        				
-//        				if (item.getSelectedIndex() != 0 && item.getSelectedIndex() < DropDownSG.length){
-        				showButtonZurueckV();
-        				
-        				
-        					
-        		}
-        	});
-    	
-    	
     	}
 
     	public static void showDropdownVS(){
@@ -208,6 +194,17 @@ public class neu
         	dropdownVS.setBounds(10, 40, 200, 100);
         	panelV.add(dropdownVS);
         	panelV.validate();
+        	
+        	dropdownVS.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent Ve) {
+					showButtonZurueckV();
+					showButtonSubsribeV();
+					showButtonUnsubsribeV();
+				}
+			});
+        	
         	
     	}
 
@@ -234,9 +231,8 @@ public class neu
 //        				
 //        				if (item.getSelectedIndex() != 0 && item.getSelectedIndex() < DropDownSG.length){
         				showButtonZurueckO();
-        				
-        				
-        					
+        				showButtonSubsribeO();
+        				showButtonUnsubsribeO();
         		}
         	});
     	}
@@ -372,25 +368,66 @@ public class neu
         	}
     	
 
-    	public static void showButtonSubsribe(){
+    	public static void showButtonSubsribeSG(){
     		
-        	btnsubscribe = new JButton("Abonnieren");
-        	btnsubscribe.setBounds(600, 400, 150, 25);
-        	panelSG.add(btnsubscribe);
+        	btnSubscribeSG = new JButton("Abonnieren");
+        	btnSubscribeSG.setBounds(600, 400, 150, 25);
+        	panelSG.add(btnSubscribeSG);
         	panelSG.validate();
         	panelSG.repaint();
 
         	
     	}
     	
-    	public static void showButtonUnsubsribe(){
+    	public static void showButtonSubsribeV(){
     		
-        	btnunsubscribe = new JButton("EntAbonnieren");
-        	btnunsubscribe.setBounds(800, 400, 150, 25);
-        	panelSG.add(btnunsubscribe);
+        	btnSubscribeV = new JButton("Abonnieren");
+        	btnSubscribeV.setBounds(600, 400, 150, 25);
+        	panelV.add(btnSubscribeV);
+        	panelV.validate();
+        	panelV.repaint();
+
+        	
+    	}
+    	
+    	public static void showButtonSubsribeO(){
+    		
+        	btnSubscribeO = new JButton("Abonnieren");
+        	btnSubscribeO.setBounds(600, 400, 150, 25);
+        	panelO.add(btnSubscribeO);
+        	panelO.validate();
+        	panelO.repaint();
+
+        	
+    	}
+    	
+    	public static void showButtonUnsubsribeSG(){
+    		
+        	btnUnsubscribeSG = new JButton("Unsubscribe");
+        	btnUnsubscribeSG.setBounds(800, 400, 150, 25);
+        	panelSG.add(btnUnsubscribeSG);
         	panelSG.validate();
         	panelSG.repaint();
 
+    	}
+    	
+    	public static void showButtonUnsubsribeV(){
+    		
+        	btnUnsubscribeV = new JButton("Unsubscribe");
+        	btnUnsubscribeV.setBounds(800, 400, 150, 25);
+        	panelV.add(btnUnsubscribeV);
+        	panelV.validate();
+        	panelV.repaint();
+
+    	}
+
+    	public static void showButtonUnsubsribeO(){
+	
+    		btnUnsubscribeO = new JButton("Unsubscribe");
+    		btnUnsubscribeO.setBounds(800, 400, 150, 25);
+    		panelO.add(btnUnsubscribeO);
+    		panelO.validate();
+    		panelO.repaint();
     	}
 
     	public static void showArea(){
