@@ -1,19 +1,13 @@
 package ressourcen;
 
-import generated.Gebaeude;
-import generated.GebaeudeM;
 import generated.Ort;
 import generated.OrteM;
 import generated.Sportverzeichnis;
-import java.io.File;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
 
 import jaxb.Unmarshalling;
 
@@ -29,33 +23,29 @@ Sportverzeichnis sv;
 	}
 
 	
-	//Hole zur konkreten Veranstaltung die Gebaeude-Liste
+	//Hole konkreten Ort
 	/**
-	 * Gebaeude-Liste per GET angefordert.
-	 * Bei der Ausgabe handelt es sich um einen zusammengesetzen String der einzelnen Gebaeude.
+	 * Konkreter Ort per GET angefordert.
+	 * Liefert ein Object des Typs: 'Ort‘ (JAXB)
 	 * 
-	 * MIME-TYPE: text/plain. Momentan noch keine Unterstützung für application/xml.
+	 * 
+	 * MIME-TYPE: application/xml.
 	 * @param oId Orte URI-Parameter. Hierbei handelt es sich um die übergebende ID in der URI.
-	 * @return liefert die einzelnden konkreten Gebäude der zugehörigen Orte.
-	 * @throws Exception
+	 * @return liefert das entsprechende Ort-JABX Object bzw. null, wenn id nicht vorhanden.
 	 */
 	@GET
-	@Produces(MediaType.TEXT_PLAIN)
-	public String getGebaeude(
-			@PathParam("oId") String oId) throws Exception {
+	@Produces(MediaType.APPLICATION_XML)
+	public Ort getGebaeude(
+			@PathParam("oId") String oId){
 
-		String ausgabe = "";
-						
-		OrteM om = sv.getOrteM();
-		for (int k = 0; k < om.getOrt().size(); k++) {
-			//konkreter Ort
-			Ort o = (Ort) om.getOrt().get(k);
+		OrteM om = (OrteM) sv.getOrteM();
 		
-			if (oId.equals(o.getId())) 
-				return o.getOName();	
-
+		if(Integer.parseInt(oId) > om.getOrt().size() -1){
+			System.out.println("Die angeforderte Ort-ID ist nicht vorhanden.");
+			return null;
 		}
-
-		return "Failture (kein Ort in dieser Liste /Falscher Ort)";
+		
+		Ort o = (Ort) om.getOrt().get(Integer.parseInt(oId));
+		return o;
 		}
 }

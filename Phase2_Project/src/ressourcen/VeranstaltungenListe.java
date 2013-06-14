@@ -1,13 +1,6 @@
 package ressourcen;
 
-import generated.Sportart;
-import generated.SportartenM;
-import generated.Sportgruppe;
-import generated.SportgruppenM;
-import generated.Sportverzeichnis;
-import generated.Veranstaltung;
-
-import java.io.File;
+import generated.*;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -19,7 +12,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+
 
 import jaxb.Unmarshalling;
 
@@ -37,75 +30,64 @@ public class VeranstaltungenListe {
 	
 	//GET - Hole zu der konkreten Sportart die Veranstaltungs-Liste
 	@GET
-	@Produces(MediaType.TEXT_PLAIN)
-	public String getVeranstaltungen(
+	@Produces(MediaType.APPLICATION_XML)
+	public VeranstaltungenM getVeranstaltungen(
 			@PathParam("spgId") String spgId,
 			@PathParam("spaId") String spaId,
-			@QueryParam("deleted") boolean deleted) throws Exception {
+			@QueryParam("deleted") boolean deleted){
 
-		String ausgabe = "";
+		//Sportgruppen (mehrzahl)
+		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();		
+		//Sportgruppe (einzahl)
 		
-		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
-
-		for (int j = 0; j < sgm.getSportgruppe().size(); j++) {
-			// konkrete Sportgruppe
-			Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(j);
-
-
-			if (spgId.equals(sg.getId())) {
-				
-
-				// Liste aller Sportarten dieser Sportgruppe
-				SportartenM sm = (SportartenM) sg.getSportartenM();
-
-				for (int l = 0; l < sm.getSportart().size(); l++) {
-					// Konkrete Sportart
-					Sportart s = (Sportart) sm.getSportart().get(l);
-					
-					if (spaId.equals(s.getId()) && s.getVeranstaltungenM().getVeranstaltung().size() > 0) {
-						for (int m = 0; m < s.getVeranstaltungenM().getVeranstaltung().size(); m++) {
-							// Konkrete Veranstaltungen (Veranstaltungsliste 1x fŸr gewisse Sportart):
-							Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(m);
-							
-							
-							if (deleted == true){
-								if (v.isDeleted() == true){
-									ausgabe += v.getId() + " " + v.getVBeschreibung();
-									
-									//Damit am Ende nicht noch ein "\n" angefŸgt wird.
-									if(m+1<s.getVeranstaltungenM().getVeranstaltung().size())
-										ausgabe += "\n";
-								}
-							}
-							else if (deleted == false){
-								if (v.isDeleted() == false){
-									ausgabe += v.getId() + " " + v.getVBeschreibung();
-									
-									//Damit am Ende nicht noch ein "\n" angefŸgt wird.
-									if(m+1<s.getVeranstaltungenM().getVeranstaltung().size())
-										ausgabe += "\n";
-								}
-							}
-							
-							//Standard/kein Query-Parameter.
-							else{
-								if (v.isDeleted() == false){
-									ausgabe += v.getId() + " " + v.getVBeschreibung();
-									
-										//Damit am Ende nicht noch ein "\n" angefŸgt wird.
-										if(m+1<s.getVeranstaltungenM().getVeranstaltung().size())
-											ausgabe += "\n";
-								}
-							}
-						}
-						return ausgabe;
-					}					
-				}
-			}
+		if(Integer.valueOf(spgId) > sgm.getSportgruppe().size() -1){
+			System.out.println("Die angeforderte Sporgruppen-ID ist nicht vorhanden.");
+			return null;
 		}
+		Sportgruppe sg = sgm.getSportgruppe().get(Integer.parseInt(spgId));		
+		//Sportarten (mehrzahl)
+		SportartenM sm = sg.getSportartenM();
+		//Sportarte (einzahl)
+		
+		if(Integer.valueOf(spaId) > sm.getSportart().size() -1 ){
+			System.out.println("Die angeforderte Sporarten-ID ist nicht vorhanden.");
+			return null;
+		}
+		Sportart s = sm.getSportart().get(Integer.parseInt(spaId));
+		//Veranstaltungen (mehrzahl)
+		VeranstaltungenM vm = s.getVeranstaltungenM();
+		
+		VeranstaltungenM vmUebergabe = new VeranstaltungenM();
 	
-		return "Keine Veranstaltungen zu der Sportart/Falsche Sportart";
+		if(vm.getVeranstaltung().size() > 0){
+			for (int i = 0; i < vm.getVeranstaltung().size(); i++){
+				Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(i);
+				
+				//true
+				if(deleted == true){
+					if(v.isDeleted() == true)
+						vmUebergabe.getVeranstaltung().add(v);
+				}
+				
+				//Kein QueryParam / false
+				else if(deleted == false){
+					if (v.isDeleted() == false)
+						vmUebergabe.getVeranstaltung().add(v);
+				}
+
+				//Falscher QueryParam
+				else if(deleted != true && deleted != false){
+					System.out.println("Query Param fehlerhaft!");
+					return null;
+				}
+
+			}
+			return vmUebergabe;
+		}
+		//Leere Veranstaltungsliste.
+		return vmUebergabe;
 	}
+
 
 	//POST - FŸge Veranstaltung hinzu
 	/**
