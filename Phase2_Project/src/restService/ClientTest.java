@@ -18,7 +18,7 @@ import com.sun.jersey.api.client.WebResource.Builder;
 public class ClientTest {
 
 	String xml = MediaType.APPLICATION_XML;
-	String uri = "http://localhost:8080/sportgruppen";
+	String uri = "http://localhost:8080/";
 	
 	
 	public static void main(String[] args) {
@@ -29,7 +29,7 @@ public class ClientTest {
 		//SportgruppenM spg = ct.getSportgruppen();
 		//spg.getSportgruppe().size();  -> Um Groesse festzustellen.
 		
-		System.out.println(ct.getSportgruppe("0"));
+		System.out.println(ct.getSportgruppe("3"));
 		System.out.println(ct.getSportarten("0"));
 		System.out.println(ct.getSportart("0", "0"));
 		
@@ -39,6 +39,8 @@ public class ClientTest {
 			System.out.println(vm.getVeranstaltung().get(i).getVBeschreibung());
 		}
 		System.out.println(ct.getVeranstaltung("0", "0", "0"));
+		System.out.println(ct.getOrte());
+		System.out.println(ct.getOrt("0"));
 	}
 	
 	/**
@@ -51,7 +53,7 @@ public class ClientTest {
 	 * @return Die Liste der Sportgruppen / null wenn falsche Anfrage.
 	 */
 	public SportgruppenM getSportgruppen(){
-		WebResource sportgruppenListe = Client.create().resource(uri);
+		WebResource sportgruppenListe = Client.create().resource(uri).path("sportgruppen");
 		sportgruppenListe.accept(xml);
 		return sportgruppenListe.get(SportgruppenM.class);
 	}	
@@ -82,7 +84,10 @@ public class ClientTest {
 	 */
 	public Sportgruppe getSportgruppe(String sportgruppeId){
 		
-		WebResource sportgruppeKonkret = Client.create().resource(uri).path(sportgruppeId);
+		WebResource sportgruppeKonkret = Client.create().resource(uri)
+				.path("sportgruppen")
+				.path(sportgruppeId);
+		
 		sportgruppeKonkret.accept(xml);
 		return sportgruppeKonkret.get(Sportgruppe.class);
 		
@@ -114,7 +119,11 @@ public class ClientTest {
 	 */
 	public SportartenM getSportarten(String sportgruppeId){
 		
-		WebResource sportartenListe = Client.create().resource(uri).path(sportgruppeId).path("sportarten");
+		WebResource sportartenListe = Client.create().resource(uri)
+				.path("sportgruppen")
+				.path(sportgruppeId)
+				.path("sportarten");
+		
 		sportartenListe.accept(xml);
 		return sportartenListe.get(SportartenM.class);
 	}
@@ -137,7 +146,9 @@ public class ClientTest {
 	
 	public Sportart getSportart(String sportgruppeId, String sportartId){
 		
-		WebResource sportartKonkret = Client.create().resource(uri).path(sportgruppeId)
+		WebResource sportartKonkret = Client.create().resource(uri)
+				.path("sportgruppen")
+				.path(sportgruppeId)
 				.path("sportarten")
 				.path(sportartId);
 		
@@ -150,10 +161,13 @@ public class ClientTest {
 	public VeranstaltungenM getVeranstaltungen(String sportgruppeId, String sportartId, boolean deleted){
 		
 		String strbool = new Boolean(deleted).toString();
-		WebResource veranstaltungenListe = Client.create().resource(uri).path(sportgruppeId)
+		WebResource veranstaltungenListe = Client.create().resource(uri)
+				.path("sportgruppen")
+				.path(sportgruppeId)
 				.path("sportarten")
 				.path(sportartId)
-				.path("veranstaltungen").queryParam("deleted", strbool);
+				.path("veranstaltungen")
+				.queryParam("deleted", strbool);
 		
 		veranstaltungenListe.accept(xml);
 		
@@ -163,7 +177,9 @@ public class ClientTest {
 	public VeranstaltungenM getVeranstaltungen(String sportgruppeId, String sportartId){
 		
 
-		WebResource veranstaltungenListe = Client.create().resource(uri).path(sportgruppeId)
+		WebResource veranstaltungenListe = Client.create().resource(uri)
+				.path("sportgruppen")
+				.path(sportgruppeId)
 				.path("sportarten")
 				.path(sportartId)
 				.path("veranstaltungen");
@@ -175,7 +191,9 @@ public class ClientTest {
 	
 	public Veranstaltung getVeranstaltung(String sportgruppeId, String sportartId, String veranstaltungId){
 		
-		WebResource veranstaltungKonkret = Client.create().resource(uri).path(sportgruppeId)
+		WebResource veranstaltungKonkret = Client.create().resource(uri)
+				.path("sportgruppen")
+				.path(sportgruppeId)
 				.path("sportarten")
 				.path(sportartId)
 				.path("veranstaltungen")
@@ -184,6 +202,24 @@ public class ClientTest {
 		veranstaltungKonkret.accept(xml);
 		
 		return veranstaltungKonkret.get(Veranstaltung.class);
+	}
+	
+	public OrteM getOrte(){
+		WebResource orteListe = Client.create().resource(uri).path("orte");
+		orteListe.accept(xml);
+		
+		return orteListe.get(OrteM.class);
+
+	}
+	
+	public Ort getOrt(String ortId){
+		WebResource ortKonkret = Client.create().resource(uri)
+				.path("orte")
+				.path(ortId);
+		
+		ortKonkret.accept(xml);
+		
+		return ortKonkret.get(Ort.class);
 	}
 	
 }

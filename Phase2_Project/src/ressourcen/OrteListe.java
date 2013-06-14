@@ -27,29 +27,17 @@ Sportverzeichnis sv;
 	
 	//Hole Orte-Liste
 	/**
-	 * 
 	 * Orte-Liste per GET angefordert.
-	 * Gibt die konkreten Orte innerhalb der OrteListe aus.
+	 * Liefert die Orte-Liste als 'OrteM' Object.
 	 * 
-	 * MIME-TYPE: text/plain. Momentan noch keine Unterstützung für application/xml.
-	 * @return 
-	 * @throws Exception
+	 * MIME-TYPE: application/xml.
+	 * @return Die Liste aller Orte als JAXB-Object.
 	 */
 	@GET
-	@Produces(MediaType.TEXT_PLAIN)
-	public String getOrte() throws Exception {
+	@Produces(MediaType.APPLICATION_XML)
+	public OrteM getOrte(){
 		
-		String ausgabe = "";
-	
 		OrteM om = (OrteM) sv.getOrteM(); 
-		
-		for (int i = 0; i < om.getOrt().size(); i++) {
-			
-			// konkreter Ort
-			Ort o = (Ort) om.getOrt().get(i);
-			ausgabe += o.getId() + " " + o.getOName() + "\n";
-			
-		}
-		return ausgabe;
+		return om;
 	}
 }

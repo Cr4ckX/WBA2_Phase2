@@ -34,37 +34,39 @@ public class SportartKonkret {
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	/**
+	 * Konkrete Sportart per GET angefordert.
+	 * Liefert das JAXB-Obect 'Sportart'.
+	 * 
+	 * MIME-TYPE: application/xml.
 	 * 
 	 * @param spgId spgId Sportgruppen URI-Parameter. Hierbei handelt es sich um die Ÿbergebene id in der URI.
 	 * @param spaId spgId Sportarten URI-Parameter. Hierbei handelt es sich um die Ÿbergebene id in der URI.
-	 * @return Gibt die Informationen der angeforderteren Sportart zurŸck. Ist die URI-Id nicht vorhanden, 
-	 * so wird eine Fehlermeldung ausgegeben.
-	 * @throws Exception
+	 * @return Sportart (JAXB-Object) bzw. NULL wenn eine der ID's nicht stimmen.
 	 * 
-	 * Konkrete Sportart per GET angefordert.
-	 * Bei der Ausgabe handelt es sich um einen zusammengesetzen String der einzelnen Elemente der Sportarteninformationen. 
-	 * 
-	 * MIME-TYPE: text/plain. Momentan noch keine UnterstŸtzung fŸr application/xml.
 	 */
 	public Sportart getSportart(@PathParam("spgId") String spgId,
-			@PathParam("spaId") String spaId) throws Exception {
+			@PathParam("spaId") String spaId){
 
 		//Sportgruppen (mehrzahl)
-		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();		
+		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();	
+		
+		if(Integer.valueOf(spgId) > sgm.getSportgruppe().size() -1){
+			System.out.println("Die angeforderte Sporgruppen-ID ist nicht vorhanden.");
+			return null;
+		}
 		//Sportgruppe (einzahl)
 		Sportgruppe sg = sgm.getSportgruppe().get(Integer.parseInt(spgId));		
 		//Sportarten (mehrzahl)
 		SportartenM sm = sg.getSportartenM();
+		
+		if(Integer.valueOf(spaId) > sm.getSportart().size() -1 ){
+			System.out.println("Die angeforderte Sporarten-ID ist nicht vorhanden.");
+			return null;
+		}
 		//Sportarte (einzahl)
 		Sportart s = sm.getSportart().get(Integer.parseInt(spaId));
 
-		if(spgId.equals(sg.getId()) && spaId.equals(s.getId())){
-			return s;
-		}
-			
-		System.out.println("Die angeforderte Sporgruppen-ID oder Sportart-ID ist nicht vorhanden");
-		return null;
+		return s;
+		
 	}
-
-	
 }

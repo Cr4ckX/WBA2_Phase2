@@ -34,33 +34,33 @@ public class SportartenListe {
 	//Hole zur konkreten Sportgruppe die Sportarten-Liste
 	/**
 	 * Sportarten-Liste per GET angefordert.
-	 * Bei der Ausgabe handelt es sich um einen zusammengesetzen String der einzelnen Sportarten. 
-	 * 
-	 * Lieftert das JAXB-Object 'SportartenM'.
+	 * Liefert das JAXB-Object 'SportartenM'.
 	 * 
 	 * MIME-TYPE: application/xml.
 	 * 
 	 * @param spgId Sportgruppen URI-Parameter. Hierbei handelt es sich um die Ÿbergebene id in der URI.
-	 * @return liefert Sportarten-Liste bzw. NULL wenn Sportgruppen-ID falsch. 
-	 * @throws Exception
+	 * @return Sportarten-Liste (JAXB-Object) bzw. NULL wenn Sportgruppen-ID falsch. 
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
-	public SportartenM getSportarten(@PathParam("spgId") String spgId) throws Exception {
+	public SportartenM getSportarten(@PathParam("spgId") String spgId){
 
 		//Sportgruppen (mehrzahl)
-		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();		
+		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();	
+		
+		if(Integer.valueOf(spgId) > sgm.getSportgruppe().size() -1){
+			System.out.println("Die angeforderte Sporgruppen-ID ist nicht vorhanden.");
+			return null;
+		}
+		
 		//Sportgruppe (einzahl)
 		Sportgruppe sg = sgm.getSportgruppe().get(Integer.parseInt(spgId));		
 		//Sportarten (mehrzahl)
 		SportartenM sm = sg.getSportartenM();
 		
-		if (spgId.equals(sg.getId())){
-			return sm;
-		}
+
+		return sm;
 		
-		System.out.println("Die angeforderte Sporgruppen-ID ist nicht vorhanden");
-		return null;	
 		
 	}
 }

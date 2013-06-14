@@ -41,31 +41,45 @@ public class VeranstaltungKonkret {
 	public Veranstaltung getVeranstaltung(
 			@PathParam("spgId") String spgId,
 			@PathParam("spaId") String spaId, 
-			@PathParam("vstId") String vstId) throws Exception {
+			@PathParam("vstId") String vstId){
 
 
 		//Sportgruppen (mehrzahl)
-		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();		
+		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
+		
+		if(Integer.valueOf(spgId) > sgm.getSportgruppe().size() -1){
+			System.out.println("Die angeforderte Sporgruppen-ID ist nicht vorhanden.");
+			return null;
+		}
 		//Sportgruppe (einzahl)
 		Sportgruppe sg = sgm.getSportgruppe().get(Integer.parseInt(spgId));		
 		//Sportarten (mehrzahl)
 		SportartenM sm = sg.getSportartenM();
+		
+		if(Integer.valueOf(spaId) > sm.getSportart().size() -1 ){
+			System.out.println("Die angeforderte Sporarten-ID ist nicht vorhanden.");
+			return null;
+		}
 		//Sportarte (einzahl)
 		Sportart s = sm.getSportart().get(Integer.parseInt(spaId));
 		//Veranstaltungen (mehrzahl)
 		VeranstaltungenM vm = s.getVeranstaltungenM();
+		
+		if(Integer.valueOf(vstId) > vm.getVeranstaltung().size() -1){
+			System.out.println("Die angeforderte Veranstaltung-ID ist nicht vorhanden.");
+			return null;
+		}
 		//Veranstaltung (einzahl)
 		Veranstaltung v = vm.getVeranstaltung().get(Integer.parseInt(vstId));
 
-		if(spgId.equals(sg.getId()) && spaId.equals(s.getId()) && vstId.equals(v.getId())){
-			if(v.isDeleted() == false){
-				return v;
-			}
-			else if(v.getId().equals(vstId)){
-				System.out.println("Die Veranstaltung mit der id " + vstId + " ist gelšscht und daher nicht aufrufbar.");
-				return null;
-			}			
+		if(v.isDeleted() == false){
+			return v;
 		}
+		else if(v.getId().equals(vstId)){
+			System.out.println("Die Veranstaltung mit der id " + vstId + " ist gelšscht und daher nicht aufrufbar.");
+			return null;
+		}			
+		
 		System.out.println("Die angeforderte Sporgruppen-ID oder Sportart-ID oder Veranstaltung-ID ist nicht vorhanden");
 		return null;
 	}
@@ -187,7 +201,7 @@ public class VeranstaltungKonkret {
 								
 								 //Output: Konsole
 								 marshaller.marshal(sv, System.out);
-								return "Veranstaltung mit der id " + vstId + " wurde gelšscht."; //Kaskadierendes Lšschen fehlt noch.
+								 return "Veranstaltung mit der id " + vstId + " wurde gelšscht."; //Kaskadierendes Lšschen fehlt noch.
 							 }
 						 }		
 					}

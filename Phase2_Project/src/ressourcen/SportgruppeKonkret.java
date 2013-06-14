@@ -45,13 +45,14 @@ public class SportgruppeKonkret {
 	public Sportgruppe getSportgruppe(@PathParam("spgId") String spgId){
 
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
-		Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(Integer.parseInt(spgId));
-
-		if (spgId.equals(sg.getId())){
-			return sg;
+		
+		if(Integer.valueOf(spgId) > sgm.getSportgruppe().size() -1){
+			System.out.println("Die angeforderte Sporgruppen-ID ist nicht vorhanden.");
+			return null;
 		}
 		
-		System.out.println("Die angeforderte Sporgruppen-ID ist nicht vorhanden");
-		return null;
+		Sportgruppe sg = (Sportgruppe) sgm.getSportgruppe().get(Integer.parseInt(spgId));
+		return sg;
+
 	}
 }
