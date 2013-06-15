@@ -41,6 +41,6 @@ public class VeranstalterGUI{
 //			System.out.println("Leaf wurde erstellt.");
 //		}
 		
-		verbindung.deleteLeaf("bla");
+
 	}
 }

@@ -61,11 +61,27 @@ public class XmppManager {
 		else
 			return false;
 	}
-	
+	/**
+	 * Erstellt einen neuen Leaf-Node. Der Name des Leafs wird uebergeben.
+	 * Der Name muss folgende Form tragen:
+	 * "xyzVeranstaltung", wobei x = Sportgruppe-ID, y = Sportart-ID, z = Veranstaltung-ID.
+	 * 
+	 * Wenn ein Leaf mit diesem Namen bereits vorhanden ist, wird false zurueckgegeben.
+	 * @param leafName zu erstellenden Leaf.
+	 * @return true, wenn erfolgreich hinzugefügt. false, wenn Fehler oder schon vorhanden.
+	 */
 	public boolean createLeaf(String leafName){
 		//Vielleicht abfragen nach Vorhandensein
 		try {
-			LeafNode leaf = psm.createNode(leafName);
+			List<String> bestehendeLeafs = getLeafs();
+			for(String bestehenderLeaf : bestehendeLeafs){
+				if(bestehenderLeaf.equals(leafName)){
+					//System.out.println("Leaf schon vorhanden!");
+					return false;
+				}
+			}
+			
+			psm.createNode(leafName);
 			return true;
 		} catch (XMPPException e) {
 			System.out.println("Beim Erstellen eines LeafNodes ist ein Fehler aufgetreten");
