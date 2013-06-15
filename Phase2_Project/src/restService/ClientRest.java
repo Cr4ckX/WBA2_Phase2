@@ -1,16 +1,22 @@
 package restService;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import generated.*;
 
-
 import javax.ws.rs.core.MediaType;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 
 public class ClientRest {
 
-	String xml = MediaType.APPLICATION_XML;
-	String uri = "http://localhost:8080/";
+	private String xml = MediaType.APPLICATION_XML;
+	private String uri = "http://localhost:8080/";
 
 	
 	/**
@@ -200,5 +206,96 @@ public class ClientRest {
 		veranstalterKonkret.accept(xml);
 		return veranstalterKonkret.get(Veranstalter.class);
 	}
+	//Vielleicht noch anpassen, falls das Schema neu geparst wird (GebaeudeRef mit benoetigtem Ort)
+	public Veranstaltung buildVeranstaltung(
+			String beschreibung, 
+			String info,
+			XMLGregorianCalendar datum,
+			//XMLGregorianCalendar time,
+			XMLGregorianCalendar time,
+			String niveau,
+			String vorraussetzungen,
+			String gebaeudeIdRef,
+			String veranstalterIdRef){
+		
+		Veranstaltung uebergabe = new Veranstaltung();
+		uebergabe.setVBeschreibung(beschreibung);
+		uebergabe.setVInfo(info);
+		uebergabe.setVDatum(datum);
+		uebergabe.setVUhrzeit(time);
+		uebergabe.setVNiveau(niveau);
+		uebergabe.setVVorraussetzungen(vorraussetzungen);
+		uebergabe.setGebaeudeIDRef(gebaeudeIdRef);
+		uebergabe.setVeranstalterIDRef(veranstalterIdRef);
+		
+		return uebergabe;
+	}
+	public XMLGregorianCalendar buildXMLTime(int stunde, int minute) throws DatatypeConfigurationException{
+		
+		Date time = new Date();
+		GregorianCalendar gc = new GregorianCalendar();
+		gc.setTime(time);
+
+		gc.set(gc.HOUR_OF_DAY, stunde);
+		gc.set(gc.MINUTE, minute);
+		
+		DatatypeFactory df = DatatypeFactory.newInstance();
+		XMLGregorianCalendar xmlGregorianCal = df.newXMLGregorianCalendar(gc);
+		return xmlGregorianCal;
+		
+	}
+	public XMLGregorianCalendar buildXMLDate(int jahr, int monat, int tag) throws DatatypeConfigurationException{
+		
+		GregorianCalendar gc = new GregorianCalendar (jahr, monat, tag);
+		DatatypeFactory df = DatatypeFactory.newInstance();
+		XMLGregorianCalendar xmlGregorianCal = df.newXMLGregorianCalendar(gc);
+		return xmlGregorianCal;
+	}
+	
+	public void putVeranstaltung(
+			String sportgruppeId,
+			String sportartId,
+			String veranstaltungId,
+			Veranstaltung neueVeranstaltung){
+		
+		WebResource veranstaltungKonkret = Client.create().resource(uri)
+				.path("sportgruppen")
+				.path(sportgruppeId)
+				.path("sportarten")
+				.path(sportartId)
+				.path("veranstaltungen")
+				.path(veranstaltungId);
+		
+		veranstaltungKonkret.accept(xml);
+		veranstaltungKonkret.put(neueVeranstaltung);		
+	}
+	
+	public void deleteVeranstaltung(String sportgruppeId, String sportartId, String veranstaltungId){
+		
+		WebResource veranstaltungKonkret = Client.create().resource(uri)
+				.path("sportgruppen")
+				.path(sportgruppeId)
+				.path("sportarten")
+				.path(sportartId)
+				.path("veranstaltungen")
+				.path(veranstaltungId);
+		veranstaltungKonkret.accept(xml);
+		veranstaltungKonkret.delete();
+	}
+	
+	public void postVeranstaltung(String sportgruppeId, String sportartId, Veranstaltung neueVeranstaltung){
+		
+		WebResource veranstaltungKonkret = Client.create().resource(uri)
+				.path("sportgruppen")
+				.path(sportgruppeId)
+				.path("sportarten")
+				.path(sportartId)
+				.path("veranstaltungen");
+		
+		veranstaltungKonkret.accept(xml);
+		veranstaltungKonkret.post(neueVeranstaltung);			
+	}
+	
+
 	
 }

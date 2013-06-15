@@ -20,6 +20,7 @@
                     <VeranstaltungenM>                      
                         <Veranstaltung id="0" deleted="false">
                             <VBeschreibung>Veranstaltung1</VBeschreibung>
+							<VInfo>Informationen zur Veranstaltung</VInfo>
                             <VDatum>2013-04-27</VDatum>
                             <VUhrzeit>13:00:00</VUhrzeit>
                             <GebaeudeIDRef>G00</GebaeudeIDRef>
