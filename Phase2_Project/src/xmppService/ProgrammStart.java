@@ -28,6 +28,7 @@ public class ProgrammStart {
 			System.out.println("Erfolgreich mit dem Server verbunden.");
 			
 			verbindung.managePubSub();
+
 			
 			//Wahl zwischen Veranstalter oder Interessent:
 			System.out.println("Bitte wŠhlen Sie zwischen Veranstalter (1) und Interessent (2).");
