@@ -115,7 +115,6 @@ public class VeranstaltungKonkret {
 								 uebergabe.setId(vstId);
 								 
 								 s.getVeranstaltungenM().getVeranstaltung().set(m, uebergabe);
-
 								 //Attribut "deleted" ist auf false gesetzt.
 								 v.setDeleted(false);
 								 
@@ -153,8 +152,10 @@ public class VeranstaltungKonkret {
 	 * @throws Exception - FŸr das unmarshallen. (TOODOO: Sollte noch bearbeitet werden)
 	 */
 	@DELETE
-	public String deleteVeranstaltung(@PathParam("spgId") String spgId,
-			@PathParam("spaId") String spaId, @PathParam("vstId") String vstId) throws Exception {
+	public String deleteVeranstaltung(
+			@PathParam("spgId") String spgId,
+			@PathParam("spaId") String spaId, 
+			@PathParam("vstId") String vstId) throws Exception {
 
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
 
