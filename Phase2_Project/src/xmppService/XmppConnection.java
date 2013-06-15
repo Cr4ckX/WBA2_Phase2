@@ -6,11 +6,11 @@ import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 
 
-
 public class XmppConnection {
 	
 	private String host;
 	private int port;
+	
 	/**
 	 * Erzeugt ein Verbindungsobjekt mit den Ÿbergebenen Parametern.
 	 * 
@@ -33,7 +33,6 @@ public class XmppConnection {
 	public XmppConnection() throws XMPPException{
 		this.host = "localhost";
 		this.port = 5222;
-		this.connect();
 	}
 	
 	public Connection connect() throws XMPPException{

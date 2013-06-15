@@ -11,9 +11,8 @@ public class Interessent {
 		boolean erfolgreich = true;
 		Scanner sc = new Scanner(System.in);
 		int wahl;
-		String garbagecollect;
 		String input;
-		String publishIn;
+
 			
 		if (interessent.login("interessent", "interessent") == false){
 			System.out.println("Das Einloggen war nicht mšglich.");

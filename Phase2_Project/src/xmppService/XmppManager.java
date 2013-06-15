@@ -1,6 +1,8 @@
 package xmppService;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.XMPPException;
@@ -12,11 +14,12 @@ import org.jivesoftware.smackx.pubsub.LeafNode;
 import org.jivesoftware.smackx.pubsub.PayloadItem;
 import org.jivesoftware.smackx.pubsub.PubSubManager;
 import org.jivesoftware.smackx.pubsub.SimplePayload;
+import org.jivesoftware.smackx.pubsub.Subscription;
 
 public class XmppManager {
 	
-	Connection cn;
-	PubSubManager psm;
+	private Connection cn;
+	private PubSubManager psm;
 	
 	public boolean verbinden(){
 		
@@ -65,7 +68,18 @@ public class XmppManager {
 			LeafNode leaf = psm.createNode(leafName);
 			return true;
 		} catch (XMPPException e) {
-			System.out.println("Beim erstellen eines LeafNodes ist ein Fehler aufgetreten");
+			System.out.println("Beim Erstellen eines LeafNodes ist ein Fehler aufgetreten");
+			e.printStackTrace();
+			return false;
+		}	
+	}
+	
+	public boolean deleteLeaf(String leafNode){
+		try {
+			psm.deleteNode(leafNode);
+			return true;
+		} catch (XMPPException e) {
+			System.out.println("Beim Löschen des LeafNodes ist ein Fehler aufgetreten.");
 			e.printStackTrace();
 			return false;
 		}	
@@ -134,20 +148,24 @@ public class XmppManager {
 	}
 	
 		
-	//Vorhandenen Leafs noch suchen
-	public void getLeafs() throws XMPPException{
+	//Vorhandenen Leafs suchen
+	public List<String> getLeafs() throws XMPPException{
+		List<String> nodeList = new ArrayList<String>();
 		if (cn.isConnected() == false || cn.isSecureConnection() == false){
 			System.out.println("Es besteht keine Verbindung!");
-			//return "failture, no connection!";
+			System.exit(1);
 		}
+		
 		ServiceDiscoveryManager sdm = ServiceDiscoveryManager.getInstanceFor(cn);
 		DiscoverItems dci = psm.discoverNodes(null);
 		
 		Iterator it = dci.getItems();
 		while (it.hasNext()) {
 	          DiscoverItems.Item item = (DiscoverItems.Item) it.next();
-	          System.out.println("Node: " + item.getNode());
-	      }
+	          nodeList.add(item.getNode());
+	          //System.out.println("Node: " + item.getNode());
+	    }
+		return nodeList;
 }
 	
 
@@ -175,14 +193,63 @@ public class XmppManager {
 	}
 	
 
-	
+	public boolean isSubscribed(String leafNode){
+		List<Subscription> subList;
+		
+		//Hole Subscriptions des aktuellen PSM's (bzw. des demnach eingeloggten Users)
+		try {
+			subList = psm.getSubscriptions();
+			
+			for (Subscription subscription: subList){
+				if(subscription.getNode().equals(leafNode)){
+					//System.out.println(subscription.getJid());
+					//System.out.println("Bereits subscribed!");
+					return true;
+				}
+			}
+		} catch (XMPPException e) {
+			System.out.println("Fehler beim holen der Subscriptions");
+			e.printStackTrace();
+		}
+
+
+		return false;
+	}
+	/**
+	 * Zeigt die Nodes an, zu denen bereits vom aktuellen USER subscribed wurde.
+	 * @return Eine Liste mit Nodes. / Leere liste bei keinen Subscriptions.
+	 */
+	public List<String> showSubscriptions(){
+
+		List<Subscription> subList;
+		List<String> nodeList = new ArrayList<String>();
+		try {
+			subList = psm.getSubscriptions();
+			for(Subscription subscription: subList){
+				nodeList.add(subscription.getNode());
+				//System.out.println(subscription.getId());
+			}
+			return nodeList;
+			
+		} catch (XMPPException e) {
+			System.out.println("Fehler beim holen der Subscriptionliste");
+			e.printStackTrace();
+			return nodeList;
+		}
+	}
+
 	public boolean subscribeLeaf(String leafNode){
 
 		
 		LeafNode subLeaf;
 		try {
+			
+			if(isSubscribed(leafNode) == true){
+				System.out.println("Bereits subscribed!");
+				return false;
+			}
 			subLeaf = psm.getNode(leafNode);
-			subLeaf.addItemEventListener(new ItemEventCoordinator<Item>());
+			subLeaf.addItemEventListener(new ItemEventCoordinator<Item>());			
 		    subLeaf.subscribe(cn.getUser());
 		    return true;
 		} catch (XMPPException e) {
@@ -191,6 +258,90 @@ public class XmppManager {
 			return false;
 		}
 
+	}
+	/**
+	 * Entferne die Subscription, welche zuvor zu dem uebergebenen LeadNode vorgenommen worden musste.
+	 * @param leafNode LeafNode an der die Subscription aufgeloest werden soll.
+	 * @return true, wenn erfolgreich unsubscribed, false, wenn Fehler oder Node zuvor nicht subscribed.
+	 */
+	public boolean unSubscribe(String leafNode){
+		LeafNode subLeaf;
+		try {
+			subLeaf = psm.getNode(leafNode);
+			
+			if(isSubscribed(leafNode) == true){
+				subLeaf.unsubscribe(cn.getUser());
+				System.out.println("Erfolgreich den LeafNode " + leafNode + " unsubscribed!");
+				return true;
+			}
+			else{
+				System.out.println("LeafNode: " + leafNode + " konnte nicht unsubscribed werden," +
+						"es liegt keine Subscription vor.");
+				return false;
+			}
+
+		} catch (XMPPException e) {
+			e.printStackTrace();
+			System.out.println("Fehler beim Holen des Nodes.");
+			return false;
+		}
+	}
+	/**
+	 * Diese Methode wird beim Unsubcriben benötigt, wenn zu einem Node 
+	 * mehrere Subscriptions vorliegen. Zu jeder Subscription wird dann
+	 * die Subscription-ID geholt, welche das Löschen einer genauen 
+	 * Subscription vornimmt.<br/><br/>
+	 * 
+	 * Diese Methode sollte später nicht standardmäßig implementiert werden.
+	 * Sie dient lediglich dafür, Debugging-Subscriptions wieder zu entfernen.
+	 * Die Methode wird auch nicht benötigt, da jeder Nutzer nur noch einmal
+	 * zu einem Node subscriben kann und somit die Methode unSubscribe(String leafNode)
+	 * verwender werden sollte.
+	 * 
+	 * @param leafNode LeafNode an der die Subscription aufgeloest werden soll.
+	 * @return 
+	 */
+	public boolean unSubscribePlural(String leafNode){
+		LeafNode subLeaf;
+		List<Subscription> subList; 
+		String subscriptionId;
+		String subscriptionNode;
+
+		try {
+			subLeaf = psm.getNode(leafNode);
+			
+			subList = psm.getSubscriptions();
+			for(Subscription subscription: subList){
+					subscriptionNode = subscription.getNode();
+					subscriptionId = subscription.getId();
+					if(subscriptionNode.equals(leafNode)){
+						//Riiight
+						if(isSubscribed(leafNode) == true){
+							// auch okay, System.out.println("TRUEEE");
+							System.out.println("LeafNode: " + leafNode);
+							System.out.println("SubNode: " + subscriptionNode);
+							System.out.println("SubID: " + subscriptionId);
+							System.out.println("User: " + cn.getUser());
+							subLeaf.unsubscribe(cn.getUser(), subscriptionId);
+							return true;
+						}
+					}
+			}
+
+		}
+		
+		catch (XMPPException e) {
+			System.out.println("Beim Holen der Subscriptions ist ein Fehler aufgetreten");
+			e.printStackTrace();
+			return false;
+		}
+		return false;
+	}
+	public void manualunsub(String leafNode, String user, String subid) throws XMPPException{
+		LeafNode subLeaf;
+		subLeaf = psm.getNode(leafNode);
+		subLeaf.unsubscribe(user, subid);
+		System.out.println("Erfolgreich unsubbed.");
 	}
 	
 	public boolean disconnect(){
