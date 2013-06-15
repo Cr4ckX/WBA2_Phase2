@@ -84,7 +84,7 @@
             <SGBeschreibung>Beschreibung1</SGBeschreibung>
             <SportartenM>
                 <Sportart id="0">
-                    <SName>Tennis</SName>
+                    <SName>Tischtennis</SName>
                     <SBeschreibung>..</SBeschreibung>
                     <SHerkunft>..</SHerkunft>
                     <SVorraussetzung>..</SVorraussetzung>
@@ -92,7 +92,7 @@
                     <VeranstaltungenM></VeranstaltungenM> <!-- keine Veranstaltungen momentan -->
                 </Sportart>
                 
-                <Sportart id="0">
+                <Sportart id="1">
                     <SName>Tennis</SName>
                     <SBeschreibung>Dynamik, Spaß und Power, das alles bietet diese wunderschöne Sportart. Unsere Angebote richten sich an AnfängerInnen, Fortgeschrittene, WettkampfspielerInnen und an diejenigen, die bloß spielen wollen.</SBeschreibung>
                     <SHerkunft>China</SHerkunft>
