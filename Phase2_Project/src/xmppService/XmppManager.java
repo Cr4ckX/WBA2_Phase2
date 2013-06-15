@@ -337,12 +337,7 @@ public class XmppManager {
 		}
 		return false;
 	}
-	public void manualunsub(String leafNode, String user, String subid) throws XMPPException{
-		LeafNode subLeaf;
-		subLeaf = psm.getNode(leafNode);
-		subLeaf.unsubscribe(user, subid);
-		System.out.println("Erfolgreich unsubbed.");
-	}
+
 	
 	public boolean disconnect(){
 		cn.disconnect();
