@@ -58,13 +58,12 @@ public class InteressentGUI {
 //			System.out.println("Erfolgreich zum Node 'bla' Subscribed!");
 //		}
 		
-//		boolean unsubscribe = verbindung.unSubscribePlural("bla");
-//		//System.out.println(unsubscribe);
-//		if(unsubscribe){
-//			System.out.println("Erfolgreich unsubscribed!");
-//		}
+////		boolean unsubscribe = verbindung.unSubscribePlural("bla");
+////		//System.out.println(unsubscribe);
+////		if(unsubscribe){
+////			System.out.println("Erfolgreich unsubscribed!");
+////		}
 		
-//		verbindung.manualunsub("bla", "interessent@localhost/Smack", "G4tasLqpT6OHnnr39y80Y1C045P9OaDFrBAYo920");
 		
 //		LeafNode test;
 //		
