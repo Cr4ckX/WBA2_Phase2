@@ -3,14 +3,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-
-import com.sun.org.apache.xerces.internal.impl.RevalidationHandler;
+import xmppService.*;
  
 public class Sportverzeichnis 
 {
 	
-		private static JLabel labelAnweisung, labelSG, labelSA, labelV, labelO, labelAreaSG, labelAreaV, labelAreaO, labelVS;
+		
+	
+		private static JLabel labelSG, labelSA, labelV, labelO, labelAreaSG, labelAreaV, labelAreaO, labelVS;
 		private static JComboBox dropdownSG, dropdownSA, dropdownV, dropdownVS, dropdownO;
 		private static JTextArea AreaSG, AreaV, AreaO;
 		
@@ -48,6 +48,7 @@ public class Sportverzeichnis
                 fenster2.setLocationRelativeTo(null);
                 fenster2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 
+                Interessent I = new Interessent();
                 
                 Object[] options = {"Interessent", "Veranstalter"};
                 
@@ -71,6 +72,7 @@ public class Sportverzeichnis
                 	showButtonZurueckO();
                 	showButtonZurueckSG();
                 	showButtonZurueckV();
+                	I.interessentErzeugen(interessent);
              
                     
                     fenster1.setVisible(true);
@@ -274,9 +276,7 @@ public class Sportverzeichnis
 				
 				
             	public void actionPerformed(ActionEvent btnzuruecke) {
-				
-            	fenster1.dispose();
-            	
+				            	
             	Object[] options = {"Interessent", "Veranstalter"};
                 
                 int selected = JOptionPane.showOptionDialog(null,
