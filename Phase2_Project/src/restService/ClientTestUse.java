@@ -6,7 +6,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import generated.Veranstaltung;
 import generated.VeranstaltungenM;
 /**
- * Diese Klasse zeigt die Verwendung des Clients beispielhaft.
+ * Diese Klasse zeigt die Verwendung des Clients beispielhaft. Sie dient hauptsŠchlich zur intenen Verwendung (Debugging,..)
+ * und sollte daher spŠter nicht Bestandteil des Systems sein.
  * @author CrackX
  *
  */
@@ -38,11 +39,12 @@ public class ClientTestUse {
 		XMLGregorianCalendar time = ct.buildXMLTime(03,00);
 		XMLGregorianCalendar date = ct.buildXMLDate(2013, 03, 15);
 		
-		//Veranstaltung newVeranstaltung = ct.buildVeranstaltung(
-		 //		"Test",	"Info", date, time,	"schwer", "keine", "", "0");
+		Veranstaltung newVeranstaltung = ct.buildVeranstaltung(
+		 		"Test",	"Info", date, time,	"schwer", "keine", "", "0");
 		
-		//ct.postVeranstaltung("0", "0", newVeranstaltung);
+		int neueVeranstaltungsId = ct.postVeranstaltung("0", "0", newVeranstaltung);
+		System.out.println(neueVeranstaltungsId);
 		//ct.deleteVeranstaltung("0", "0", "0");
-		//ct.putVeranstaltung("0", "0", "0", newVeranstaltung);
+		ct.putVeranstaltung("0", "0", "0", newVeranstaltung);
 	}
 }
