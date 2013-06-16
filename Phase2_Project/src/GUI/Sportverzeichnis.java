@@ -18,15 +18,18 @@ public class Sportverzeichnis
 		private static JTextArea AreaSG, AreaV, AreaO;
 		
 		//Button Interessenten
-		private static JButton btnSubscribeSG, btnUnsubscribeSG, btnUnsubscribeO, btnUnsubscribeV, btnSubscribeV, btnSubscribeO, btnzurueckSG, btnzurueckV, btnzurueckO;  
+		private static JButton btnSubscribeSG, btnUnsubscribeSG, btnUnsubscribeO, btnUnsubscribeV, btnSubscribeV, btnSubscribeO, btnzurueckSG, btnzurueckV, btnzurueckO, btnEditOK;  
 		//Button Veranstalter
-		private static JButton btnPublishV, btnDeleteV, btnEditV, btnPublishG, btnSubscribeE, btnSubscribeG, btnUnsubscribeE, btnUnsubscribeG, btnZurueckVV, btnNewV, btnOK;
+		private static JButton btnDeleteV, btnEditV, btnSubscribeE, btnSubscribeG, btnUnsubscribeE, btnUnsubscribeG, btnZurueckVV, btnNewV, btnOK;
 		private static JLabel labelVSG, labelAreaVV, labelAreaVSG, labelAreaVSA, labelVSA, labelVV, labelVEBeschr, labelVEInfo, labelVEDatum, labelVEUhrzeit, labelVENiveau, labelVEVorraussetungen, labelVEGebäude;
-		private static JComboBox dropdownVSG, dropdownVSA, dropdownVV, dropdownDay, dropdownMonth, dropdownYear, dropdownHour, dropdownMinute, dropdownGebäude;
+		private static JComboBox dropdownVSG, dropdownVSA, dropdownVV, dropdownDayE, dropdownMonthE, dropdownYearE, dropdownHourE, dropdownMinuteE, dropdownGebäudeE, 
+			dropdownDayAE, dropdownMonthAE, dropdownYearAE, dropdownHourAE, dropdownMinuteAE, dropdownGebäudeAE;
 		private static JTextArea AreaVV, AreaVSG, AreaVSA;
 		private static JTextField fieldBeschrE,fieldInfoE, fieldDatumE, fieldUhrzeitE, fieldNiveauE, fieldVorraussetzungenE;
 		private static JTextField fieldBeschrAE,fieldInfoAE, fieldDatumAE, fieldUhrzeitAE, fieldNiveauAE, fieldVorraussetzungenAE;
-		
+		static int countVV = 0;
+		static int countNew = 0;
+		static int countSA = 0;
 		
 		final static JFrame fenster1 = new JFrame("Herzlich Willkommen");
 		final static JFrame fenster2 = new JFrame("Herzlich Willkommen");
@@ -622,35 +625,8 @@ public class Sportverzeichnis
     	/********************************************/
     	
     	
-    	public static void showButtonPublishV(){
-    		
-    		btnPublishV = new JButton("Publish");
-    		btnPublishV.setBounds(800, 400, 150, 25);
-        	panelVV.add(btnPublishV);
-        	panelVV.validate();
-        	panelVV.repaint();
-
-    	}
     	
-    	public static void showButtonDeleteV(){
-    		
-    		btnDeleteV = new JButton("Löschen");
-    		btnDeleteV.setBounds(800, 400, 150, 25);
-        	panelVV.add(btnDeleteV);
-        	panelVV.validate();
-        	panelVV.repaint();
-
-    	}
     	
-    	public static void showButtonEditV(){
-    		
-    		btnEditV = new JButton("Ändern");
-    		btnEditV.setBounds( 600, 400, 150, 25);
-        	panelVV.add(btnEditV);
-        	panelVV.validate();
-        	panelVV.repaint();
-        	
-    	}
 
     	public static void showButtonZurueckVV(){
     		
@@ -825,14 +801,20 @@ public class Sportverzeichnis
 				
 				public void actionPerformed(ActionEvent NewVe) {
 					
+					countNew++;
 					showTextfieldsVErstellen();
 					hideDropDownVS();
 					showButtonOK();
 					hideAreaVSA();
 					hideAreaVSG();
-					hideAreaVV();
-//					hideEditDelete();
-					
+					if (countVV >0){
+						hideAreaVV();
+						btnDeleteV.setVisible(false);
+						btnEditV.setVisible(false);
+
+					}
+
+
 					
 				}
 			});
@@ -844,7 +826,7 @@ public class Sportverzeichnis
     	public static void showAreaVSG(){
     	
             
-    		labelAreaVSG = new JLabel("Informationen bezüglich: ");
+    		labelAreaVSG = new JLabel("Informationen bezüglichSG: ");
     		labelAreaVSG.setBounds(600, 10, 300, 100);
             panelVV.add(labelAreaVSG);
         	panelVV.validate();
@@ -865,7 +847,7 @@ public class Sportverzeichnis
     	public static void showAreaVSA(){
     	
             
-    		labelAreaVSA = new JLabel("Informationen bezüglich: ");
+    		labelAreaVSA = new JLabel("Informationen bezüglichSA: ");
     		labelAreaVSA.setBounds(600, 10, 300, 100);
             panelVV.add(labelAreaVSA);
         	panelVV.validate();
@@ -885,7 +867,7 @@ public class Sportverzeichnis
     	public static void showAreaVV(){
     	
             
-    		labelAreaVV = new JLabel("Informationen bezüglich: ");
+    		labelAreaVV = new JLabel("Informationen bezüglichVV: ");
             labelAreaVV.setBounds(600, 10, 300, 100);
             panelVV.add(labelAreaVV);
         	panelVV.validate();
@@ -902,9 +884,6 @@ public class Sportverzeichnis
             
     	}
     	
-    	
-    	
-
     	
     	public static void showDropdownVSG(){
     		
@@ -935,6 +914,13 @@ public class Sportverzeichnis
         				showDropdownVSA();
         				showAreaVSG();
         				
+        				if (countNew > 0){
+        					hideFieldsNewV();
+        				}
+        				
+        				if(countSA > 0){
+        					hideAreaVSA();
+        				}
         		}
 
         	});
@@ -962,8 +948,15 @@ public class Sportverzeichnis
            			showDropdownVV();
            			hideAreaVSG();
            			showAreaVSA();
+           			if (countVV >0){
+           				hideAreaVV();
+           				btnDeleteV.setVisible(false);
+           				btnEditV.setVisible(false);
+           			}
            			
-           			
+           			if (countNew > 0){
+    					hideFieldsNewV();
+    				}
            			
            		}
        		});
@@ -985,21 +978,85 @@ public class Sportverzeichnis
         	panelVV.validate();
         	
         	
+        	
+        	
+        	
         	dropdownVV.addActionListener(new ActionListener(){
            		
            		public void actionPerformed(ActionEvent dropdownVVe) { 			
            			
-           			showButtonEditV();
-           			showButtonDeleteV();
+           			showAreaVV();
+           			hideAreaVSA();
+           			showBtnDelete();
+           			showBtnEdit();
            			
+           			countVV++;
            			
-           			
+           			if (countNew > 0){
+           				hideFieldsNewV();
+           			}
            		}
        		});
+        	
     	}
+    	
+    	public static void showBtnEdit(){
+    		
+    		
+        	btnEditV = new JButton("Ändern");
+    		btnEditV.setBounds( 600, 450, 150, 25);
+        	panelVV.add(btnEditV);
+        	panelVV.validate();
+        	panelVV.repaint();
+        	
+        	btnEditV.addActionListener(new ActionListener() {
+				
+				public void actionPerformed(ActionEvent BtnEdite) {
+					hideAreaVV();
+					showTextfieldsVAendern();
+					hideBtnDelete();
+					hideBtnEdit();
+					showBtnEditOK();
+				}
+			});
+    	}
+    	
+    	public static void showBtnDelete(){
+    		
+    		btnDeleteV = new JButton("Löschen");
+    		btnDeleteV.setBounds(800, 450, 150, 25);
+        	panelVV.add(btnDeleteV);
+        	panelVV.validate();
+        	panelVV.repaint();
+    	} 
+    	
+    	public static void showBtnEditOK(){
+    		
+    		btnEditOK = new JButton("Übernehmen");
+    		btnEditOK.setBounds(800, 450, 150, 25);
+        	panelVV.add(btnEditOK);
+        	panelVV.validate();
+        	panelVV.repaint();
+        	
+        	
+        	btnEditOK.addActionListener(new ActionListener() {
+				
+				public void actionPerformed(ActionEvent BtnEditOKe) {
+					hideFieldsEditV();
+					hideBtnEditOK();
+					showAreaVV();
+					
+				}
+			});
+    	}  
+    	
+    	public static void hideBtnEditOK(){
+    		btnEditOK.setVisible(false);
+    	}
+    	
     	public static void showTextfieldsVErstellen(){
     		
-    		Color colorGrey = new Color(152,153,155);
+//    		Color colorGrey = new Color(152,153,155);
 
     		
     		labelVEBeschr = new JLabel("Name/Beschreibung:");
@@ -1011,7 +1068,6 @@ public class Sportverzeichnis
     		fieldBeschrE = new JTextField("");
     		fieldBeschrE.setToolTipText("Bitte tragen Sie hier einen Namen und eine Beschreibung der Veranstaltung ein");
     		fieldBeschrE.setBounds(650, 80, 300, 25);
-			fieldBeschrE.setForeground(colorGrey);
         	panelVV.add(fieldBeschrE);
         	panelVV.validate();
         	
@@ -1037,22 +1093,22 @@ public class Sportverzeichnis
     		panelVV.validate();
     		
         	final String[] DropDownDay = new String[] {"0","1", "2","3","4","5","6","7","8", "9","10","11","12","13", "14","15","16","17","18","19","20","21","22","23", "24","25","26","27","28","29","30","31"};
-        	dropdownDay = new JComboBox(DropDownDay);
-        	dropdownDay.setBounds(650, 200, 60, 30);
-        	panelVV.add(dropdownDay);
+        	dropdownDayE = new JComboBox(DropDownDay);
+        	dropdownDayE.setBounds(650, 200, 60, 30);
+        	panelVV.add(dropdownDayE);
         	panelVV.validate();
         	
         	final String[] DropDownMonth = new String[] {"Jan", "Feb", "März", "April", "Mai", "Juni","Juli","Aug","Sep","Okt","Nov","Dez"};
-        	dropdownMonth = new JComboBox(DropDownMonth);
-        	dropdownMonth.setBounds(720, 200, 80, 30);
-        	panelVV.add(dropdownMonth);
+        	dropdownMonthE = new JComboBox(DropDownMonth);
+        	dropdownMonthE.setBounds(720, 200, 80, 30);
+        	panelVV.add(dropdownMonthE);
         	panelVV.validate();
         	
         	
         	final String[] DropDownYear = new String[] {"2013", "2014", "2015", "2016"};
-        	dropdownYear = new JComboBox(DropDownYear);
-        	dropdownYear.setBounds(820, 200, 100, 30);
-        	panelVV.add(dropdownYear);
+        	dropdownYearE = new JComboBox(DropDownYear);
+        	dropdownYearE.setBounds(820, 200, 100, 30);
+        	panelVV.add(dropdownYearE);
         	panelVV.validate();
 
         	
@@ -1063,16 +1119,16 @@ public class Sportverzeichnis
     		panelVV.validate();
         	
         	final String[] DropDownHour = new String[] {"08", "09", "10", "11", "12", "13","14","15","16","17","18","19","20","21", "22"};
-        	dropdownHour = new JComboBox(DropDownHour);
-        	dropdownHour.setBounds(650, 240, 80, 30);
-        	panelVV.add(dropdownHour);
+        	dropdownHourE = new JComboBox(DropDownHour);
+        	dropdownHourE.setBounds(650, 240, 80, 30);
+        	panelVV.add(dropdownHourE);
         	panelVV.validate();
         	
         	
         	final String[] DropDownMinute = new String[] {"00","01", "02","03","04","05","06","07","08", "09","10","11","12","13", "14","15","16","17","18","19","20","21","22","23", "24","25","26","27","28","29","30","31", "32","33","34","35","36","37","38", "39","40","41","42","43", "44","45","46","47","48","49","50","51","52","53", "54","55","56","57","58","59"};
-        	dropdownMinute = new JComboBox(DropDownMinute);
-        	dropdownMinute.setBounds(740, 240, 80, 30);
-        	panelVV.add(dropdownMinute);
+        	dropdownMinuteE = new JComboBox(DropDownMinute);
+        	dropdownMinuteE.setBounds(740, 240, 80, 30);
+        	panelVV.add(dropdownMinuteE);
         	panelVV.validate();
         	
         	
@@ -1109,14 +1165,13 @@ public class Sportverzeichnis
     		panelVV.validate();
         	
         	final String[] DropDownGebäude = new String[] {"G1", "G2", "10", "11", "12", "13"};
-        	dropdownGebäude = new JComboBox(DropDownGebäude);
-        	dropdownGebäude.setBounds(650, 390, 300, 30);
-        	panelVV.add(dropdownGebäude);
+        	dropdownGebäudeE = new JComboBox(DropDownGebäude);
+        	dropdownGebäudeE.setBounds(650, 390, 300, 30);
+        	panelVV.add(dropdownGebäudeE);
         	panelVV.validate();
         
     	}
     		
-    	
     	public static void hideBtnNewV(){
     		btnNewV.setVisible(false);
     		
@@ -1128,14 +1183,14 @@ public class Sportverzeichnis
     		labelVEInfo.setVisible(false);
     		fieldInfoE.setVisible(false);
     		labelVEDatum.setVisible(false);
-    		dropdownDay.setVisible(false);
-    		dropdownMonth.setVisible(false);
-    		dropdownYear.setVisible(false);
+    		dropdownDayE.setVisible(false);
+    		dropdownMonthE.setVisible(false);
+    		dropdownYearE.setVisible(false);
     		labelVEUhrzeit.setVisible(false);
-    		dropdownHour.setVisible(false);
-    		dropdownMinute.setVisible(false);
+    		dropdownHourE.setVisible(false);
+    		dropdownMinuteE.setVisible(false);
     		labelVEGebäude.setVisible(false);
-    		dropdownGebäude.setVisible(false);
+    		dropdownGebäudeE.setVisible(false);
     		labelVENiveau.setVisible(false);
     		fieldNiveauE.setVisible(false);
     		labelVEVorraussetungen.setVisible(false);
@@ -1143,48 +1198,89 @@ public class Sportverzeichnis
     		btnOK.setVisible(false);
     		
     	}
+    	
+    	
+    	public static void hideFieldsEditV(){
+    		fieldBeschrAE.setVisible(false);
+    		fieldInfoAE.setVisible(false);
+    		dropdownDayAE.setVisible(false);
+    		dropdownMonthAE.setVisible(false);
+    		dropdownYearAE.setVisible(false);
+    		dropdownHourAE.setVisible(false);
+    		dropdownMinuteAE.setVisible(false);
+    		dropdownGebäudeAE.setVisible(false);
+    		fieldNiveauAE.setVisible(false);
+    		fieldVorraussetzungenAE.setVisible(false);
+    		
+    	}
+    	
     	public static void showTextfieldsVAendern(){
     		
-    		Color colorGrey = new Color(152,153,155);
-
-    		fieldBeschrAE = new JTextField("Name/Beschreibung");
-    		fieldBeschrAE.setToolTipText("Bitte tragen Sie hier einen Namen und eine Beschreibung der Veranstaltung ein");
-    		fieldBeschrAE.setBounds(285, 90, 300, 50);
     		
-			fieldBeschrAE.setForeground(colorGrey);
+    		fieldBeschrAE = new JTextField("");
+    		fieldBeschrAE.setBounds(650, 80, 300, 25);
         	panelVV.add(fieldBeschrAE);
         	panelVV.validate();
+        	
     		
-        	fieldInfoAE = new JTextField("Informationen");
-        	fieldInfoAE.setBounds(285, 165, 300, 25);
-        	fieldInfoAE.setToolTipText("Bitte geben Sie hier Informatiionen bezüglich der veranstaltung ein");
+        	fieldInfoAE = new JTextField("");
+        	fieldInfoAE.setBounds(650, 130, 300, 50);
         	panelVV.add(fieldInfoAE);
         	panelVV.validate();
         	
-        	fieldDatumAE = new JTextField("Datum DD.MM.YYYY");
-        	fieldDatumAE.setBounds(285, 215, 300, 25);
-        	fieldDatumAE.setToolTipText("Bitte geben Sie hier das Datum der Veranstaltung ein!");
-        	panelVV.add(fieldDatumAE);
+    		
+        	final String[] DropDownDayAE = new String[] {"0","1", "2","3","4","5","6","7","8", "9","10","11","12","13", "14","15","16","17","18","19","20","21","22","23", "24","25","26","27","28","29","30","31"};
+        	dropdownDayAE = new JComboBox(DropDownDayAE);
+        	dropdownDayAE.setBounds(650, 200, 60, 30);
+        	panelVV.add(dropdownDayAE);
         	panelVV.validate();
         	
-        	fieldUhrzeitAE = new JTextField("Uhrzeit HH:MM");
-        	fieldUhrzeitAE.setBounds(285, 265, 300, 25);
-        	fieldUhrzeitAE.setToolTipText("Bitte geben Sie hier die Uhrzeit der Veranstaltung ein!");
-        	panelVV.add(fieldUhrzeitAE);
+        	final String[] DropDownMonthAE = new String[] {"Jan", "Feb", "März", "April", "Mai", "Juni","Juli","Aug","Sep","Okt","Nov","Dez"};
+        	dropdownMonthAE = new JComboBox(DropDownMonthAE);
+        	dropdownMonthAE.setBounds(720, 200, 80, 30);
+        	panelVV.add(dropdownMonthAE);
         	panelVV.validate();
         	
-        	fieldNiveauAE = new JTextField("Niveau");
-        	fieldNiveauAE.setBounds(285, 315, 300, 25);
-        	fieldNiveauAE.setToolTipText("Bitte geben Sie hier das Niveau der Veranstaltung ein!");
+        	
+        	final String[] DropDownYearAE = new String[] {"2013", "2014", "2015", "2016"};
+        	dropdownYearAE = new JComboBox(DropDownYearAE);
+        	dropdownYearAE.setBounds(820, 200, 100, 30);
+        	panelVV.add(dropdownYearAE);
+        	panelVV.validate();
+
+        	
+        	final String[] DropDownHourAE = new String[] {"08", "09", "10", "11", "12", "13","14","15","16","17","18","19","20","21", "22"};
+        	dropdownHourAE = new JComboBox(DropDownHourAE);
+        	dropdownHourAE.setBounds(650, 240, 80, 30);
+        	panelVV.add(dropdownHourAE);
+        	panelVV.validate();
+        	
+        	
+        	final String[] DropDownMinuteAE = new String[] {"00","01", "02","03","04","05","06","07","08", "09","10","11","12","13", "14","15","16","17","18","19","20","21","22","23", "24","25","26","27","28","29","30","31", "32","33","34","35","36","37","38", "39","40","41","42","43", "44","45","46","47","48","49","50","51","52","53", "54","55","56","57","58","59"};
+        	dropdownMinuteAE = new JComboBox(DropDownMinuteAE);
+        	dropdownMinuteAE.setBounds(740, 240, 80, 30);
+        	panelVV.add(dropdownMinuteAE);
+        	panelVV.validate();
+        	
+        	
+        	fieldNiveauAE = new JTextField("");
+        	fieldNiveauAE.setBounds(650, 290, 300, 25);
         	panelVV.add(fieldNiveauAE);
         	panelVV.validate();
         	
-        	fieldNiveauAE = new JTextField("Vorraussetzungen");
-        	fieldNiveauAE.setBounds(285, 365, 300, 25);
-        	fieldNiveauAE.setToolTipText("Bitte geben Sie hier das Niveau der Veranstaltung ein!");
-        	panelVV.add(fieldNiveauAE);
+        	
+        	fieldVorraussetzungenAE = new JTextField("");
+        	fieldVorraussetzungenAE.setBounds(650, 340, 300, 25);
+        	panelVV.add(fieldVorraussetzungenAE);
         	panelVV.validate();
         	
+        	
+        	
+        	final String[] DropDownGebäudeAE = new String[] {"G1", "G2", "10", "11", "12", "13"};
+        	dropdownGebäudeAE = new JComboBox(DropDownGebäudeAE);
+        	dropdownGebäudeAE.setBounds(650, 390, 300, 30);
+        	panelVV.add(dropdownGebäudeAE);
+        	panelVV.validate();
     	}
 
     	public static void hideDropDownVS(){
@@ -1192,13 +1288,12 @@ public class Sportverzeichnis
     		dropdownVV.setVisible(false);
     		labelVV.setVisible(false);
     	}
-    	
+
     	public static void hideEditDelete(){
     		
     		btnEditV.setVisible(false);
     		btnDeleteV.setVisible(false);
     	}
-    	
     	
     	public static void hideAreaVSG(){
     		
@@ -1211,11 +1306,22 @@ public class Sportverzeichnis
     		AreaVSA.setVisible(false);
     		labelAreaVSA.setVisible(false);
     	}
-
+    	
     	public static void hideAreaVV(){
     		
     		AreaVV.setVisible(false);
     		labelAreaVV.setVisible(false);
+    	}
+
+    	public static void hideBtnDelete(){
+    		
+    		btnDeleteV.setVisible(false);
+    		
+    	}
+    	
+    	public static void hideBtnEdit(){
+    		
+    		btnEditV.setVisible(false);
     	}
     	
 }
