@@ -1,8 +1,11 @@
 package GUI;
+import java.awt.Color;
+import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+
 import xmppService.*;
  
 public class Sportverzeichnis 
@@ -17,10 +20,12 @@ public class Sportverzeichnis
 		//Button Interessenten
 		private static JButton btnSubscribeSG, btnUnsubscribeSG, btnUnsubscribeO, btnUnsubscribeV, btnSubscribeV, btnSubscribeO, btnzurueckSG, btnzurueckV, btnzurueckO;  
 		//Button Veranstalter
-		private static JButton btnPublishV, btnDeleteV, btnEditV, btnPublishG, btnSubscribeE, btnSubscribeG, btnUnsubscribeE, btnUnsubscribeG, btnZurueckVV;
-		private static JLabel labelVV, labelAreaVV;
-		private static JComboBox dropdownVV;
-		private static JTextArea AreaVV;
+		private static JButton btnPublishV, btnDeleteV, btnEditV, btnPublishG, btnSubscribeE, btnSubscribeG, btnUnsubscribeE, btnUnsubscribeG, btnZurueckVV, btnNewV, btnOK;
+		private static JLabel labelVSG, labelAreaVV, labelVSA, labelVV, labelVEBeschr, labelVEInfo, labelVEDatum, labelVEUhrzeit, labelVENiveau, labelVEVorraussetungen, labelVEGebäude;
+		private static JComboBox dropdownVSG, dropdownVSA, dropdownVV, dropdownDay, dropdownMonth, dropdownYear, dropdownHour, dropdownMinute, dropdownGebäude;
+		private static JTextArea AreaVV, AreaBeschr;
+		private static JTextField fieldBeschrE,fieldInfoE, fieldDatumE, fieldUhrzeitE, fieldNiveauE, fieldVorraussetzungenE;
+		private static JTextField fieldBeschrAE,fieldInfoAE, fieldDatumAE, fieldUhrzeitAE, fieldNiveauAE, fieldVorraussetzungenAE;
 		
 		
 		final static JFrame fenster1 = new JFrame("Herzlich Willkommen");
@@ -72,7 +77,7 @@ public class Sportverzeichnis
                 	showButtonZurueckO();
                 	showButtonZurueckSG();
                 	showButtonZurueckV();
-                	I.interessentErzeugen(interessent);
+//                	I.interessentErzeugen(interessent);
              
                     
                     fenster1.setVisible(true);
@@ -82,7 +87,7 @@ public class Sportverzeichnis
                 if(selected == 1)
                 {
                 	showPanelsV();
-                	showDropdownVV();
+                	showDropdownVSG();
                 	showButtonZurueckVV();
                 	
                 	
@@ -123,6 +128,9 @@ public class Sportverzeichnis
 	    	/**************************PANEL********************************/
 	    	/***************************************************************/	
 	        
+    		panelVV.setLayout(null);
+	        tabLeiste2.addTab("Sportveranstaltungen", panelVV);
+    		
 	        panelE.setLayout(null);	
 	        tabLeiste2.addTab("Equiment", panelE);
 	            
@@ -130,8 +138,7 @@ public class Sportverzeichnis
 	        panelGB.setLayout(null);
 	        tabLeiste2.addTab("Gebäude", panelGB);
 	
-	        panelVV.setLayout(null);
-	        tabLeiste2.addTab("Meine Veranstaltungen", panelVV);
+	        
     	}
     	
     	public static void showDropdownSG()
@@ -307,7 +314,7 @@ public class Sportverzeichnis
 	                if(selected == 1)
 	                {
 	                	showPanelsV();
-	                	showDropdownVV();
+	                	showDropdownVSG();
 	                	showButtonZurueckVV();
 	                	
 	                	
@@ -367,7 +374,7 @@ public class Sportverzeichnis
 	                if(selected == 1)
 	                {
 	                	showPanelsV();
-	                	showDropdownVV();
+	                	showDropdownVSG();
 	                	showButtonZurueckVV();
 	                	
 	                	
@@ -424,7 +431,7 @@ public class Sportverzeichnis
 	                if(selected == 1)
 	                {
 	                	showPanelsV();
-	                	showDropdownVV();
+	                	showDropdownVSG();
 	                	showButtonZurueckVV();
 	                	
 	                	
@@ -628,7 +635,7 @@ public class Sportverzeichnis
     	public static void showButtonDeleteV(){
     		
     		btnDeleteV = new JButton("Löschen");
-    		btnDeleteV.setBounds(600, 400, 150, 25);
+    		btnDeleteV.setBounds(800, 400, 150, 25);
         	panelVV.add(btnDeleteV);
         	panelVV.validate();
         	panelVV.repaint();
@@ -638,11 +645,11 @@ public class Sportverzeichnis
     	public static void showButtonEditV(){
     		
     		btnEditV = new JButton("Ändern");
-    		btnEditV.setBounds(600, 450, 150, 25);
+    		btnEditV.setBounds( 600, 400, 150, 25);
         	panelVV.add(btnEditV);
         	panelVV.validate();
         	panelVV.repaint();
-
+        	
     	}
 
     	public static void showButtonZurueckVV(){
@@ -690,7 +697,7 @@ public class Sportverzeichnis
 	                if(selected == 1)
 	                {
 	                	showPanelsV();
-	                	showDropdownVV();
+	                	showDropdownVSG();
 	                	showButtonZurueckVV();
 	                	
 	                	
@@ -762,39 +769,6 @@ public class Sportverzeichnis
         	
     	}
 
-    	public static void showDropdownVV(){
-    		
-    		
-            
-    		labelVV = new JLabel("Bitte wählen Sie eine Veranstaltung");
-            labelVV.setBounds(10, 10, 300, 100);
-            panelVV.add(labelVV);
-            labelVV.setVisible(true);
-            labelVV.validate();
-    		
-    		final String[] DropDownVV = new String[] {"V1", "V2", "V3", "V4", "V5"};
-        	dropdownVV = new JComboBox(DropDownVV);
-        	dropdownVV.setBounds(10, 40, 200, 100);
-        	panelVV.add(dropdownVV);
-        	panelVV.validate();
-        	
-        	
-        	dropdownVV.addActionListener(new ActionListener()
-        	{
-        		public void actionPerformed(ActionEvent dropdowVVe) 
-        		{ 			
-//        				JComboBox item = (JComboBox) dropdownSGe.getSource();
-//        				
-//        				if (item.getSelectedIndex() != 0 && item.getSelectedIndex() < DropDownSG.length){
-        				
-        				showButtonDeleteV();
-        				showButtonEditV();
-        				showButtonPublishV();
-        				showAreaVV();
-        		}
-        	});
-    	}
-    	
     	
     	public static void showButtonUnsubsribeG(){
     		
@@ -815,17 +789,65 @@ public class Sportverzeichnis
 
         	
     	}
+    	
+    	
+    	
+    	public static void showButtonOK(){
+    		
+    		btnOK = new JButton("OK");
+    		btnOK.setBounds(850, 450, 100, 25);
+    		panelVV.add(btnOK);
+    		panelVV.validate();
+        	panelVV.repaint();
+        	
+        	
+        	btnOK.addActionListener(new ActionListener() {
+				
+				public void actionPerformed(ActionEvent BtnOKe) {
+					
+					hideFieldsNewV();
+					showDropdownVV();
+					
+					
+				}
+			});
+    	}
+    	public static void showButtonNewV(){
+    		
+        	btnNewV = new JButton("Neue Veranstaltung");
+        	btnNewV.setBounds(220, 120, 150, 25);
+        	panelVV.add(btnNewV);
+        	panelVV.validate();
+        	panelVV.repaint();
+        	
+        	btnNewV.addActionListener(new ActionListener() {
+				
+				
+				public void actionPerformed(ActionEvent btnUnsubGe) {
+					
+					showTextfieldsVErstellen();
+					hideDropDownVS();
+					showButtonOK();
+					hideEditDelete();
+					
+					
+				}
+			});
+
+        	
+    	}
 
     	
     	public static void showAreaVV(){
     	
             
-            labelAreaVV = new JLabel("Informationen bezüglich: ");
+    		labelAreaVV = new JLabel("Informationen bezüglich: ");
             labelAreaVV.setBounds(600, 10, 300, 100);
             panelVV.add(labelAreaVV);
         	panelVV.validate();
+        	panelVV.repaint();
 
-            
+
 
             AreaVV = new JTextArea();
             AreaVV.setLineWrap(true);
@@ -834,6 +856,298 @@ public class Sportverzeichnis
         	panelVV.validate();
 
             
+    	}
+
+    	
+    	public static void showDropdownVSG(){
+    		
+    		
+            
+    		labelVSG = new JLabel("Bitte wählen Sie eine Sportgruppe");
+            labelVSG.setBounds(10, 50, 300, 25);
+            panelVV.add(labelVSG);
+            labelVSG.setVisible(true);
+            labelVSG.validate();
+    		
+    		final String[] DropDownVV = new String[] {"Judo", "Kampf", "Pi", "Pa", "Po"};
+        	dropdownVSG = new JComboBox(DropDownVV);
+        	dropdownVSG.setBounds(10, 70, 200, 25);
+        	panelVV.add(dropdownVSG);
+        	panelVV.validate();
+        	
+        	
+        	dropdownVSG.addActionListener(new ActionListener()
+        	{
+        		public void actionPerformed(ActionEvent dropdowVVe) 
+        		{ 			
+//        				JComboBox item = (JComboBox) dropdownSGe.getSource();
+//        				
+//        				if (item.getSelectedIndex() != 0 && item.getSelectedIndex() < DropDownSG.length){
+        				
+        			
+        				showDropdownVSA();
+        				
+        		}
+
+        	});
+    	}
+    	
+    	public static void showDropdownVSA(){
+        	
+    		labelVSA = new JLabel("Bitte wählen Sie eine Sportart!");
+        	labelVSA.setBounds(10, 100, 300, 25);
+            panelVV.add(labelVSA);
+            panelVV.validate();
+            
+            final String[] DropDownVSA = new String[] {"Sportarten", "Kampfsport", "Rückschlag", "Schnee", "Soooonenschein"};
+          	dropdownVSA = new JComboBox(DropDownVSA);
+           	dropdownVSA.setBounds(10, 120, 200, 25);
+           	panelVV.add(dropdownVSA);
+           	panelVV.validate();
+           	
+           	dropdownVSA.addActionListener(new ActionListener(){
+           		
+           		public void actionPerformed(ActionEvent dropdownSAe) { 			
+           			
+           			
+           			showButtonNewV();
+           			showDropdownVV();
+           			
+           			
+           			
+           		}
+       		});
+        }
+    	
+    	public static void showDropdownVV(){
+    		
+    		labelVV = new JLabel("Bitte wählen Sie eine Veranstaltung!");
+    		labelVV.setBounds(10, 150, 300, 25);
+            panelVV.add(labelVV);
+            panelVV.validate();
+
+    		
+            String[] DropDownVV = new String[] {"Veranstaltungen", "Bla", "Beispiel1", "Example", "Ejemplo"};
+        	
+            dropdownVV = new JComboBox(DropDownVV);
+        	dropdownVV.setBounds(10, 170, 200, 25);
+        	panelVV.add(dropdownVV);
+        	panelVV.validate();
+        	
+        	
+        	dropdownVV.addActionListener(new ActionListener(){
+           		
+           		public void actionPerformed(ActionEvent dropdownVVe) { 			
+           			
+           			showButtonEditV();
+           			showButtonDeleteV();
+           			hideBtnNewV();
+           			hideFieldsNewV();
+           			
+           			
+           		}
+       		});
+    	}
+    	public static void showTextfieldsVErstellen(){
+    		
+    		Color colorGrey = new Color(152,153,155);
+
+    		
+    		labelVEBeschr = new JLabel("Name/Beschreibung:");
+    		labelVEBeschr.setBounds(650, 60, 200, 25);
+    		labelVEBeschr.setVisible(true);
+    		panelVV.add(labelVEBeschr);
+    		panelVV.validate();
+        	
+    		fieldBeschrE = new JTextField("");
+    		fieldBeschrE.setToolTipText("Bitte tragen Sie hier einen Namen und eine Beschreibung der Veranstaltung ein");
+    		fieldBeschrE.setBounds(650, 80, 300, 25);
+			fieldBeschrE.setForeground(colorGrey);
+        	panelVV.add(fieldBeschrE);
+        	panelVV.validate();
+        	
+   		
+        	labelVEInfo = new JLabel("Informationen:");
+        	labelVEInfo.setBounds(650, 110, 200, 25);
+        	labelVEInfo.setVisible(true);
+    		panelVV.add(labelVEInfo);
+    		panelVV.validate();
+    		
+        	fieldInfoE = new JTextField("");
+        	fieldInfoE.setBounds(650, 130, 300, 50);
+        	fieldInfoE.setToolTipText("Bitte geben Sie hier Informatiionen bezüglich der veranstaltung ein");
+        	panelVV.add(fieldInfoE);
+        	panelVV.validate();
+        	
+        	
+    		
+        	labelVEDatum = new JLabel("Datum:");
+        	labelVEDatum.setBounds(650, 185, 200, 25);
+        	labelVEDatum.setVisible(true);
+    		panelVV.add(labelVEDatum);
+    		panelVV.validate();
+    		
+        	final String[] DropDownDay = new String[] {"0","1", "2","3","4","5","6","7","8", "9","10","11","12","13", "14","15","16","17","18","19","20","21","22","23", "24","25","26","27","28","29","30","31"};
+        	dropdownDay = new JComboBox(DropDownDay);
+        	dropdownDay.setBounds(650, 200, 60, 30);
+        	panelVV.add(dropdownDay);
+        	panelVV.validate();
+        	
+        	final String[] DropDownMonth = new String[] {"Jan", "Feb", "März", "April", "Mai", "Juni","Juli","Aug","Sep","Okt","Nov","Dez"};
+        	dropdownMonth = new JComboBox(DropDownMonth);
+        	dropdownMonth.setBounds(720, 200, 80, 30);
+        	panelVV.add(dropdownMonth);
+        	panelVV.validate();
+        	
+        	
+        	final String[] DropDownYear = new String[] {"2013", "2014", "2015", "2016"};
+        	dropdownYear = new JComboBox(DropDownYear);
+        	dropdownYear.setBounds(820, 200, 100, 30);
+        	panelVV.add(dropdownYear);
+        	panelVV.validate();
+
+        	
+        	labelVEUhrzeit = new JLabel("Uhrzeit:");
+        	labelVEUhrzeit.setBounds(650, 225, 200, 25);
+        	labelVEUhrzeit.setVisible(true);
+    		panelVV.add(labelVEUhrzeit);
+    		panelVV.validate();
+        	
+        	final String[] DropDownHour = new String[] {"08", "09", "10", "11", "12", "13","14","15","16","17","18","19","20","21", "22"};
+        	dropdownHour = new JComboBox(DropDownHour);
+        	dropdownHour.setBounds(650, 240, 80, 30);
+        	panelVV.add(dropdownHour);
+        	panelVV.validate();
+        	
+        	
+        	final String[] DropDownMinute = new String[] {"00","01", "02","03","04","05","06","07","08", "09","10","11","12","13", "14","15","16","17","18","19","20","21","22","23", "24","25","26","27","28","29","30","31", "32","33","34","35","36","37","38", "39","40","41","42","43", "44","45","46","47","48","49","50","51","52","53", "54","55","56","57","58","59"};
+        	dropdownMinute = new JComboBox(DropDownMinute);
+        	dropdownMinute.setBounds(740, 240, 80, 30);
+        	panelVV.add(dropdownMinute);
+        	panelVV.validate();
+        	
+        	
+        	labelVENiveau = new JLabel("Niveau:");
+        	labelVENiveau.setBounds(650, 270, 200, 25);
+        	labelVENiveau.setVisible(true);
+    		panelVV.add(labelVENiveau);
+    		panelVV.validate();
+        	
+        	fieldNiveauE = new JTextField("");
+        	fieldNiveauE.setBounds(650, 290, 300, 25);
+        	fieldNiveauE.setToolTipText("Bitte geben Sie hier das Niveau der Veranstaltung ein!");
+        	panelVV.add(fieldNiveauE);
+        	panelVV.validate();
+        	
+        	
+        	labelVEVorraussetungen = new JLabel("Vorraussetzungen:");
+        	labelVEVorraussetungen.setBounds(650, 320, 200, 25);
+        	labelVEVorraussetungen.setVisible(true);
+    		panelVV.add(labelVEVorraussetungen);
+    		panelVV.validate();
+        	
+        	fieldVorraussetzungenE = new JTextField("");
+        	fieldVorraussetzungenE.setBounds(650, 340, 300, 25);
+        	fieldVorraussetzungenE.setToolTipText("Bitte geben Sie hier das Niveau der Veranstaltung ein!");
+        	panelVV.add(fieldVorraussetzungenE);
+        	panelVV.validate();
+        	
+        	
+        	labelVEGebäude = new JLabel("Gebäude:");
+        	labelVEGebäude.setBounds(650, 370, 200, 25);
+        	labelVEGebäude.setVisible(true);
+    		panelVV.add(labelVEGebäude);
+    		panelVV.validate();
+        	
+        	final String[] DropDownGebäude = new String[] {"G1", "G2", "10", "11", "12", "13"};
+        	dropdownGebäude = new JComboBox(DropDownGebäude);
+        	dropdownGebäude.setBounds(650, 390, 300, 30);
+        	panelVV.add(dropdownGebäude);
+        	panelVV.validate();
+        
+    	}
+    		
+    	
+    	public static void hideBtnNewV(){
+    		btnNewV.setVisible(false);
     		
     	}
+    	
+    	public static void hideFieldsNewV(){
+    		labelVEBeschr.setVisible(false);
+    		fieldBeschrE.setVisible(false);
+    		labelVEInfo.setVisible(false);
+    		fieldInfoE.setVisible(false);
+    		labelVEDatum.setVisible(false);
+    		dropdownDay.setVisible(false);
+    		dropdownMonth.setVisible(false);
+    		dropdownYear.setVisible(false);
+    		labelVEUhrzeit.setVisible(false);
+    		dropdownHour.setVisible(false);
+    		dropdownMinute.setVisible(false);
+    		labelVEGebäude.setVisible(false);
+    		dropdownGebäude.setVisible(false);
+    		labelVENiveau.setVisible(false);
+    		fieldNiveauE.setVisible(false);
+    		labelVEVorraussetungen.setVisible(false);
+    		fieldVorraussetzungenE.setVisible(false);
+    		btnOK.setVisible(false);
+    		
+    	}
+    	public static void showTextfieldsVAendern(){
+    		
+    		Color colorGrey = new Color(152,153,155);
+
+    		fieldBeschrAE = new JTextField("Name/Beschreibung");
+    		fieldBeschrAE.setToolTipText("Bitte tragen Sie hier einen Namen und eine Beschreibung der Veranstaltung ein");
+    		fieldBeschrAE.setBounds(285, 90, 300, 50);
+    		
+			fieldBeschrAE.setForeground(colorGrey);
+        	panelVV.add(fieldBeschrAE);
+        	panelVV.validate();
+    		
+        	fieldInfoAE = new JTextField("Informationen");
+        	fieldInfoAE.setBounds(285, 165, 300, 25);
+        	fieldInfoAE.setToolTipText("Bitte geben Sie hier Informatiionen bezüglich der veranstaltung ein");
+        	panelVV.add(fieldInfoAE);
+        	panelVV.validate();
+        	
+        	fieldDatumAE = new JTextField("Datum DD.MM.YYYY");
+        	fieldDatumAE.setBounds(285, 215, 300, 25);
+        	fieldDatumAE.setToolTipText("Bitte geben Sie hier das Datum der Veranstaltung ein!");
+        	panelVV.add(fieldDatumAE);
+        	panelVV.validate();
+        	
+        	fieldUhrzeitAE = new JTextField("Uhrzeit HH:MM");
+        	fieldUhrzeitAE.setBounds(285, 265, 300, 25);
+        	fieldUhrzeitAE.setToolTipText("Bitte geben Sie hier die Uhrzeit der Veranstaltung ein!");
+        	panelVV.add(fieldUhrzeitAE);
+        	panelVV.validate();
+        	
+        	fieldNiveauAE = new JTextField("Niveau");
+        	fieldNiveauAE.setBounds(285, 315, 300, 25);
+        	fieldNiveauAE.setToolTipText("Bitte geben Sie hier das Niveau der Veranstaltung ein!");
+        	panelVV.add(fieldNiveauAE);
+        	panelVV.validate();
+        	
+        	fieldNiveauAE = new JTextField("Vorraussetzungen");
+        	fieldNiveauAE.setBounds(285, 365, 300, 25);
+        	fieldNiveauAE.setToolTipText("Bitte geben Sie hier das Niveau der Veranstaltung ein!");
+        	panelVV.add(fieldNiveauAE);
+        	panelVV.validate();
+        	
+    	}
+
+    	public static void hideDropDownVS(){
+    		
+    		dropdownVV.setVisible(false);
+    		labelVV.setVisible(false);
+    	}
+    	
+    	public static void hideEditDelete(){
+    		
+    		btnEditV.setVisible(false);
+    		btnDeleteV.setVisible(false);
+    	}
+    	
 }
