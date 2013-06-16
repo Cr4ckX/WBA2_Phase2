@@ -13,7 +13,11 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
-
+/**
+ * Diese Klasse dient dazu, auf den Rest-Server zuzugreifen.
+ * @author CrackX
+ *
+ */
 public class ClientRest {
 
 	private String xml = MediaType.APPLICATION_XML;
@@ -288,12 +292,12 @@ public class ClientRest {
 	 * @param neueVeranstaltung Veranstaltungsobjekt, welches die bestehende Veranstaltung mit der ID 'veranstaltungId' 
 	 * überschreibt und damit aktualisiert.
 	 */
-	public void putVeranstaltung(
+	public boolean putVeranstaltung(
 			String sportgruppeId,
 			String sportartId,
 			String veranstaltungId,
 			Veranstaltung neueVeranstaltung){
-		
+		boolean updated;
 		WebResource veranstaltungKonkret = Client.create().resource(uri)
 				.path("sportgruppen")
 				.path(sportgruppeId)
@@ -303,7 +307,8 @@ public class ClientRest {
 				.path(veranstaltungId);
 		
 		veranstaltungKonkret.accept(xml);
-		veranstaltungKonkret.put(neueVeranstaltung);		
+		updated = Boolean.parseBoolean(veranstaltungKonkret.put(String.class, neueVeranstaltung));	
+		return updated;
 	}
 	/**
 	 * HTTP Methode (DELETE) um eine Veranstaltung zu Löschen. Es wird die genaue ID der Veranstaltung sowie die der 
@@ -312,8 +317,8 @@ public class ClientRest {
 	 * @param sportartId ID der Sportart.
 	 * @param veranstaltungId ID der Veranstaltung, welche gelöscht werden soll.
 	 */
-	public void deleteVeranstaltung(String sportgruppeId, String sportartId, String veranstaltungId){
-		
+	public boolean deleteVeranstaltung(String sportgruppeId, String sportartId, String veranstaltungId){
+		boolean deleted;
 		WebResource veranstaltungKonkret = Client.create().resource(uri)
 				.path("sportgruppen")
 				.path(sportgruppeId)
@@ -322,7 +327,8 @@ public class ClientRest {
 				.path("veranstaltungen")
 				.path(veranstaltungId);
 		veranstaltungKonkret.accept(xml);
-		veranstaltungKonkret.delete();
+		deleted = Boolean.parseBoolean(veranstaltungKonkret.delete(String.class));
+		return deleted;
 	}
 	/**
 	 * 
@@ -331,8 +337,9 @@ public class ClientRest {
 	 * @param sportgruppeId ID der Sportgruppe.
 	 * @param sportartId ID der Sportart.
 	 * @param neueVeranstaltung Veranstaltungsobjekt, welches der zugehörigen Sportart hinzugefügt wird.
+	 * @return Im Erfolgsfall wird die ID der hinzugefügten Veranstaltung zurückgegeben, andernfalls -1.
 	 */
-	public void postVeranstaltung(String sportgruppeId, String sportartId, Veranstaltung neueVeranstaltung){
+	public int postVeranstaltung(String sportgruppeId, String sportartId, Veranstaltung neueVeranstaltung){
 		
 		WebResource veranstaltungKonkret = Client.create().resource(uri)
 				.path("sportgruppen")
@@ -342,7 +349,9 @@ public class ClientRest {
 				.path("veranstaltungen");
 		
 		veranstaltungKonkret.accept(xml);
-		veranstaltungKonkret.post(neueVeranstaltung);			
+		String veranstaltungsID = veranstaltungKonkret.post(String.class, neueVeranstaltung);
+		return Integer.parseInt(veranstaltungsID);
+		//int veranstaltungsID = veranstaltungKonkret.post(neueVeranstaltung);			
 	}
 	
 

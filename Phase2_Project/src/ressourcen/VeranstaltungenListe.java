@@ -135,7 +135,7 @@ public class VeranstaltungenListe {
 	 * @param spgId Sportgruppen-ID in der sich die Sportart befindet.
 	 * @param spaId Sportart-ID zu welcher eine Veranstaltung hinzugefügt werden soll.
 	 * @param uebergabe XML-Dokument/JAXB-Object 'Veranstaltung'.
-	 * @return String mit: "true", wenn Hinzufügen erfolgreich, "false", wenn Hinzufügen nicht erfolgreich.
+	 * @return Im Erfolgsfall wird die ID der hinzugefügten Veranstaltung zurückgegeben, andernfalls -1.
 	 * @throws JAXBException Wenn beim Marhsallen ein Fehler auftritt.
 	 * 
 	 * TODO: Code noch nicht optimiert.
@@ -143,6 +143,7 @@ public class VeranstaltungenListe {
 	 */
 	@POST
 	@Consumes (MediaType.APPLICATION_XML)
+	@Produces (MediaType.TEXT_PLAIN)
 	public String postVeranstaltung(
 			@PathParam("spgId") String spgId,
 			@PathParam("spaId") String spaId, 
@@ -185,7 +186,7 @@ public class VeranstaltungenListe {
 							//Output: Console
 							marshaller.marshal(sv, System.out);
 
-							return "true";
+							return Integer.toString(index);
 							//return "Veranstaltung " + s.getVeranstaltungenM().getVeranstaltung()
 								//	.get(index).getVBeschreibung() + " hinzugefügt.";
 				
@@ -193,7 +194,7 @@ public class VeranstaltungenListe {
 				}			
 			}
 		}
-		return "false";
+		return "-1";
 		//return "Hinzufügen fehlgeschlagen!";
 		
 	}

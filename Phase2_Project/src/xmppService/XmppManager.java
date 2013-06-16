@@ -18,13 +18,11 @@ import org.jivesoftware.smackx.pubsub.Subscription;
 
 public class XmppManager {
 	
-	private Connection cn;
+	private  Connection cn;
 	private PubSubManager psm;
 	
 	public boolean verbinden(){
-		
 		XmppConnection xc;
-		
 		try {
 			xc = new XmppConnection();		
 			cn = xc.connect();
@@ -32,8 +30,8 @@ public class XmppManager {
 			return true;
 			
 		} catch (XMPPException e) {
-			System.out.println("Beim Verbinden und Einloggen ist ein Fehler aufgetreten");
-			e.printStackTrace();
+			System.out.println("Beim Verbinden ist ein Fehler aufgetreten.");
+			//e.printStackTrace();
 			return false;
 		}	
 	}
@@ -164,7 +162,7 @@ public class XmppManager {
 	}
 	
 		
-	//Vorhandenen Leafs suchen
+	//Vorhandene Leafs suchen
 	public List<String> getLeafs() throws XMPPException{
 		List<String> nodeList = new ArrayList<String>();
 		if (cn.isConnected() == false || cn.isSecureConnection() == false){
@@ -261,7 +259,7 @@ public class XmppManager {
 		try {
 			
 			if(isSubscribed(leafNode) == true){
-				System.out.println("Bereits subscribed!");
+				//System.out.println("Bereits subscribed!");
 				return false;
 			}
 			subLeaf = psm.getNode(leafNode);
@@ -310,12 +308,11 @@ public class XmppManager {
 	 * 
 	 * Diese Methode sollte später nicht standardmäßig implementiert werden.
 	 * Sie dient lediglich dafür, Debugging-Subscriptions wieder zu entfernen.
-	 * Die Methode wird auch nicht benötigt, da jeder Nutzer nur noch einmal
+	 * Die Methode wird auch nicht benötigt, da jeder Nutzer nun nur noch einmal
 	 * zu einem Node subscriben kann und somit die Methode unSubscribe(String leafNode)
 	 * verwender werden sollte.
 	 * 
 	 * @param leafNode LeafNode an der die Subscription aufgeloest werden soll.
-	 * @return 
 	 */
 	public boolean unSubscribePlural(String leafNode){
 		LeafNode subLeaf;
@@ -331,9 +328,7 @@ public class XmppManager {
 					subscriptionNode = subscription.getNode();
 					subscriptionId = subscription.getId();
 					if(subscriptionNode.equals(leafNode)){
-						//Riiight
 						if(isSubscribed(leafNode) == true){
-							// auch okay, System.out.println("TRUEEE");
 							System.out.println("LeafNode: " + leafNode);
 							System.out.println("SubNode: " + subscriptionNode);
 							System.out.println("SubID: " + subscriptionId);
