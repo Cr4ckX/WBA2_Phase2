@@ -1,5 +1,6 @@
 package restService;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -207,6 +208,18 @@ public class ClientRest {
 		return veranstalterKonkret.get(Veranstalter.class);
 	}
 	//Vielleicht noch anpassen, falls das Schema neu geparst wird (GebaeudeRef mit benoetigtem Ort)
+	/**
+	 * Erzeugt ein JAXB-Veranstaltungsobjekt.
+	 * @param beschreibung Die Beschreibung der Veranstaltung.
+	 * @param info (optional) Weitergehende Informationen zu der Veranstaltung.
+	 * @param datum Das Datum, an dem die Veranstaltung ausgetragen wird. Am besten buildXMLDate benutzen.
+	 * @param time Die Uhrzeit, an dem die Veranstaltung ausgetragen wird. Am besten buildXMLTime benutzen.
+	 * @param niveau (optional) Niveau der Veranstaltung.
+	 * @param vorraussetzungen Vorraussetzungen, welche gegeben werden müssen, damit an der Veranstaltung teilgenommen werden kann.
+	 * @param gebaeudeIdRef (noch Fehlerhaft) Gebäude-ID, in welchem die Veranstaltung ausgetragen werden soll.
+	 * @param veranstalterIdRef Veranstalter, welcher die Veranstaltung austrägt.
+	 * @return Das JAXB-Veranstaltungsobjekt.
+	 */
 	public Veranstaltung buildVeranstaltung(
 			String beschreibung, 
 			String info,
@@ -230,20 +243,35 @@ public class ClientRest {
 		
 		return uebergabe;
 	}
+	/**
+	 * Erzeugt ein XMLGregorianCalendar, welcher für die Uhrzeit der Veranstaltung genutzt werden kann.
+	 * @param stunde Stunde in der die Veranstaltung ausgetragen wird.
+	 * @param minute Minute in der die Veranstaltung ausgetragen wird.
+	 * @return Das Uhrzeit-XMLGC Objekt.
+	 * @throws DatatypeConfigurationException Wenn ungültige Werte übergeben werden (z.B. Tag 32).
+	 */
 	public XMLGregorianCalendar buildXMLTime(int stunde, int minute) throws DatatypeConfigurationException{
 		
 		Date time = new Date();
 		GregorianCalendar gc = new GregorianCalendar();
 		gc.setTime(time);
 
-		gc.set(gc.HOUR_OF_DAY, stunde);
-		gc.set(gc.MINUTE, minute);
+		gc.set(Calendar.HOUR_OF_DAY, stunde);
+		gc.set(Calendar.MINUTE, minute);
 		
 		DatatypeFactory df = DatatypeFactory.newInstance();
 		XMLGregorianCalendar xmlGregorianCal = df.newXMLGregorianCalendar(gc);
 		return xmlGregorianCal;
 		
 	}
+	/**
+	 * Erzeugt ein XMLGregorianCalendar, welcher für das Datum an der die Veranstaltung ausgetragen wird, genutzt werden kann.
+	 * @param jahr Das Jahr, an der die Veranstaltung ausgetragen wird.
+	 * @param monat Der Monat, an der die Veranstaltung ausgetragen wird.
+	 * @param tag Der Tag, an der die Veranstaltung ausgetragen wird.
+	 * @return Das Datum-XMLGC Objekt.
+	 * @throws DatatypeConfigurationException Wenn falsche Werte übergeben werden (z.B. Monat 13).
+	 */
 	public XMLGregorianCalendar buildXMLDate(int jahr, int monat, int tag) throws DatatypeConfigurationException{
 		
 		GregorianCalendar gc = new GregorianCalendar (jahr, monat, tag);
@@ -251,7 +279,15 @@ public class ClientRest {
 		XMLGregorianCalendar xmlGregorianCal = df.newXMLGregorianCalendar(gc);
 		return xmlGregorianCal;
 	}
-	
+	/**
+	 * HTTP Methode (PUT) um eine Veranstaltung zu aktualisieren. Es wird ein gesamtes JAXB-Veranstaltungsobjekt erwartet,
+	 * welches sich mit der buildVeranstaltung-Methode erzeugen lassen kann.
+	 * @param sportgruppeId ID der Sportgruppe.
+	 * @param sportartId ID der Sportart.
+	 * @param veranstaltungId ID der Veranstaltung.
+	 * @param neueVeranstaltung Veranstaltungsobjekt, welches die bestehende Veranstaltung mit der ID 'veranstaltungId' 
+	 * überschreibt und damit aktualisiert.
+	 */
 	public void putVeranstaltung(
 			String sportgruppeId,
 			String sportartId,
@@ -269,7 +305,13 @@ public class ClientRest {
 		veranstaltungKonkret.accept(xml);
 		veranstaltungKonkret.put(neueVeranstaltung);		
 	}
-	
+	/**
+	 * HTTP Methode (DELETE) um eine Veranstaltung zu Löschen. Es wird die genaue ID der Veranstaltung sowie die der 
+	 * Eltern benötigt. 
+	 * @param sportgruppeId ID der Sportgruppe.
+	 * @param sportartId ID der Sportart.
+	 * @param veranstaltungId ID der Veranstaltung, welche gelöscht werden soll.
+	 */
 	public void deleteVeranstaltung(String sportgruppeId, String sportartId, String veranstaltungId){
 		
 		WebResource veranstaltungKonkret = Client.create().resource(uri)
@@ -282,7 +324,14 @@ public class ClientRest {
 		veranstaltungKonkret.accept(xml);
 		veranstaltungKonkret.delete();
 	}
-	
+	/**
+	 * 
+	 * HTTP Methode (POST) um eine neue Veranstaltung hinzuzufügen. Es wird ein gesamtes JAXB-Veranstaltungsobjekt erwartet,
+	 * welches sich mit der buildVeranstaltung-Methode erzeugen lassen kann.
+	 * @param sportgruppeId ID der Sportgruppe.
+	 * @param sportartId ID der Sportart.
+	 * @param neueVeranstaltung Veranstaltungsobjekt, welches der zugehörigen Sportart hinzugefügt wird.
+	 */
 	public void postVeranstaltung(String sportgruppeId, String sportartId, Veranstaltung neueVeranstaltung){
 		
 		WebResource veranstaltungKonkret = Client.create().resource(uri)
