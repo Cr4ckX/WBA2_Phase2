@@ -12,6 +12,11 @@ import javax.ws.rs.core.MediaType;
 import jaxb.Unmarshalling;
 
 @Path("/orte/{oId}/")
+/**
+ * Klasse für die HTTP-Methoden auf die Ressource 'Konkreter Ort' (innerhalb der Orte-Liste).
+ * @author CrackX
+ *
+ */
 public class OrtKonkret {
 	
 Sportverzeichnis sv;
@@ -23,7 +28,6 @@ Sportverzeichnis sv;
 	}
 
 	
-	//Hole konkreten Ort
 	/**
 	 * Konkreter Ort per GET angefordert.
 	 * Liefert ein Object des Typs: 'Ort‘ (JAXB)

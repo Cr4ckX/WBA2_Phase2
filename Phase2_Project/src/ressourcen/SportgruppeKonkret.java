@@ -12,6 +12,11 @@ import javax.ws.rs.core.MediaType;
 import jaxb.Unmarshalling;
 
 @Path("sportgruppen/{spgId}")
+/**
+ * Klasse für die HTTP-Methoden auf die Ressource 'Konkrete Sportgruppe' (innerhalb der Sportgruppen-Liste).
+ * @author CrackX
+ *
+ */
 public class SportgruppeKonkret {
 	
 	Sportverzeichnis sv;

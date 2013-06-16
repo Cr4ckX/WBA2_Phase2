@@ -9,6 +9,11 @@ import javax.ws.rs.core.MediaType;
 import jaxb.Unmarshalling;
 
 @Path("sportgruppen")
+/**
+ * Klasse für die HTTP-Methoden auf die Ressource 'Sportgruppen-Liste'.
+ * @author CrackX
+ *
+ */
 public class SportgruppenListe {
 	
 	Sportverzeichnis sv;
@@ -24,7 +29,7 @@ public class SportgruppenListe {
 	 * Sportgruppen-Liste per GET anfordern.
 	 * 
 	 * MIME-TYPE: application/xml.
-	 * @return Sportgruppen-Liste
+	 * @return Sportgruppen-Liste als JAXB-Object 'SportgruppenM'.
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_XML)

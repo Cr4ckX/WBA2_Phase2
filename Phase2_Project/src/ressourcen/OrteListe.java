@@ -11,6 +11,11 @@ import jaxb.Unmarshalling;
 
 
 @Path("orte")
+/**
+ * Klasse für die HTTP-Methoden auf die Ressource 'Orte-Liste'
+ * @author CrackX
+ *
+ */
 public class OrteListe {
 
 Sportverzeichnis sv;
@@ -21,7 +26,6 @@ Sportverzeichnis sv;
 		sv = um.xmlUnmarshallen();
 	}
 	
-	//Hole Orte-Liste
 	/**
 	 * Orte-Liste per GET angefordert.
 	 * Liefert die Orte-Liste als 'OrteM' Object.
