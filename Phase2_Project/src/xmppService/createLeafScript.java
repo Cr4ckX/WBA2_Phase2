@@ -13,8 +13,8 @@ import restService.ClientRest;
 /**
  * Diese Klasse dient dazu, LeafNodes automatisch zu erstellen.
  * 
- * Eine XML-Datei wird durchlaufen und zu jeder Veranstaltung wird eine
- * eindeutige Leaf-Node erzeugt.
+ * Eine XML-Datei wird durchlaufen und zu jeder Veranstaltung und
+ * Sportart wird ein eindeutiger Leaf-Node erzeugt.
  * @author CrackX
  *
  */
@@ -67,6 +67,9 @@ public class createLeafScript {
 				if(xmppVerbindung.createLeaf(sportgruppenId + sportartId + "Sportart") == false){
 					bestehendeSportarten++;
 				}
+				else{
+					System.out.println("Leaf hinzugefügt: " + sportgruppenId + sportartId + "Sportart");
+				}
 				
 				for (Veranstaltung veranstaltungKonkret : vm.getVeranstaltung()){
 					Veranstaltung v = veranstaltungKonkret;
@@ -75,6 +78,9 @@ public class createLeafScript {
 					//xyzVeranstaltung Leaf für das Abonnieren einer konkreten Veranstaltung
 					if(xmppVerbindung.createLeaf(sportgruppenId + sportartId + veranstaltungId + "Veranstaltung") == false){
 						bestehendeVeranstaltungen++;
+					}
+					else{
+						System.out.println("Leaf hinzugefügt: " + sportgruppenId + sportartId + veranstaltungId + "Veranstaltung");
 					}
 				}
 			}

@@ -7,7 +7,7 @@ import org.jivesoftware.smack.XMPPException;
 public class ProgrammStart {
 
 	/**
-	 *  Programmstart mit dem die Clients aktiviert werden.
+	 * Programmstart mit dem die Clients aktiviert werden.
 	 * @param args
 	 * @throws XMPPException 
 	 */
