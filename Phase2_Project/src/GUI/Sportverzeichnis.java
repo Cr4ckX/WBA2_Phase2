@@ -21,9 +21,9 @@ public class Sportverzeichnis
 		private static JButton btnSubscribeSG, btnUnsubscribeSG, btnUnsubscribeO, btnUnsubscribeV, btnSubscribeV, btnSubscribeO, btnzurueckSG, btnzurueckV, btnzurueckO;  
 		//Button Veranstalter
 		private static JButton btnPublishV, btnDeleteV, btnEditV, btnPublishG, btnSubscribeE, btnSubscribeG, btnUnsubscribeE, btnUnsubscribeG, btnZurueckVV, btnNewV, btnOK;
-		private static JLabel labelVSG, labelAreaVV, labelVSA, labelVV, labelVEBeschr, labelVEInfo, labelVEDatum, labelVEUhrzeit, labelVENiveau, labelVEVorraussetungen, labelVEGebäude;
+		private static JLabel labelVSG, labelAreaVV, labelAreaVSG, labelAreaVSA, labelVSA, labelVV, labelVEBeschr, labelVEInfo, labelVEDatum, labelVEUhrzeit, labelVENiveau, labelVEVorraussetungen, labelVEGebäude;
 		private static JComboBox dropdownVSG, dropdownVSA, dropdownVV, dropdownDay, dropdownMonth, dropdownYear, dropdownHour, dropdownMinute, dropdownGebäude;
-		private static JTextArea AreaVV, AreaBeschr;
+		private static JTextArea AreaVV, AreaVSG, AreaVSA;
 		private static JTextField fieldBeschrE,fieldInfoE, fieldDatumE, fieldUhrzeitE, fieldNiveauE, fieldVorraussetzungenE;
 		private static JTextField fieldBeschrAE,fieldInfoAE, fieldDatumAE, fieldUhrzeitAE, fieldNiveauAE, fieldVorraussetzungenAE;
 		
@@ -823,12 +823,15 @@ public class Sportverzeichnis
         	btnNewV.addActionListener(new ActionListener() {
 				
 				
-				public void actionPerformed(ActionEvent btnUnsubGe) {
+				public void actionPerformed(ActionEvent NewVe) {
 					
 					showTextfieldsVErstellen();
 					hideDropDownVS();
 					showButtonOK();
-					hideEditDelete();
+					hideAreaVSA();
+					hideAreaVSG();
+					hideAreaVV();
+//					hideEditDelete();
 					
 					
 				}
@@ -838,6 +841,47 @@ public class Sportverzeichnis
     	}
 
     	
+    	public static void showAreaVSG(){
+    	
+            
+    		labelAreaVSG = new JLabel("Informationen bezüglich: ");
+    		labelAreaVSG.setBounds(600, 10, 300, 100);
+            panelVV.add(labelAreaVSG);
+        	panelVV.validate();
+        	panelVV.repaint();
+
+
+
+            AreaVSG = new JTextArea();
+            AreaVSG.setLineWrap(true);
+            AreaVSG.setBounds(600, 90, 350, 300);
+    		panelVV.add(AreaVSG);
+        	panelVV.validate();
+
+            
+    	}
+    	
+    	
+    	public static void showAreaVSA(){
+    	
+            
+    		labelAreaVSA = new JLabel("Informationen bezüglich: ");
+    		labelAreaVSA.setBounds(600, 10, 300, 100);
+            panelVV.add(labelAreaVSA);
+        	panelVV.validate();
+        	panelVV.repaint();
+
+
+
+            AreaVSA = new JTextArea();
+            AreaVSA.setLineWrap(true);
+            AreaVSA.setBounds(600, 90, 350, 300);
+    		panelVV.add(AreaVSA);
+        	panelVV.validate();
+
+            
+    	}
+
     	public static void showAreaVV(){
     	
             
@@ -857,6 +901,9 @@ public class Sportverzeichnis
 
             
     	}
+    	
+    	
+    	
 
     	
     	public static void showDropdownVSG(){
@@ -886,6 +933,7 @@ public class Sportverzeichnis
         				
         			
         				showDropdownVSA();
+        				showAreaVSG();
         				
         		}
 
@@ -912,6 +960,8 @@ public class Sportverzeichnis
            			
            			showButtonNewV();
            			showDropdownVV();
+           			hideAreaVSG();
+           			showAreaVSA();
            			
            			
            			
@@ -941,8 +991,7 @@ public class Sportverzeichnis
            			
            			showButtonEditV();
            			showButtonDeleteV();
-           			hideBtnNewV();
-           			hideFieldsNewV();
+           			
            			
            			
            		}
@@ -1148,6 +1197,25 @@ public class Sportverzeichnis
     		
     		btnEditV.setVisible(false);
     		btnDeleteV.setVisible(false);
+    	}
+    	
+    	
+    	public static void hideAreaVSG(){
+    		
+    		AreaVSG.setVisible(false);
+    		labelAreaVSG.setVisible(false);
+    	}
+    	
+    	public static void hideAreaVSA(){
+    		
+    		AreaVSA.setVisible(false);
+    		labelAreaVSA.setVisible(false);
+    	}
+
+    	public static void hideAreaVV(){
+    		
+    		AreaVV.setVisible(false);
+    		labelAreaVV.setVisible(false);
     	}
     	
 }
