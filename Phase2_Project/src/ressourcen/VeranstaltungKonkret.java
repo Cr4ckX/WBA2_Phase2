@@ -10,11 +10,17 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import jaxb.Unmarshalling;
 
 @Path("sportgruppen/{spgId}/sportarten/{spaId}/veranstaltungen/{vstId}")
+/**
+ * Klasse für die HTTP-Methoden auf die Ressource 'Konkrete Veranstaltung' (innerhalb einer Veranstaltungs-Liste).
+ * @author CrackX
+ *
+ */
 public class VeranstaltungKonkret {
 	
 	Sportverzeichnis sv;
@@ -25,7 +31,16 @@ public class VeranstaltungKonkret {
 		sv = um.xmlUnmarshallen();
 	}
 	
-	//GET - Hole Infos zu der konkreten Veranstaltung
+	/**
+	 * Veranstaltung mittels HTTP-GET als JAXB-Object ('Veranstaltung') angefordert.
+	 * Liefert eine konkrete Veranstaltung innerhalb einer Sportart, innerhalb einer Sportgruppe.
+	 * 
+	 * MIME-TYPE: application/xml.
+	 * @param spgId Sportgruppen-ID in der sich die Sportart befindet.
+	 * @param spaId Sportart-ID in der sich die Veranstaltung befindet.
+	 * @param vstId Veranstaltung-ID welche die zu holende Veranstaltung identifiziert.
+	 * @return Das JAXB-Object 'Veranstaltung'.
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	public Veranstaltung getVeranstaltung(
@@ -76,15 +91,44 @@ public class VeranstaltungKonkret {
 
 
 
-	//PUT - Setze Veranstaltungselemente
+
+	/**
+	 * HTTP-PUT Methode zum Aktualisieren einer vorhandenen Veranstaltung innerhalb einer gewählten 
+	 * Sportart (intern; innerhalb der zur Sportart gehörenden Veranstaltungs-Liste).
+	 * 
+	 * Es können lediglich Veranstaltungen geändert werden, welche nicht gelöscht sind.
+	 * Wenn eine Veranstaltung aktualisiert wird, und die aktualisierte Veranstaltung das Attribut
+	 * deleted auf 'true' gesetzt hat, so wird dieses automatisch wieder auf 'false' gesetzt. 
+	 * Möchte man eine Veranstaltung löschen, so geschiet dies nicht mittels PUT und dem entsprechend
+	 * gesetztdem Attribut, sondern dafür sollte die HTTP-DELETE Methode genutzt werden.
+	 * 
+	 * Die PUT-Übergabe muss die XML-Struktur einer Veranstaltung aufweisen (oder ein entsprechendes
+	 * JAXB-Object übergeben):
+	 *
+	 * <Veranstaltung>
+	 * 		<VBeschreibung>VeranstaltungAdd</VBeschreibung>
+	 * 		<VDatum>2014-04-27</VDatum>
+	 * 		<VUhrzeit>15:00:00</VUhrzeit>
+	 * 		<GebaeudeIDRef>G00</GebaeudeIDRef>
+	 * 		<VeranstalterIDRef>VT00</VeranstalterIDRef>
+	 * </Veranstaltung>
+	 * 
+	 * MIME-TYPE: application/xml.
+	 * 
+	 * @param spgId Sportgruppen-ID in der sich die Sportart befindet. 
+	 * @param spaId Sportart-ID in der sich die Veranstaltung befindet.
+	 * @param vstId Veranstaltung-ID welche die zu aktualisierende Veranstaltung identifiziert.
+	 * @param uebergabe XML-Dokument der Struktur von oben/JAXB-Object 'Veranstaltung'.
+	 * @return String mit: "true", wenn Aktualisieren erfolgreich, "false", wenn Aktualisieren nicht erfolgreich.
+	 * @throws JAXBException Wenn das Marshalling nicht erfolgreich war.
+	 */
 	@PUT
 	@Consumes (MediaType.APPLICATION_XML)
-	@Produces (MediaType.APPLICATION_XML)
 	public String putVeranstaltung(
 			@PathParam("spgId") String spgId,
 			@PathParam("spaId") String spaId, 
 			@PathParam("vstId") String vstId, 
-			Veranstaltung uebergabe) throws Exception{
+			Veranstaltung uebergabe) throws JAXBException {
 
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
 		
@@ -109,7 +153,7 @@ public class VeranstaltungKonkret {
 							int aktuelleVeranstaltungId = Integer.parseInt(v.getId());
 							aktuelleVeranstaltungId = aktuelleVeranstaltungId + 1;
 							System.out.print(aktuelleVeranstaltungId);
-							if (v.getId().equals(vstId) && v.isDeleted() == false){ //letzere Bed. weglassen, falls gelöschte Veranstaltungen wiederaufgesetzt werden dürfen
+							if (v.getId().equals(vstId) && v.isDeleted() == false){
 								
 								 //ID wird vom Client bestimmt.
 								 uebergabe.setId(vstId);
@@ -124,38 +168,41 @@ public class VeranstaltungKonkret {
 								 //Output
 								 marshaller.marshal(sv, System.out);
 								 
-								return "Veranstaltung mit der ID " +vstId+ " aktualisiert";
+								 return "true";
+								//return "Veranstaltung mit der ID " +vstId+ " aktualisiert";
 							}	
 						}	
-						//TODO: Veranstaltung mittels Put hinzufügen
 					}
 				}
 			}
 		}
-		return "Das aktualisieren der Veranstaltung mit der ID " + vstId + " hat nicht funktioniert.";	
+		return "false";
+		//return "Das aktualisieren der Veranstaltung mit der ID " + vstId + " hat nicht funktioniert.";	
 	}
 
 	//DELETE - Lösche Veranstaltung
 	/**
 	 * 
-	 * "Löscht" die gewünschte Veranstaltung - Das 'deleted' Attribut wird auf true gesetzt. Die Veranstaltung
+	 * "Löscht" die gewünschte Veranstaltung -> Das 'deleted' Attribut wird auf true gesetzt. Die Veranstaltung
 	 * bleibt weiterhin vorhanden, jedoch wird sie bei der Abfrage nicht mehr gelistet, da dort nur Veranstaltungen
-	 * mit dem Attribut 'deleted=false' behandelet werden. 
-	 * Kaskadierendes Löschen ist noch nicht berücksichtigt.
-	 * Die Returnwerte müssen noch angepasst werden und am besten mit Exceptions behandelt werden
+	 * mit dem Attribut 'deleted=false' behandelet werden (es sei denn, der entsprechende Query Parameter ist bei der
+	 * GET-Anfrage auf true gesetzt. 
 	 * 
-	 * @param spgId - In welcher Sportgruppe befindet sich die Veranstaltung?
-	 * @param spaId - Zu welcher Sportart wird die Veranstaltung ausgetragen?
-	 * @param vstId - Um welche Veranstaltung handelt es sich genau? (Zu löschende Veranstaltung)
-	 * @return Gelöscht - Wenn die gewünschte Veranstaltung erfolgreich gelöscht wird.
-	 * Fehlgeschlagen.. - Wenn die Veranstaltung aufgrund von Fehlern nicht gelöscht wird.
-	 * @throws Exception - Für das unmarshallen. (TOODOO: Sollte noch bearbeitet werden)
+	 * TODO: Kaskadierendes Löschen (Gebäude, Veranstalter) ist noch nicht berücksichtigt.
+	 * TODO: Marshalling noch in die Datei umsetzen.
+	 * 
+	 * MIME-TYPE: application/xml.
+	 * @param spgId Sportgruppen-ID in der sich die Sportart befindet. 
+	 * @param spaId Sportart-ID in der sich die Veranstaltung befindet.
+	 * @param vstId Veranstaltung-ID welche die zu löschende Veranstaltung identifiziert.
+	 * @return String mit: "true", wenn Aktualisieren erfolgreich, "false", wenn Aktualisieren nicht erfolgreich.
+	 * @throws JAXBException Wenn das Marshalling nicht erfolgreich war.
 	 */
 	@DELETE
 	public String deleteVeranstaltung(
 			@PathParam("spgId") String spgId,
 			@PathParam("spaId") String spaId, 
-			@PathParam("vstId") String vstId) throws Exception {
+			@PathParam("vstId") String vstId) throws JAXBException{
 
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
 
@@ -192,7 +239,8 @@ public class VeranstaltungKonkret {
 								
 								 //Output: Konsole
 								 marshaller.marshal(sv, System.out);
-								 return "Veranstaltung mit der id " + vstId + " wurde gelöscht."; //Kaskadierendes Löschen fehlt noch.
+								 return "true";
+								 //return "Veranstaltung mit der id " + vstId + " wurde gelöscht."; //Kaskadierendes Löschen fehlt noch.
 							 }
 						 }		
 					}
@@ -200,6 +248,7 @@ public class VeranstaltungKonkret {
 			}
 		}
 
-		return "Fehlgeschlagen die Veranstaltungs-ID " + vstId + " zu löschen";
+		return "false";
+		//return "Fehlgeschlagen die Veranstaltungs-ID " + vstId + " zu löschen";
 	}		
 }

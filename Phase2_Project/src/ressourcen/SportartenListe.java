@@ -15,6 +15,11 @@ import javax.ws.rs.core.MediaType;
 import jaxb.Unmarshalling;
 
 @Path("sportgruppen/{spgId}/sportarten")
+/**
+ * Klasse für die HTTP-Methoden auf die Ressource 'Sportarten-Liste' (innerhalb einer Sportgruppe).
+ * @author CrackX
+ *
+ */
 public class SportartenListe {
 	
 	Sportverzeichnis sv;
@@ -26,7 +31,6 @@ public class SportartenListe {
 			sv = um.xmlUnmarshallen();
 		} catch (Exception e) {
 			System.out.println("Fehler beim Unmarshallen!");
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

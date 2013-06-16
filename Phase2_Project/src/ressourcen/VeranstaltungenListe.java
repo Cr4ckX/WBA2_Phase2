@@ -11,6 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 
@@ -18,6 +19,11 @@ import jaxb.Unmarshalling;
 
 
 @Path("sportgruppen/{spgId}/sportarten/{spaId}/veranstaltungen")
+/**
+ * Klasse für die HTTP-Methoden auf die Ressource 'Veranstaltungen-Liste' (innerhalb einer Sportart).
+ * @author CrackX
+ *
+ */
 public class VeranstaltungenListe {
 	
 	Sportverzeichnis sv;
@@ -29,6 +35,21 @@ public class VeranstaltungenListe {
 	}
 	
 	//GET - Hole zu der konkreten Sportart die Veranstaltungs-Liste
+	/**
+	 * Veranstaltungs-Liste per GET angefordert.
+	 * Liefert ein JAXB-Object 'VeranstaltungenM'.
+	 * 
+	 * Der Parameter 'deleted' wird als QueryParam bentutzt. Wenn deleted == true, dann werden nur
+	 * Veranstaltungen, welche gelöscht sind, in der übergebenen Veranstaltungs-Liste zu finden sein. 
+	 * Ist kein QueryParam geliefert bzw. deleted == false, dann wird die Veranstaltungs-Liste normal ausgegeben,
+	 * d.h. es werden alle nicht gelöschten Veranstaltungen in der übergebenen Liste zu finden sein.
+	 * 
+	 * MIME-TYPE: application/xml.
+	 * @param spgId Sportgruppen-ID in der sich die Sportart befindet.
+	 * @param spaId Sportart-ID in der sich die gewünschte Veranstaltungsliste befindet.
+	 * @param deleted true/false. 
+	 * @return Die Veranstaltungs-Liste als JAXB-Object 'VeranstaltungenM'.
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	public VeranstaltungenM getVeranstaltungen(
@@ -91,8 +112,16 @@ public class VeranstaltungenListe {
 
 	//POST - Füge Veranstaltung hinzu
 	/**
-	 * 	 
-	 *Die POST-Übergabe muss die XML-Struktur einer Veranstaltung aufweisen:
+	 * HTTP-POST Methode zum Hinzufügen einer neuen Veranstaltung innerhalb einer gewählten Sportart (intern; innerhalb
+	 * der zur Sportart gehörenden Veranstaltungs-Liste).
+	 * Mittels HTTP-POST Methode wird lediglich das Hinzufügen realisiert. Die ID der Veranstaltung wird entsprechend
+	 * vom Server/Service übernommen, unabhängig davon, ob eine ID mitgeliefert wurde oder nicht.
+	 * Ebenfalls kann keine gelöschte Veranstaltung hinzugefügt werden; sobald eine Veranstaltung mittels POST
+	 * angelegt wurde, ist das intern repräsentierte Attribut 'deleted' immer auf false gesetzt.
+	 * 
+	 * Die POST-Übergabe muss die XML-Struktur einer Veranstaltung aufweisen (oder ein entsprechendes
+	 * JAXB-Object übergeben):
+	 *
 	 * <Veranstaltung>
 	 * 		<VBeschreibung>VeranstaltungAdd</VBeschreibung>
 	 * 		<VDatum>2014-04-27</VDatum>
@@ -101,20 +130,23 @@ public class VeranstaltungenListe {
 	 * 		<VeranstalterIDRef>VT00</VeranstalterIDRef>
 	 * </Veranstaltung>
 	 * 
-	 * TODO - Text anpassen:"Die Ressource wird vom Server gegeben."
-	 * @param spgId
-	 * @param spaId
-	 * @param uebergabe
-	 * @return
-	 * @throws Exception
+	 * MIME-TYPE: application/xml.
+	 * 
+	 * @param spgId Sportgruppen-ID in der sich die Sportart befindet.
+	 * @param spaId Sportart-ID zu welcher eine Veranstaltung hinzugefügt werden soll.
+	 * @param uebergabe XML-Dokument/JAXB-Object 'Veranstaltung'.
+	 * @return String mit: "true", wenn Hinzufügen erfolgreich, "false", wenn Hinzufügen nicht erfolgreich.
+	 * @throws JAXBException Wenn beim Marhsallen ein Fehler auftritt.
+	 * 
+	 * TODO: Code noch nicht optimiert.
+	 * TODO: Das Marshalling aus der Konsole noch auf das XML-Dokument übertragen.
 	 */
 	@POST
 	@Consumes (MediaType.APPLICATION_XML)
-	@Produces (MediaType.APPLICATION_XML)
 	public String postVeranstaltung(
 			@PathParam("spgId") String spgId,
 			@PathParam("spaId") String spaId, 
-			Veranstaltung uebergabe) throws Exception{
+			Veranstaltung uebergabe) throws JAXBException {
 		
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
 
@@ -153,14 +185,16 @@ public class VeranstaltungenListe {
 							//Output: Console
 							marshaller.marshal(sv, System.out);
 
-							return "Veranstaltung " + s.getVeranstaltungenM().getVeranstaltung()
-									.get(index).getVBeschreibung() + " hinzugefügt.";
+							return "true";
+							//return "Veranstaltung " + s.getVeranstaltungenM().getVeranstaltung()
+								//	.get(index).getVBeschreibung() + " hinzugefügt.";
 				
 					}						
 				}			
 			}
 		}
-		return "Hinzufügen fehlgeschlagen!";
+		return "false";
+		//return "Hinzufügen fehlgeschlagen!";
 		
 	}
 }

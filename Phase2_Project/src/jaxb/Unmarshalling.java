@@ -8,7 +8,11 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-
+/**
+ * Klasse zum vereinfachten unmarshallen.
+ * @author CrackX
+ *
+ */
 public class Unmarshalling {
 
 	JAXBContext jc;

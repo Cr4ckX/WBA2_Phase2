@@ -15,6 +15,11 @@ import javax.ws.rs.core.MediaType;
 import jaxb.Unmarshalling;
 
 @Path("/orte/{oId}/gebaeude/{gId}")
+/**
+ * Klasse für die HTTP-Methoden auf die Ressource 'Konkretes Gebäude.' innerhalb eines definierten Ortes.
+ * @author CrackX
+ *
+ */
 public class GebaeudeKonkret {
 	
 Sportverzeichnis sv;

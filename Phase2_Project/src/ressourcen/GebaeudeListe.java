@@ -13,6 +13,11 @@ import javax.ws.rs.core.MediaType;
 import jaxb.Unmarshalling;
 
 @Path("/orte/{oId}/gebaeude")
+/**
+ * Klasse für die HTTP-Methoden auf die Ressource 'Gebäude-Liste' innerhalb eines definierten Ortes.
+ * @author CrackX
+ *
+ */
 public class GebaeudeListe {
 	
 Sportverzeichnis sv;
@@ -24,7 +29,6 @@ Sportverzeichnis sv;
 	}
 
 	
-
 	/**
 	 * Gebaeude-Liste per GET angefordert.
 	 * Gibt die Gebäude-Liste in Form eines JAXB-Objects('GebaeudeM') zurueck.

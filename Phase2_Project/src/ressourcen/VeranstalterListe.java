@@ -12,6 +12,11 @@ import javax.ws.rs.core.MediaType;
 import jaxb.Unmarshalling;
 
 @Path("/veranstalter/")
+/**
+ * Klasse für die HTTP-Methoden auf die Ressource 'Veranstalter-Liste'.
+ * @author CrackX
+ *
+ */
 public class VeranstalterListe {
 	
 Sportverzeichnis sv;

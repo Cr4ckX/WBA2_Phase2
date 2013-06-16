@@ -14,6 +14,11 @@ import javax.ws.rs.core.MediaType;
 import jaxb.Unmarshalling;
 
 @Path("veranstalter/{vrId}")
+/**
+ * Klasse für die HTTP-Methoden auf die Ressource 'Konkreter Veranstalter' (innerhalb der Veranstalter-Liste).
+ * @author CrackX
+ *
+ */
 public class VeranstalterKonkret {
 	
 Sportverzeichnis sv;
