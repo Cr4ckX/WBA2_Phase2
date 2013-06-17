@@ -252,6 +252,24 @@ public class XmppManager {
 		}
 	}
 
+	public boolean restoreSubscriptions(){
+		List<String> nodeList = showSubscriptions();
+		boolean unsub;
+		for(String subNode : nodeList){
+			unsub = unSubscribe(subNode);
+			if(unsub == true){
+				if(subscribeLeaf(subNode) == true){
+					continue;
+				}
+				else
+					return false;
+			}
+			return false;
+		}
+		return true;
+		
+	}
+	
 	public boolean subscribeLeaf(String leafNode){
 
 		

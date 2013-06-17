@@ -1,5 +1,6 @@
 package xmppService;
 
+import java.util.List;
 import java.util.Scanner;
 
 import org.jivesoftware.smack.XMPPException;
@@ -12,6 +13,7 @@ public class Interessent {
 		Scanner sc = new Scanner(System.in);
 		int wahl;
 		String input;
+		List<String> nodeList;
 
 			
 		if (interessent.login("interessent", "interessent") == false){
@@ -24,7 +26,8 @@ public class Interessent {
 		System.out.println("Bitte wählen Sie:");;
 		System.out.println("1 um alle Leafs anzeigen zu lassen.");
 		System.out.println("2 um zu einem Leaf zu subscriben.");
-		System.out.println("3 Programm beenden!");
+		System.out.println("3 um einen Leaf unzusubscriben.");
+		System.out.println("4 Programm beenden!");
 		
 		
 		while (erfolgreich){
@@ -34,7 +37,10 @@ public class Interessent {
 			
 			switch(wahl){
 				case 1:
-					interessent.getLeafs();
+					nodeList = interessent.getLeafs();
+					for (String node:nodeList){
+						System.out.println(node);
+					}
 					break;
 					
 				case 2:
@@ -49,11 +55,21 @@ public class Interessent {
 						break;
 					}
 				
-					
 				case 3:
+					input = sc.nextLine();
+					interessent.unSubscribe(input);
+					
+				case 4:
 					if (interessent.disconnect())
 						System.out.println("Erfolgreich disconnected");
 					erfolgreich = false;
+					
+				case 5:
+					List<String> sublist= interessent.showSubscriptions();
+					for(String sub:sublist){
+						System.out.println(sub);
+					}
+					
 			}
 		}
 	}
