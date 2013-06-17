@@ -41,9 +41,14 @@ public class CombinedServicesVeranstalter{
 				authCheck = xm.login("veranstalter", "veranstalter");
 			}
 			
-			if(authCheck || connCheck || authCheck == true){
+//			if (authCheck == true){ 				//SubCheck nur beim Interessent
+//				subCheck = xm.restoreSubscriptions();
+//			}
+			
+			if(authCheck || connCheck || authCheck){
 				initialized = true;
 			}
+
 			else{
 				System.out.println("Verbindung fehlgeschlagen, es wird noch " + connectionTries + " mal versucht.");
 				connectionTries--;
@@ -74,8 +79,9 @@ public class CombinedServicesVeranstalter{
 		if(initialized == true){
 			neueVeranstaltungsID = cr.postVeranstaltung(sportgruppeId, sportartId, neueVeranstaltung);	
 			if(neueVeranstaltungsID != -1){
+				xm.publishToLeaf(sportgruppeId+sportartId+"Sportart", "<Meldung>Neue Veranstaltung!</Meldung>", false, "");
 				//Publish: Sportart hat neue Veranstaltung.
-				xm.createLeaf(sportgruppeId+sportartId+neueVeranstaltungsID+"Veranstaltung");
+				//xm.createLeaf(sportgruppeId+sportartId+neueVeranstaltungsID+"Veranstaltung"); Erst wenn Marshalling eingefuegt
 				return true;
 			}
 		}
