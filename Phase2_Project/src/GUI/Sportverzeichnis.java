@@ -653,33 +653,34 @@ public class Sportverzeichnis
                   JOptionPane.INFORMATION_MESSAGE, 
                   null, options, options[0]);
 					
-	                if(selected == 0)
-	                {
-	                	fenster1.repaint();
-	                	fenster1.validate();
-	                	showDropdownSG();
-	                	showDropdownVS();
-	                	showDropdownO();
-	                	showAreaO();
-	                	showAreaV();
-	                	showButtonZurueckO();
-	                	showButtonZurueckSG();
-	                	showButtonZurueckV(); 
-	             
-	                	fenster1.setVisible(true);
-	                	fenster2.setVisible(false);
-	                } 
+                if(selected == 0)
+                {
+                	showPanelsI();
+                	showDropdownSG();
+                	showDropdownVS();
+                	showDropdownO();
+                	showAreaO();
+                	showAreaV();
+                	showButtonZurueckO();
+                	showButtonZurueckSG();
+                	showButtonZurueckV();
+//                	I.interessentErzeugen(interessent);
+             
+                    
+                    fenster1.setVisible(true);
+                	fenster2.setVisible(false);
+                } 
 
-	                if(selected == 1)
-	                {
-	                	showPanelsV();
-	                	showDropdownVSG();
-	                	showButtonZurueckVV();
-	                	
-	                	
-	                    fenster2.setVisible(true);
-	                    fenster1.setVisible(false);
-	                }
+                if(selected == 1)
+                {
+                	showPanelsV();
+                	showDropdownVSG();
+                	showButtonZurueckVV();
+                	
+                	
+                    fenster2.setVisible(true);
+                    fenster1.setVisible(false);
+                }
 
 				}
 			});
@@ -745,7 +746,6 @@ public class Sportverzeichnis
         	
     	}
 
-    	
     	public static void showButtonUnsubsribeG(){
     		
         	btnUnsubscribeG = new JButton("Unsubscribe");
@@ -765,8 +765,6 @@ public class Sportverzeichnis
 
         	
     	}
-    	
-    	
     	
     	public static void showButtonOK(){
     		
@@ -788,6 +786,7 @@ public class Sportverzeichnis
 				}
 			});
     	}
+    	
     	public static void showButtonNewV(){
     		
         	btnNewV = new JButton("Neue Veranstaltung");
@@ -822,7 +821,6 @@ public class Sportverzeichnis
         	
     	}
 
-    	
     	public static void showAreaVSG(){
     	
             
@@ -842,7 +840,6 @@ public class Sportverzeichnis
 
             
     	}
-    	
     	
     	public static void showAreaVSA(){
     	
@@ -883,7 +880,6 @@ public class Sportverzeichnis
 
             
     	}
-    	
     	
     	public static void showDropdownVSG(){
     		
@@ -1198,7 +1194,6 @@ public class Sportverzeichnis
     		btnOK.setVisible(false);
     		
     	}
-    	
     	
     	public static void hideFieldsEditV(){
     		fieldBeschrAE.setVisible(false);
