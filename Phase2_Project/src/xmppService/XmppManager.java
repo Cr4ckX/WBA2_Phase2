@@ -19,7 +19,9 @@ import org.jivesoftware.smackx.pubsub.Subscription;
 public class XmppManager {
 	
 	private  Connection cn;
-	private PubSubManager psm;
+	//Public, damit ItemEventCoodinator Zugriff bekommt (Item-Bug in der Smack API)
+	public PubSubManager psm;
+	private ItemEventCoordinator iec = new ItemEventCoordinator();
 	
 	public boolean verbinden(){
 		XmppConnection xc;
@@ -105,13 +107,13 @@ public class XmppManager {
 	 * ob der LeafNode erzeugt werden soll, wenn es den Node noch nicht gibt.
 	 * 
 	 * @param leafName Name des LeafNodes, zu dem gepublished werden soll.
-	 * @param payLoad Zu publishenden Payload 
+	 * .@param payLoad Zu publishenden Payload 
 	 * @param erzeuge true, wenn ein neues Leaf bei Nichtvorhandensein erzeugt werden soll.
-	 * @param wurzelElement Wurzelelement des Payloads, für Payload notwendig.
+	 * .@param wurzelElement Wurzelelement des Payloads, für Payload notwendig.
 	 * @return
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public boolean publishToLeaf(String leafName, String payLoad, boolean erzeuge, String wurzelElement){
+	public boolean publishToLeaf(String leafName, String payload, boolean erzeuge){
 
 		LeafNode pubLeaf;
 		try {
@@ -150,12 +152,12 @@ public class XmppManager {
 			 * SimplePayload(RootElement (des PayLoads), Namcespace, xmlPayLoad)
 			 * Namespace wenn keiner angegeben: 'xmlns="http://jabber.org/protocol/pubsub'
 			 */
-			pubLeaf.send(new PayloadItem(null, new SimplePayload(wurzelElement, null, payLoad)));
+			pubLeaf.send(new PayloadItem(null, new SimplePayload(null, null, payload)));
 			
 			return true;
 			
 		} catch (XMPPException e) {
-			System.out.println("Publishen Fehlgeschlagen");
+			System.out.println("Publishen fehlgeschlagen");
 			e.printStackTrace();
 			return false;
 		}	
@@ -252,9 +254,27 @@ public class XmppManager {
 		}
 	}
 
+	public boolean restoreSubscriptions(){
+		List<String> nodeList = showSubscriptions();
+		boolean unsub;
+		for(String subNode : nodeList){
+			System.out.println("Erfolgreich unsubbed: " + subNode);
+			unsub = unSubscribe(subNode);
+			if(unsub == true){
+				if(subscribeLeaf(subNode) == true){
+					System.out.println("Erfolgreich subbed: " + subNode);
+					continue;
+				}
+				else
+					return false;
+			}
+			return false;
+		}
+		return true;	
+	}
+	
 	public boolean subscribeLeaf(String leafNode){
 
-		
 		LeafNode subLeaf;
 		try {
 			
@@ -263,7 +283,7 @@ public class XmppManager {
 				return false;
 			}
 			subLeaf = psm.getNode(leafNode);
-			subLeaf.addItemEventListener(new ItemEventCoordinator<Item>());			
+			subLeaf.addItemEventListener(iec);
 		    subLeaf.subscribe(cn.getUser());
 		    return true;
 		} catch (XMPPException e) {
@@ -285,7 +305,8 @@ public class XmppManager {
 			
 			if(isSubscribed(leafNode) == true){
 				subLeaf.unsubscribe(cn.getUser());
-				System.out.println("Erfolgreich den LeafNode " + leafNode + " unsubscribed!");
+				subLeaf.removeItemEventListener(iec);
+				//System.out.println("Erfolgreich den LeafNode " + leafNode + " unsubscribed!");
 				return true;
 			}
 			else{
