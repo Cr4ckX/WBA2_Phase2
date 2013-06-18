@@ -275,7 +275,6 @@ public class XmppManager {
 	
 	public boolean subscribeLeaf(String leafNode){
 
-		
 		LeafNode subLeaf;
 		try {
 			

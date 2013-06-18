@@ -281,7 +281,7 @@ public class CombinedServicesVeranstalter{
 		}
 		return veranstaltungenListe;
 	}
-	//Info, Niveau, Vorraussetzungen
+
 	/**
 	 * Liefert Informationen Ÿber eine konkrete Veranstaltung.
 	 * Diese Informationen kšnnen in einem dafŸr vorgesehendem Textfeld angezeigt werden,
