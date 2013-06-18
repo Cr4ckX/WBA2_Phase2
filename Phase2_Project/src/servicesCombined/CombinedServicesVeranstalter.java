@@ -84,7 +84,6 @@ public class CombinedServicesVeranstalter{
 	 * @return true, wenn Veranstaltung erfolgreich hinzugefügt + gepublished + neuer Node für
 	 * neue Veranstaltung erstellt.
 	 * 
-	 * TODO: Anpassen, wenn Marshalling eingefügt.
 	 */
 	public boolean postVeranstaltung(String sportgruppeId, String sportartId, Veranstaltung neueVeranstaltung){
 		int neueVeranstaltungsID;
@@ -97,7 +96,7 @@ public class CombinedServicesVeranstalter{
 				
 				//Publish: Sportart hat neue Veranstaltung. 
 				xm.publishToLeaf(sportgruppeId+sportartId+"Sportart", payload, false);
-				//xm.createLeaf(sportgruppeId+sportartId+neueVeranstaltungsID+"Veranstaltung"); Erst wenn Marshalling eingefuegt
+				xm.createLeaf(sportgruppeId+sportartId+neueVeranstaltungsID+"Veranstaltung");
 				return true;
 			}
 		}
@@ -130,7 +129,7 @@ public class CombinedServicesVeranstalter{
 				//Publish: Node wird deleted
 				xm.publishToLeaf(sportgruppeId+sportartId+"Sportart", payloadSportart, false);
 				xm.publishToLeaf(sportgruppeId+sportartId+veranstaltungId+"Veranstaltung", payloadVeranstaltung, false);
-				return true; // Erst wenns geht! xm.deleteLeaf(sportgruppeId+sportartId+veranstaltungId+"Veranstaltung"); 
+				return xm.deleteLeaf(sportgruppeId+sportartId+veranstaltungId+"Veranstaltung"); 
 			}
 		}
 		return false;	

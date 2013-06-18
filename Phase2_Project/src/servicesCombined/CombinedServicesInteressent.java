@@ -217,4 +217,12 @@ public class CombinedServicesInteressent{
 		return ausgabe;
 	}
 	
+	public boolean isSubscribed(String leafNode){
+		return xm.isSubscribed(leafNode);
+	}
+	
+	public boolean logout(){
+		return xm.disconnect();
+	}
+	
 }
