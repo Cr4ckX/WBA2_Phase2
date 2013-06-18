@@ -32,7 +32,8 @@ public class CombinedServiceTestuse {
 
 		Veranstaltung v = csv.buildVeranstaltung("Testveranstaltung", "", csv.buildXMLDate(2013, 03, 14), csv.buildXMLTime(18, 12), "niedrig", "", null, "0");
 	
-		csv.postVeranstaltung("0", "0", v);
+	//	csv.postVeranstaltung("0", "0", v);
+		csv.deleteVeranstaltung("0", "0", "0");
 //		testListe = csv.getSportgruppen();
 //		for(String konkreteSportgruppe:testListe){
 //			System.out.println(konkreteSportgruppe);
