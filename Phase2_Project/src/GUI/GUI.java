@@ -125,8 +125,6 @@ public class GUI
 				}
 	            showPanelsI();
 	            showDropdownSG();
-	            showDropdownVS();
-	            showDropdownO();
 	            showAreaO();
 	            showAreaVS();
 	            showButtonZurueckO();
@@ -137,6 +135,7 @@ public class GUI
 	            showAreaAllgemeinVS();
 	            showAreaAllgemeinO(); 
 	            createDropdownSA();
+	            createDropdownV();
 	            fenster1.setVisible(true);
 	            fenster2.setVisible(false);
              } 
@@ -148,6 +147,9 @@ public class GUI
                	showDropdownVSG();
                	showBtnLogoutVV();
 	            showAreaAllgPanelV();
+	            createDropdownVS();
+	            createDropdownVSA();
+	            createDropdownVV();
                 fenster2.setVisible(true);
                 fenster1.setVisible(false);
              }
@@ -277,20 +279,19 @@ public class GUI
      *****************************************************************/	
    public static void createDropdownSA(){
 	   
-		labelSA = new JLabel("Bitte wählen Sie eine Sportart!");
-		labelSA.setBounds(10, 100, 300, 25);
-		labelSA.setVisible(false);
-       panelSG.add(labelSA);
-       panelSG.validate();
-       panelSG.repaint();
+	   labelSA = new JLabel("Bitte wählen Sie eine Sportart!");
+	   labelSA.setBounds(10, 100, 300, 25);
+	   labelSA.setVisible(false);
+	   panelSG.add(labelSA);
+	   panelSG.validate();
+	   panelSG.repaint();
 		
-       	final String[] DropDownSA = {""};
-   		dropdownSA = new JComboBox(DropDownSA);
-   		dropdownSA.setBounds(10, 120, 200, 25);
-   		dropdownSA.setVisible(false);
-   		panelSG.add(dropdownSA);
-   		panelSG.validate();
-	   
+		final String[] DropDownSA = {""};
+		dropdownSA = new JComboBox(DropDownSA);
+		dropdownSA.setBounds(10, 120, 200, 25);
+		dropdownSA.setVisible(false);
+		panelSG.add(dropdownSA);	
+		panelSG.validate();
    }
     
     public static void showDropdownSA(){
@@ -340,19 +341,29 @@ public class GUI
      * TODO: In den String DropdownV müssen die richtigen Veranstaltungen rein
      * TODO: AreaV muss befüllt werden
      * ****************************************************************/   	
+    public static void createDropdownV(){
+    	
+    	labelV = new JLabel("Bitte wählen Sie eine Veranstaltung");
+		labelV.setBounds(10, 150, 300, 25);
+		labelV.setVisible(false);
+		panelSG.add(labelV);
+		panelSG.validate();
+		
+        final String[] DropDownV = new String[] {"Veranstaltungen", "Bla", "Beispiel1", "Example", "Ejemplo"};
+    	
+        dropdownV = new JComboBox(DropDownV);
+    	dropdownV.setBounds(10, 170, 200, 25);
+    	dropdownV.setVisible(false);
+    	panelSG.add(dropdownV);
+    	panelSG.validate();
+    }
+    
     public static void showDropdownV(){
+    	
+    	labelV.setVisible(true);
+    	dropdownV.setVisible(true);
+    	
     		
-    		labelV = new JLabel("Bitte wählen Sie eine Veranstaltung");
-    		labelV.setBounds(10, 150, 300, 25);
-    		panelSG.add(labelV);
-    		panelSG.validate();
-    		
-            final String[] DropDownV = new String[] {"Veranstaltungen", "Bla", "Beispiel1", "Example", "Ejemplo"};
-        	
-            dropdownV = new JComboBox(DropDownV);
-        	dropdownV.setBounds(10, 170, 200, 25);
-        	panelSG.add(dropdownV);
-        	panelSG.validate();
         	
         	dropdownV.addActionListener(new ActionListener() {
 				
@@ -394,20 +405,26 @@ public class GUI
      * TODO: In den String DropdownVS müssen die richtigen Veranstalter rein
      * TODO: AreaVS muss befüllt werden
      * ****************************************************************/ 
+   public static void createDropdownVS(){
+		labelVS = new JLabel("Bitte wählen Sie eine(n) Veranstalter/in!");
+		labelVS.setBounds(10, 10, 300, 100);
+		labelVS.setVisible(false);
+		panelVS.add(labelVS);      
+		panelVS.validate();
+       
+	   	final String[] DropDownVS = new String[] {"Veranstalter", "David", "Laura", "Super", "Mentor"};
+	   	dropdownVS = new JComboBox(DropDownVS);
+	   	dropdownVS.setBounds(10, 70, 200, 25);
+	   	dropdownVS.setVisible(false);
+	   	panelVS.add(dropdownVS);
+	   	panelVS.validate();
+   }
+    
     public static void showDropdownVS(){
         	
+    		labelVS.setVisible(true);
+    		dropdownVS.setVisible(true);
     		
-    		labelVS = new JLabel("Bitte wählen Sie eine(n) Veranstalter/in!");
-            labelVS.setBounds(10, 10, 300, 100);
-            panelVS.add(labelVS);
-            panelVS.validate();
-            
-        	final String[] DropDownVS = new String[] {"Veranstalter", "David", "Laura", "Super", "Mentor"};
-        	dropdownVS = new JComboBox(DropDownVS);
-        	dropdownVS.setBounds(10, 70, 200, 25);
-        	panelVS.add(dropdownVS);
-        	panelVS.validate();
-        	
         	dropdownVS.addActionListener(new ActionListener() {
 				
 				@Override
@@ -446,23 +463,28 @@ public class GUI
      * TODO: In den String DropdownO müssen die richtigen Ort rein
      * TODO: AreaO muss befüllt werden
      * ****************************************************************/ 
+    public static void createDropdownO(){
+    	
+    	labelO = new JLabel("Bitte wählen Sie einen Ort");
+        labelO.setBounds(10, 10, 300, 100);
+        labelO.setVisible(false);
+        panelO.add(labelO);
+        labelO.validate();
+		
+		final String[] DropDownO = new String[] {"Orte", "Bernberg", "Hesselbach", "Niederseßmar", "Wiehl"};
+    	dropdownO = new JComboBox(DropDownO);
+    	dropdownO.setVisible(false);
+    	dropdownO.setBounds(10, 70, 200, 25);
+    	panelO.add(dropdownO);
+    	panelO.validate();
+    }
+    
     public static void showDropdownO(){
     		
+        labelO.setVisible(true);
+    	dropdownO.setVisible(true);
+
     		
-            
-    		labelO = new JLabel("Bitte wählen Sie einen Ort");
-            labelO.setBounds(10, 10, 300, 100);
-            panelO.add(labelO);
-            labelO.setVisible(true);
-            labelO.validate();
-    		
-    		final String[] DropDownO = new String[] {"Orte", "Bernberg", "Hesselbach", "Niederseßmar", "Wiehl"};
-        	dropdownO = new JComboBox(DropDownO);
-        	dropdownO.setBounds(10, 70, 200, 25);
-        	panelO.add(dropdownO);
-        	panelO.validate();
-        	
-        	
         	dropdownO.addActionListener(new ActionListener()
         	{
         		public void actionPerformed(ActionEvent dropdownOe) 
@@ -524,7 +546,6 @@ public class GUI
                     {
         	            showPanelsI();
         	            showDropdownSG();
-        	            showDropdownVS();
         	            showDropdownO();
         	            showAreaO();
         	            showAreaVS();
@@ -1246,19 +1267,27 @@ public class GUI
      *TODO: In den String DropdownVSA müssen die richtigen Sportarten rein
      *TODO: AreaVSG muss befüllt werden / eventuell aktualisiert? 
      */
+   public static void createDropdownVSA(){
+	   
+	   	labelVSA = new JLabel("Bitte wählen Sie eine Sportart!");
+   		labelVSA.setBounds(10, 100, 300, 25);
+   		labelVSA.setVisible(false);
+   		panelVV.add(labelVSA);
+   		panelVV.validate();
+   		panelVV.repaint();
+       
+       final String[] DropDownVSA = new String[] {"Sportarten", "Kampfsport", "Rückschlag", "Schnee", "Soooonenschein"};
+     	dropdownVSA = new JComboBox(DropDownVSA);
+      	dropdownVSA.setBounds(10, 120, 200, 25);
+      	dropdownVSA.setVisible(false);
+      	panelVV.add(dropdownVSA);
+      	panelVV.validate();
+   }
+    
     public static void showDropdownVSA(){
         	
-    		labelVSA = new JLabel("Bitte wählen Sie eine Sportart!");
-        	labelVSA.setBounds(10, 100, 300, 25);
-            panelVV.add(labelVSA);
-            panelVV.validate();
-            panelVV.repaint();
-            
-            final String[] DropDownVSA = new String[] {"Sportarten", "Kampfsport", "Rückschlag", "Schnee", "Soooonenschein"};
-          	dropdownVSA = new JComboBox(DropDownVSA);
-           	dropdownVSA.setBounds(10, 120, 200, 25);
-           	panelVV.add(dropdownVSA);
-           	panelVV.validate();
+    		labelVSA.setVisible(true);
+    		dropdownVSA.setVisible(true);
            	
            	dropdownVSA.addActionListener(new ActionListener(){
            		
@@ -1296,20 +1325,28 @@ public class GUI
      *TODO: In den String DropdownVV müssen die richtigen Veranstaltungen rein
      *TODO: AreaVSG muss befüllt werden / eventuell aktualisiert? 
      */
+  
+    public static void createDropdownVV(){
+    	labelVV = new JLabel("Bitte wählen Sie eine Veranstaltung!");
+		labelVV.setBounds(10, 150, 300, 25);
+		labelVV.setVisible(false);
+        panelVV.add(labelVV);
+        panelVV.validate();
+
+		
+        String[] DropDownVV = new String[] {"Veranstaltungen", "Bla", "Beispiel1", "Example", "Ejemplo"};
+    	
+        dropdownVV = new JComboBox(DropDownVV);
+    	dropdownVV.setBounds(10, 170, 200, 25);
+    	dropdownVV.setVisible(false);
+    	panelVV.add(dropdownVV);
+    	panelVV.validate();
+    }
+    
     public static void showDropdownVV(){
     		
-    		labelVV = new JLabel("Bitte wählen Sie eine Veranstaltung!");
-    		labelVV.setBounds(10, 150, 300, 25);
-            panelVV.add(labelVV);
-            panelVV.validate();
-
-    		
-            String[] DropDownVV = new String[] {"Veranstaltungen", "Bla", "Beispiel1", "Example", "Ejemplo"};
-        	
-            dropdownVV = new JComboBox(DropDownVV);
-        	dropdownVV.setBounds(10, 170, 200, 25);
-        	panelVV.add(dropdownVV);
-        	panelVV.validate();
+    		labelVV.setVisible(true);
+    		dropdownVV.setVisible(true);
         	
         	dropdownVV.addActionListener(new ActionListener(){
            		
