@@ -15,6 +15,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 
+import jaxb.Marshalling;
 import jaxb.Unmarshalling;
 
 
@@ -27,6 +28,7 @@ import jaxb.Unmarshalling;
 public class VeranstaltungenListe {
 	
 	Sportverzeichnis sv;
+	Marshalling marsh = new Marshalling();
 	
 	public VeranstaltungenListe() throws Exception{
 		// Unmarshalling
@@ -136,10 +138,7 @@ public class VeranstaltungenListe {
 	 * @param spaId Sportart-ID zu welcher eine Veranstaltung hinzugefügt werden soll.
 	 * @param uebergabe XML-Dokument/JAXB-Object 'Veranstaltung'.
 	 * @return Im Erfolgsfall wird die ID der hinzugefügten Veranstaltung zurückgegeben, andernfalls -1.
-	 * @throws JAXBException Wenn beim Marhsallen ein Fehler auftritt.
-	 * 
-	 * TODO: Code noch nicht optimiert.
-	 * TODO: Das Marshalling aus der Konsole noch auf das XML-Dokument übertragen.
+	 * @throws Exception JAXB-Exception, wenn beim (Un)Marshallen ein Fehler auftritt.
 	 */
 	@POST
 	@Consumes (MediaType.APPLICATION_XML)
@@ -147,7 +146,7 @@ public class VeranstaltungenListe {
 	public String postVeranstaltung(
 			@PathParam("spgId") String spgId,
 			@PathParam("spaId") String spaId, 
-			Veranstaltung uebergabe) throws JAXBException {
+			Veranstaltung uebergabe) throws Exception {
 		
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
 
@@ -184,7 +183,7 @@ public class VeranstaltungenListe {
 							marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 							
 							//Output: Console
-							marshaller.marshal(sv, System.out);
+							marsh.xmlMarshallen();
 
 							return Integer.toString(index);
 							//return "Veranstaltung " + s.getVeranstaltungenM().getVeranstaltung()

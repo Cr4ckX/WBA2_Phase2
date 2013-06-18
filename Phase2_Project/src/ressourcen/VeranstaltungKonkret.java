@@ -9,10 +9,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 
+import jaxb.Marshalling;
 import jaxb.Unmarshalling;
 
 @Path("sportgruppen/{spgId}/sportarten/{spaId}/veranstaltungen/{vstId}")
@@ -24,6 +22,7 @@ import jaxb.Unmarshalling;
 public class VeranstaltungKonkret {
 	
 	Sportverzeichnis sv;
+	Marshalling marsh = new Marshalling();
 	
 	public VeranstaltungKonkret() throws Exception{
 		// Unmarshalling
@@ -120,7 +119,7 @@ public class VeranstaltungKonkret {
 	 * @param vstId Veranstaltung-ID welche die zu aktualisierende Veranstaltung identifiziert.
 	 * @param uebergabe XML-Dokument der Struktur von oben/JAXB-Object 'Veranstaltung'.
 	 * @return String mit: "true", wenn Aktualisieren erfolgreich, "false", wenn Aktualisieren nicht erfolgreich.
-	 * @throws JAXBException Wenn das Marshalling nicht erfolgreich war.
+	 * @throws Exception JAXB-Exception, wenn beim (Un)Marshallen ein Fehler auftritt.
 	 */
 	@PUT
 	@Consumes (MediaType.APPLICATION_XML)
@@ -128,7 +127,7 @@ public class VeranstaltungKonkret {
 			@PathParam("spgId") String spgId,
 			@PathParam("spaId") String spaId, 
 			@PathParam("vstId") String vstId, 
-			Veranstaltung uebergabe) throws JAXBException {
+			Veranstaltung uebergabe) throws Exception {
 
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
 		
@@ -162,11 +161,12 @@ public class VeranstaltungKonkret {
 								 //Attribut "deleted" ist auf false gesetzt.
 								 v.setDeleted(false);
 								 
-								 JAXBContext jc = JAXBContext.newInstance("generated");
-								 Marshaller marshaller = jc.createMarshaller();
-								 marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-								 //Output
-								 marshaller.marshal(sv, System.out);
+//								 JAXBContext jc = JAXBContext.newInstance("generated");
+//								 Marshaller marshaller = jc.createMarshaller();
+//								 marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+//								 //Output
+//								 marshaller.marshal(sv, System.out);
+								 marsh.xmlMarshallen();
 								 
 								 return "true";
 								//return "Veranstaltung mit der ID " +vstId+ " aktualisiert";
@@ -188,21 +188,21 @@ public class VeranstaltungKonkret {
 	 * mit dem Attribut 'deleted=false' behandelet werden (es sei denn, der entsprechende Query Parameter ist bei der
 	 * GET-Anfrage auf true gesetzt. 
 	 * 
-	 * TODO: Kaskadierendes Löschen (Gebäude, Veranstalter) ist noch nicht berücksichtigt.
-	 * TODO: Marshalling noch in die Datei umsetzen.
+	 * Kaskadierendes Löschen (Gebäude, Veranstalter) ist aufgrund mangelnder Umsetztung
+	 * nicht berücksichtigt.
 	 * 
 	 * MIME-TYPE: application/xml.
 	 * @param spgId Sportgruppen-ID in der sich die Sportart befindet. 
 	 * @param spaId Sportart-ID in der sich die Veranstaltung befindet.
 	 * @param vstId Veranstaltung-ID welche die zu löschende Veranstaltung identifiziert.
 	 * @return String mit: "true", wenn Aktualisieren erfolgreich, "false", wenn Aktualisieren nicht erfolgreich.
-	 * @throws JAXBException Wenn das Marshalling nicht erfolgreich war.
+	 * @throws Exception Exception JAXB-Exception, wenn beim (Un)Marshallen ein Fehler auftritt.
 	 */
 	@DELETE
 	public String deleteVeranstaltung(
 			@PathParam("spgId") String spgId,
 			@PathParam("spaId") String spaId, 
-			@PathParam("vstId") String vstId) throws JAXBException{
+			@PathParam("vstId") String vstId) throws Exception{
 
 		SportgruppenM sgm = (SportgruppenM) sv.getSportgruppenM();
 
@@ -232,13 +232,15 @@ public class VeranstaltungKonkret {
 								 //s.getVeranstaltungenM().getVeranstaltung().remove(m);
 								 
 								 v.setDeleted(true);
-								 
+								 /*
 								 JAXBContext jc = JAXBContext.newInstance("generated");
 								 Marshaller marshaller = jc.createMarshaller();
 								 marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 								
 								 //Output: Konsole
 								 marshaller.marshal(sv, System.out);
+								 */
+								 marsh.xmlMarshallen();
 								 return "true";
 								 //return "Veranstaltung mit der id " + vstId + " wurde gelöscht."; //Kaskadierendes Löschen fehlt noch.
 							 }
@@ -247,7 +249,6 @@ public class VeranstaltungKonkret {
 				}
 			}
 		}
-
 		return "false";
 		//return "Fehlgeschlagen die Veranstaltungs-ID " + vstId + " zu löschen";
 	}		
