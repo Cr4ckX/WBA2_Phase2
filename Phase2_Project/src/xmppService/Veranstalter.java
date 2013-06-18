@@ -50,7 +50,7 @@ public class Veranstalter {
 					input = sc.nextLine();
 					System.out.print("Bitte Inhalt eingeben, welcher gepublisht werden soll: ");
 					publishIn = sc.nextLine();
-					veranstalter.publishToLeaf(input, "<test>"+publishIn+"</test>", false, "");
+					//veranstalter.publishToLeaf(input, "<test>"+publishIn+"</test>", false, "");
 					break;
 					
 				case 4:

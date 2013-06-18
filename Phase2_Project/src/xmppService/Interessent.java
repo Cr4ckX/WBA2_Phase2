@@ -21,13 +21,14 @@ public class Interessent {
 			erfolgreich = false;
 		}
 		System.out.println("Erfolgreich als Interessent eingeloggt.");
-		
+		System.out.println(interessent.restoreSubscriptions());
 		//Wahl:
 		System.out.println("Bitte wählen Sie:");;
 		System.out.println("1 um alle Leafs anzeigen zu lassen.");
 		System.out.println("2 um zu einem Leaf zu subscriben.");
 		System.out.println("3 um einen Leaf unzusubscriben.");
 		System.out.println("4 Programm beenden!");
+		System.out.println("5 um gesubbte Leafs anzuzeigen!");
 		
 		
 		while (erfolgreich){
@@ -56,8 +57,10 @@ public class Interessent {
 					}
 				
 				case 3:
+					System.out.print("Node ID des zu unsubscribenden Leafs eingeben:");
 					input = sc.nextLine();
 					interessent.unSubscribe(input);
+					System.out.println("Unsubscribed!");
 					
 				case 4:
 					if (interessent.disconnect())
