@@ -4,13 +4,23 @@ import java.awt.Component;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 
+import servicesCombined.CombinedServicesInteressent;
+import servicesCombined.CombinedServicesVeranstalter;
+
 import xmppService.*;
  
-public class Sportverzeichnis 
+public class GUI 
 {
+	static CombinedServicesVeranstalter csv = new CombinedServicesVeranstalter();
+	static CombinedServicesInteressent csi = new CombinedServicesInteressent();
+	
+	static int sportgruppenIndex;
+	static int sportartenIndex;
 	
 	/********************************************/
 	/**************Interessent*******************/
@@ -106,6 +116,13 @@ public class Sportverzeichnis
 
         	//Also wurde Interessent gewählt!
         	if(selected == 0){
+        		try {
+        			//Verbindung als Interessent aufbauen
+					csi.initialize();
+				} catch (InterruptedException e) {
+					System.out.println("Fehler beim Verbinden!");
+					e.printStackTrace();
+				}
 	            showPanelsI();
 	            showDropdownSG();
 	            showDropdownVS();
@@ -215,31 +232,34 @@ public class Sportverzeichnis
      *Das Dropdown mit den Sportgruppen wird angezeigt.
      *Hierzu wird gleichzeitig das Label erstellt.
      *Sobald eine SG gewählt wurde, erscheint das DropDownSA sowie eine Area.
-     *TODO: In den String DropdownSG müssen die richtigen Sportgruppen rein
-     *TODO: AreaSG muss befüllt werden
+     *TODONE: In den String DropdownSG müssen die richtigen Sportgruppen rein
+     *TODONE: AreaSG muss befüllt werden
+     * @throws InterruptedException 
      ****************************************************************/
     public static void showDropdownSG()
     	{
-	    		  
+	    		List<String> sportgruppenListe = csi.getSportgruppen();
+	    		
 	            labelSG = new JLabel("Bitte wählen Sie eine Sportgruppe!");
 	            labelSG.setBounds(10, 50, 300, 25);
 	            panelSG.add(labelSG);
 	            
-	            
-	            final String[] DropDownSG = new String[] {"Sportgruppen", "Kampf", "Ball", "Example", "Ejemplo"};
+	            final String[] DropDownSG = sportgruppenListe.toArray(new String[sportgruppenListe.size()]);
 	        	dropdownSG = new JComboBox(DropDownSG);
 	        	dropdownSG.setBounds(10, 70, 200, 25);
 	        	panelSG.add(dropdownSG);
 	        	
-	        	
+
 	        	dropdownSG.addActionListener(new ActionListener()
 	        	{
 	        		public void actionPerformed(ActionEvent dropdownSGe) 
 	        		{ 			
-//	        				
-	        				showDropdownSA();	
-	        				showLogoutSG();
-	        	            
+	        			sportgruppenIndex = dropdownSG.getSelectedIndex();
+	        			String info = csi.getSportgruppe(String.valueOf(sportgruppenIndex));
+	        			showDropdownSA();	
+	        			showLogoutSG();
+	        			AreaSG.setText(info);
+	        			dropdownSA.removeAllItems();
 	        		}
 	        	});
             
@@ -254,13 +274,14 @@ public class Sportverzeichnis
      *****************************************************************/	
     public static void showDropdownSA(){
     		
+    		List<String> sportartenListe = csi.getSportarten(String.valueOf(sportgruppenIndex));
     		labelSA = new JLabel("Bitte wählen Sie eine Sportart!");
     		labelSA.setBounds(10, 100, 300, 25);
             panelSG.add(labelSA);
             panelSG.validate();
             panelSG.repaint();
     		
-            final String[] DropDownSA = new String[] {"Sportarten", "Kampfsport", "Rückschlag", "Schnee", "Soooonenschein"};
+            final String[] DropDownSA = sportartenListe.toArray(new String[sportartenListe.size()]);
         	dropdownSA = new JComboBox(DropDownSA);
         	dropdownSA.setBounds(10, 120, 200, 25);
         	panelSG.add(dropdownSA);
@@ -269,26 +290,28 @@ public class Sportverzeichnis
         	dropdownSA.addActionListener(new ActionListener()
         	{
         		public void actionPerformed(ActionEvent dropdownSAe) 
-        		{ 			
+        		{ 		
+        			sportartenIndex = dropdownSA.getSelectedIndex();
     				showDropdownV();
     				showButtonSubsribeSA();
-    				/*If (person.isSubscribed){
-    				 * 
-    				 * 	btnSubscribeSA.setEnabled(false);
-    				 * 	btnSubscribeSA.setToolTipText("Node wurde bereits subscribed");
-    				 * }
-    				 * 
-    				 * else {
-    				 * 
-    				 * btnUnsubscribeSA.setEnable(false);
-    				 * 
-    				 * }
-    				 * 
-    				 * 
-    				 * */
+    				String info = csi.getSportart(String.valueOf(sportgruppenIndex),
+    						String.valueOf(sportartenIndex));
     				
+    				if(csi.isSubscribed(String.valueOf(sportgruppenIndex)+String.valueOf(sportartenIndex)
+    						+ "Sportart")){
+    					btnSubscribeSA.setEnabled(false);
+    					btnUnsubscribeSA.setEnabled(true);
+       				 	//btnSubscribeSA.setToolTipText("Node wurde bereits subscribed.");
+    				}
+    				else{
+    					btnUnsubscribeSA.setEnabled(true);
+    					btnSubscribeSA.setEnabled(false);
+    					//btnUnsubscribeSA.setToolTipText("Klicken Sie hier zum unsubscriben.");
+    				}
     				showButtonUnsubsribeSA();
     				scrollpaneAreaAllgSG.setVisible(true);
+    				
+    				AreaSG.setText("");
     				}
    			});
     	}
@@ -838,20 +861,18 @@ public class Sportverzeichnis
      * ****************************************************************/
     public static void showAreaSG(){
     		
+
     		labelAreaSG = new JLabel("Informationen bezüglich: ");
             labelAreaSG.setBounds(600, 10, 300, 100);
             panelSG.add(labelAreaSG);
         	panelSG.validate();
         	panelSG.repaint();
 
-
-
             AreaSG = new JTextArea();
             AreaSG.setLineWrap(true);
     		AreaSG.setBounds(600, 90, 350, 300);
     		panelSG.add(AreaSG);
         	panelSG.validate();
-
             
     	}
     	

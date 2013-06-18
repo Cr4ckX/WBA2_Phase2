@@ -21,7 +21,6 @@ public class CombinedServiceTestuse {
 		try {
 			csv.initialize();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
