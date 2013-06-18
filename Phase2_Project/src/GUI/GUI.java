@@ -136,6 +136,7 @@ public class GUI
 	            showSubscriptionsList();
 	            showAreaAllgemeinVS();
 	            showAreaAllgemeinO(); 
+	            createDropdownSA();
 	            fenster1.setVisible(true);
 	            fenster2.setVisible(false);
              } 
@@ -256,10 +257,12 @@ public class GUI
 	        		{ 			
 	        			sportgruppenIndex = dropdownSG.getSelectedIndex();
 	        			String info = csi.getSportgruppe(String.valueOf(sportgruppenIndex));
-	        			showDropdownSA();	
 	        			showLogoutSG();
 	        			AreaSG.setText(info);
+	        			dropdownSA.setVisible(false);
 	        			dropdownSA.removeAllItems();
+	        			showDropdownSA();	
+
 	        		}
 	        	});
             
@@ -272,20 +275,33 @@ public class GUI
      *TODO: In den String DropdownSA müssen die richtigen Sportarten rein
      *TODO: AreaSA muss befüllt werden
      *****************************************************************/	
+   public static void createDropdownSA(){
+	   
+		labelSA = new JLabel("Bitte wählen Sie eine Sportart!");
+		labelSA.setBounds(10, 100, 300, 25);
+		labelSA.setVisible(false);
+       panelSG.add(labelSA);
+       panelSG.validate();
+       panelSG.repaint();
+		
+       	final String[] DropDownSA = {""};
+   		dropdownSA = new JComboBox(DropDownSA);
+   		dropdownSA.setBounds(10, 120, 200, 25);
+   		dropdownSA.setVisible(false);
+   		panelSG.add(dropdownSA);
+   		panelSG.validate();
+	   
+   }
+    
     public static void showDropdownSA(){
     		
-    		List<String> sportartenListe = csi.getSportarten(String.valueOf(sportgruppenIndex));
-    		labelSA = new JLabel("Bitte wählen Sie eine Sportart!");
-    		labelSA.setBounds(10, 100, 300, 25);
-            panelSG.add(labelSA);
-            panelSG.validate();
-            panelSG.repaint();
-    		
-            final String[] DropDownSA = sportartenListe.toArray(new String[sportartenListe.size()]);
-        	dropdownSA = new JComboBox(DropDownSA);
-        	dropdownSA.setBounds(10, 120, 200, 25);
-        	panelSG.add(dropdownSA);
-        	panelSG.validate();
+    	List<String> sportartenListe = csi.getSportarten(String.valueOf(sportgruppenIndex));
+    	labelSA.setVisible(true);
+    	
+    	for(String sportarten:sportartenListe){
+        	dropdownSA.addItem(sportarten);
+    	}
+    	dropdownSA.setVisible(true);	
         	
         	dropdownSA.addActionListener(new ActionListener()
         	{
@@ -304,7 +320,7 @@ public class GUI
        				 	//btnSubscribeSA.setToolTipText("Node wurde bereits subscribed.");
     				}
     				else{
-    					btnUnsubscribeSA.setEnabled(true);
+    				//	btnUnsubscribeSA.setEnabled(true);
     					btnSubscribeSA.setEnabled(false);
     					//btnUnsubscribeSA.setToolTipText("Klicken Sie hier zum unsubscriben.");
     				}
