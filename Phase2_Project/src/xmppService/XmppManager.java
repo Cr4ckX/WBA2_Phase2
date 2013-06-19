@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.jivesoftware.smack.Connection;
+import org.jivesoftware.smack.ConnectionConfiguration;
+import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.ServiceDiscoveryManager;
 import org.jivesoftware.smackx.packet.DiscoverInfo;
@@ -18,26 +20,54 @@ import org.jivesoftware.smackx.pubsub.Subscription;
 
 public class XmppManager {
 	
-	private  Connection cn;
-	//Public, damit ItemEventCoodinator Zugriff bekommt (Item-Bug in der Smack API)
-	public PubSubManager psm;
+	private Connection cn;
+	private PubSubManager psm;
 	private ItemEventCoordinator iec = new ItemEventCoordinator();
 	
+	/**
+	 * Baut eine Verbindung zur Standardadresse (localhost) mit dem Standardport (5552) 
+	 * zu dem XMPP-Server auf.
+	 * 
+	 * @return true, wenn erfolgreich mit dem XMPP-Server verbunden.
+	 */
 	public boolean verbinden(){
-		XmppConnection xc;
+		String host = "localhost";
+		int port = 5552;
+		ConnectionConfiguration config = new ConnectionConfiguration(host, port);
+		cn = new XMPPConnection(config);
 		try {
-			xc = new XmppConnection();		
-			cn = xc.connect();
-			//cn.login("veranstalter", "veranstalter");
+			cn.connect();
 			return true;
-			
 		} catch (XMPPException e) {
-			System.out.println("Beim Verbinden ist ein Fehler aufgetreten.");
-			//e.printStackTrace();
+			System.out.println("Fehler beim Verbinden!");
 			return false;
-		}	
+		}
 	}
-	
+	/**
+	 * Baut eine Verbindung mit dem XMPP-Server zu dem angegebenen Socket auf.
+	 * 
+	 * @param host Die Adresse des Servers.
+	 * @param port Der Port über den der Server als Client angesprochen werden kann.
+	 * @return true, wenn erfolgreich mit dem XMPP-Server verbunden.
+	 */
+	public boolean verbinden(String host, int port){
+
+		ConnectionConfiguration config = new ConnectionConfiguration(host, port);
+		cn = new XMPPConnection(config);
+		try {
+			cn.connect();
+			return true;
+		} catch (XMPPException e) {
+			System.out.println("Fehler beim Verbinden!");
+			return false;
+		}
+	}
+	/**
+	 * Erstellt einen PubSub Manager für die aktuelle Verbindung. Dieser wird benötigt,
+	 * damit die Publish-Subscribe Funktionen verwendet werden können.
+	 * Entsprechend wird eine bestehende Verbindung vorrausgesetzt.
+	 * @return true, wenn PubSub-Manager erfolgreich erstellt.
+	 */
 	public boolean managePubSub(){
 		if (cn.isConnected() || cn.isSecureConnection()){
 			psm = new PubSubManager(cn, "pubsub." + cn.getHost());
@@ -46,7 +76,12 @@ public class XmppManager {
 		else
 			return false;
 	}
-	
+	/**
+	 * Loggt einen User auf den Server ein, zu dem bereits eine Verbindung bestehen muss. 
+	 * @param username Benutzername 
+	 * @param password Passwort
+	 * @return true, wenn erfolgreich eingeloggt.
+	 */
 	public boolean login(String username, String password){
 		if (cn.isConnected() || cn.isSecureConnection()){
 			try {
@@ -62,10 +97,11 @@ public class XmppManager {
 			return false;
 	}
 	/**
-	 * Erstellt einen neuen Leaf-Node. Der Name des Leafs wird uebergeben.
-	 * Der Name muss folgende Form tragen:
-	 * "xyzVeranstaltung", wobei x = Sportgruppe-ID, y = Sportart-ID, z = Veranstaltung-ID.
-	 * 
+	 * Erstellt einen neuen Leaf-Node auf dem verbundenen Server. Der Name des Leafs wird uebergeben.
+	 * Entsprechend ist eine bereits bestehende Verbindung zu einem Server vorausgesetzt und wird deshalb 
+	 * nicht abgefragt. Der Name muss folgende Form tragen:
+	 * "xyzVeranstaltung", wobei x = Sportgruppe-ID, y = Sportart-ID, z = Veranstaltung-ID. Oder:<br/>
+	 * "xySportart", wobei x = Sportgruppe-ID, y = Sportart-ID.
 	 * Wenn ein Leaf mit diesem Namen bereits vorhanden ist, wird false zurueckgegeben.
 	 * @param leafName zu erstellenden Leaf.
 	 * @return true, wenn erfolgreich hinzugefügt. false, wenn Fehler oder schon vorhanden.
@@ -89,7 +125,18 @@ public class XmppManager {
 			return false;
 		}	
 	}
-	
+	/**
+	 * Löscht einen bestehenden Leaf-Node vom Server.
+	 * Entsprechend ist eine bereits bestehende Verbindung zu einem Server vorausgesetzt und wird 
+	 * deshalb nicht abgefragt.<br/>
+	 * Der Name des Leafs wir übergeben. Dieser Leaf muss natürlich auf dem Server vorhanden sein. 
+	 * Andernfalls wird ein Fehler geworfen. Dieser Fehler wird nicht abgefangen, da die Leaf-Nodes
+	 * eindeutig anhand der Veranstaltungen/Sportarten erzeugt werden sollen und damit im Programm 
+	 * eindeutig und bekannt sind. Andernfalls kann mit getLeafs() zunächst eine Liste mit den zur
+	 * Verfügung stehenden Leafs geholt werden, um sicherstellen zu können, dass dieser Leaf vorhanden ist.
+	 * @param leafNode Leaf-Node Namen der Struktur, wie ein Leaf aufgebaut werden soll (siehe createLeaf())
+	 * @return true, wenn Leaf erfolgreich gelöscht.
+	 */
 	public boolean deleteLeaf(String leafNode){
 		try {
 			psm.deleteNode(leafNode);
@@ -107,10 +154,9 @@ public class XmppManager {
 	 * ob der LeafNode erzeugt werden soll, wenn es den Node noch nicht gibt.
 	 * 
 	 * @param leafName Name des LeafNodes, zu dem gepublished werden soll.
-	 * .@param payLoad Zu publishenden Payload 
 	 * @param erzeuge true, wenn ein neues Leaf bei Nichtvorhandensein erzeugt werden soll.
-	 * .@param wurzelElement Wurzelelement des Payloads, für Payload notwendig.
-	 * @return
+	 * @return true, wenn erfolgreich gepublished. False, wenn Leaf-Node bei erzeuge = true
+	 * nicht erstellt werden konnte, der das Publishing allgemein fehlgeschlagen ist.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public boolean publishToLeaf(String leafName, String payload, boolean erzeuge){
@@ -141,10 +187,7 @@ public class XmppManager {
 				}
 			}
 			else
-				return false;
-			
-			
-		
+				return false;	
 		}
 		try {
 			/*
@@ -164,12 +207,17 @@ public class XmppManager {
 	}
 	
 		
-	//Vorhandene Leafs suchen
+	/**
+	 * Listet die auf dem Server (mit der aktuell eine Verbindung bestehen muss) vorhandenen Leafs.
+	 * Diese werden als Lis zurückgegeben.
+	 * @return Die auf dem Server verfügbaren Leafs als Liste/null, wenn keine Verbindung besteht.
+	 * @throws XMPPException Wenn die Nodes nicht ermittelt werden können
+	 */
 	public List<String> getLeafs() throws XMPPException{
 		List<String> nodeList = new ArrayList<String>();
 		if (cn.isConnected() == false || cn.isSecureConnection() == false){
 			System.out.println("Es besteht keine Verbindung!");
-			System.exit(1);
+			return null;
 		}
 		
 		ServiceDiscoveryManager sdm = ServiceDiscoveryManager.getInstanceFor(cn);
@@ -185,13 +233,25 @@ public class XmppManager {
 }
 	
 
-	//Eigenschaften eines Leafs anzeigen!
+	/**
+	 * Zeigt die möglichen Services/Eigenschaften eines Leaf-Nodes an.
+	 * Diese Funktion war für den Meilenstein 5 gefordert.<br/><br/>
+	 * 
+	 * Es wird geliefert: <br/>
+	 * Der Name (mehr oder weniger überflüssig),<br/>
+	 * der Typ,<br/>
+	 * die Kategorie des Leaf-Nodes.<br/>
+	 * 
+	 * @param LeafNode LeafNode-Namen, über welchen Eigenschaften in Erfahrung gebracht werden sollen.
+	 * @return Einen String mit den Informationen/null, wenn keine Verbindung besteht.
+	 * @throws XMPPException Wenn die Discover-Funktion gehschlägt.
+	 */
 	public String getLeafService(String LeafNode) throws XMPPException{
 		String discoveredService = "";
 		
 		if (cn.isConnected() == false || cn.isSecureConnection() == false){
 			System.out.println("Es besteht keine Verbindung!");
-			return "failture, no connection!";
+			return null;
 		}
 		
 		ServiceDiscoveryManager sdm = ServiceDiscoveryManager.getInstanceFor(cn);
@@ -200,7 +260,7 @@ public class XmppManager {
 		Iterator it = dci.getIdentities();
 		while (it.hasNext()) {
 			DiscoverInfo.Identity identity = (DiscoverInfo.Identity) it.next();
-			discoveredService += 
+			discoveredService +=  
 					"Name: " + identity.getName() + 
 					"\nType: " + identity.getType() + 
 					"\nCategory: " + identity.getCategory() + "\n";	
@@ -208,7 +268,11 @@ public class XmppManager {
 		return discoveredService;
 	}
 	
-
+	/**
+	 * Erfragt, ob der aktuelle Benutzer zu dem übergebenen Leaf-Node subscribed ist.
+	 * @param leafNode Leaf-Node zu dem die Subscription abgefragt werden soll.
+	 * @return true wenn subscribed.
+	 */
 	public boolean isSubscribed(String leafNode){
 		List<Subscription> subList;
 		
@@ -218,8 +282,6 @@ public class XmppManager {
 			
 			for (Subscription subscription: subList){
 				if(subscription.getNode().equals(leafNode)){
-					//System.out.println(subscription.getJid());
-					//System.out.println("Bereits subscribed!");
 					return true;
 				}
 			}
@@ -227,12 +289,10 @@ public class XmppManager {
 			System.out.println("Fehler beim holen der Subscriptions");
 			e.printStackTrace();
 		}
-
-
 		return false;
 	}
 	/**
-	 * Zeigt die Nodes an, zu denen bereits vom aktuellen USER subscribed wurde.
+	 * Zeigt alle Nodes an, zu denen bereits vom aktuellen Benutzer subscribed wurde.
 	 * @return Eine Liste mit Nodes. / Leere liste bei keinen Subscriptions.
 	 */
 	public List<String> showSubscriptions(){
@@ -254,12 +314,20 @@ public class XmppManager {
 		}
 	}
 
+	/**
+	 * Diese Methode wird dazu verwendet, alle Subscriptions zurückzusetzen, d.h.
+	 * es werden alle Leafs zu denen eine Subscription besteht unsubscribed und wieder
+	 * subscribed. <br/><br/>
+	 * Diese Methode sollte beim Initialisieren der Verbindung zum XMPP-Server bzw. nach dem
+	 * Login vollzogen werden, damit die Event-Listener für die Leafs wiederhergestellt werden.
+	 * @return true, wenn erfolgreich alle Subscriptions restored.
+	 */
 	public boolean restoreSubscriptions(){
 		List<String> nodeList = showSubscriptions();
 		boolean unsub;
 		for(String subNode : nodeList){
-			System.out.println("Erfolgreich unsubbed: " + subNode);
 			unsub = unSubscribe(subNode);
+			System.out.println("Erfolgreich unsubbed: " + subNode);
 			if(unsub == true){
 				if(subscribeLeaf(subNode) == true){
 					System.out.println("Erfolgreich subbed: " + subNode);
@@ -273,6 +341,12 @@ public class XmppManager {
 		return true;	
 	}
 	
+	/**
+	 * Methode zum Subscriben zu einem übergebenen Leaf.<br/>
+	 * Wenn bereits eine Subscription besteht, wird false zurückgegeben.
+	 * @param leafNode Leaf-Node zu dem eine Subscription erstellt werden soll.
+	 * @return true, wenn erfolgreich subscribed.
+	 */
 	public boolean subscribeLeaf(String leafNode){
 
 		LeafNode subLeaf;
@@ -370,17 +444,10 @@ public class XmppManager {
 		return false;
 	}
 
-	
-	public boolean disconnect(){
+	/**
+	 * Schließt die Verbindung zum XMPP-Server.
+	 */
+	public void disconnect(){
 		cn.disconnect();
-		return true;
-		
-	}
-	public void verbinden(String host, int port) throws XMPPException{
-			
-		XmppConnection xc = new XmppConnection(host, port);
-		cn = xc.connect();
-	}
-
-	
+	}	
 }

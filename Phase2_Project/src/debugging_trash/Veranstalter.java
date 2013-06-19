@@ -1,9 +1,19 @@
-package xmppService;
+package debugging_trash;
 
 import java.util.Scanner;
 
 import org.jivesoftware.smack.XMPPException;
 
+import xmppService.XmppManager;
+/**
+ * Hierbei handelt es sich lediglich um eine Testklasse, um den XMPP Server
+ * hinsichtlich seiner Funktionalität für den Veranstalter zu testen.
+ * 
+ * Später kann sie gelöscht werden, da sie für das System keine Relevanz
+ * darstellt. Daher befindet sich diese Klasse zunächst im 'Trash-Package'.
+ * @author CrackX
+ *
+ */
 public class Veranstalter {
 
 	public void veranstalterErzeugen(XmppManager veranstalter) throws XMPPException {
@@ -54,8 +64,8 @@ public class Veranstalter {
 					break;
 					
 				case 4:
-					if (veranstalter.disconnect())
-						System.out.println("Erfolgreich disconnected");
+					veranstalter.disconnect();
+					System.out.println("Erfolgreich disconnected");
 					erfolgreich = false;
 			}
 		}

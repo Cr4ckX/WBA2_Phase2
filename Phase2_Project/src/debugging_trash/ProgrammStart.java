@@ -1,9 +1,18 @@
-package xmppService;
+package debugging_trash;
 
 import java.util.Scanner;
 
 import org.jivesoftware.smack.XMPPException;
 
+import xmppService.XmppManager;
+
+/**
+ * Dies ist die Klasse, welche die Klassen 'Interessent' und 'Veranstalter'
+ * instanziiert und daraufhin das Testen ermöglicht. Sie stellt keine Relevanz 
+ * für das spätere System dar und kann daher später auch entfernt werden.
+ * @author CrackX
+ *
+ */
 public class ProgrammStart {
 
 	/**

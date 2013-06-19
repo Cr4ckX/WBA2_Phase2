@@ -13,8 +13,8 @@ import restService.ClientRest;
 /**
  * Diese Klasse dient dazu, LeafNodes automatisch zu erstellen.
  * 
- * Eine XML-Datei wird durchlaufen und zu jeder Veranstaltung und
- * Sportart wird ein eindeutiger Leaf-Node erzeugt.
+ * Die XML-Datei wird durchlaufen und zu jeder Veranstaltung und
+ * Sportart wird ein eindeutiger Leaf-Node auf dem Server erzeugt.
  * @author CrackX
  *
  */

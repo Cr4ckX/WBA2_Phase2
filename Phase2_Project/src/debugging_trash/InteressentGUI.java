@@ -1,4 +1,4 @@
-package xmppService;
+package debugging_trash;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +6,14 @@ import java.util.List;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smackx.pubsub.LeafNode;
 
+import xmppService.XmppManager;
+
 /**
- * Klasse, welche die funktionalitaet, welche spaeter von der GUI ausgefuehrt 
+ * Klasse, welche die Funktionalitaet, welche spaeter von der GUI ausgefuehrt 
  * werden soll, zeigt.
+ * 
+ * Diese Klasse ist im späterem System nicht Bestandteil der Applikation und 
+ * kann dann entfernt werden.
  * @author CrackX
  *
  */
