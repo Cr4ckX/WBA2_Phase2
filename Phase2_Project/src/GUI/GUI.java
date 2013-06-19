@@ -51,7 +51,7 @@ public class GUI
 				btnUnsubscribeSA.setEnabled(false);
 				//btnUnsubscribeSA.setToolTipText("Klicken Sie hier zum unsubscriben.");
 			}    				
-			
+			dropdownV.removeActionListener(DropDownVListen);
 			dropdownV.removeAllItems();
 			showDropdownV();
 			
@@ -64,7 +64,8 @@ public class GUI
 		{
 			String info;        			
 			veranstaltungenIndex = dropdownV.getSelectedIndex();
-			info = csi.getVeranstaltung((String.valueOf(sportgruppenIndex)), (String.valueOf(sportartenIndex)), String.valueOf(veranstaltungenIndex));
+			info = csi.getVeranstaltung((String.valueOf(sportgruppenIndex)), 
+					(String.valueOf(sportartenIndex)), String.valueOf(veranstaltungenIndex));
 			AreaSG.setText(info);
 
 			
@@ -409,7 +410,7 @@ public class GUI
 		panelSG.add(labelV);
 		panelSG.validate();
 		
-        final String[] DropDownV = new String[] {"Veranstaltungen", "Bla", "Beispiel1", "Example", "Ejemplo"};
+        final String[] DropDownV = {""};
     	
         dropdownV = new JComboBox(DropDownV);
     	dropdownV.setBounds(10, 170, 200, 25);
