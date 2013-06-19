@@ -21,6 +21,7 @@ public class GUI
 	
 	static int sportgruppenIndex = 0;
 	static int sportartenIndex = 0;
+	static int veranstaltungenIndex = 0;
 	
 	
 	static ActionListener DropDownSAListen = new ActionListener()
@@ -51,34 +52,36 @@ public class GUI
 				//btnUnsubscribeSA.setToolTipText("Klicken Sie hier zum unsubscriben.");
 			}    				
 			
+			dropdownV.removeAllItems();
+			showDropdownV();
+			
 			}
 		};
 	
 	static ActionListener DropDownVListen = new ActionListener(){
 		
-		public void actionPerformed(ActionEvent dropdownSAe)
+		public void actionPerformed(ActionEvent dropdownVe)
 		{
-			btnSubscribeSA.setVisible(false);
-			btnUnsubscribeSA.setVisible(false);
+			String info;        			
+			veranstaltungenIndex = dropdownV.getSelectedIndex();
+			info = csi.getVeranstaltung((String.valueOf(sportgruppenIndex)), (String.valueOf(sportartenIndex)), String.valueOf(veranstaltungenIndex));
+			AreaSG.setText(info);
 
 			
-			/*TODO: Wenn bereits Subsrcibed ist Enabled(false) setzen
-			 * If (person.isSubscribed){
-			 * 
-			 * 	btnSubscribeV.setEnabled(false);
-			 * 	btnSubscribeV.setToolTipText("Node wurde bereits subscribed");
-			 * }
-			 * 
-			 * else {
-			 * 
-			 * btnUnsubscribeV.setEnable(false);
-			 * btnUnsubscribeV.setToolTipText("Nur ein abonnierter Node kann entabonniert werden");
-			 * 
-			 * }
-			 * 
-			 * 
-			 * */
-		}
+			
+			if(csi.isSubscribed(String.valueOf(sportgruppenIndex)+String.valueOf(sportartenIndex)
+					+String.valueOf(veranstaltungenIndex)+("Veranstaltung"))){
+				btnSubscribeSA.setEnabled(false);
+				btnUnsubscribeSA.setEnabled(true);
+				//btnSubscribeSA.setToolTipText("Node wurde bereits subscribed.");
+			}
+			else{
+			btnSubscribeSA.setEnabled(true);
+			btnUnsubscribeSA.setEnabled(false);
+			//btnUnsubscribeSA.setToolTipText("Klicken Sie hier zum unsubscriben.");
+			}    				
+			
+			}
 	};
 	
 	/********************************************/
@@ -417,8 +420,14 @@ public class GUI
     
     public static void showDropdownV(){
     	
+    	List<String> veranstaltungenListe = csi.getVeranstaltungen(String.valueOf(sportgruppenIndex), String.valueOf(sportartenIndex));
     	labelV.setVisible(true);
+    	
+    	for(String veranstaltungen:veranstaltungenListe){
+        	dropdownV.addItem(veranstaltungen);
+    	}
     	dropdownV.setVisible(true);
+    	dropdownV.addActionListener(DropDownVListen);
     	
     	}
 
@@ -450,14 +459,6 @@ public class GUI
     		labelVS.setVisible(true);
     		dropdownVS.setVisible(true);
     		
-        	dropdownVS.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent Ve) {
-					showButtonZurueckVS();
-					//TODO: Komischer Typ
-				}
-			});
         	
         	
     	}
