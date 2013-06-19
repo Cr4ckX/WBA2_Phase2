@@ -27,6 +27,8 @@ public class GUI
 	{
 		public void actionPerformed(ActionEvent dropdownSAe) 
 		{	
+			btnUnsubscribeSA.setVisible(true);
+			btnSubscribeSA.setVisible(true);
     		String info;        			
 			sportartenIndex = dropdownSA.getSelectedIndex();
 			
@@ -35,8 +37,7 @@ public class GUI
 			AreaSG.setText(info);
 			
 			showDropdownV();
-			showButtonSubsribeSA();
-			showButtonUnsubsribeSA();
+
 
 			if(csi.isSubscribed(String.valueOf(sportgruppenIndex)+String.valueOf(sportartenIndex)
 					+ "Sportart")){
@@ -52,6 +53,33 @@ public class GUI
 			
 			}
 		};
+	
+	static ActionListener DropDownVListen = new ActionListener(){
+		
+		public void actionPerformed(ActionEvent dropdownSAe)
+		{
+			btnSubscribeSA.setVisible(false);
+			btnUnsubscribeSA.setVisible(false);
+
+			
+			/*TODO: Wenn bereits Subsrcibed ist Enabled(false) setzen
+			 * If (person.isSubscribed){
+			 * 
+			 * 	btnSubscribeV.setEnabled(false);
+			 * 	btnSubscribeV.setToolTipText("Node wurde bereits subscribed");
+			 * }
+			 * 
+			 * else {
+			 * 
+			 * btnUnsubscribeV.setEnable(false);
+			 * btnUnsubscribeV.setToolTipText("Nur ein abonnierter Node kann entabonniert werden");
+			 * 
+			 * }
+			 * 
+			 * 
+			 * */
+		}
+	};
 	
 	/********************************************/
 	/**************Interessent*******************/
@@ -187,10 +215,10 @@ public class GUI
              }
             
             //Zwecks Debbuging ist das jetzt hier! 
-             labelAreaVSG = new JLabel("Informationen bezüglich: ");
+            labelAreaVSG = new JLabel("Informationen bezüglich: ");
      		labelAreaVSG.setBounds(600, 10, 300, 100);
      		labelAreaVSG.setVisible(false);
-             panelVV.add(labelAreaVSG);
+            panelVV.add(labelAreaVSG);
          	panelVV.validate();
          	
 
@@ -206,10 +234,26 @@ public class GUI
       
 			showAreaSG();
 			showAreaVSG();
-
-        }
- 
-    
+			
+			btnSubscribeSA = new JButton("Subscribe");
+        	btnSubscribeSA.setBounds(600, 400, 150, 25);
+        	panelSG.add(btnSubscribeSA);
+        	btnSubscribeSA.setVisible(false);
+        	
+        	panelSG.validate();
+        	panelSG.repaint();
+        	
+        	btnUnsubscribeSA = new JButton("Unsubscribe");
+        	btnUnsubscribeSA.setBounds(800, 400, 150, 25);
+        	panelSG.add(btnUnsubscribeSA);
+        	btnUnsubscribeSA.setVisible(false);
+        	panelSG.validate();
+        	panelSG.repaint();
+        	
+        	
+    }	
+			
+	
     
     /*Nützliche Schnipsel
      * 
@@ -295,7 +339,10 @@ public class GUI
 	        			dropdownSA.removeActionListener(DropDownSAListen);
 	        			dropdownSA.setVisible(false);
  	        			dropdownSA.removeAllItems();
-	        		
+ 	        			if(btnUnsubscribeSA.isVisible()){
+ 	 	        			btnUnsubscribeSA.setVisible(false);
+ 	 	        			btnSubscribeSA.setVisible(false);
+ 	        			}
  	        			
 	        			showDropdownSA();
 	        		}
@@ -373,38 +420,6 @@ public class GUI
     	labelV.setVisible(true);
     	dropdownV.setVisible(true);
     	
-    		
-        	
-        	dropdownV.addActionListener(new ActionListener() {
-				
-				public void actionPerformed(ActionEvent dropdownVe) {
-					
-					btnSubscribeSA.setVisible(false);
-					btnUnsubscribeSA.setVisible(false);
-					showButtonSubsribeV();
-					btnSubscribeV.setToolTipText("Abonnieren der Veranstaltung");
-    				showButtonUnsubsribeV();
-    				btnUnsubscribeV.setToolTipText("Entabonnieren der Veranstaltung");
-    				
-    				/*TODO: Wenn bereits Subsrcibed ist Enabled(false) setzen
-    				 * If (person.isSubscribed){
-    				 * 
-    				 * 	btnSubscribeV.setEnabled(false);
-    				 * 	btnSubscribeV.setToolTipText("Node wurde bereits subscribed");
-    				 * }
-    				 * 
-    				 * else {
-    				 * 
-    				 * btnUnsubscribeV.setEnable(false);
-    				 * btnUnsubscribeV.setToolTipText("Nur ein abonnierter Node kann entabonniert werden");
-    				 * 
-    				 * }
-    				 * 
-    				 * 
-    				 * */
-					
-				}
-			});
     	}
 
     	
@@ -590,6 +605,7 @@ public class GUI
     	            showAreaAllgemeinSG();	
     	            showAreaAllgemeinVS();
     	            showAreaAllgemeinO();
+    	            
 
     	             
     	            fenster1.setVisible(true);
@@ -674,102 +690,6 @@ public class GUI
     			});
         	}
 
-    /*********************(Un-)Subscribe Sportart********************
-     * 
-     * Die Button zum Subscriben und Unsubriben einer 
-     * Sportart werden erstellt.
-     *
-     * ****************************************************************/ 	
-    public static void showButtonSubsribeSA(){
-    		
-        	btnSubscribeSA = new JButton("Subscribe");
-        	btnSubscribeSA.setBounds(600, 400, 150, 25);
-        	panelSG.add(btnSubscribeSA);
-        	panelSG.validate();
-        	panelSG.repaint();
-        	
-        	btnSubscribeSA.addActionListener(new ActionListener() {
-				
-				
-				public void actionPerformed(ActionEvent btnSubSGe) {
-
-					/*TODO: Hier muss was passieren*/
-				}
-			});
-
-        	
-    	}
-    	
-    public static void showButtonUnsubsribeSA(){
-		
-    	btnUnsubscribeSA = new JButton("Unsubscribe");
-    	btnUnsubscribeSA.setBounds(800, 400, 150, 25);
-    	panelSG.add(btnUnsubscribeSA);
-    	panelSG.validate();
-    	panelSG.repaint();
-    	
-    	
-    	btnUnsubscribeSA.addActionListener(new ActionListener() {
-			
-			
-			public void actionPerformed(ActionEvent btnUnSGe) {
-
-				/*TODO: Hier musss auch was passieren*/
-			}
-		});
-
-	}	
-
-    /*********************(Un-)Subscribe Veranstaltung********************
-     * 
-     * Die Button zum Subscriben und Unsubriben einer 
-     * Veranstaltung werden erstellt.
-     *
-     * ****************************************************************/ 
-    public static void showButtonSubsribeV(){
-    		
-        	btnSubscribeV = new JButton("Subscribe");
-        	btnSubscribeV.setBounds(600, 400, 150, 25);
-        	panelSG.add(btnSubscribeV);
-        	panelSG.validate();
-        	panelSG.repaint();
-        	
-        	btnSubscribeV.addActionListener(new ActionListener() {
-				
-				
-				public void actionPerformed(ActionEvent btnSubVe) {
-
-					
-				}
-			});
-
-        	
-    	}
-    	
-    public static void showButtonUnsubsribeV(){
-    		
-        	btnUnsubscribeV = new JButton("Unsubscribe");
-        	btnUnsubscribeV.setBounds(800, 400, 150, 25);
-        	panelSG.add(btnUnsubscribeV);
-        	panelSG.validate();
-        	panelSG.repaint();
-
-        	
-        	btnUnsubscribeV.addActionListener(new ActionListener() {
-				
-				
-				public void actionPerformed(ActionEvent btnUnVe) {
-
-					
-				}
-			});
-    	}
-    	
-    
-    
- 
-    	
-    
     /***************Areas zur Darstellung der Werte in der XML***********
      * 
      * Die Areas (rechts in der GUI) werden erstellt.
