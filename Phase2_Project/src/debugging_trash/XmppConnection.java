@@ -1,11 +1,16 @@
-package xmppService;
+package debugging_trash;
 
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 
-
+/**
+ * Klasse zum Erstellen einer Verbindung zu einem XMPP-Server.
+ * Diese Klasse ist nun überflüssig und kann entfernt werden.
+ * @author CrackX
+ *
+ */
 public class XmppConnection {
 	
 	private String host;

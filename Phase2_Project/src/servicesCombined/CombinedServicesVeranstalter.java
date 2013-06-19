@@ -31,7 +31,15 @@ public class CombinedServicesVeranstalter{
 	private boolean initialized, pubSubCheck, connCheck, authCheck = false;
 	private int connectionTries = 10;
 	
-	
+	/**
+	 * Initialisiert die Verbindung zum XMPP-Server und stellt die Item-Listener für die
+	 * Subscriptions wieder her.<br/><br/>
+	 * 
+	 * Es wird, wenn die Initialisierung fehlschlägt bis zu 10 mal erneut versucht eine erfolgreiche
+	 * Verbindung aufzubauen.
+	 * @return true, wenn erfolgreich initialisiert.
+	 * @throws InterruptedException wenn das System nicht pausiert werden kann.
+	 */
 	public boolean initialize() throws InterruptedException{
 		
 		while(initialized == false && connectionTries > 0){
@@ -47,9 +55,6 @@ public class CombinedServicesVeranstalter{
 				authCheck = xm.login("veranstalter", "veranstalter");
 			}
 			
-//			if (authCheck == true){ 				//SubCheck nur beim Interessent
-//				subCheck = xm.restoreSubscriptions();
-//			}
 			
 			if(authCheck || connCheck || authCheck){
 				initialized = true;
@@ -319,6 +324,13 @@ public class CombinedServicesVeranstalter{
 				voraussetzungen + "\r\n";
 		
 		return ausgabe;
+	}
+	
+	/**
+	 * Schließt die Verbindung zum XMPP-Server.
+	 */
+	public void logout(){
+		xm.disconnect();
 	}
 	
 }

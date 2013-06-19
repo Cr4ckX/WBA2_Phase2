@@ -38,7 +38,7 @@ public class CombinedServicesInteressent{
 	 * Es wird, wenn die Initialisierung fehlschlägt bis zu 10 mal erneut versucht eine erfolgreiche
 	 * Verbindung aufzubauen.
 	 * @return true, wenn erfolgreich initialisiert.
-	 * @throws InterruptedException wenn da
+	 * @throws InterruptedException wenn das System nicht pausiert werden kann.
 	 */
 	public boolean initialize() throws InterruptedException{
 		
@@ -216,13 +216,19 @@ public class CombinedServicesInteressent{
 		
 		return ausgabe;
 	}
-	
+	/**
+	 * Erfragt, ob der aktuelle Benutzer zu dem übergebenen Leaf-Node subscribed ist.
+	 * @param leafNode Leaf-Node zu dem die Subscription abgefragt werden soll.
+	 * @return true wenn subscribed.
+	 */
 	public boolean isSubscribed(String leafNode){
 		return xm.isSubscribed(leafNode);
 	}
-	
-	public boolean logout(){
-		return xm.disconnect();
+	/**
+	 * Schließt die Verbindung zum XMPP-Server.
+	 */
+	public void logout(){
+		xm.disconnect();
 	}
 	
 }

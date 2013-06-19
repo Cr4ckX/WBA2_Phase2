@@ -1,4 +1,4 @@
-package servicesCombined;
+package debugging_trash;
 
 import generated.Veranstaltung;
 
@@ -7,12 +7,17 @@ import java.util.List;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import servicesCombined.CombinedServicesVeranstalter;
+/**
+ * Diese Klasse wird dazu verwendet die CombinedServices-Klassen zu testen.
+ * Wenn keine weiteren Fehler gefunden werden und die Kombinierung funktioniert,
+ * so kann diese Klasse gelšscht werden.
+ * @author CrackX
+ *
+ */
 public class CombinedServiceTestuse {
 
-	/**
-	 * @param args
-	 * @throws DatatypeConfigurationException 
-	 */
+
 	public static void main(String[] args) throws DatatypeConfigurationException {
 		CombinedServicesVeranstalter csv = new CombinedServicesVeranstalter();
 		List<String> testListe;
