@@ -32,9 +32,10 @@ public class XmppManager {
 	 */
 	public boolean verbinden(){
 		String host = "localhost";
-		int port = 5552;
+		int port = 5222;
 		ConnectionConfiguration config = new ConnectionConfiguration(host, port);
 		cn = new XMPPConnection(config);
+		cn.DEBUG_ENABLED = true;
 		try {
 			cn.connect();
 			return true;
@@ -54,6 +55,7 @@ public class XmppManager {
 
 		ConnectionConfiguration config = new ConnectionConfiguration(host, port);
 		cn = new XMPPConnection(config);
+		cn.DEBUG_ENABLED = true;
 		try {
 			cn.connect();
 			return true;
