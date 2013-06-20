@@ -198,20 +198,30 @@ public class GUI
 		public void actionPerformed(ActionEvent subscribed){
 
 			if(veranstaltungenIndex >= 0){
-				if(csi.subscribeLeaf(String.valueOf(sportgruppenIndex) +
-						String.valueOf(sportartenIndex) +
-						String.valueOf(veranstaltungenIndex) +"Veranstaltung")){
-										
-					try {
-						//Neuste Meldungen immer ganz oben.
-						AreaAllgemeinSG.getDocument().insertString(0, "Veranstaltung wurde subscribed!\n", null);
-					} catch (BadLocationException e) {
+				String inhalt = dropdownV.getSelectedItem().toString();
+	   			List<Veranstaltung> veranstaltungen = csi.getVeranstaltungenElement(String.valueOf(sportgruppenIndex),
+	   					String.valueOf(sportartenIndex)).getVeranstaltung();
+	   			
+				for(Veranstaltung veranstaltungKonkret : veranstaltungen){
+					
+					if(veranstaltungKonkret.getVBeschreibung().equals(inhalt)){
 						
-						e.printStackTrace();
+						if(csi.subscribeLeaf(String.valueOf(sportgruppenIndex) +
+								String.valueOf(sportartenIndex) +
+								veranstaltungKonkret.getId() +"Veranstaltung")){
+												
+							try {
+								//Neuste Meldungen immer ganz oben.
+								AreaAllgemeinSG.getDocument().insertString(0, "Veranstaltung wurde subscribed!\n", null);
+							} catch (BadLocationException e) {
+								
+								e.printStackTrace();
+							}
+						}
+						else{
+							System.out.println("Fehler beim Subscriben!");
+						}
 					}
-				}
-				else{
-					System.out.println("Fehler beim Subscriben!");
 				}
 			}
 			else{
@@ -1459,7 +1469,12 @@ public class GUI
 					
 					if(csv.postVeranstaltung(String.valueOf(sportgruppenIndex),
 							String.valueOf(sportartenIndex), newVeranst))
-						AreaAllgemeinPanelV.setText("Veranstaltung wurde erfolgreich hinzugefügt.");
+						try {
+							AreaAllgemeinPanelV.getDocument().insertString(0, "Veranstaltung wurde hinzugefügt!\n", null);
+						} catch (BadLocationException e) {
+							e.printStackTrace();
+						}
+
 					/*TODO: Publishen - Ok Button übernimmt eingegebenen Werte und macht nen Post*/
 					
 				}
