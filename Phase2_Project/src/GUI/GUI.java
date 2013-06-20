@@ -551,7 +551,7 @@ public class GUI
         	panelVV.add(dropdownYearE);
         	panelVV.validate();
 
-        	final String[] DropDownHour = new String[] {"08", "09", "10", "11", "12", "13","14","15","16","17","18","19","20","21", "22"};
+        	final String[] DropDownHour = new String[] {"00","01","02","03","04", "05", "06", "07", "08", "09", "10", "11", "12", "13","14","15","16","17","18","19","20","21", "22", "23"};
         	dropdownHourE = new JComboBox(DropDownHour);
         	dropdownHourE.setBounds(650, 240, 80, 30);
         	dropdownHourE.setVisible(false);
@@ -611,7 +611,7 @@ public class GUI
             panelVV.add(scrollpaneAreaInfoAE);
         	
     		
-        	final String[] DropDownDayAE = new String[] {"0","1", "2","3","4","5","6","7","8", "9","10","11","12","13", "14","15","16","17","18","19","20","21","22","23", "24","25","26","27","28","29","30","31"};
+        	final String[] DropDownDayAE = new String[] {"1", "2","3","4","5","6","7","8", "9","10","11","12","13", "14","15","16","17","18","19","20","21","22","23", "24","25","26","27","28","29","30","31"};
         	dropdownDayAE = new JComboBox(DropDownDayAE);
         	dropdownDayAE.setBounds(650, 200, 60, 30);
         	dropdownDayAE.setVisible(false);
@@ -634,7 +634,7 @@ public class GUI
         	panelVV.validate();
 
         	
-        	final String[] DropDownHourAE = new String[] {"08", "09", "10", "11", "12", "13","14","15","16","17","18","19","20","21", "22"};
+        	final String[] DropDownHourAE = new String[] {"00","01","02","03","04", "05", "06", "07", "08", "09", "10", "11", "12", "13","14","15","16","17","18","19","20","21", "22", "23"};
         	dropdownHourAE = new JComboBox(DropDownHourAE);
         	dropdownHourAE.setBounds(650, 240, 80, 30);
         	dropdownHourAE.setVisible(false);
