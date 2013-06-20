@@ -1,7 +1,9 @@
-package restService;
+package debugging_trash;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.XMLGregorianCalendar;
+
+import restService.ClientRest;
 
 import generated.Veranstaltung;
 import generated.VeranstaltungenM;
