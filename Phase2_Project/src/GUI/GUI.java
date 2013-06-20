@@ -1,4 +1,10 @@
 package GUI;
+import generated.Sportart;
+import generated.SportartenM;
+import generated.Sportgruppe;
+import generated.Veranstaltung;
+import generated.VeranstaltungenM;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.ScrollPane;
@@ -872,16 +878,53 @@ public class GUI
     }
 
     /**
-     * [Platzhalter]
-     * Auch zum aktualisieren verwendet.
+     * Zeige und aktualisiere alle Subscriptions. 
+     * Momentan werden alle möglichen, zu durchlaufenden Veranstaltungen und Sportarten nach 
+     * Subscriptios durchsucht, da 'showSubscriptions' nur die LeafNodes lieferte.
+     * Da dies zwar ausreichend wäre, der Benutzer jedoch nichts mit '012Veranstaltung',
+     * '35Sportart' anfangen kann, wurde jede Veranstaltung und Sportart nach einer Subscription
+     * des aktuellen Benutzers gefragt. Somit kann anhand der nun bekannten ID einfach der LeafNode
+     * angesprochen werden und den Namen der Sportart/Veranstaltung lesbar ausgegeben werden.
+     * Hinweis: Bei sehr vielen Veranstaltungen/Sportarten sollte eventuell später auf die
+     * LeafNode Alternative zurückgegriffen werden, da die gesamte XML-Datendatei durchlaufen
+     * werden muss. 
      */
     public static void showSubscriptionsList(){  
-    	List<String> subList = csi.showSubscriptions();
-    
+    	//List<String> subList = csi.showSubscriptions();
+    	String sportgruppenId;
+    	String sportartId;
+    	String veranstaltungId;
+    	
     	v.clear();
-    	for(String subscription : subList){
-    		System.out.println(subscription);
-    		v.add(subscription);
+    //	for(String subscription : subList){
+    		for(Sportgruppe sportgruppeKonkret : csi.getSportgruppenMElement().getSportgruppe()){
+    			Sportgruppe sg = sportgruppeKonkret;
+    			sportgruppenId = sg.getId();
+    			
+    			SportartenM sm = sg.getSportartenM();
+    			
+    			for (Sportart sportartKonkret : sm.getSportart()){
+    				Sportart s = sportartKonkret;
+    				sportartId = s.getId();
+    				
+    				if(csi.isSubscribed(sportgruppenId+sportartId+"Sportart")){
+    					v.add(sm.getSportart().get(Integer.valueOf(sportartId)).getSName());
+    				}
+    				
+    				VeranstaltungenM vm = s.getVeranstaltungenM();
+    				
+    				for (Veranstaltung veranstaltungKonkret : vm.getVeranstaltung()){
+    					Veranstaltung veranst = veranstaltungKonkret;
+    					veranstaltungId = veranst.getId();
+    					
+    					if(csi.isSubscribed(sportgruppenId+sportartId+veranstaltungId+"Veranstaltung")){
+    						v.add(vm.getVeranstaltung().get(Integer.valueOf(veranstaltungId)).getVBeschreibung());
+    					}
+    				}
+    			}
+    	//	}
+    	//	System.out.println(subscription);
+    	//	v.add(subscription);
     	}
     	subscriptions.setListData(v);
     	labelSubList.setVisible(true);

@@ -114,6 +114,13 @@ public class CombinedServicesInteressent{
 		}
 		return  sportgruppenListe;
 	}
+	/**
+	 * Liefert alle Sportgruppen als XML (JAXB) Element.
+	 * @return Die Sportgruppenliste also JAXB-Object.
+	 */
+	public SportgruppenM getSportgruppenMElement(){
+		return cr.getSportgruppen();
+	}
 	
 	/**
 	 * Liefert Informationen Ÿber eine konkrete Sportgruppe.
