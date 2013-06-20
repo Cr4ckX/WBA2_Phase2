@@ -1,5 +1,7 @@
 package ressourcen;
 
+import java.io.File;
+
 import generated.*;
 
 import javax.ws.rs.Consumes;
@@ -11,7 +13,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 
@@ -181,15 +182,15 @@ public class VeranstaltungenListe {
 							
 							JAXBContext jc = JAXBContext.newInstance("generated");
 							Marshaller marshaller = jc.createMarshaller();
-							marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+							marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);	
 							
-							//Output: Console
-							marsh.xmlMarshallen();
+							//Output: Datei
+							marshaller.marshal(sv, new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
+//							marsh.xmlMarshallen();
 
 							return Integer.toString(index);
 							//return "Veranstaltung " + s.getVeranstaltungenM().getVeranstaltung()
-								//	.get(index).getVBeschreibung() + " hinzugefügt.";
-				
+								//	.get(index).getVBeschreibung() + " hinzugefügt.";				
 					}						
 				}			
 			}
