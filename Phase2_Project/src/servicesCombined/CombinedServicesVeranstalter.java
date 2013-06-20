@@ -228,14 +228,6 @@ public class CombinedServicesVeranstalter{
 	}
 	
 	/**
-	 * Liefert alle Sportgruppen als XML (JAXB) Element.
-	 * @return Die Sportgruppenliste also JAXB-Object.
-	 */
-	public SportgruppenM getSportgruppenMElement(){
-		return cr.getSportgruppen();
-	}
-	
-	/**
 	 * Liefert Informationen über eine konkrete Sportgruppe.
 	 * Diese Informationen können in einem dafür vorgesehendem Textfeld angezeigt werden,
 	 * wenn zuvor eine der vielen Sportgruppen ausgewählt wurden.
@@ -247,16 +239,6 @@ public class CombinedServicesVeranstalter{
 		return "Name: " + sg.getSGName() + "\r\n" +
 				"Beschreibung: " + sg.getSGBeschreibung() + "\r\n";			
 	}
-	
-	/**
-	 * Liefert das konkrete Sportgruppen-XML (JAXB) Element.
-	 * @param spgId Sportgruppen-ID, der Sportgruppe, welche übermittelt werden soll.
-	 * @retrun Die Sportgruppe als JAXB-Object.
-	 */
-	public Sportgruppe getSportgruppeElement(String spgId){
-		return cr.getSportgruppe(spgId);
-	}
-	
 	/**
 	 * Liefert alle Sportarten innerhalb einer angegebenen Sportgruppe als String-Liste.
 	 * Diese Liste kann z.B. in einem Dropdown-Feld angezeigt werden.
@@ -287,17 +269,6 @@ public class CombinedServicesVeranstalter{
 				"Herkunft: " + s.getSHerkunft() + "\r\n" +
 				"Regeln: " + s.getSRegeln() + "\r\n";
 	}
-	
-	/**
-	 * Liefert das konkrete Sportarten-XML (JAXB) Element.
-	 * @param spgId Sportgruppen-ID, der Sportgruppe in der sich die Sportart befindet.
-	 * @param spaId Sportarten-ID, welche übermittelt werden soll.
-	 * @return Die Sportart als JAXB-Object.
-	 */
-	public Sportart getSportartElement(String spgId, String spaId){
-		return cr.getSportart(spgId, spaId);
-	}
-	
 	/**
 	 * Liefert alle Veranstaltungen innerhalb einer angegebenen Sportart als String-Liste.
 	 * Diese Liste kann z.B. in einem Dropdown-Feld angezeigt werden.
@@ -313,17 +284,6 @@ public class CombinedServicesVeranstalter{
 			veranstaltungenListe.add(veranstaltungKonkret.getVBeschreibung());
 		}
 		return veranstaltungenListe;
-	}
-	
-	/**
-	 * Liefert das konkrete Veranstaltung-XML (JAXB) Element.
-	 * @param spgId Sportgruppen-ID, der Sportgruppe in der sich die Sportart befindet.
-	 * @param spaId Sportarten-ID, der Sportart, in der sich die Veranstaltung befindet.
-	 * @param vstId Veranstaltungs-ID, der Veranstaltung, welche übertragen werden soll.
-	 * @return Die Veranstaltung als JAXB-Object.
-	 */
-	public Veranstaltung getVeranstaltungElement(String spgId, String spaId, String vstId){
-		return cr.getVeranstaltung(spgId, spaId, vstId);
 	}
 
 	/**
@@ -341,27 +301,27 @@ public class CombinedServicesVeranstalter{
 		Veranstaltung vst = cr.getVeranstaltung(spgId, spaId, vstId);
 		String ausgabe, info, niveau, voraussetzungen;
 		
-		if(vst.getVInfo() == null)
+		if(vst.getVInfo().isEmpty())
 			info = "";
 		else
-			info = "Informationen: " + vst.getVInfo() + "\r\n";	
+			info = "Informationen: " + vst.getVInfo();	
 		
-		if(vst.getVNiveau() == null)
+		if(vst.getVNiveau().isEmpty())
 			niveau = "";
 		else
-			niveau = "Niveau: " + vst.getVNiveau() + "\r\n";
+			niveau = "Niveau: " + vst.getVNiveau();
 		
-		if(vst.getVVorraussetzungen() == null)
+		if(vst.getVVorraussetzungen().isEmpty())
 			voraussetzungen = "";
 		else
-			voraussetzungen = "Voraussetzungen: " + vst.getVVorraussetzungen() + "\r\n";
+			voraussetzungen = "Voraussetzungen: " + vst.getVVorraussetzungen();
 		
 		ausgabe = "Beschreibung: " + vst.getVBeschreibung() + "\r\n" +
-				info +
+				info + "\r\n" +
 				"Datum: " + vst.getVDatum() + "\r\n" +
 				"Uhrzeit: " + vst.getVUhrzeit() + "\r\n" +
-				niveau  +
-				voraussetzungen;
+				niveau + "\r\n" +
+				voraussetzungen + "\r\n";
 		
 		return ausgabe;
 	}

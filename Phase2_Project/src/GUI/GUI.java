@@ -200,8 +200,6 @@ public class GUI
 		
    		public void actionPerformed(ActionEvent dropdownSAe) { 			
    			
-   			String info;
-   			String labelInfo;
    			
    			showButtonNewV();
    			showDropdownVV();
@@ -216,21 +214,9 @@ public class GUI
 				hideLabelsFields();
 			}
    			
-   			//TODO: Überflüssig?
    			for (int i = 0; i < countSA; i++) {
    				hideAreaVSG();
 			}	
-   			
-   			info = csv.getSportart(String.valueOf(sportgruppenIndex), String.valueOf(sportartenIndex));
-   			labelInfo = csv.getSportartElement(String.valueOf(sportgruppenIndex), String.valueOf(sportartenIndex))
-   					.getSName();
-   			
-   			labelAreaVSG.setText("Sportart: " + labelInfo);
-   			AreaVSG.setText(info);
-   			dropdownVV.removeActionListener(DropdownVVListen);
-   			dropdownVV.removeAllItems();
-   			showDropdownVV();
-   			//veranstaltungenIndex = -2;
 	}
 };
 	
@@ -238,29 +224,15 @@ public class GUI
 
 		@Override
 		public void actionPerformed(ActionEvent VSAListene) {
-   			
-			String info;
-   			String labelInfo;
-			
-   			veranstaltungenIndex = dropdownVV.getSelectedIndex();
-   			
-   			info = csv.getVeranstaltung(String.valueOf(sportgruppenIndex), String.valueOf(sportartenIndex),
-   					String.valueOf(veranstaltungenIndex));
-   			labelInfo = csv.getVeranstaltungElement(String.valueOf(sportgruppenIndex), 
-   					String.valueOf(sportartenIndex),
-   					String.valueOf(veranstaltungenIndex))
-   					.getVBeschreibung();
-   			
-   			
-   			labelAreaVSG.setText("Veranstaltung: " + labelInfo);
-   			AreaVSG.setText(info);
-   			
 			showBtnDelete();
 			showBtnEdit();
 			
 			countVV++;
 				
-
+//				if (countNew > 0){
+//					hideFieldsNewV();
+//					hideLabelsFields();
+//				}
 		}	
 	};
 	
@@ -476,6 +448,7 @@ public class GUI
 	            showAreaAllgemeinSG();	
 	            showAreaAllgemeinVS();
 	            showAreaAllgemeinO();
+	            showAreaVSG();
 	            createDropdownSA();
 	            createDropdownV();
 	            createSubscriptionList();
@@ -498,7 +471,6 @@ public class GUI
                	showDropdownVSG();
                	showBtnLogoutVV();
 	            showAreaAllgPanelV();
-	            showAreaVSG();
 	            createDropdownVS();
 	            createDropdownVSA();
 	            createDropdownVV();
@@ -506,8 +478,26 @@ public class GUI
                 fenster1.setVisible(false);
              }
             
-            
+            //Zwecks Debbuging ist das jetzt hier! 
+            labelAreaVSG = new JLabel("Informationen bezüglich: ");
+     		labelAreaVSG.setBounds(600, 10, 300, 100);
+     		labelAreaVSG.setVisible(false);
+            panelVV.add(labelAreaVSG);
+         	panelVV.validate();
+         	
+    		labelAreaSG = new JLabel("Informationen:");
+            labelAreaSG.setBounds(600, 10, 300, 100);
+
+            AreaVSG = new JTextArea();
+            AreaVSG.setLineWrap(true);
+            AreaVSG.setBounds(600, 90, 350, 300);
+      		AreaVSG.setVisible(false);
+
+     		panelVV.add(AreaVSG);
+         	panelVV.validate();
       
+			showAreaSG();
+			showAreaVSG();
 			
 			btnSubscribeSA = new JButton("Subscribe");
         	btnSubscribeSA.setBounds(600, 400, 150, 25);
@@ -1039,8 +1029,7 @@ public class GUI
         	
         	btnzurueckSG.addActionListener(new ActionListener() {
             	public void actionPerformed(ActionEvent btnzuruecke) {
-				          
-                    csi.logout();
+				            	
             		fenster1.dispose();
                 	
                 	Object[] options = {"Interessent", "Veranstalter"};
@@ -1082,6 +1071,7 @@ public class GUI
                         fenster2.setVisible(true);
                         fenster1.setVisible(false);
                      }
+                     csi.logout();
             	}
         	});
     	}
@@ -1217,7 +1207,7 @@ public class GUI
      * AreaSG, AreaVS und AreaO
      * 
      * 
-     * TODONE: Nur ein dynamisches Label.
+     * TODO: Nur ein dynamisches Label.
      * TODONE: Areas mit Inhalt befüllen. 
      * Das macht man mit AreaXYZ.setText(t);
      *
@@ -1428,7 +1418,6 @@ public class GUI
 				
 		public void actionPerformed(ActionEvent btnZurueckVVe) {
 				
-            csv.logout();
 			Object[] options = {"Interessent", "Veranstalter"};
                     
 			int selected = JOptionPane.showOptionDialog(null,
@@ -1467,8 +1456,7 @@ public class GUI
                         	
                         fenster2.setVisible(true);
                         fenster1.setVisible(false);
-                     }    
-
+                     }    	
             	}
 			});
     	}
@@ -1529,22 +1517,10 @@ public class GUI
      * ****************************************************************/
     public static void showAreaVSG(){
     	
-        labelAreaVSG = new JLabel("Informationen bezüglich: ");
- 		labelAreaVSG.setBounds(600, 10, 300, 100);
- 		labelAreaVSG.setVisible(true);
-        panelVV.add(labelAreaVSG);
-     	panelVV.validate();
-     	
-//		labelAreaSG = new JLabel("Informationen:");
-//        labelAreaSG.setBounds(600, 10, 300, 100);
+    		labelAreaVSG.setVisible(true);
+    		AreaVSG.setVisible(true);
 
-        AreaVSG = new JTextArea();
-        AreaVSG.setLineWrap(true);
-        AreaVSG.setBounds(600, 90, 350, 300);
-  		AreaVSG.setVisible(true);
- 		panelVV.add(AreaVSG);
-     	panelVV.validate();
-          
+            
     	}
     	
     /**************************DropdownVSG********************
@@ -1557,47 +1533,47 @@ public class GUI
     	
     public static void showDropdownVSG(){
     		
-    		List<String> sportgruppenListe = csv.getSportgruppen();
     	
     		labelVSG = new JLabel("Bitte wählen Sie eine Sportgruppe");
             labelVSG.setBounds(10, 50, 300, 25);
             panelVV.add(labelVSG);
             labelVSG.setVisible(true);
+            labelVSG.validate();
     		
-    		final String[] DropDownVSG = sportgruppenListe.toArray(new String[sportgruppenListe.size()]);
+    		final String[] DropDownVSG = new String[] {"Judo", "Kampf", "Pi", "Pa", "Po"};
         	dropdownVSG = new JComboBox(DropDownVSG);
         	dropdownVSG.setBounds(10, 70, 200, 25);
-        	dropdownVSG.setSelectedIndex(-1);
         	panelVV.add(dropdownVSG);
+        	panelVV.validate();
         	
         	
         	dropdownVSG.addActionListener(new ActionListener()
         	{
         		public void actionPerformed(ActionEvent dropdowVVe) 
         		{ 			
-//        				JComboBox item = (JComboBox) dropdownSGe.getSource();  				
+//        				JComboBox item = (JComboBox) dropdownSGe.getSource();
+//        				
 //        				if (item.getSelectedIndex() != 0 && item.getSelectedIndex() < DropDownSG.length){
         				
-        				String info;
-        				String labelInfo;
-        				sportgruppenIndex = dropdownVSG.getSelectedIndex();
-        				
-        				labelInfo = csv.getSportgruppeElement(String.valueOf(sportgruppenIndex)).getSGName();
-        				info = csv.getSportgruppe(String.valueOf(sportgruppenIndex));
-        				
-        				AreaVSG.setText(info);
-        				labelAreaVSG.setText("Sportgruppe: " + labelInfo);
-        				
-        				dropdownVV.removeActionListener(DropdownVVListen);
-        				dropdownVSA.removeActionListener(DropDownVSAListen);
-        				dropdownVSA.setVisible(false);
-        				dropdownVSA.removeAllItems();
-        				
+        			
         				showDropdownVSA();
         				
-        				sportartenIndex = 0;
-        		
+//        				if (countNew > 0){
+//        					hideFieldsNewV();
+//        					hideLabelsFields();
+//        				}
+//        				
+//        				if(countSA > 0){
+//        					hideAreaVSG();
+//        				}
+//        				
+//        				if(countVV >0){
+//        					hideAreaVSG();
+//        				}
+        				
+        				//TODO: Mit SA befüllen!
         		}
+
         	});
     	}
     
@@ -1618,7 +1594,7 @@ public class GUI
    		panelVV.validate();
    		panelVV.repaint();
        
-       final String[] DropDownVSA = {""};
+       final String[] DropDownVSA = new String[] {"Sportarten", "Kampfsport", "Rückschlag", "Schnee", "Soooonenschein"};
      	dropdownVSA = new JComboBox(DropDownVSA);
       	dropdownVSA.setBounds(10, 120, 200, 25);
       	dropdownVSA.setVisible(false);
@@ -1628,13 +1604,7 @@ public class GUI
     
     public static void showDropdownVSA(){
         	
-    		List<String> sportartenListe = csv.getSportarten(String.valueOf(sportgruppenIndex));
     		labelVSA.setVisible(true);
-    		
-    		for(String sportarten:sportartenListe){
-    			dropdownVSA.addItem(sportarten);
-    		}
-    		
     		dropdownVSA.setVisible(true);
         	dropdownVSA.addActionListener(DropDownVSAListen);
         }
@@ -1656,7 +1626,7 @@ public class GUI
         panelVV.validate();
 
 		
-        final String[] DropDownVV = {""};
+        String[] DropDownVV = new String[] {"Veranstaltungen", "Bla", "Beispiel1", "Example", "Ejemplo"};
     	
         dropdownVV = new JComboBox(DropDownVV);
     	dropdownVV.setBounds(10, 170, 200, 25);
@@ -1667,15 +1637,9 @@ public class GUI
     
     public static void showDropdownVV(){
     		
-    		List<String> veranstaltungenListe = csv.getVeranstaltungen(String.valueOf(sportgruppenIndex),
-    				String.valueOf(sportartenIndex));
     		labelVV.setVisible(true);
-    		
-    		for(String veranstaltungen : veranstaltungenListe){
-    			dropdownVV.addItem(veranstaltungen);
-    		}
-    		
     		dropdownVV.setVisible(true);
+        	
         	dropdownVV.addActionListener(DropdownVVListen);
     	}
     	
