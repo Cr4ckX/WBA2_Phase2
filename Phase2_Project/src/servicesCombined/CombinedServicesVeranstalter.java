@@ -243,7 +243,7 @@ public class CombinedServicesVeranstalter{
 	/**
 	 * Liefert das konkrete Sportgruppen-XML (JAXB) Element.
 	 * @param spgId Sportgruppen-ID, der Sportgruppe, welche Ÿbermittelt werden soll.
-	 * @retrun Die Sportgruppe als JAXB-Object.
+	 * @return Die Sportgruppe als JAXB-Object.
 	 */
 	public Sportgruppe getSportgruppeElement(String spgId){
 		return cr.getSportgruppe(spgId);
@@ -296,7 +296,7 @@ public class CombinedServicesVeranstalter{
 	 * 
 	 * @param spgId Sportgruppen-ID
 	 * @param spaId Sportart-ID in welcher sich die Veranstaltungen befinden.
-	 * @return
+	 * @return Die Liste aller Veranstaltungen als Liste mit dem Typ String.
 	 */
 	public List<String> getVeranstaltungen(String spgId, String spaId){
 		List<String> veranstaltungenListe = new ArrayList<String>();
@@ -310,8 +310,8 @@ public class CombinedServicesVeranstalter{
 	/**
 	 * Liefert das VerabstaltungenM-XML (JAXB) Element.
 	 * @param spgId Sportgruppen-ID, in der sich die Sportgruppe mit den Veranstaltungen befindet.
-	 * @param spgId Sportarten-ID in der sich die Verantsaltungsliste befindet
-	 * @retrun Die Veranstaltungen-Liste als JAXB-Object.
+	 * @param spaId Sportarten-ID in der sich die Verantsaltungsliste befindet
+	 * @return Die Veranstaltungen-Liste als JAXB-Object.
 	 */
 	public VeranstaltungenM getVeranstaltungenElement(String spgId, String spaId){
 		return cr.getVeranstaltungen(spgId, spaId);

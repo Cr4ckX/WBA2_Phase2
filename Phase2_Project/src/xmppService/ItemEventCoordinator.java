@@ -18,6 +18,30 @@ import org.jivesoftware.smackx.pubsub.provider.ItemProvider;
 
 import restService.ClientRest;
 
+/**
+ * Diese Klasse dient dazu, die entsprechenden Handlungen auszuführen, sobald zu einem
+ * subscribten LeafNode ein neues Item gepublisht wurde. <br/><br/>
+ * 
+ * Das übertragene Item enthält Informationen darüber, zu welcher Veranstaltung/Sportart
+ * ein Publish vorgenommen wurde und wertet dieses entsprechend aus.<br/>
+ * Das Item enthält als ersten Character einen Präfix, welcher bestimmt, um welche
+ * Art sich es bei der Änderung durch den Veranstalter handelt:<br/>
+ * A = add (Es wurde ein Post ausgeübt, Subscriber der entsprechenden Sportart
+ * erhalten eine Benachrichtigung<br/>
+ * N = neue Sportgruppenlist (Es wurde eine Veranstaltung aus der subscribten
+ * Sportart gelöscht. Subscriber erhalten entsprechend eine Benachrichtigung.<br/>
+ * D = deltete (einer konkreten subscribten Veranstaltung; entsprechend bekommen alle
+ * Subscriber dieser konkreten Veranstaltung eine Benachrichtigung, dass mit der
+ * gelöschten Veranstaltung (HTTP DELETE), auch ihre Subscription entfernt wird.
+ * R = refresh (einer konkreten subscribten Veranstaltung; wenn die Veranstaltung mittels
+ * PUT geändert wurde, bekommen die Subscriber dieser Veranstaltung eine Benachrichtigung.
+ *  
+ *  Es wird also lediglich eine Meldung ausgegeben, der Benutzer muss, um sich genauere
+ *  Informationen zu der Änderung/Löschung zu beschaffen,.. selber informieren, indem 
+ *  er sich in das entsprechende Menü (Sportart/konkrete Veranstaltung) bewegt.
+ * @author CrackX
+ *
+ */
 public class ItemEventCoordinator implements ItemEventListener<Item> {
 
 	ClientRest cr = new ClientRest();	
@@ -75,7 +99,6 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
      * Benachrichtigung bekommt, wenn eine Veranstaltung gelöscht wird, nicht nur, wenn eine hinzugefügt wird.
      *
      *
-     * TODO: Weil noch nicht gemarshallt wird, findet er mit get keine Elemente mit deleted = true.
      * TODO: Meldung nicht per Syso ausgeben, sondern irgendwie übergeben. (diese Klasse evtl. in die GUI?)
      * 
      * @param sportgruppeId Sportgruppen-ID

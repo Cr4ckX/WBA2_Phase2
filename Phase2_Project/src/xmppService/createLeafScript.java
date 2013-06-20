@@ -11,7 +11,7 @@ import org.jivesoftware.smack.XMPPException;
 
 import restService.ClientRest;
 /**
- * Diese Klasse dient dazu, LeafNodes automatisch zu erstellen.
+ * Diese Klasse dient dazu, neue LeafNodes automatisch zu erstellen.
  * 
  * Die XML-Datei wird durchlaufen und zu jeder Veranstaltung und
  * Sportart wird ein eindeutiger Leaf-Node auf dem Server erzeugt.

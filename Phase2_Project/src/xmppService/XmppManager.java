@@ -17,7 +17,11 @@ import org.jivesoftware.smackx.pubsub.PayloadItem;
 import org.jivesoftware.smackx.pubsub.PubSubManager;
 import org.jivesoftware.smackx.pubsub.SimplePayload;
 import org.jivesoftware.smackx.pubsub.Subscription;
-
+/**
+ * Diese klasse realisiert den XMPP-Service.
+ * @author CrackX
+ *
+ */
 public class XmppManager {
 	
 	private Connection cn;

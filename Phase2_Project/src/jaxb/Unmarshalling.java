@@ -19,28 +19,23 @@ public class Unmarshalling {
 	Unmarshaller unmarshaller;
 	Sportverzeichnis sv;
 	
-//	public Unmarshalling() throws Exception  {
-//		jc = JAXBContext.newInstance("generated");
-//		unmarshaller = jc.createUnmarshaller();
-//		
-//		Sportverzeichnis sv = (Sportverzeichnis) unmarshaller.unmarshal(new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
-//	}
-//	
-//	public Unmarshalling(String xmlPfad) throws Exception{
-//		jc = JAXBContext.newInstance("generated");
-//		unmarshaller = jc.createUnmarshaller();
-//		Sportverzeichnis sv =  (Sportverzeichnis) unmarshaller.unmarshal(new File(xmlPfad));
-//				
-//	//	return sv = (Sportverzeichnis) unmarshaller.unmarshal(new File(xmlPfad));	
-//	}
-
+	/**
+	 * Standard XML-Datei unmarshallen und in JAXB-Instanzen wandeln.
+	 * @return Das Wurzelelement 'Sportverzeichnis' des festgelegten XML-Schemas als JAXB-Instanz. 
+	 * @throws Exception Wenn das Unmarshallen fehlschlägt.
+	 */
 	public Sportverzeichnis xmlUnmarshallen() throws Exception{
 		jc = JAXBContext.newInstance("generated");
 		unmarshaller = jc.createUnmarshaller();
 		
 		return sv = (Sportverzeichnis) unmarshaller.unmarshal(new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
 	}
-	
+	/**
+	 * Übergebene XML-Datei in JAXB-Instanzen unmarshallen.
+	 * @param xmlPfad Pfad der XML-Datei die unmarshallt werden soll.
+	 * @return Das Wurzelelement 'Sportverzeichnis' des festgelegten XML-Schemas als JAXB-Instanz. 
+	 * @throws Exception Wenn das Unmarshallen fehlschlägt.
+	 */
 	public Sportverzeichnis xmlUnmarshallen(String xmlPfad) throws Exception{
 		jc = JAXBContext.newInstance("generated");
 		unmarshaller = jc.createUnmarshaller();
