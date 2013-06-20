@@ -1,5 +1,7 @@
 package ressourcen;
 
+import java.io.File;
+
 import generated.*;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -9,6 +11,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 
 import jaxb.Marshalling;
 import jaxb.Unmarshalling;
@@ -21,9 +25,7 @@ import jaxb.Unmarshalling;
  */
 public class VeranstaltungKonkret {
 	
-	Sportverzeichnis sv;
-	Marshalling marsh = new Marshalling();
-	
+	Sportverzeichnis sv;	
 	public VeranstaltungKonkret() throws Exception{
 		// Unmarshalling
 		Unmarshalling um = new Unmarshalling();
@@ -161,12 +163,12 @@ public class VeranstaltungKonkret {
 								 //Attribut "deleted" ist auf false gesetzt.
 								 v.setDeleted(false);
 								 
-//								 JAXBContext jc = JAXBContext.newInstance("generated");
-//								 Marshaller marshaller = jc.createMarshaller();
-//								 marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-//								 //Output
-//								 marshaller.marshal(sv, System.out);
-								 marsh.xmlMarshallen();
+								 JAXBContext jc = JAXBContext.newInstance("generated");
+								 Marshaller marshaller = jc.createMarshaller();
+								 marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+								 //Output
+								 marshaller.marshal(sv, new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
+								 //marsh.xmlMarshallen();
 								 
 								 return "true";
 								//return "Veranstaltung mit der ID " +vstId+ " aktualisiert";
@@ -232,15 +234,15 @@ public class VeranstaltungKonkret {
 								 //s.getVeranstaltungenM().getVeranstaltung().remove(m);
 								 
 								 v.setDeleted(true);
-								 /*
+								 
 								 JAXBContext jc = JAXBContext.newInstance("generated");
 								 Marshaller marshaller = jc.createMarshaller();
 								 marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 								
 								 //Output: Konsole
-								 marshaller.marshal(sv, System.out);
-								 */
-								 marsh.xmlMarshallen();
+								 marshaller.marshal(sv, new File("Ausarbeitungen/XmlFuerSchema Vol2.xml"));
+								 
+								 //marsh.xmlMarshallen();
 								 return "true";
 								 //return "Veranstaltung mit der id " + vstId + " wurde gelšscht."; //Kaskadierendes Lšschen fehlt noch.
 							 }
