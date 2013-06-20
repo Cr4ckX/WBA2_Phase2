@@ -133,10 +133,9 @@ public class GUI
    			AreaVSG.setText(info);
    			
    			showButtonNewV();
-   			showDropdownVV();
    			
    			if (countVV >0){
-//   				hideAreaVSG();
+//					hideAreaVSG();
    				btnDeleteV.setVisible(false);
    				btnEditV.setVisible(false);
    			}
@@ -152,8 +151,9 @@ public class GUI
    			
    			dropdownVV.removeActionListener(DropDownVVListen);
    			dropdownVV.removeAllItems();
-   			showDropdownVV();
    			veranstaltungenIndex = -1;
+   			showDropdownVV();
+   			
    		}
    			
    		
@@ -165,7 +165,27 @@ public class GUI
    			
    			String info, labelInfo;
    			showBtnDelete();
-   			showBtnEdit();
+   			
+   			veranstaltungenIndex = 0;
+   			String inhalt = dropdownVV.getSelectedItem().toString();
+   			List<Veranstaltung> veranstaltungen = csv.getVeranstaltungenElement(String.valueOf(sportgruppenIndex),
+   					String.valueOf(sportartenIndex)).getVeranstaltung();
+   			
+			for(Veranstaltung veranstaltungKonkret : veranstaltungen){
+				if(veranstaltungKonkret.getVBeschreibung().equals(inhalt)){
+					info = csv.getVeranstaltung((String.valueOf(sportgruppenIndex)), 
+							(String.valueOf(sportartenIndex)), veranstaltungKonkret.getId());
+					
+					labelInfo = csv.getVeranstaltungElement(String.valueOf(sportgruppenIndex), 
+							String.valueOf(sportartenIndex), 
+							veranstaltungKonkret.getId()).getVBeschreibung();
+					
+					labelAreaVSG.setText("Veranstaltung: " + labelInfo);
+					AreaVSG.setText(info);
+				}
+			}
+			
+			showBtnEdit();
    			
    			countVV++;
    			
