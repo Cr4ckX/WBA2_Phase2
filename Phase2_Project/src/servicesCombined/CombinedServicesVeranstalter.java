@@ -306,6 +306,16 @@ public class CombinedServicesVeranstalter{
 		}
 		return veranstaltungenListe;
 	}
+	
+	/**
+	 * Liefert das VerabstaltungenM-XML (JAXB) Element.
+	 * @param spgId Sportgruppen-ID, in der sich die Sportgruppe mit den Veranstaltungen befindet.
+	 * @param spgId Sportarten-ID in der sich die Verantsaltungsliste befindet
+	 * @retrun Die Veranstaltungen-Liste als JAXB-Object.
+	 */
+	public VeranstaltungenM getVeranstaltungenElement(String spgId, String spaId){
+		return cr.getVeranstaltungen(spgId, spaId);
+	}
 
 	/**
 	 * Liefert Informationen Ÿber eine konkrete Veranstaltung.
@@ -322,29 +332,33 @@ public class CombinedServicesVeranstalter{
 		Veranstaltung vst = cr.getVeranstaltung(spgId, spaId, vstId);
 		String ausgabe, info, niveau, voraussetzungen;
 		
-		if(vst.getVInfo().isEmpty())
+		if(vst.getVInfo() == null)
 			info = "";
 		else
-			info = "Informationen: " + vst.getVInfo();	
+			info = "Informationen: " + vst.getVInfo() + "\r\n";	
 		
-		if(vst.getVNiveau().isEmpty())
+		if(vst.getVNiveau() == null)
 			niveau = "";
 		else
-			niveau = "Niveau: " + vst.getVNiveau();
+			niveau = "Niveau: " + vst.getVNiveau() + "\r\n";
 		
-		if(vst.getVVorraussetzungen().isEmpty())
+		if(vst.getVVorraussetzungen() == null)
 			voraussetzungen = "";
 		else
-			voraussetzungen = "Voraussetzungen: " + vst.getVVorraussetzungen();
+			voraussetzungen = "Voraussetzungen: " + vst.getVVorraussetzungen() + "\r\n";
 		
 		ausgabe = "Beschreibung: " + vst.getVBeschreibung() + "\r\n" +
-				info + "\r\n" +
+				info +
 				"Datum: " + vst.getVDatum() + "\r\n" +
 				"Uhrzeit: " + vst.getVUhrzeit() + "\r\n" +
-				niveau + "\r\n" +
-				voraussetzungen + "\r\n";
+				niveau  +
+				voraussetzungen;
 		
 		return ausgabe;
+	}
+	
+	public Veranstaltung getVeranstaltungElement(String spgId, String spaId, String vstId){
+		return cr.getVeranstaltung(spgId, spaId, vstId);
 	}
 	
 	/**
