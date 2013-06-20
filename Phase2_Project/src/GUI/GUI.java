@@ -5,12 +5,8 @@ import generated.Sportgruppe;
 import generated.Veranstaltung;
 import generated.VeranstaltungenM;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -433,7 +429,7 @@ public class GUI
             labelAreaVSG.setBounds(600, 10, 300, 100);
             
 			showAreaSG();
-			showAreaVSG();
+			
 			
 			btnSubscribeSA = new JButton("Subscribe");
         	btnSubscribeSA.setBounds(600, 400, 150, 25);
@@ -454,10 +450,279 @@ public class GUI
         	
         	btnEditV = new JButton("Ändern");
     		btnEditV.setBounds( 600, 450, 150, 25);
+    		btnEditV.setVisible(false);
         	panelVV.add(btnEditV);
         	panelVV.validate();
         	panelVV.repaint();
         	
+        	btnDeleteV = new JButton("Löschen");
+    		btnDeleteV.setBounds(800, 450, 150, 25);
+    		btnDeleteV.setVisible(false);
+        	panelVV.add(btnDeleteV);
+        	panelVV.validate();
+        	panelVV.repaint();
+        	
+        	//Label Fields zum Erstellen
+        	labelVEBeschr = new JLabel("Name/Beschreibung:");
+    		labelVEBeschr.setBounds(650, 60, 200, 25);
+    		labelVEBeschr.setVisible(false);
+    		panelVV.add(labelVEBeschr);
+    		panelVV.validate();
+    		
+    		labelVEInfo = new JLabel("Informationen:");
+        	labelVEInfo.setBounds(650, 110, 200, 25);
+        	labelVEInfo.setVisible(false);
+    		panelVV.add(labelVEInfo);
+    		panelVV.validate();
+    		
+        	labelVEDatum = new JLabel("Datum:");
+        	labelVEDatum.setBounds(650, 185, 200, 25);
+        	labelVEDatum.setVisible(false);
+    		panelVV.add(labelVEDatum);
+    		panelVV.validate();
+    		
+    		labelVEUhrzeit = new JLabel("Uhrzeit:");
+        	labelVEUhrzeit.setBounds(650, 225, 200, 25);
+        	labelVEUhrzeit.setVisible(false);
+    		panelVV.add(labelVEUhrzeit);
+    		panelVV.validate();
+
+        	labelVENiveau = new JLabel("Niveau:");
+        	labelVENiveau.setBounds(650, 270, 200, 25);
+        	labelVENiveau.setVisible(false);
+    		panelVV.add(labelVENiveau);
+    		panelVV.validate();
+
+        	labelVEVorraussetungen = new JLabel("Vorraussetzungen:");
+        	labelVEVorraussetungen.setBounds(650, 320, 200, 25);
+        	labelVEVorraussetungen.setVisible(false);
+    		panelVV.add(labelVEVorraussetungen);
+    		panelVV.validate();
+
+        	labelVEGebäude = new JLabel("Gebäude:");
+        	labelVEGebäude.setBounds(650, 370, 200, 25);
+        	labelVEGebäude.setVisible(false);
+    		panelVV.add(labelVEGebäude);
+    		panelVV.validate();
+    		
+    		
+    		//Fields zum Erstellen
+    		
+    		fieldBeschrE = new JTextField("");
+    		fieldBeschrE.setToolTipText("Bitte tragen Sie hier einen Namen und eine Beschreibung der Veranstaltung ein");
+    		fieldBeschrE.setBounds(650, 80, 300, 25);
+    		fieldBeschrE.setVisible(false);
+        	panelVV.add(fieldBeschrE);
+        	panelVV.validate();
+    		
+        	AreaInfoE = new JTextArea(5, 20);
+        	AreaInfoE.setText("Lorem ipsum dolor sit amet, " +
+            		"consetetur sadipscing elitr, sed diam nonumy " +
+            		"eirmod tempor invidunt ut labore et " +
+            		"dolore magna aliquyam erat, sed diam voluptua. " +
+            		"At vero eos et accusam et justo duo dolores et " +
+                            "ea rebum.");
+        	 AreaInfoE.setLineWrap(true);
+        	 AreaInfoE.setWrapStyleWord(true);
+             scrollpaneAreaInfoE = new JScrollPane(AreaInfoE); 
+          	 scrollpaneAreaInfoE.setBounds(650, 130, 300, 50);
+             panelVV.add(scrollpaneAreaInfoE);
+             scrollpaneAreaInfoE.setVisible(false);
+             
+        	final String[] DropDownDay = new String[] {"1", "2","3","4","5","6","7","8", "9","10","11","12","13", "14","15","16","17","18","19","20","21","22","23", "24","25","26","27","28","29","30","31"};
+        	dropdownDayE = new JComboBox(DropDownDay);
+        	dropdownDayE.setBounds(650, 200, 60, 30);
+        	dropdownDayE.setVisible(false);
+        	panelVV.add(dropdownDayE);
+        	panelVV.validate();
+        	
+        	final String[] DropDownMonth = new String[] {"Jan", "Feb", "März", "April", "Mai", "Juni","Juli","Aug","Sep","Okt","Nov","Dez"};
+        	dropdownMonthE = new JComboBox(DropDownMonth);
+        	dropdownMonthE.setBounds(720, 200, 80, 30);
+        	dropdownMonthE.setVisible(false);
+        	panelVV.add(dropdownMonthE);
+        	panelVV.validate();
+        	
+        	
+        	final String[] DropDownYear = new String[] {"2013", "2014", "2015", "2016"};
+        	dropdownYearE = new JComboBox(DropDownYear);
+        	dropdownYearE.setVisible(false);
+        	dropdownYearE.setBounds(820, 200, 100, 30);
+        	panelVV.add(dropdownYearE);
+        	panelVV.validate();
+
+        	final String[] DropDownHour = new String[] {"08", "09", "10", "11", "12", "13","14","15","16","17","18","19","20","21", "22"};
+        	dropdownHourE = new JComboBox(DropDownHour);
+        	dropdownHourE.setBounds(650, 240, 80, 30);
+        	dropdownHourE.setVisible(false);
+        	panelVV.add(dropdownHourE);
+        	panelVV.validate();
+        	
+        	
+        	final String[] DropDownMinute = new String[] {"00","01", "02","03","04","05","06","07","08", "09","10","11","12","13", "14","15","16","17","18","19","20","21","22","23", "24","25","26","27","28","29","30","31", "32","33","34","35","36","37","38", "39","40","41","42","43", "44","45","46","47","48","49","50","51","52","53", "54","55","56","57","58","59"};
+        	dropdownMinuteE = new JComboBox(DropDownMinute);
+        	dropdownMinuteE.setBounds(740, 240, 80, 30);
+        	dropdownMinuteE.setVisible(false);
+        	panelVV.add(dropdownMinuteE);
+        	panelVV.validate();
+        	
+        	
+        	fieldNiveauE = new JTextField("");
+        	fieldNiveauE.setBounds(650, 290, 300, 25);
+        	fieldNiveauE.setToolTipText("Bitte geben Sie hier das Niveau der Veranstaltung ein!");
+        	fieldNiveauE.setVisible(false);
+        	panelVV.add(fieldNiveauE);
+        	panelVV.validate();
+        	
+        	
+        	fieldVorraussetzungenE = new JTextField("");
+        	fieldVorraussetzungenE.setBounds(650, 340, 300, 25);
+        	fieldVorraussetzungenE.setToolTipText("Bitte geben Sie hier das Niveau der Veranstaltung ein!");
+        	fieldVorraussetzungenE.setVisible(false);
+        	panelVV.add(fieldVorraussetzungenE);
+        	panelVV.validate();
+        	
+        	final String[] DropDownGebäude = new String[] {"G1", "G2", "10", "11", "12", "13"};
+        	dropdownGebäudeE = new JComboBox(DropDownGebäude);
+        	dropdownGebäudeE.setBounds(650, 390, 300, 30);
+        	dropdownGebäudeE.setVisible(false);
+        	panelVV.add(dropdownGebäudeE);
+        	panelVV.validate();
+        	
+        	fieldBeschrAE = new JTextField("");
+    		fieldBeschrAE.setBounds(650, 80, 300, 25);
+    		fieldBeschrAE.setVisible(false);
+        	panelVV.add(fieldBeschrAE);
+        	panelVV.validate();
+        	
+    		
+        	AreInfoAE = new JTextArea(5, 20);
+         	AreInfoAE.setText("Lorem ipsum dolor sit amet, " +
+           		"consetetur sadipscing elitr, sed diam nonumy " +
+           		"eirmod tempor invidunt ut labore et " +
+           		"dolore magna aliquyam erat, sed diam voluptua. " +
+           		"At vero eos et accusam et justo duo dolores et " +
+                           "ea rebum.");
+         	AreInfoAE.setLineWrap(true);
+         	AreInfoAE.setWrapStyleWord(true);
+         	scrollpaneAreaInfoAE = new JScrollPane(AreInfoAE); 
+         	scrollpaneAreaInfoAE.setBounds(650, 130, 300, 50);
+         	scrollpaneAreaInfoAE.setVisible(false);
+            panelVV.add(scrollpaneAreaInfoAE);
+        	
+    		
+        	final String[] DropDownDayAE = new String[] {"0","1", "2","3","4","5","6","7","8", "9","10","11","12","13", "14","15","16","17","18","19","20","21","22","23", "24","25","26","27","28","29","30","31"};
+        	dropdownDayAE = new JComboBox(DropDownDayAE);
+        	dropdownDayAE.setBounds(650, 200, 60, 30);
+        	dropdownDayAE.setVisible(false);
+        	panelVV.add(dropdownDayAE);
+        	panelVV.validate();
+        	
+        	final String[] DropDownMonthAE = new String[] {"Jan", "Feb", "März", "April", "Mai", "Juni","Juli","Aug","Sep","Okt","Nov","Dez"};
+        	dropdownMonthAE = new JComboBox(DropDownMonthAE);
+        	dropdownMonthAE.setBounds(720, 200, 80, 30);
+        	dropdownMonthAE.setVisible(false);
+        	panelVV.add(dropdownMonthAE);
+        	panelVV.validate();
+        	
+        	
+        	final String[] DropDownYearAE = new String[] {"2013", "2014", "2015", "2016"};
+        	dropdownYearAE = new JComboBox(DropDownYearAE);
+        	dropdownYearAE.setBounds(820, 200, 100, 30);
+        	dropdownYearAE.setVisible(false);
+        	panelVV.add(dropdownYearAE);
+        	panelVV.validate();
+
+        	
+        	final String[] DropDownHourAE = new String[] {"08", "09", "10", "11", "12", "13","14","15","16","17","18","19","20","21", "22"};
+        	dropdownHourAE = new JComboBox(DropDownHourAE);
+        	dropdownHourAE.setBounds(650, 240, 80, 30);
+        	dropdownHourAE.setVisible(false);
+        	panelVV.add(dropdownHourAE);
+        	panelVV.validate();
+        	
+        	
+        	final String[] DropDownMinuteAE = new String[] {"00","01", "02","03","04","05","06","07","08", "09","10","11","12","13", "14","15","16","17","18","19","20","21","22","23", "24","25","26","27","28","29","30","31", "32","33","34","35","36","37","38", "39","40","41","42","43", "44","45","46","47","48","49","50","51","52","53", "54","55","56","57","58","59"};
+        	dropdownMinuteAE = new JComboBox(DropDownMinuteAE);
+        	dropdownMinuteAE.setBounds(740, 240, 80, 30);
+        	dropdownMinuteAE.setVisible(false);
+        	panelVV.add(dropdownMinuteAE);
+        	panelVV.validate();
+        	
+        	
+        	fieldNiveauAE = new JTextField("");
+        	fieldNiveauAE.setBounds(650, 290, 300, 25);
+        	fieldNiveauAE.setVisible(false);
+        	panelVV.add(fieldNiveauAE);
+        	panelVV.validate();
+        	
+        	
+        	fieldVorraussetzungenAE = new JTextField("");
+        	fieldVorraussetzungenAE.setBounds(650, 340, 300, 25);
+        	fieldVorraussetzungenAE.setVisible(false);
+        	panelVV.add(fieldVorraussetzungenAE);
+        	panelVV.validate();
+        	
+        	
+        	
+        	final String[] DropDownGebäudeAE = new String[] {"G1", "G2", "10", "11", "12", "13"};
+        	dropdownGebäudeAE = new JComboBox(DropDownGebäudeAE);
+        	dropdownGebäudeAE.setBounds(650, 390, 300, 30);
+        	dropdownGebäudeAE.setVisible(false);
+        	panelVV.add(dropdownGebäudeAE);
+        	panelVV.validate();
+        	
+        	btnNewV = new JButton("Neue Veranstaltung");
+        	btnNewV.setBounds(220, 120, 150, 25);
+        	btnNewV.setVisible(false);
+        	panelVV.add(btnNewV);
+        	panelVV.validate();
+        	panelVV.repaint();
+        	
+        	btnNewOK = new JButton("OK");
+    		btnNewOK.setBounds(800, 450, 150, 25);
+    		btnNewOK.setVisible(false);
+    		panelVV.add(btnNewOK);
+    		panelVV.validate();
+        	panelVV.repaint();
+        	
+        	btnAbortNew = new JButton("Abbrechen");
+    		btnAbortNew.setBounds(650, 450, 150, 25);
+    		btnAbortNew.setVisible(false);
+    		panelVV.add(btnAbortNew);
+    		panelVV.validate();
+        	panelVV.repaint();
+        	
+        	btnEditOK = new JButton("Übernehmen");
+    		btnEditOK.setBounds(800, 450, 150, 25);
+    		btnEditOK.setVisible(false);
+        	panelVV.add(btnEditOK);
+        	panelVV.validate();
+        	panelVV.repaint();
+        	
+        	btnAbortEdit = new JButton("Abbrechen");
+    		btnAbortEdit.setBounds( 650, 450, 150, 25);
+    		btnAbortEdit.setVisible(false);
+        	panelVV.add(btnAbortEdit);
+        	panelVV.validate();
+        	panelVV.repaint();
+        	
+        	//Zwecks Debbuging ist das jetzt hier! 
+            panelVV.add(labelAreaVSG);
+            labelAreaVSG.setVisible(true);
+         	panelVV.validate();
+         	panelVV.repaint();
+
+            AreaVSG = new JTextArea();
+            AreaVSG.setLineWrap(true);
+            AreaVSG.setBounds(600, 90, 350, 300);
+            AreaVSG.setEditable(false);
+            panelVV.add(AreaVSG);
+            panelVV.validate();
+        	
+            
+
+        	//TODO: 000000!
     }	
 			
 	
@@ -1150,11 +1415,7 @@ public class GUI
      * ****************************************************************/	
     public static void showButtonNewOK(){
     		
-    		btnNewOK = new JButton("OK");
-    		btnNewOK.setBounds(800, 450, 150, 25);
-    		panelVV.add(btnNewOK);
-    		panelVV.validate();
-        	panelVV.repaint();
+    		btnNewOK.setVisible(true);
         	
         	
         	btnNewOK.addActionListener(new ActionListener() {
@@ -1178,11 +1439,7 @@ public class GUI
      * ****************************************************************/
     public static void showButtonNewAbort(){
     		
-    		btnAbortNew = new JButton("Abbrechen");
-    		btnAbortNew.setBounds(650, 450, 150, 25);
-    		panelVV.add(btnAbortNew);
-    		panelVV.validate();
-        	panelVV.repaint();
+    		btnAbortNew.setVisible(true);
         	
         	
         	btnAbortNew.addActionListener(new ActionListener() {
@@ -1207,11 +1464,7 @@ public class GUI
      * ****************************************************************/
     public static void showButtonNewV(){
     		
-        	btnNewV = new JButton("Neue Veranstaltung");
-        	btnNewV.setBounds(220, 120, 150, 25);
-        	panelVV.add(btnNewV);
-        	panelVV.validate();
-        	panelVV.repaint();
+        	btnNewV.setVisible(true);
         	
         	btnNewV.addActionListener(new ActionListener() {
 				
@@ -1224,6 +1477,8 @@ public class GUI
 					showButtonNewOK();
 					showButtonNewAbort();
 					hideAreaVSG();
+					btnEditV.setVisible(false);
+					btnDeleteV.setVisible(false);
 					
 				}
 			});
@@ -1245,17 +1500,8 @@ public class GUI
      * ****************************************************************/
     public static void showAreaVSG(){
     	
-    	//Zwecks Debbuging ist das jetzt hier! 
-        panelVV.add(labelAreaVSG);
-     	panelVV.validate();
-     	panelVV.repaint();
-
-        AreaVSG = new JTextArea();
-        AreaVSG.setLineWrap(true);
-        AreaVSG.setBounds(600, 90, 350, 300);
-        AreaVSG.setEditable(false);
-        panelVV.add(AreaVSG);
-        panelVV.validate();
+    	labelAreaVSG.setVisible(true);
+    	AreaVSG.setVisible(true);
 
             
     	}
@@ -1304,11 +1550,22 @@ public class GUI
         				dropdownVSA.setVisible(false);
         				dropdownVSA.removeAllItems();
         				showDropdownVSA();
+        				if(btnNewV.isVisible()){
+        					
+            				hideBtnNewV();
+
+        					
+        				}
         				
         				if (countNew > 0){
         					hideFieldsNewV();
         					hideLabelsFields();
         				}
+        				
+        				hideBtnAbortEdit();
+        				hideBtnDelete();
+        				hideBtnEdit();
+        				
         				
         		}
 
@@ -1426,11 +1683,7 @@ public class GUI
      */
     public static void showBtnAbortEdit(){
 		
-		btnAbortEdit = new JButton("Abbrechen");
-		btnAbortEdit.setBounds( 650, 450, 150, 25);
-    	panelVV.add(btnAbortEdit);
-    	panelVV.validate();
-    	panelVV.repaint();
+		btnAbortEdit.setVisible(true);
     	
     	btnAbortEdit.addActionListener(new ActionListener() {
 			
@@ -1450,11 +1703,20 @@ public class GUI
      */
     public static void showBtnDelete(){
     		
-    		btnDeleteV = new JButton("Löschen");
-    		btnDeleteV.setBounds(800, 450, 150, 25);
-        	panelVV.add(btnDeleteV);
-        	panelVV.validate();
-        	panelVV.repaint();
+    		btnDeleteV.setVisible(true);
+        	
+        	btnDeleteV.addActionListener(new ActionListener() {
+    			
+    			public void actionPerformed(ActionEvent BtnAbortEdite) {
+    				
+    				showAreaVSG();
+    				//TODO: Löschen einer Veranstaltung
+					btnEditV.setVisible(false);
+					btnDeleteV.setVisible(false);
+
+    				
+    			}
+    		});	
     	} 
     	
     
@@ -1464,11 +1726,7 @@ public class GUI
      */
     public static void showBtnEditOK(){
     		
-    		btnEditOK = new JButton("Übernehmen");
-    		btnEditOK.setBounds(800, 450, 150, 25);
-        	panelVV.add(btnEditOK);
-        	panelVV.validate();
-        	panelVV.repaint();
+    		btnEditOK.setVisible(true);
         	
         	
         	btnEditOK.addActionListener(new ActionListener() {
@@ -1489,47 +1747,15 @@ public class GUI
     /*******************Labels der Fields einblenden**************/
     public static void showLabelsFields(){
     		
-    		labelVEBeschr = new JLabel("Name/Beschreibung:");
-    		labelVEBeschr.setBounds(650, 60, 200, 25);
-    		labelVEBeschr.setVisible(true);
-    		panelVV.add(labelVEBeschr);
-    		panelVV.validate();
-    		
-    		labelVEInfo = new JLabel("Informationen:");
-        	labelVEInfo.setBounds(650, 110, 200, 25);
-        	labelVEInfo.setVisible(true);
-    		panelVV.add(labelVEInfo);
-    		panelVV.validate();
-    		
-        	labelVEDatum = new JLabel("Datum:");
-        	labelVEDatum.setBounds(650, 185, 200, 25);
-        	labelVEDatum.setVisible(true);
-    		panelVV.add(labelVEDatum);
-    		panelVV.validate();
-    		
-    		labelVEUhrzeit = new JLabel("Uhrzeit:");
-        	labelVEUhrzeit.setBounds(650, 225, 200, 25);
-        	labelVEUhrzeit.setVisible(true);
-    		panelVV.add(labelVEUhrzeit);
-    		panelVV.validate();
-
-        	labelVENiveau = new JLabel("Niveau:");
-        	labelVENiveau.setBounds(650, 270, 200, 25);
-        	labelVENiveau.setVisible(true);
-    		panelVV.add(labelVENiveau);
-    		panelVV.validate();
-
-        	labelVEVorraussetungen = new JLabel("Vorraussetzungen:");
-        	labelVEVorraussetungen.setBounds(650, 320, 200, 25);
-        	labelVEVorraussetungen.setVisible(true);
-    		panelVV.add(labelVEVorraussetungen);
-    		panelVV.validate();
-
-        	labelVEGebäude = new JLabel("Gebäude:");
-        	labelVEGebäude.setBounds(650, 370, 200, 25);
-        	labelVEGebäude.setVisible(true);
-    		panelVV.add(labelVEGebäude);
-    		panelVV.validate();
+    	
+		labelVEBeschr.setVisible(true);
+    	labelVEInfo.setVisible(true);
+		labelVEDatum.setVisible(true);
+		labelVEUhrzeit.setVisible(true);
+		labelVENiveau.setVisible(true);
+		labelVEVorraussetungen.setVisible(true);
+		labelVEGebäude.setVisible(true);
+		
     		
     	}
    
@@ -1537,79 +1763,20 @@ public class GUI
     /*******************TextFields zur Erstellung einblenden**************/
     public static void showTextfieldsVErstellen(){
     		
-//    		Color colorGrey = new Color(152,153,155);
         	showLabelsFields();
-    		fieldBeschrE = new JTextField("");
-    		fieldBeschrE.setToolTipText("Bitte tragen Sie hier einen Namen und eine Beschreibung der Veranstaltung ein");
-    		fieldBeschrE.setBounds(650, 80, 300, 25);
-        	panelVV.add(fieldBeschrE);
-        	panelVV.validate();
-    		
-        	AreaInfoE = new JTextArea(5, 20);
-        	AreaInfoE.setText("Lorem ipsum dolor sit amet, " +
-            		"consetetur sadipscing elitr, sed diam nonumy " +
-            		"eirmod tempor invidunt ut labore et " +
-            		"dolore magna aliquyam erat, sed diam voluptua. " +
-            		"At vero eos et accusam et justo duo dolores et " +
-                            "ea rebum.");
-        	 AreaInfoE.setLineWrap(true);
-        	 AreaInfoE.setWrapStyleWord(true);
-             scrollpaneAreaInfoE = new JScrollPane(AreaInfoE); 
-          	 scrollpaneAreaInfoE.setBounds(650, 130, 300, 50);
-             panelVV.add(scrollpaneAreaInfoE);
-             scrollpaneAreaInfoE.setVisible(true);
-             
-        	final String[] DropDownDay = new String[] {"1", "2","3","4","5","6","7","8", "9","10","11","12","13", "14","15","16","17","18","19","20","21","22","23", "24","25","26","27","28","29","30","31"};
-        	dropdownDayE = new JComboBox(DropDownDay);
-        	dropdownDayE.setBounds(650, 200, 60, 30);
-        	panelVV.add(dropdownDayE);
-        	panelVV.validate();
-        	
-        	final String[] DropDownMonth = new String[] {"Jan", "Feb", "März", "April", "Mai", "Juni","Juli","Aug","Sep","Okt","Nov","Dez"};
-        	dropdownMonthE = new JComboBox(DropDownMonth);
-        	dropdownMonthE.setBounds(720, 200, 80, 30);
-        	panelVV.add(dropdownMonthE);
-        	panelVV.validate();
-        	
-        	
-        	final String[] DropDownYear = new String[] {"2013", "2014", "2015", "2016"};
-        	dropdownYearE = new JComboBox(DropDownYear);
-        	dropdownYearE.setBounds(820, 200, 100, 30);
-        	panelVV.add(dropdownYearE);
-        	panelVV.validate();
 
-        	final String[] DropDownHour = new String[] {"08", "09", "10", "11", "12", "13","14","15","16","17","18","19","20","21", "22"};
-        	dropdownHourE = new JComboBox(DropDownHour);
-        	dropdownHourE.setBounds(650, 240, 80, 30);
-        	panelVV.add(dropdownHourE);
-        	panelVV.validate();
+    		showLabelsFields();
+    		fieldBeschrE.setVisible(true);
+            scrollpaneAreaInfoE.setVisible(true);
+        	dropdownDayE.setVisible(true);
+        	dropdownMonthE.setVisible(true);
+        	dropdownYearE.setVisible(true);
+        	dropdownHourE.setVisible(true);
+        	dropdownMinuteE.setVisible(true);
+        	fieldNiveauE.setVisible(true);
+        	fieldVorraussetzungenE.setVisible(true);
+        	dropdownGebäudeE.setVisible(true);
         	
-        	
-        	final String[] DropDownMinute = new String[] {"00","01", "02","03","04","05","06","07","08", "09","10","11","12","13", "14","15","16","17","18","19","20","21","22","23", "24","25","26","27","28","29","30","31", "32","33","34","35","36","37","38", "39","40","41","42","43", "44","45","46","47","48","49","50","51","52","53", "54","55","56","57","58","59"};
-        	dropdownMinuteE = new JComboBox(DropDownMinute);
-        	dropdownMinuteE.setBounds(740, 240, 80, 30);
-        	panelVV.add(dropdownMinuteE);
-        	panelVV.validate();
-        	
-        	
-        	fieldNiveauE = new JTextField("");
-        	fieldNiveauE.setBounds(650, 290, 300, 25);
-        	fieldNiveauE.setToolTipText("Bitte geben Sie hier das Niveau der Veranstaltung ein!");
-        	panelVV.add(fieldNiveauE);
-        	panelVV.validate();
-        	
-        	
-        	fieldVorraussetzungenE = new JTextField("");
-        	fieldVorraussetzungenE.setBounds(650, 340, 300, 25);
-        	fieldVorraussetzungenE.setToolTipText("Bitte geben Sie hier das Niveau der Veranstaltung ein!");
-        	panelVV.add(fieldVorraussetzungenE);
-        	panelVV.validate();
-        	
-        	final String[] DropDownGebäude = new String[] {"G1", "G2", "10", "11", "12", "13"};
-        	dropdownGebäudeE = new JComboBox(DropDownGebäude);
-        	dropdownGebäudeE.setBounds(650, 390, 300, 30);
-        	panelVV.add(dropdownGebäudeE);
-        	panelVV.validate();
         
     	}
     	
@@ -1646,79 +1813,17 @@ public class GUI
     public static void showTextfieldsVAendern(){
     		
     		showLabelsFields();
-    		
-    		fieldBeschrAE = new JTextField("");
-    		fieldBeschrAE.setBounds(650, 80, 300, 25);
-        	panelVV.add(fieldBeschrAE);
-        	panelVV.validate();
+    		fieldBeschrAE.setVisible(true);
+        	scrollpaneAreaInfoAE.setVisible(true);
+            dropdownDayAE.setVisible(true);
+        	dropdownMonthAE.setVisible(true);
+        	dropdownYearAE.setVisible(true);
+        	dropdownHourAE.setVisible(true);
+        	dropdownMinuteAE.setVisible(true);
+        	fieldNiveauAE.setVisible(true);
+        	fieldVorraussetzungenAE.setVisible(true);
+        	dropdownGebäudeAE.setVisible(true);
         	
-    		
-        	AreInfoAE = new JTextArea(5, 20);
-         	AreInfoAE.setText("Lorem ipsum dolor sit amet, " +
-           		"consetetur sadipscing elitr, sed diam nonumy " +
-           		"eirmod tempor invidunt ut labore et " +
-           		"dolore magna aliquyam erat, sed diam voluptua. " +
-           		"At vero eos et accusam et justo duo dolores et " +
-                           "ea rebum.");
-         	AreInfoAE.setLineWrap(true);
-         	AreInfoAE.setWrapStyleWord(true);
-         	scrollpaneAreaInfoAE = new JScrollPane(AreInfoAE); 
-         	scrollpaneAreaInfoAE.setBounds(650, 130, 300, 50);
-            panelVV.add(scrollpaneAreaInfoAE);
-        	
-    		
-        	final String[] DropDownDayAE = new String[] {"0","1", "2","3","4","5","6","7","8", "9","10","11","12","13", "14","15","16","17","18","19","20","21","22","23", "24","25","26","27","28","29","30","31"};
-        	dropdownDayAE = new JComboBox(DropDownDayAE);
-        	dropdownDayAE.setBounds(650, 200, 60, 30);
-        	panelVV.add(dropdownDayAE);
-        	panelVV.validate();
-        	
-        	final String[] DropDownMonthAE = new String[] {"Jan", "Feb", "März", "April", "Mai", "Juni","Juli","Aug","Sep","Okt","Nov","Dez"};
-        	dropdownMonthAE = new JComboBox(DropDownMonthAE);
-        	dropdownMonthAE.setBounds(720, 200, 80, 30);
-        	panelVV.add(dropdownMonthAE);
-        	panelVV.validate();
-        	
-        	
-        	final String[] DropDownYearAE = new String[] {"2013", "2014", "2015", "2016"};
-        	dropdownYearAE = new JComboBox(DropDownYearAE);
-        	dropdownYearAE.setBounds(820, 200, 100, 30);
-        	panelVV.add(dropdownYearAE);
-        	panelVV.validate();
-
-        	
-        	final String[] DropDownHourAE = new String[] {"08", "09", "10", "11", "12", "13","14","15","16","17","18","19","20","21", "22"};
-        	dropdownHourAE = new JComboBox(DropDownHourAE);
-        	dropdownHourAE.setBounds(650, 240, 80, 30);
-        	panelVV.add(dropdownHourAE);
-        	panelVV.validate();
-        	
-        	
-        	final String[] DropDownMinuteAE = new String[] {"00","01", "02","03","04","05","06","07","08", "09","10","11","12","13", "14","15","16","17","18","19","20","21","22","23", "24","25","26","27","28","29","30","31", "32","33","34","35","36","37","38", "39","40","41","42","43", "44","45","46","47","48","49","50","51","52","53", "54","55","56","57","58","59"};
-        	dropdownMinuteAE = new JComboBox(DropDownMinuteAE);
-        	dropdownMinuteAE.setBounds(740, 240, 80, 30);
-        	panelVV.add(dropdownMinuteAE);
-        	panelVV.validate();
-        	
-        	
-        	fieldNiveauAE = new JTextField("");
-        	fieldNiveauAE.setBounds(650, 290, 300, 25);
-        	panelVV.add(fieldNiveauAE);
-        	panelVV.validate();
-        	
-        	
-        	fieldVorraussetzungenAE = new JTextField("");
-        	fieldVorraussetzungenAE.setBounds(650, 340, 300, 25);
-        	panelVV.add(fieldVorraussetzungenAE);
-        	panelVV.validate();
-        	
-        	
-        	
-        	final String[] DropDownGebäudeAE = new String[] {"G1", "G2", "10", "11", "12", "13"};
-        	dropdownGebäudeAE = new JComboBox(DropDownGebäudeAE);
-        	dropdownGebäudeAE.setBounds(650, 390, 300, 30);
-        	panelVV.add(dropdownGebäudeAE);
-        	panelVV.validate();
     	}
     	
     public static void hideBtnNewV(){
