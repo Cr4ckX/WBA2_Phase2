@@ -14,7 +14,6 @@ import javax.swing.text.BadLocationException;
 import servicesCombined.CombinedServicesInteressent;
 import servicesCombined.CombinedServicesVeranstalter;
 
-import xmppService.*;
  
 public class GUI 
 {
@@ -30,13 +29,20 @@ public class GUI
 	{
 		public void actionPerformed(ActionEvent dropdownSAe) 
 		{	
+			String info;   
+			String labelInfo;
+			
 			btnUnsubscribeSA.setVisible(true);
-			btnSubscribeSA.setVisible(true);
-    		String info;        			
+			btnSubscribeSA.setVisible(true);    		    			
 			sportartenIndex = dropdownSA.getSelectedIndex();
+			
 			
 			info = csi.getSportart(String.valueOf(sportgruppenIndex),
 					String.valueOf(sportartenIndex));
+			labelInfo = csi.getSportartElement(String.valueOf(sportgruppenIndex), String.valueOf(sportartenIndex))
+				.getSName();
+			
+			labelAreaSG.setText("Sportart: " + labelInfo);
 			AreaSG.setText(info);
 			
 
@@ -66,10 +72,18 @@ public class GUI
 		
 		public void actionPerformed(ActionEvent dropdownVe)
 		{
-			String info;        			
+			String info;  
+			String labelInfo;
+			
 			veranstaltungenIndex = dropdownV.getSelectedIndex();
+			
 			info = csi.getVeranstaltung((String.valueOf(sportgruppenIndex)), 
-					(String.valueOf(sportartenIndex)), String.valueOf(veranstaltungenIndex));
+					(String.valueOf(sportartenIndex)), String.valueOf(veranstaltungenIndex));		
+			labelInfo = csi.getVeranstaltungElement(String.valueOf(sportgruppenIndex), 
+					String.valueOf(sportartenIndex), 
+					String.valueOf(veranstaltungenIndex)).getVBeschreibung();
+			
+			labelAreaSG.setText("Veranstaltung: " + labelInfo);
 			AreaSG.setText(info);
 
 			
@@ -97,10 +111,9 @@ public class GUI
 				if(csi.subscribeLeaf(String.valueOf(sportgruppenIndex) +
 						String.valueOf(sportartenIndex) +
 						String.valueOf(veranstaltungenIndex) +"Veranstaltung")){
-					
-					//v.add(sportgruppenIndex+sportartenIndex+veranstaltungenIndex+"Veranstaltung");
-					
+										
 					try {
+						//Neuste Meldungen immer ganz oben.
 						AreaAllgemeinSG.getDocument().insertString(0, "Veranstaltung wurde subscribed!\n", null);
 					} catch (BadLocationException e) {
 						
@@ -114,9 +127,7 @@ public class GUI
 			else{
 				if(csi.subscribeLeaf(String.valueOf(sportgruppenIndex)+
 						String.valueOf(sportartenIndex) +"Sportart")){
-				
-					//v.add(sportgruppenIndex+sportartenIndex+"Sportart");
-					
+									
 					try {
 						AreaAllgemeinSG.getDocument().insertString(0, "Sportart wurde subscribed!\n", null);
 					} catch (BadLocationException e){
@@ -127,8 +138,6 @@ public class GUI
 					System.out.println("Fehler beim Subscriben!");
 				}
 			}
-//			v.removeElement("000Veranstaltung");
-			//subscriptions.setListData(v);
 			//In einer Variable zwischenspeichern.
 			showSubscriptionsList();
 			btnSubscribeSA.setEnabled(false);
@@ -145,7 +154,6 @@ public class GUI
 						String.valueOf(sportartenIndex) +
 						String.valueOf(veranstaltungenIndex) +"Veranstaltung")){
 				
-					//v.removeElement(sportgruppenIndex+sportartenIndex+veranstaltungenIndex+"Sportart");
 					try {
 						AreaAllgemeinSG.getDocument().insertString(0, "Veranstaltung wurde unsubscribed!\n", null);
 					} catch (BadLocationException e) {
@@ -161,9 +169,7 @@ public class GUI
 			else{
 				if(csi.unSubscribe(String.valueOf(sportgruppenIndex)+
 						String.valueOf(sportartenIndex) +"Sportart")){
-				
-					//v.removeElement(sportgruppenIndex+sportartenIndex+"Sportart");
-					
+									
 					try {
 						AreaAllgemeinSG.getDocument().insertString(0, "Sportart wurde unsubscribed!\n", null);
 					} catch (BadLocationException e){
@@ -174,7 +180,6 @@ public class GUI
 					System.out.println("Fehler beim Unsubscriben!");
 				}
 			}
-			//subscriptions.setListData(v);
 			showSubscriptionsList();
 			btnSubscribeSA.setEnabled(true);
 			btnSubscribeSA.setToolTipText("Klicken Sie hier zum subscriben!");
@@ -448,9 +453,16 @@ public class GUI
 	        	{
 	        		public void actionPerformed(ActionEvent dropdownSGe) 
 	        		{ 	
+	        			String info;
+	        			String labelInfo;
 	        			sportgruppenIndex = dropdownSG.getSelectedIndex();
-	        			String info = csi.getSportgruppe(String.valueOf(sportgruppenIndex));
+	        			
+	        			labelInfo = csi.getSportgruppeElement(String.valueOf(sportgruppenIndex)).getSGName();
+	        			info = csi.getSportgruppe(String.valueOf(sportgruppenIndex));
+	        			
 	        			AreaSG.setText(info);
+	        			labelAreaSG.setText("Sportgruppe: " + labelInfo);
+	        			
 	        			dropdownSA.removeActionListener(DropDownSAListen);
 	        			dropdownSA.setVisible(false);
  	        			dropdownSA.removeAllItems();
@@ -859,6 +871,10 @@ public class GUI
         panelSG.add(subscriptions);
     }
 
+    /**
+     * [Platzhalter]
+     * Auch zum aktualisieren verwendet.
+     */
     public static void showSubscriptionsList(){  
     	List<String> subList = csi.showSubscriptions();
     
@@ -867,7 +883,6 @@ public class GUI
     		System.out.println(subscription);
     		v.add(subscription);
     	}
-    	//subscriptions.remove
     	subscriptions.setListData(v);
     	labelSubList.setVisible(true);
     	subscriptions.setVisible(true);    	

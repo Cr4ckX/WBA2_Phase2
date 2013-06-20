@@ -3,9 +3,6 @@ package servicesCombined;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.XMLGregorianCalendar;
-
 import generated.Sportart;
 import generated.SportartenM;
 import generated.Sportgruppe;
