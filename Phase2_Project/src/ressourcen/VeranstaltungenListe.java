@@ -86,10 +86,11 @@ public class VeranstaltungenListe {
 			for (int i = 0; i < vm.getVeranstaltung().size(); i++){
 				Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(i);
 				
-				//true
+
 				if(deleted == true){
-					if(v.isDeleted() == true)
+					if(v.isDeleted() == true){
 						vmUebergabe.getVeranstaltung().add(v);
+					}
 				}
 				
 				//Kein QueryParam / false

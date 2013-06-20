@@ -194,11 +194,21 @@ public class CombinedServicesInteressent{
 	 */
 	public List<String> getVeranstaltungen(String spgId, String spaId){
 		List<String> veranstaltungenListe = new ArrayList<String>();
-		VeranstaltungenM vm = cr.getVeranstaltungen(spgId, spaId);
+		VeranstaltungenM vm = cr.getVeranstaltungen(spgId, spaId, false);
 		for(Veranstaltung veranstaltungKonkret : vm.getVeranstaltung()){
 			veranstaltungenListe.add(veranstaltungKonkret.getVBeschreibung());
 		}
 		return veranstaltungenListe;
+	}
+	
+	/**
+	 * Liefert das VerabstaltungenM-XML (JAXB) Element.
+	 * @param spgId Sportgruppen-ID, in der sich die Sportgruppe mit den Veranstaltungen befindet.
+	 * @param spgId Sportarten-ID in der sich die Verantsaltungsliste befindet
+	 * @retrun Die Veranstaltungen-Liste als JAXB-Object.
+	 */
+	public VeranstaltungenM getVeranstaltungenElement(String spgId, String spaId){
+		return cr.getVeranstaltungen(spgId, spaId);
 	}
 
 	/**

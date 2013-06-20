@@ -81,18 +81,26 @@ public class GUI
 			String info;  
 			String labelInfo;
 			
-			veranstaltungenIndex = dropdownV.getSelectedIndex();
+			// != wenn gelöschte Veranstaltungen dazwischen
+			veranstaltungenIndex = 0;
+			String inhalt = dropdownV.getSelectedItem().toString();
+			List<Veranstaltung> veranstaltungen = csi.getVeranstaltungenElement(String.valueOf(sportgruppenIndex), 
+					String.valueOf(sportartenIndex)).getVeranstaltung();
 			
-			info = csi.getVeranstaltung((String.valueOf(sportgruppenIndex)), 
-					(String.valueOf(sportartenIndex)), String.valueOf(veranstaltungenIndex));		
-			labelInfo = csi.getVeranstaltungElement(String.valueOf(sportgruppenIndex), 
-					String.valueOf(sportartenIndex), 
-					String.valueOf(veranstaltungenIndex)).getVBeschreibung();
-			
-			labelAreaSG.setText("Veranstaltung: " + labelInfo);
-			AreaSG.setText(info);
-
-			
+			for(Veranstaltung veranstaltungKonkret : veranstaltungen){
+				if(veranstaltungKonkret.getVBeschreibung().equals(inhalt)){
+					info = csi.getVeranstaltung((String.valueOf(sportgruppenIndex)), 
+							(String.valueOf(sportartenIndex)), veranstaltungKonkret.getId());
+					
+					labelInfo = csi.getVeranstaltungElement(String.valueOf(sportgruppenIndex), 
+							String.valueOf(sportartenIndex), 
+							veranstaltungKonkret.getId()).getVBeschreibung();
+					
+					labelAreaSG.setText("Veranstaltung: " + labelInfo);
+					AreaSG.setText(info);
+				}
+			}
+		
 			
 			if(csi.isSubscribed(String.valueOf(sportgruppenIndex)+String.valueOf(sportartenIndex)
 					+String.valueOf(veranstaltungenIndex)+("Veranstaltung"))){
@@ -108,6 +116,33 @@ public class GUI
 				btnUnsubscribeSA.setToolTipText("Unsubscriben nicht möglich, subscriben Sie erst ;)");
 				}    				
 		}
+	};
+	
+	static ActionListener DropDownVSAListen = new ActionListener() {
+		
+   		public void actionPerformed(ActionEvent dropdownSAe) { 			
+   			
+   			
+   			showButtonNewV();
+   			showDropdownVV();
+   			if (countVV >0){
+   				hideAreaVSG();
+   				btnDeleteV.setVisible(false);
+   				btnEditV.setVisible(false);
+   			}
+   			
+   			if (countNew > 0){
+				hideFieldsNewV();
+				hideLabelsFields();
+			}
+   			
+   			for (int i = 0; i < countSA; i++) {
+   				hideAreaVSG();
+
+			}
+   		}
+   			
+   		
 	};
 	
 	static ActionListener BtnSubscribe = new ActionListener(){
@@ -1180,18 +1215,17 @@ public class GUI
     	
     public static void showDropdownVSG(){
     		
+    		List<String> sportgruppenListe = csv.getSportgruppen(); 
     	
     		labelVSG = new JLabel("Bitte wählen Sie eine Sportgruppe");
             labelVSG.setBounds(10, 50, 300, 25);
             panelVV.add(labelVSG);
             labelVSG.setVisible(true);
-            labelVSG.validate();
     		
-    		final String[] DropDownVSG = new String[] {"Judo", "Kampf", "Pi", "Pa", "Po"};
+    		final String[] DropDownVSG = sportgruppenListe.toArray(new String[sportgruppenListe.size()]);
         	dropdownVSG = new JComboBox(DropDownVSG);
         	dropdownVSG.setBounds(10, 70, 200, 25);
         	panelVV.add(dropdownVSG);
-        	panelVV.validate();
         	
         	
         	dropdownVSG.addActionListener(new ActionListener()
@@ -1202,7 +1236,18 @@ public class GUI
 //        				
 //        				if (item.getSelectedIndex() != 0 && item.getSelectedIndex() < DropDownSG.length){
         				
-        			
+        				String info, labelInfo;
+        				sportgruppenIndex = dropdownVSG.getSelectedIndex();
+        				
+        				labelInfo = csv.getSportgruppeElement(String.valueOf(sportgruppenIndex)).getSGName();
+        				info = csv.getSportgruppe(String.valueOf(sportgruppenIndex));
+        				
+        				AreaVSG.setText(info);
+        				labelAreaVSG.setText("Sportgruppe: " + labelInfo);
+        				
+        				dropdownVSA.removeActionListener(DropDownVSAListen);
+        				dropdownVSA.setVisible(false);
+        				dropdownVSA.removeAllItems();
         				showDropdownVSA();
         				
         				if (countNew > 0){
@@ -1252,32 +1297,7 @@ public class GUI
     		labelVSA.setVisible(true);
     		dropdownVSA.setVisible(true);
            	
-           	dropdownVSA.addActionListener(new ActionListener(){
-           		
-           		public void actionPerformed(ActionEvent dropdownSAe) { 			
-           			
-           			
-           			showButtonNewV();
-           			showDropdownVV();
-           			if (countVV >0){
-           				hideAreaVSG();
-           				btnDeleteV.setVisible(false);
-           				btnEditV.setVisible(false);
-           			}
-           			
-           			if (countNew > 0){
-    					hideFieldsNewV();
-    					hideLabelsFields();
-    				}
-           			
-           			for (int i = 0; i < countSA; i++) {
-           				hideAreaVSG();
-
-					}
-           			}
-           			
-           		
-       		});
+           	dropdownVSA.addActionListener(DropDownVSAListen);
         }
     
     
