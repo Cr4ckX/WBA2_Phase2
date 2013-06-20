@@ -279,6 +279,17 @@ public class CombinedServicesVeranstalter{
 				"Herkunft: " + s.getSHerkunft() + "\r\n" +
 				"Regeln: " + s.getSRegeln() + "\r\n";
 	}
+	
+	/**
+	 * Liefert das konkrete Sportarten-XML (JAXB) Element.
+	 * @param spgId Sportgruppen-ID, der Sportgruppe in der sich die Sportart befindet.
+	 * @param spaId Sportarten-ID, welche Ÿbermittelt werden soll.
+	 * @return Die Sportart als JAXB-Object.
+	 */
+	public Sportart getSportartElement(String spgId, String spaId){
+		return cr.getSportart(spgId, spaId);
+	}
+	
 	/**
 	 * Liefert alle Veranstaltungen innerhalb einer angegebenen Sportart als String-Liste.
 	 * Diese Liste kann z.B. in einem Dropdown-Feld angezeigt werden.

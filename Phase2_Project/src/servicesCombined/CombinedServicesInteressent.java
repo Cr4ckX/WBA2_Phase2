@@ -184,6 +184,7 @@ public class CombinedServicesInteressent{
 	public Sportart getSportartElement(String spgId, String spaId){
 		return cr.getSportart(spgId, spaId);
 	}
+	
 	/**
 	 * Liefert alle Veranstaltungen innerhalb einer angegebenen Sportart als String-Liste.
 	 * Diese Liste kann z.B. in einem Dropdown-Feld angezeigt werden.
