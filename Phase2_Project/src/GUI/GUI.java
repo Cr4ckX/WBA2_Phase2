@@ -12,6 +12,8 @@ import java.util.Vector;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 import servicesCombined.CombinedServicesInteressent;
 import servicesCombined.CombinedServicesVeranstalter;
@@ -720,9 +722,22 @@ public class GUI
             panelVV.add(AreaVSG);
             panelVV.validate();
         	
-            
+    		labelAreaAllgVV = new JLabel("Meldungen:");
+    		labelAreaAllgVV.setBounds(10, 300, 300, 100);
+    		labelAreaAllgVV.setVisible(false);
+            panelVV.add(labelAreaAllgVV);
+        	panelVV.validate();
+        	panelVV.repaint();
+    		
+    		AreaAllgemeinPanelV = new JTextArea(7, 20);
+    		AreaAllgemeinPanelV.setText("");
+    		AreaAllgemeinPanelV.setVisible(false);
+    		AreaAllgemeinPanelV.setLineWrap(true);
+    		AreaAllgemeinPanelV.setWrapStyleWord(true);
+            scrollpaneAreaAllg = new JScrollPane(AreaAllgemeinPanelV); 
+         	scrollpaneAreaAllg.setBounds(10, 370, 400, 150);
+            panelVV.add(scrollpaneAreaAllg);
 
-        	//TODO: 000000!
     }	
 			
 	
@@ -1416,8 +1431,7 @@ public class GUI
     public static void showButtonNewOK(){
     		
     		btnNewOK.setVisible(true);
-        	
-        	
+    		
         	btnNewOK.addActionListener(new ActionListener() {
 				
 				public void actionPerformed(ActionEvent BtnOKe) {
@@ -1426,6 +1440,40 @@ public class GUI
 					hideLabelsFields();
 					showAreaVSG();
 					btnAbortNew.setVisible(false);
+					XMLGregorianCalendar time = null, date = null;
+					
+					
+					try {
+					time = csv.buildXMLTime(dropdownHourE.getSelectedIndex(), 
+								dropdownMinuteE.getSelectedIndex());
+
+					
+					date = csv.buildXMLDate(dropdownYearE.getSelectedIndex(), 
+							dropdownMonthE.getSelectedIndex(), dropdownDayE.getSelectedIndex());
+					
+					} catch (DatatypeConfigurationException e) {
+						System.out.println("Falsche Datum/Uhrzeit Daten!");
+					}				
+					
+					String beschreibung = fieldBeschrE.getText();
+					String info = AreaInfoE.getText();
+					String niveau = fieldNiveauE.getText();
+					String voraussetzungen = fieldVorraussetzungenE.getText();
+					String gebaeudeIdRef = "0";
+					String veranstalterIdRef = "0";
+					
+					Veranstaltung newVeranst = csv.buildVeranstaltung(beschreibung,
+							info,
+							date,
+							time,
+							niveau,
+							voraussetzungen,
+							gebaeudeIdRef,
+							veranstalterIdRef);
+					
+					if(csv.postVeranstaltung(String.valueOf(sportgruppenIndex),
+							String.valueOf(sportartenIndex), newVeranst))
+						AreaAllgemeinPanelV.setText("Veranstaltung wurde erfolgreich hinzugefügt.");
 					/*TODO: Publishen - Ok Button übernimmt eingegebenen Werte und macht nen Post*/
 					
 				}
@@ -1786,22 +1834,10 @@ public class GUI
      *TODO: Inhalt füllen
      */
     public static void showAreaAllgPanelV(){
-    		
-    		labelAreaAllgVV = new JLabel("Meldungen:");
-    		labelAreaAllgVV.setBounds(10, 300, 300, 100);
-            panelVV.add(labelAreaAllgVV);
-        	panelVV.validate();
-        	panelVV.repaint();
-    		
-    		AreaAllgemeinPanelV = new JTextArea(7, 20);
-    		AreaAllgemeinPanelV.setText("");
-    		AreaAllgemeinPanelV.setLineWrap(true);
-    		AreaAllgemeinPanelV.setWrapStyleWord(true);
-            scrollpaneAreaAllg = new JScrollPane(AreaAllgemeinPanelV); 
-         	scrollpaneAreaAllg.setBounds(10, 370, 400, 150);
-            panelVV.add(scrollpaneAreaAllg);
 
-    		
+    	labelAreaAllgVV.setVisible(true);
+    	scrollpaneAreaAllgV.setVisible(true);
+   
     	}
     	
     
