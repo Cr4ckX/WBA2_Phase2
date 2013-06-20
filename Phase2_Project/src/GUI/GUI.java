@@ -722,21 +722,7 @@ public class GUI
             panelVV.add(AreaVSG);
             panelVV.validate();
         	
-    		labelAreaAllgVV = new JLabel("Meldungen:");
-    		labelAreaAllgVV.setBounds(10, 300, 300, 100);
-    		labelAreaAllgVV.setVisible(false);
-            panelVV.add(labelAreaAllgVV);
-        	panelVV.validate();
-        	panelVV.repaint();
     		
-    		AreaAllgemeinPanelV = new JTextArea(7, 20);
-    		AreaAllgemeinPanelV.setText("");
-    		AreaAllgemeinPanelV.setVisible(false);
-    		AreaAllgemeinPanelV.setLineWrap(true);
-    		AreaAllgemeinPanelV.setWrapStyleWord(true);
-            scrollpaneAreaAllg = new JScrollPane(AreaAllgemeinPanelV); 
-         	scrollpaneAreaAllg.setBounds(10, 370, 400, 150);
-            panelVV.add(scrollpaneAreaAllg);
 
     }	
 			
@@ -1835,8 +1821,22 @@ public class GUI
      */
     public static void showAreaAllgPanelV(){
 
-    	labelAreaAllgVV.setVisible(true);
-    	scrollpaneAreaAllgV.setVisible(true);
+    	labelAreaAllgVV = new JLabel("Meldungen:");
+		labelAreaAllgVV.setBounds(10, 300, 300, 100);
+		labelAreaAllgVV.setVisible(true);
+        panelVV.add(labelAreaAllgVV);
+    	panelVV.validate();
+    	panelVV.repaint();
+		
+		AreaAllgemeinPanelV = new JTextArea(7, 20);
+		AreaAllgemeinPanelV.setText("");
+		AreaAllgemeinPanelV.setVisible(true);
+		AreaAllgemeinPanelV.setLineWrap(true);
+		AreaAllgemeinPanelV.setWrapStyleWord(true);
+		AreaAllgemeinPanelV.setEditable(false);
+        scrollpaneAreaAllg = new JScrollPane(AreaAllgemeinPanelV); 
+     	scrollpaneAreaAllg.setBounds(10, 370, 400, 150);
+        panelVV.add(scrollpaneAreaAllg);
    
     	}
     	
