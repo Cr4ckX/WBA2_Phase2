@@ -6,8 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
 
 import servicesCombined.CombinedServicesInteressent;
 import servicesCombined.CombinedServicesVeranstalter;
@@ -23,7 +25,7 @@ public class GUI
 	static int sportartenIndex = 0;
 	static int veranstaltungenIndex = 0;
 	
-	
+	static Vector<String> v;
 	static ActionListener DropDownSAListen = new ActionListener()
 	{
 		public void actionPerformed(ActionEvent dropdownSAe) 
@@ -37,23 +39,25 @@ public class GUI
 					String.valueOf(sportartenIndex));
 			AreaSG.setText(info);
 			
-			showDropdownV();
-
 
 			if(csi.isSubscribed(String.valueOf(sportgruppenIndex)+String.valueOf(sportartenIndex)
-					+ "Sportart")){
+					+"Sportart")){
 				btnSubscribeSA.setEnabled(false);
+				btnSubscribeSA.setToolTipText("Sie bekommen bereits Benachrichtigungen!");
 				btnUnsubscribeSA.setEnabled(true);
-				 	//btnSubscribeSA.setToolTipText("Node wurde bereits subscribed.");
+				btnUnsubscribeSA.setToolTipText("Klicken Sie hier, wenn sie keine Benachrichtigungen mehr bekommen möchten.");
 			}
 			else{
 				btnSubscribeSA.setEnabled(true);
+				btnSubscribeSA.setToolTipText("Klicken Sie hier zum subscriben!");
 				btnUnsubscribeSA.setEnabled(false);
-				//btnUnsubscribeSA.setToolTipText("Klicken Sie hier zum unsubscriben.");
-			}    				
+				btnUnsubscribeSA.setToolTipText("Unsubscriben nicht möglich, subscriben Sie erst ;)");
+				}   
+			
 			dropdownV.removeActionListener(DropDownVListen);
 			dropdownV.removeAllItems();
 			showDropdownV();
+			veranstaltungenIndex = -1;
 			
 			}
 		};
@@ -73,16 +77,110 @@ public class GUI
 			if(csi.isSubscribed(String.valueOf(sportgruppenIndex)+String.valueOf(sportartenIndex)
 					+String.valueOf(veranstaltungenIndex)+("Veranstaltung"))){
 				btnSubscribeSA.setEnabled(false);
+				btnSubscribeSA.setToolTipText("Sie bekommen bereits Benachrichtigungen!");
 				btnUnsubscribeSA.setEnabled(true);
-				//btnSubscribeSA.setToolTipText("Node wurde bereits subscribed.");
+				btnUnsubscribeSA.setToolTipText("Klicken Sie hier, wenn sie keine Benachrichtigungen mehr bekommen möchten.");
 			}
 			else{
-			btnSubscribeSA.setEnabled(true);
-			btnUnsubscribeSA.setEnabled(false);
-			//btnUnsubscribeSA.setToolTipText("Klicken Sie hier zum unsubscriben.");
-			}    				
-			
+				btnSubscribeSA.setEnabled(true);
+				btnSubscribeSA.setToolTipText("Klicken Sie hier zum subscriben!");
+				btnUnsubscribeSA.setEnabled(false);
+				btnUnsubscribeSA.setToolTipText("Unsubscriben nicht möglich, subscriben Sie erst ;)");
+				}    				
+		}
+	};
+	
+	static ActionListener BtnSubscribe = new ActionListener(){
+		public void actionPerformed(ActionEvent subscribed){
+
+			if(veranstaltungenIndex >= 0){
+				if(csi.subscribeLeaf(String.valueOf(sportgruppenIndex) +
+						String.valueOf(sportartenIndex) +
+						String.valueOf(veranstaltungenIndex) +"Veranstaltung")){
+					
+					//v.add(sportgruppenIndex+sportartenIndex+veranstaltungenIndex+"Veranstaltung");
+					
+					try {
+						AreaAllgemeinSG.getDocument().insertString(0, "Veranstaltung wurde subscribed!\n", null);
+					} catch (BadLocationException e) {
+						
+						e.printStackTrace();
+					}
+				}
+				else{
+					System.out.println("Fehler beim Subscriben!");
+				}
 			}
+			else{
+				if(csi.subscribeLeaf(String.valueOf(sportgruppenIndex)+
+						String.valueOf(sportartenIndex) +"Sportart")){
+				
+					//v.add(sportgruppenIndex+sportartenIndex+"Sportart");
+					
+					try {
+						AreaAllgemeinSG.getDocument().insertString(0, "Sportart wurde subscribed!\n", null);
+					} catch (BadLocationException e){
+						e.printStackTrace();
+					}
+				}
+				else{
+					System.out.println("Fehler beim Subscriben!");
+				}
+			}
+//			v.removeElement("000Veranstaltung");
+			//subscriptions.setListData(v);
+			//In einer Variable zwischenspeichern.
+			showSubscriptionsList();
+			btnSubscribeSA.setEnabled(false);
+			btnSubscribeSA.setToolTipText("Sie bekommen bereits Benachrichtigungen!");
+			btnUnsubscribeSA.setEnabled(true);
+			btnUnsubscribeSA.setToolTipText("Klicken Sie hier, wenn sie keine Benachrichtigungen mehr bekommen möchten.");
+		}
+	};
+	
+	static ActionListener BtnUnsubscribe = new ActionListener(){
+		public void actionPerformed(ActionEvent unsubscribed){
+			if(veranstaltungenIndex >= 0){
+				if(csi.unSubscribe(String.valueOf(sportgruppenIndex) +
+						String.valueOf(sportartenIndex) +
+						String.valueOf(veranstaltungenIndex) +"Veranstaltung")){
+				
+					//v.removeElement(sportgruppenIndex+sportartenIndex+veranstaltungenIndex+"Sportart");
+					try {
+						AreaAllgemeinSG.getDocument().insertString(0, "Veranstaltung wurde unsubscribed!\n", null);
+					} catch (BadLocationException e) {
+						
+						e.printStackTrace();
+					}
+					
+				}
+				else{
+					System.out.println("Fehler beim Unsubscriben!!");
+				}
+			}
+			else{
+				if(csi.unSubscribe(String.valueOf(sportgruppenIndex)+
+						String.valueOf(sportartenIndex) +"Sportart")){
+				
+					//v.removeElement(sportgruppenIndex+sportartenIndex+"Sportart");
+					
+					try {
+						AreaAllgemeinSG.getDocument().insertString(0, "Sportart wurde unsubscribed!\n", null);
+					} catch (BadLocationException e){
+						e.printStackTrace();
+					}
+				}
+				else{
+					System.out.println("Fehler beim Unsubscriben!");
+				}
+			}
+			//subscriptions.setListData(v);
+			showSubscriptionsList();
+			btnSubscribeSA.setEnabled(true);
+			btnSubscribeSA.setToolTipText("Klicken Sie hier zum subscriben!");
+			btnUnsubscribeSA.setEnabled(false);
+			btnUnsubscribeSA.setToolTipText("Unsubscriben nicht möglich, subscriben Sie erst ;)");
+		}
 	};
 	
 	/********************************************/
@@ -98,6 +196,7 @@ public class GUI
 	
 	private static JButton btnSubscribeSA, btnUnsubscribeSA,
 		btnUnsubscribeV, btnSubscribeV, btnzurueckSG, btnzurueckVS, btnzurueckO, btnEditOK;  
+	private static JList subscriptions;
 	
 	
 	/********************************************/
@@ -150,6 +249,8 @@ public class GUI
 		
     public static void main(String[] args) {
                 
+    	
+    	v = new Vector<String>();
     	/********************************************/
     	/*****************Windows********************/
     	/********************************************/
@@ -195,11 +296,12 @@ public class GUI
 	            showLogoutSG();
 	            showButtonZurueckVS();
 	            showAreaAllgemeinSG();	
-	            showSubscriptionsList();
 	            showAreaAllgemeinVS();
 	            showAreaAllgemeinO(); 
 	            createDropdownSA();
 	            createDropdownV();
+	            createSubscriptionList();
+	            showSubscriptionsList();
 	            fenster1.setVisible(true);
 	            fenster2.setVisible(false);
              } 
@@ -207,6 +309,13 @@ public class GUI
         	
         	//Veranstalter wurde gewählt
              if(selected == 1){
+         		try {
+        			//Verbindung als Veranstalter aufbauen
+					csv.initialize();
+				} catch (InterruptedException e) {
+					System.out.println("Fehler beim Verbinden!");
+					e.printStackTrace();
+				}
                	showPanelsV();
                	showDropdownVSG();
                	showBtnLogoutVV();
@@ -225,8 +334,8 @@ public class GUI
             panelVV.add(labelAreaVSG);
          	panelVV.validate();
          	
-
-
+    		labelAreaSG = new JLabel("Informationen:");
+            labelAreaSG.setBounds(600, 10, 300, 100);
 
             AreaVSG = new JTextArea();
             AreaVSG.setLineWrap(true);
@@ -243,6 +352,7 @@ public class GUI
         	btnSubscribeSA.setBounds(600, 400, 150, 25);
         	panelSG.add(btnSubscribeSA);
         	btnSubscribeSA.setVisible(false);
+        	btnSubscribeSA.addActionListener(BtnSubscribe);
         	
         	panelSG.validate();
         	panelSG.repaint();
@@ -251,6 +361,7 @@ public class GUI
         	btnUnsubscribeSA.setBounds(800, 400, 150, 25);
         	panelSG.add(btnUnsubscribeSA);
         	btnUnsubscribeSA.setVisible(false);
+        	btnUnsubscribeSA.addActionListener(BtnUnsubscribe);
         	panelSG.validate();
         	panelSG.repaint();
         	
@@ -351,15 +462,14 @@ public class GUI
 	        			showDropdownSA();
 	        		}
 	        	});
-            
     	}
 
     /**************************DropdownSA********************
      *Das Dropdown mit den Sportarten wird angezeigt.
      *Hierzu wird gleichzeitig das Label erstellt.
      *Sobald eine SA gewählt wurde, erscheint das DropDownV sowie eine Area.
-     *TODO: In den String DropdownSA müssen die richtigen Sportarten rein
-     *TODO: AreaSA muss befüllt werden
+     *TODONE: In den String DropdownSA müssen die richtigen Sportarten rein
+     *TODONE: AreaSA muss befüllt werden
      *****************************************************************/	
    public static void createDropdownSA(){
 	   
@@ -370,18 +480,15 @@ public class GUI
 	   panelSG.validate();
 	   panelSG.repaint();
 		
-		final String[] DropDownSA = {""};
-		dropdownSA = new JComboBox(DropDownSA);
-		dropdownSA.setBounds(10, 120, 200, 25);
-		dropdownSA.setVisible(false);
-		panelSG.add(dropdownSA);	
-		panelSG.validate();
-		
+	   final String[] DropDownSA = {""};
+	   dropdownSA = new JComboBox(DropDownSA);
+	   dropdownSA.setBounds(10, 120, 200, 25);
+	   dropdownSA.setVisible(false);
+	   panelSG.add(dropdownSA);	
+	   panelSG.validate();
+	
    }
-   
-    /** Buggs
-     * 
-     */
+
     public static void showDropdownSA(){
     		
     	List<String> sportartenListe = csi.getSportarten(String.valueOf(sportgruppenIndex));
@@ -399,8 +506,8 @@ public class GUI
      * Das Dropdown mit den Veranstaltungen wird angezeigt.
      * Hierzu wird gleichzeitig das Label erstellt.
      * Sobald eine V gewählt wurde, erscheinen die Subscribe und Unsubrice Button sowie eine Area.
-     * TODO: In den String DropdownV müssen die richtigen Veranstaltungen rein
-     * TODO: AreaV muss befüllt werden
+     * TODONE: In den String DropdownV müssen die richtigen Veranstaltungen rein
+     * TODONE: AreaV muss befüllt werden
      * ****************************************************************/   	
     public static void createDropdownV(){
     	
@@ -429,16 +536,16 @@ public class GUI
     	}
     	dropdownV.setVisible(true);
     	dropdownV.addActionListener(DropDownVListen);
-    	
-    	}
+    		
+    }
 
     	
     /**************************DropdownVS********************
      * Das Dropdown mit den Veranstaltern wird angezeigt.
      * Hierzu wird gleichzeitig das Label erstellt.
      * Sobald ein VS gewählt wurde, erscheinen die Subscribe und Unsubrice Button sowie eine Area.
-     * TODO: In den String DropdownVS müssen die richtigen Veranstalter rein
-     * TODO: AreaVS muss befüllt werden
+     * TODOEVLT: In den String DropdownVS müssen die richtigen Veranstalter rein
+     * TODOEVTL: AreaVS muss befüllt werden
      * ****************************************************************/ 
    public static void createDropdownVS(){
 		labelVS = new JLabel("Bitte wählen Sie eine(n) Veranstalter/in!");
@@ -456,20 +563,16 @@ public class GUI
    }
     
     public static void showDropdownVS(){
-        	
     		labelVS.setVisible(true);
-    		dropdownVS.setVisible(true);
-    		
-        	
-        	
+    		dropdownVS.setVisible(true);   	
     	}
 
     /**************************DropdownO********************
      * Das Dropdown mit den Orten wird angezeigt.
      * Hierzu wird gleichzeitig das Label erstellt.
      * Sobald ein O gewählt wurde, erscheinen die Subscribe und Unsubrice Button sowie eine Area.
-     * TODO: In den String DropdownO müssen die richtigen Ort rein
-     * TODO: AreaO muss befüllt werden
+     * TODOEVTL: In den String DropdownO müssen die richtigen Ort rein
+     * TODOEVTL: AreaO muss befüllt werden
      * ****************************************************************/ 
     public static void createDropdownO(){
     	
@@ -487,20 +590,9 @@ public class GUI
     	panelO.validate();
     }
     
-    public static void showDropdownO(){
-    		
+    public static void showDropdownO(){ 		
         labelO.setVisible(true);
     	dropdownO.setVisible(true);
-
-    		
-        	dropdownO.addActionListener(new ActionListener()
-        	{
-        		public void actionPerformed(ActionEvent dropdownOe) 
-        		{ 			
-        			//TODO: komischer Typ
-        			showButtonZurueckO();
-        		}
-        	});
     	}
 
     /**************************Logout**********************************
@@ -513,13 +605,9 @@ public class GUI
         	btnzurueckSG.setBounds(800, 500, 150, 25);
         	btnzurueckSG.setToolTipText("Zurück zur Rollenauswahl");
         	panelSG.add(btnzurueckSG);
-        	panelSG.validate();
-
-        	
+        	panelSG.validate();    	
         	
         	btnzurueckSG.addActionListener(new ActionListener() {
-				
-				
             	public void actionPerformed(ActionEvent btnzuruecke) {
 				            	
             		fenster1.dispose();
@@ -563,9 +651,10 @@ public class GUI
                         fenster2.setVisible(true);
                         fenster1.setVisible(false);
                      }
+                     csi.logout();
             	}
-    			});
-        	}
+        	});
+    	}
  	
     public static void showButtonZurueckVS(){
     		
@@ -697,17 +786,13 @@ public class GUI
      * Die Areas (rechts in der GUI) werden erstellt.
      * AreaSG, AreaVS und AreaO
      * 
-     * Eventuell noch setEditable(false) setzen? 
      * 
-     * TODO: Areas mit Inhalt befüllen. 
+     * TODO: Nur ein dynamisches Label.
+     * TODONE: Areas mit Inhalt befüllen. 
      * Das macht man mit AreaXYZ.setText(t);
      *
      * ****************************************************************/
-    public static void showAreaSG(){
-    		
-
-    		labelAreaSG = new JLabel("Informationen bezüglich: ");
-            labelAreaSG.setBounds(600, 10, 300, 100);
+    public static void showAreaSG(){    		
             panelSG.add(labelAreaSG);
         	panelSG.validate();
         	panelSG.repaint();
@@ -715,9 +800,9 @@ public class GUI
             AreaSG = new JTextArea();
             AreaSG.setLineWrap(true);
     		AreaSG.setBounds(600, 90, 350, 300);
+    		AreaSG.setEditable(false);
     		panelSG.add(AreaSG);
-        	panelSG.validate();
-            
+        	panelSG.validate();            
     	}
     	
     public static void showAreaVS(){
@@ -758,21 +843,34 @@ public class GUI
     		
     	}
     	
-    
-    public static void showSubscriptionsList(){
+    public static void createSubscriptionList(){
     	
-    	labelSubList = new JLabel("Your Subscriptions:");
+    	labelSubList = new JLabel("Ihre Abonnements:");
     	labelSubList.setBounds(350, 300, 300, 100);
+    	labelSubList.setVisible(false);
         panelSG.add(labelSubList);
     	panelSG.validate();
     	panelSG.repaint();
     	
-        String SubsribedItems[] = {"Politik", "Autos", "Mode", 
-            "Film- und Fernsehen", "Computer", "Tiere", "Sport"};
-        JList Subscriptions = new JList(SubsribedItems);
-        Subscriptions.setBounds(350, 370, 200, 150);
-        panelSG.add(Subscriptions);
-    	
+        String SubsribedItems[] = {""};
+        subscriptions = new JList(SubsribedItems);
+        subscriptions.setBounds(350, 370, 200, 150);
+        subscriptions.setVisible(false);
+        panelSG.add(subscriptions);
+    }
+
+    public static void showSubscriptionsList(){  
+    	List<String> subList = csi.showSubscriptions();
+    
+    	v.clear();
+    	for(String subscription : subList){
+    		System.out.println(subscription);
+    		v.add(subscription);
+    	}
+    	//subscriptions.remove
+    	subscriptions.setListData(v);
+    	labelSubList.setVisible(true);
+    	subscriptions.setVisible(true);    	
     }
 
     /***************Areas zur Darstellung der Mitteilung***********
@@ -1665,6 +1763,10 @@ public class GUI
 
             	
         	}
+        
+        public static void getSubscriptions(){
+        	
+        }
 
 
 
