@@ -16,6 +16,8 @@ import org.jivesoftware.smackx.pubsub.SimplePayload;
 import org.jivesoftware.smackx.pubsub.listener.ItemEventListener;
 import org.jivesoftware.smackx.pubsub.provider.ItemProvider;
 
+import GUI.GUI;
+
 import restService.ClientRest;
 
 /**
@@ -45,10 +47,11 @@ import restService.ClientRest;
 public class ItemEventCoordinator implements ItemEventListener<Item> {
 
 	ClientRest cr = new ClientRest();	
+	GUI gui = new GUI();
 	
     @Override
     public void handlePublishedItems(ItemPublishEvent<Item> items){
-       
+
     	List<Item> itemList = items.getItems();
     	List<String> refreshList = new ArrayList<String>();
         PayloadItem<SimplePayload> pi;
@@ -107,7 +110,7 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
      */
 	private void throwDeleteNoticeSportart(String sportgruppeId, String sportartId, String veranstaltungId){
     	
-    	String meldung = "Es wurd eine Veranstaltung gelöscht. Welche ist leider unklar.";
+    	String meldung = "Es wurd eine Veranstaltung gelöscht. Welche ist leider unklar." + "\r\n";
     	String nameOfDeletedVeranstaltungen;
     	
     	VeranstaltungenM deletedVeranstaltungen = cr.getVeranstaltungen(sportgruppeId, sportartId, true);
@@ -116,11 +119,12 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
     	for(Veranstaltung veranstaltung : deletedVeranstaltungen.getVeranstaltung()){
     		if(veranstaltung.getId().equals(veranstaltungId)){
     			nameOfDeletedVeranstaltungen = veranstaltung.getVBeschreibung();
-            	meldung = "Die von Ihnen abonnierte Sportart: " + nameOfDeletedVeranstaltungen + " " +
-            			"enthielt eine Veranstaltung (" + newSportList.getSName() + "), welche leider gelöscht wurde.";
+            	meldung = "Die von Ihnen abonnierte Sportart: '" + newSportList.getSName() +
+            			"', enthielt eine Veranstaltung (" + nameOfDeletedVeranstaltungen + "), welche leider gelöscht wurde." + "\r\n";
     		}
     	}
-    	System.out.println(meldung);
+    	//System.out.println(meldung);
+    	gui.addInteressentMeldung(meldung);
 		
 	}
 	/**
@@ -138,8 +142,9 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
     	Veranstaltung newVeranstaltung = cr.getVeranstaltung(sportgruppeId, sportartId, veranstaltungId);
     	  	
     	meldung = "Ihre abonnierte Sportart " + newSportList.getSName() + " wurde eine neue Veranstaltung (" + 
-    			newVeranstaltung.getVBeschreibung() + ") hinzugefügt.";
-    	System.out.println(meldung);
+    			newVeranstaltung.getVBeschreibung() + ") hinzugefügt."  + "\r\n";
+    	//System.out.println(meldung);
+    	gui.addInteressentMeldung(meldung);
     }
     /**
      * Methode zum Benachrichtigen, dass eine abonnierte Veranstaltung geändert wurde.
@@ -156,8 +161,9 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
     	Veranstaltung newVeranstaltung = cr.getVeranstaltung(sportgruppeId, sportartId, veranstaltungId);
     	
     	meldung = "Ihre abonnierte Veranstaltung " + newVeranstaltung.getVBeschreibung() + " in der Sportart " +
-    			sportart.getSName() + " der Sportgruppe " + sportgruppe.getSGName() +  " wurde aktualisiert.";
-    	System.out.println(meldung);
+    			sportart.getSName() + " der Sportgruppe " + sportgruppe.getSGName() +  " wurde aktualisiert."  + "\r\n";
+    	//System.out.println(meldung);
+    	gui.addInteressentMeldung(meldung);
     }
     
     /**
@@ -169,8 +175,8 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
      */
     private void throwDeleteNotice(String sportgruppeId, String sportartId, String veranstaltungId){
     	
-    	System.out.println("Meldung empfangen!");
-    	String meldung = "Es wurd eine Veranstaltung gelöscht. Welche ist leider unklar.";
+  
+    	String meldung = "Es wurd eine Veranstaltung gelöscht. Welche ist leider unklar." + "\r\n";
     	String nameOfDeletedVeranstaltungen;
     	VeranstaltungenM deletedVeranstaltungen = cr.getVeranstaltungen(sportgruppeId, sportartId, true);
     	for(Veranstaltung veranstaltung : deletedVeranstaltungen.getVeranstaltung()){
@@ -178,10 +184,11 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
     		if(veranstaltung.getId().equals(veranstaltungId)){
     			nameOfDeletedVeranstaltungen = veranstaltung.getVBeschreibung();
             	meldung = "Die von Ihnen abonnierte Veranstaltung: " + nameOfDeletedVeranstaltungen + " wurde leider gelöscht." +
-            			"Damit wird auch Ihre Subscription zu dieser Veranstaltung aufgelöst.";
+            			"Damit wird auch Ihre Subscription zu dieser Veranstaltung aufgelöst." + "\r\n";
     		}
     	}
-    	System.out.println(meldung);
+    	//System.out.println(meldung);
+    	gui.addInteressentMeldung(meldung);
 
     	
     }
