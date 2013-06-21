@@ -123,6 +123,7 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
     			nameOfDeletedVeranstaltungen = veranstaltung.getVBeschreibung();
             	meldung = "Die von Ihnen abonnierte Sportart: '" + newSportList.getSName() +
             			"', enthielt eine Veranstaltung (" + nameOfDeletedVeranstaltungen + "), welche leider gelöscht wurde." + "\r\n";
+            	gui.showSubscriptionsList();
     		}
     	}
     	//System.out.println(meldung);
@@ -147,6 +148,7 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
     			newVeranstaltung.getVBeschreibung() + ") hinzugefügt."  + "\r\n";
     	//System.out.println(meldung);
     	gui.addInteressentMeldung(meldung);
+    	gui.showSubscriptionsList();
     }
     /**
      * Methode zum Benachrichtigen, dass eine abonnierte Veranstaltung geändert wurde.
@@ -166,6 +168,7 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
     			sportart.getSName() + " der Sportgruppe " + sportgruppe.getSGName() +  " wurde aktualisiert."  + "\r\n";
     	//System.out.println(meldung);
     	gui.addInteressentMeldung(meldung);
+    	gui.showSubscriptionsList();
     }
     
     /**
@@ -191,6 +194,7 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
     	}
     	//System.out.println(meldung);
     	gui.addInteressentMeldung(meldung);
+    	gui.showSubscriptionsList();
 
     	
     }
