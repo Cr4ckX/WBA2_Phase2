@@ -227,25 +227,42 @@ public class CombinedServicesInteressent{
 		Veranstaltung vst = cr.getVeranstaltung(spgId, spaId, vstId);
 		String ausgabe, info, niveau, voraussetzungen;
 		
-		if(vst.getVInfo() == null)
+		if(vst.getVInfo() == null){ //|| vst.getVNiveau().equals(""))
 			info = "";
-		else
-			info = "Informationen: " + vst.getVInfo() + "\r\n";	
+		}
+		else{
+			if (vst.getVInfo().equals("")){
+				info = "";
+			}
+			else{
+				info = "Informationen: " + vst.getVInfo() + "\r\n";		
+			}
+		}	
 		
 		if(vst.getVNiveau() == null)
 			niveau = "";
 		else
-			niveau = "Niveau: " + vst.getVNiveau() + "\r\n";
-		
+			if(vst.getVNiveau().equals("")){
+				niveau = "";
+			}
+			else{
+				niveau = "Niveau: " + vst.getVNiveau() + "\r\n";
+			}
+					
 		if(vst.getVVorraussetzungen() == null)
 			voraussetzungen = "";
 		else
-			voraussetzungen = "Voraussetzungen: " + vst.getVVorraussetzungen() + "\r\n";
+			if(vst.getVVorraussetzungen().equals("")){
+				voraussetzungen = "";
+			}
+			else{
+				voraussetzungen = "Voraussetzungen: " + vst.getVVorraussetzungen() + "\r\n";				
+			}
 		
 		ausgabe = "Beschreibung: " + vst.getVBeschreibung() + "\r\n" +
 				info +
 				"Datum: " + vst.getVDatum() + "\r\n" +
-				"Uhrzeit: " + vst.getVUhrzeit() + "\r\n" +
+				"Uhrzeit: " + vst.getVUhrzeit().toString() + "\r\n" +
 				niveau  +
 				voraussetzungen;
 		
