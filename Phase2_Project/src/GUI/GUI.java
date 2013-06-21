@@ -1735,14 +1735,42 @@ public class GUI
         	btnEditV.addActionListener(new ActionListener() {
 				
 				public void actionPerformed(ActionEvent BtnEdite) {
+					String beschreibung, info, niveau, voraussetzungen;
+					XMLGregorianCalendar date, time;
+					
 					hideAreaVSG();
 					showTextfieldsVAendern();
-					/*TODO: Hier muss dann die gewählte Veranstaltung rein*/
+					
+					Veranstaltung v = csi.getVeranstaltungElement(String.valueOf(sportgruppenIndex),
+							String.valueOf(sportartenIndex),
+							String.valueOf(veranstaltungenIndex));
+					
+					beschreibung = v.getVBeschreibung();
+					info = v.getVInfo();
+					niveau = v.getVNiveau();
+					voraussetzungen = v.getVVorraussetzungen();
+					
+					date = v.getVDatum();
+					time = v.getVUhrzeit();
+					
+					fieldBeschrAE.setText(beschreibung);
+					AreInfoAE.setText(info);
+					fieldNiveauAE.setText(niveau);
+					fieldVorraussetzungenAE.setText(voraussetzungen);
+					
+					dropdownDayAE.setSelectedItem(date.getDay());
+					dropdownMonthAE.setSelectedItem(date.getMonth());
+					dropdownYearAE.setSelectedItem(date.getYear());
+					
+					dropdownMinuteAE.setSelectedIndex(time.getMinute());
+					dropdownHourAE.setSelectedIndex(time.getHour());
+					
 					btnEditV.setVisible(false);
 					btnDeleteV.setVisible(false);
 //					hideBtnAbortEdit();
 					showBtnEditOK();
 					showBtnAbortEdit();
+					
 				}
 			});
     	}
@@ -1818,12 +1846,12 @@ public class GUI
         	btnEditOK.addActionListener(new ActionListener() {
 				
 				public void actionPerformed(ActionEvent BtnEditOKe) {
+				
 					hideFieldsEditV();
 					hideLabelsFields();
 					hideBtnEditOK();
 					hideBtnAbortEdit();
-					showAreaVSG();
-					/*TODO: Veranstaltung aktualisieren*/
+					showAreaVSG();				
 					
 				}
 			});
