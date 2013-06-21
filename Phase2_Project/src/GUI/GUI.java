@@ -23,7 +23,7 @@ public class GUI
 {
 	static CombinedServicesVeranstalter csv = new CombinedServicesVeranstalter();
 	static CombinedServicesInteressent csi = new CombinedServicesInteressent();
-	
+
 	static int sportgruppenIndex = 0;
 	static int sportartenIndex = 0;
 	static int veranstaltungenIndex = 0;
@@ -1307,7 +1307,7 @@ public class GUI
      * ****************************************************************/
     public static void showAreaAllgemeinSG(){
     		
-    		labelAreaAllgSGV = new JLabel("Meldungen:");
+    		labelAreaAllgSGV = new JLabel("Meldungen (neuste zuerst):");
     		labelAreaAllgSGV.setBounds(10, 300, 300, 100);
             panelSG.add(labelAreaAllgSGV);
         	panelSG.validate();
@@ -1737,7 +1737,6 @@ public class GUI
 					String beschreibung, info, niveau, voraussetzungen;
 					XMLGregorianCalendar date, time;
 					int jahr;
-					AreInfoAE.setEditable(true);
 					
 					hideAreaVSG();
 					showTextfieldsVAendern();
@@ -1966,7 +1965,7 @@ public class GUI
      */
     public static void showAreaAllgPanelV(){
 
-    	labelAreaAllgVV = new JLabel("Meldungen:");
+    	labelAreaAllgVV = new JLabel("Meldungen (neuste zuerst):");
 		labelAreaAllgVV.setBounds(10, 300, 300, 100);
 		labelAreaAllgVV.setVisible(true);
         panelVV.add(labelAreaAllgVV);
@@ -2177,10 +2176,21 @@ public class GUI
 
             	
         	}
+        public void addInteressentMeldung(String meldung){
+			try {
+				//Neuste Meldungen immer ganz oben.
+				AreaAllgemeinSG.getDocument().insertString(0, meldung, null);
+			} catch (BadLocationException e) {
+				
+				e.printStackTrace();
+			}
+        }
         
         public static void getSubscriptions(){
         	
         }
+        
+        
 
 
 
