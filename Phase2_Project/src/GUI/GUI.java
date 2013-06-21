@@ -310,6 +310,71 @@ public class GUI
 		}
 	};
 	
+	static ActionListener BtnNewVOkListen = new ActionListener() {
+		
+		public void actionPerformed(ActionEvent BtnOKe) {
+			
+			hideTextfieldsVErstellen();
+			hideLabelsFields();
+			showAreaVSG();
+			btnAbortNew.setVisible(false);
+			XMLGregorianCalendar time = null, date = null;
+			
+			
+			try {
+			time = csv.buildXMLTime(dropdownHourE.getSelectedIndex(), 
+						dropdownMinuteE.getSelectedIndex());
+
+			
+			date = csv.buildXMLDate(Integer.parseInt(dropdownYearE.getSelectedItem().toString()), 
+					Integer.parseInt(dropdownMonthE.getSelectedItem().toString()),
+					Integer.parseInt(dropdownDayE.getSelectedItem().toString()));
+			
+			} catch (DatatypeConfigurationException e) {
+				System.out.println("Falsche Datum/Uhrzeit Daten!");
+			}				
+			
+			String beschreibung = fieldBeschrE.getText();
+			if(beschreibung.equals(""))
+				beschreibung = null;
+				
+			String info = AreaInfoE.getText();
+			if(info.equals(""))
+				info = null;
+			
+			String niveau = fieldNiveauE.getText();
+			if(niveau.equals(""))
+				niveau = null;
+			
+			String voraussetzungen = fieldVorraussetzungenE.getText();
+			if(voraussetzungen.equals(""))
+				voraussetzungen = null;
+			
+			String gebaeudeIdRef = "0";
+			String veranstalterIdRef = "0";
+			
+			Veranstaltung newVeranst = csv.buildVeranstaltung(beschreibung,
+					info,
+					date,
+					time,
+					niveau,
+					voraussetzungen,
+					gebaeudeIdRef,
+					veranstalterIdRef);
+			
+			if(csv.postVeranstaltung(String.valueOf(sportgruppenIndex),
+					String.valueOf(sportartenIndex), newVeranst))
+				try {
+					AreaAllgemeinPanelV.getDocument().insertString(0, "Veranstaltung wurde hinzugefügt!\n", null);
+				} catch (BadLocationException e) {
+					e.printStackTrace();
+				}
+			hideDropDownVV();
+
+			resetInsertsFieldsE();
+		}
+	};
+	
 	/********************************************/
 	/**************Interessent*******************/
 	/********************************************/
@@ -557,7 +622,7 @@ public class GUI
         	 AreaInfoE.setWrapStyleWord(true);
              scrollpaneAreaInfoE = new JScrollPane(AreaInfoE); 
           	 scrollpaneAreaInfoE.setBounds(650, 130, 300, 50);
-          	 scrollpaneAreaInfoE.setToolTipText("Geben Sie Informationen bezüglich der Informationen ein");
+          	 scrollpaneAreaInfoE.setToolTipText("Geben Sie weitere Informationen zu der Veranstaltung ein");
              panelVV.add(scrollpaneAreaInfoE);
              scrollpaneAreaInfoE.setVisible(false);
              
@@ -638,13 +703,14 @@ public class GUI
 			AreaInfoAE = new JTextArea(5, 20);
         	AreaInfoAE.setText("");
         	AreaInfoAE.setEditable(true);
-        	 AreaInfoAE.setLineWrap(true);
-        	 AreaInfoAE.setWrapStyleWord(true);
-             scrollpaneAreaInfoAE = new JScrollPane(AreaInfoAE); 
-          	 scrollpaneAreaInfoAE.setBounds(650, 130, 300, 50);
-          	 scrollpaneAreaInfoAE.setToolTipText("Geben Sie Informationen bezüglich der Informationen ein");
-             panelVV.add(scrollpaneAreaInfoAE);
-             scrollpaneAreaInfoAE.setVisible(false);
+        	AreaInfoAE.setLineWrap(true);
+        	AreaInfoAE.setWrapStyleWord(true);
+            scrollpaneAreaInfoAE = new JScrollPane(AreaInfoAE); 
+          	scrollpaneAreaInfoAE.setBounds(650, 130, 300, 50);
+          	scrollpaneAreaInfoAE.setToolTipText("Geben Sie weitere Informationen zu der Veranstaltung ein");
+          	scrollpaneAreaInfoAE.setVisible(false);
+          	panelVV.add(scrollpaneAreaInfoAE);
+            
 
          	
         	final String[] DropDownDayAE = new String[] {"01", "02","03","04","05","06","07","08", "09","10","11","12","13", "14","15","16","17","18","19","20","21","22","23", "24","25","26","27","28","29","30","31"};
@@ -725,6 +791,7 @@ public class GUI
         	btnNewOK = new JButton("OK");
     		btnNewOK.setBounds(800, 450, 150, 25);
     		btnNewOK.setVisible(false);
+        	btnNewOK.addActionListener(BtnNewVOkListen);
     		panelVV.add(btnNewOK);
     		panelVV.validate();
         	panelVV.repaint();
@@ -1283,11 +1350,14 @@ public class GUI
      */
     public static void showSubscriptionsList(){  
     	//List<String> subList = csi.showSubscriptions();
+
     	String sportgruppenId;
     	String sportartId;
     	String veranstaltungId;
-    	
+	
     	v.clear();
+    	v.removeAllElements();
+    	subscriptions.setListData(v);
     //	for(String subscription : subList){
     		for(Sportgruppe sportgruppeKonkret : csi.getSportgruppenMElement().getSportgruppe()){
     			Sportgruppe sg = sportgruppeKonkret;
@@ -1463,58 +1533,6 @@ public class GUI
     		
     		btnNewOK.setVisible(true);
     		
-        	btnNewOK.addActionListener(new ActionListener() {
-				
-				public void actionPerformed(ActionEvent BtnOKe) {
-					
-					hideTextfieldsVErstellen();
-					hideLabelsFields();
-					showAreaVSG();
-					btnAbortNew.setVisible(false);
-					XMLGregorianCalendar time = null, date = null;
-					
-					
-					try {
-					time = csv.buildXMLTime(dropdownHourE.getSelectedIndex(), 
-								dropdownMinuteE.getSelectedIndex());
-
-					
-					date = csv.buildXMLDate(Integer.parseInt(dropdownYearE.getSelectedItem().toString()), 
-							Integer.parseInt(dropdownMonthE.getSelectedItem().toString()),
-							Integer.parseInt(dropdownDayE.getSelectedItem().toString()));
-					
-					} catch (DatatypeConfigurationException e) {
-						System.out.println("Falsche Datum/Uhrzeit Daten!");
-					}				
-					
-					String beschreibung = fieldBeschrE.getText();
-					String info = AreaInfoE.getText();
-					String niveau = fieldNiveauE.getText();
-					String voraussetzungen = fieldVorraussetzungenE.getText();
-					String gebaeudeIdRef = "0";
-					String veranstalterIdRef = "0";
-					
-					Veranstaltung newVeranst = csv.buildVeranstaltung(beschreibung,
-							info,
-							date,
-							time,
-							niveau,
-							voraussetzungen,
-							gebaeudeIdRef,
-							veranstalterIdRef);
-					
-					if(csv.postVeranstaltung(String.valueOf(sportgruppenIndex),
-							String.valueOf(sportartenIndex), newVeranst))
-						try {
-							AreaAllgemeinPanelV.getDocument().insertString(0, "Veranstaltung wurde hinzugefügt!\n", null);
-						} catch (BadLocationException e) {
-							e.printStackTrace();
-						}
-					hideDropDownVV();
-
-					resetInsertsFieldsE();
-				}
-			});
     	}
 
     public static void resetInsertsFieldsE(){
@@ -1773,8 +1791,7 @@ public class GUI
         	btnEditV.addActionListener(new ActionListener() {
 				
 				public void actionPerformed(ActionEvent BtnEdite) {
-					
-					
+										
 					String beschreibung, info, niveau, voraussetzungen;
 					XMLGregorianCalendar date, time;
 					int jahr;
@@ -1803,6 +1820,7 @@ public class GUI
 					jahr = date.getYear();
 					
 					fieldBeschrAE.setText(beschreibung);
+					AreaInfoAE.setVisible(true);
 					AreaInfoAE.setText(info);
 					/*
 					AreaInfoAE.setEditable(true);
@@ -1982,14 +2000,7 @@ public class GUI
 							e.printStackTrace();
 						}
 						
-					}
-					
-					
-//					dropdownHourAE.setVisible(true);
-//					dropdownMinuteAE.setVisible(true);
-//					fieldNiveauAE.setVisible(true);
-//					fieldVorraussetzungenAE.setVisible(true);
-//					dropdownGebäudeAE.setVisible(true);					
+					}				
 				}
 			});
     	}  
