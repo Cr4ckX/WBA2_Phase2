@@ -624,7 +624,7 @@ public class GUI
         	panelVV.repaint();
         	
         	//Label Fields zum Erstellen
-        	labelVEBeschr = new JLabel("Name/Beschreibung:");
+        	labelVEBeschr = new JLabel("* Name/Beschreibung:");
     		labelVEBeschr.setBounds(650, 60, 200, 25);
     		labelVEBeschr.setVisible(false);
     		panelVV.add(labelVEBeschr);
@@ -636,13 +636,13 @@ public class GUI
     		panelVV.add(labelVEInfo);
     		panelVV.validate();
     		
-        	labelVEDatum = new JLabel("Datum:");
+        	labelVEDatum = new JLabel("* Datum:");
         	labelVEDatum.setBounds(650, 185, 200, 25);
         	labelVEDatum.setVisible(false);
     		panelVV.add(labelVEDatum);
     		panelVV.validate();
     		
-    		labelVEUhrzeit = new JLabel("Uhrzeit:");
+    		labelVEUhrzeit = new JLabel("* Uhrzeit:");
         	labelVEUhrzeit.setBounds(650, 225, 200, 25);
         	labelVEUhrzeit.setVisible(false);
     		panelVV.add(labelVEUhrzeit);
@@ -660,7 +660,7 @@ public class GUI
     		panelVV.add(labelVEVorraussetungen);
     		panelVV.validate();
 
-        	labelVEGebäude = new JLabel("Gebäude:");
+        	labelVEGebäude = new JLabel("* Gebäude:");
         	labelVEGebäude.setBounds(650, 370, 200, 25);
         	labelVEGebäude.setVisible(false);
     		panelVV.add(labelVEGebäude);
