@@ -94,6 +94,8 @@ public class GUI
 							String.valueOf(sportartenIndex), 
 							veranstaltungKonkret.getId()).getVBeschreibung();
 					
+					veranstaltungenIndex = Integer.parseInt(veranstaltungKonkret.getId());
+					
 					labelAreaSG.setText("Veranstaltung: " + labelInfo);
 					AreaSG.setText(info);
 				}
@@ -151,10 +153,7 @@ public class GUI
    			dropdownVV.removeAllItems();
    			veranstaltungenIndex = -1;
    			showDropdownVV();
-   			
    		}
-   			
-   		
 	};
 	
 	static ActionListener DropDownVVListen = new ActionListener() {
@@ -178,6 +177,8 @@ public class GUI
 							String.valueOf(sportartenIndex), 
 							veranstaltungKonkret.getId()).getVBeschreibung();
 					
+					veranstaltungenIndex = Integer.parseInt(veranstaltungKonkret.getId());
+
 					labelAreaVSG.setText("Veranstaltung: " + labelInfo);
 					AreaVSG.setText(info);
 				}
@@ -193,7 +194,7 @@ public class GUI
    			}
    		}
 	};
-	
+	//TODO: Kann theoretisch wieder nach veranstaltungenIndex abfragen.
 	static ActionListener BtnSubscribe = new ActionListener(){
 		public void actionPerformed(ActionEvent subscribed){
 
@@ -238,7 +239,6 @@ public class GUI
 					System.out.println("Fehler beim Subscriben!");
 				}
 			}
-			//In einer Variable zwischenspeichern.
 			showSubscriptionsList();
 			btnSubscribeSA.setEnabled(false);
 			btnSubscribeSA.setToolTipText("Sie bekommen bereits Benachrichtigungen!");
@@ -1475,13 +1475,23 @@ public class GUI
 							e.printStackTrace();
 						}
 
-					/*TODO: Publishen - Ok Button übernimmt eingegebenen Werte und macht nen Post*/
-					
+					resetInsertsFieldsE();
 				}
 			});
     	}
 
-    
+    public static void resetInsertsFieldsE(){
+    	fieldBeschrE.setText("");
+    	AreaInfoE.setText("");
+    	fieldNiveauE.setText("");
+    	fieldVorraussetzungenE.setText("");
+    	dropdownDayE.setSelectedIndex(0);
+    	dropdownMonthE.setSelectedIndex(0);
+    	dropdownYearE.setSelectedIndex(0);
+    	dropdownHourE.setSelectedIndex(0);
+    	dropdownMinuteE.setSelectedIndex(0);
+    	dropdownGebäudeE.setSelectedIndex(0);
+    }
     /***************Button neue V abbrechen***********
      * Das Erstellen der vVeranstaltung wird abgebrochen
      *
@@ -1499,8 +1509,7 @@ public class GUI
 					hideLabelsFields();
 					showAreaVSG();
 					btnAbortNew.setVisible(false);
-					
-					
+					resetInsertsFieldsE();
 				}
 			});
     	}
@@ -1753,16 +1762,32 @@ public class GUI
     public static void showBtnDelete(){
     		
     		btnDeleteV.setVisible(true);
-        	
+
+    		
         	btnDeleteV.addActionListener(new ActionListener() {
     			
     			public void actionPerformed(ActionEvent BtnAbortEdite) {
     				
     				showAreaVSG();
-    				//TODO: Löschen einer Veranstaltung
-					btnEditV.setVisible(false);
+    				if(csv.deleteVeranstaltung(String.valueOf(sportgruppenIndex),
+    						String.valueOf(sportartenIndex),
+    						String.valueOf(veranstaltungenIndex))){
+    					
+							try {
+								//Neuste Meldungen immer ganz oben.
+								AreaAllgemeinPanelV.getDocument().insertString(0, "Veranstaltung wurde gelöscht!\n", null);
+							} catch (BadLocationException e) {
+								System.out.println("Fehler beim Löschen der Veranstaltung");
+								e.printStackTrace();
+							}
+    				}
+    				AreaVSG.setText(csv.getSportart(String.valueOf(sportgruppenIndex), String.valueOf(sportartenIndex)));
+    				labelAreaVSG.setText("Sportart: " + csv.getSportartElement(String.valueOf(sportgruppenIndex),
+    						String.valueOf(sportartenIndex)).getSName());
+    				veranstaltungenIndex = -1;
+    				btnEditV.setVisible(false);
 					btnDeleteV.setVisible(false);
-
+					//TODO: Dropdown-Feld "Veranstaltung" sowie zugehöriges Label ausblenden.
     				
     			}
     		});	
