@@ -1730,15 +1730,14 @@ public class GUI
     
     public static void showBtnEdit(){
     		
-    		btnEditV.setVisible(true);
-        	
-        	
+    		btnEditV.setVisible(true);	
         	btnEditV.addActionListener(new ActionListener() {
 				
 				public void actionPerformed(ActionEvent BtnEdite) {
 					String beschreibung, info, niveau, voraussetzungen;
 					XMLGregorianCalendar date, time;
 					int jahr;
+					AreInfoAE.setEditable(true);
 					
 					hideAreaVSG();
 					showTextfieldsVAendern();
@@ -1795,10 +1794,25 @@ public class GUI
 				showAreaVSG();
 				showBtnEdit();
 				showBtnDelete();
+				
+				//resetInsertsFieldsAE();
 			}
 		});
 	}
     	
+    public static void resetInsertsFieldsAE(){
+    	fieldBeschrAE.setText("");
+    	AreInfoAE.setText("");
+    	fieldNiveauAE.setText("");
+    	fieldVorraussetzungenAE.setText("");
+    	dropdownDayAE.setSelectedIndex(0);
+    	dropdownMonthAE.setSelectedIndex(0);
+    	dropdownYearAE.setSelectedIndex(0);
+    	dropdownHourAE.setSelectedIndex(0);
+    	dropdownMinuteAE.setSelectedIndex(0);
+    	dropdownGebäudeAE.setSelectedIndex(0);
+    }
+    
     /*******************Button Löschen einer Veranstaltung*************
      *Der Button erscheint.
      *Bei Klick wird die aktuelle Veranstaltung geladen
@@ -1852,6 +1866,10 @@ public class GUI
 				
 				public void actionPerformed(ActionEvent BtnEditOKe) {
 				
+					String beschreibung, info, niveau, voraussetzungen;
+					XMLGregorianCalendar date, time;
+					Veranstaltung refreshV = new Veranstaltung();;
+					
 					hideFieldsEditV();
 					hideLabelsFields();
 					hideBtnEditOK();
@@ -1859,9 +1877,47 @@ public class GUI
 					showAreaVSG();				
 					showBtnEdit();
 					showBtnDelete();
-					/*TODO: Veranstaltung aktualisieren*/
-
 					
+					beschreibung = fieldBeschrAE.getText();
+					info = AreInfoAE.getText();
+					niveau = fieldNiveauAE.getText();
+					voraussetzungen = fieldVorraussetzungenAE.getText();
+					
+					try {
+						date = csv.buildXMLDate(Integer.parseInt(dropdownYearAE.getSelectedItem().toString()),
+								Integer.parseInt(dropdownMonthAE.getSelectedItem().toString()),
+								Integer.parseInt(dropdownDayAE.getSelectedItem().toString()));
+						
+						time = csv.buildXMLTime(Integer.parseInt(dropdownHourAE.getSelectedItem().toString()),
+								Integer.parseInt(dropdownMinuteAE.getSelectedItem().toString()));
+						
+						refreshV = csv.buildVeranstaltung(beschreibung, info, date, time, niveau,
+								voraussetzungen, "0", "0");
+						
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+					} catch (DatatypeConfigurationException e) {
+						e.printStackTrace();
+					}
+					
+					if(csv.putVeranstaltung(String.valueOf(sportgruppenIndex),
+							String.valueOf(sportartenIndex),
+							String.valueOf(veranstaltungenIndex), refreshV)){
+						
+						try {
+							AreaAllgemeinPanelV.getDocument().insertString(0, "Veranstaltung wurde geändert!\n", null);
+						} catch (BadLocationException e) {
+							e.printStackTrace();
+						}
+						
+					}
+					
+					
+//					dropdownHourAE.setVisible(true);
+//					dropdownMinuteAE.setVisible(true);
+//					fieldNiveauAE.setVisible(true);
+//					fieldVorraussetzungenAE.setVisible(true);
+//					dropdownGebäudeAE.setVisible(true);					
 				}
 			});
     	}  
