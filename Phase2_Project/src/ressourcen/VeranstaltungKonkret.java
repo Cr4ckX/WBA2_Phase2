@@ -153,7 +153,7 @@ public class VeranstaltungKonkret {
 							
 							int aktuelleVeranstaltungId = Integer.parseInt(v.getId());
 							aktuelleVeranstaltungId = aktuelleVeranstaltungId + 1;
-							System.out.print(aktuelleVeranstaltungId);
+							//System.out.print(aktuelleVeranstaltungId);
 							if (v.getId().equals(vstId) && v.isDeleted() == false){
 								
 								 //ID wird vom Client bestimmt.
