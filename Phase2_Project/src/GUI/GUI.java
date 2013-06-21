@@ -616,13 +616,14 @@ public class GUI
          	AreInfoAE.setText("");
          	AreInfoAE.setLineWrap(true);
          	AreInfoAE.setWrapStyleWord(true);
+         	AreInfoAE.setEditable(true);
          	scrollpaneAreaInfoAE = new JScrollPane(AreInfoAE); 
          	scrollpaneAreaInfoAE.setBounds(650, 130, 300, 50);
          	scrollpaneAreaInfoAE.setToolTipText("Geben Sie eine Info bezüglich ihrer Beschreibung ein");
-         	scrollpaneAreaInfoAE.setVisible(false);
             panelVV.add(scrollpaneAreaInfoAE);
-        	
-    		
+         	scrollpaneAreaInfoAE.setVisible(false);
+
+         	
         	final String[] DropDownDayAE = new String[] {"01", "02","03","04","05","06","07","08", "09","10","11","12","13", "14","15","16","17","18","19","20","21","22","23", "24","25","26","27","28","29","30","31"};
         	dropdownDayAE = new JComboBox(DropDownDayAE);
         	dropdownDayAE.setBounds(650, 200, 80, 30);
@@ -1737,6 +1738,7 @@ public class GUI
 				public void actionPerformed(ActionEvent BtnEdite) {
 					String beschreibung, info, niveau, voraussetzungen;
 					XMLGregorianCalendar date, time;
+					int jahr;
 					
 					hideAreaVSG();
 					showTextfieldsVAendern();
@@ -1752,15 +1754,16 @@ public class GUI
 					
 					date = v.getVDatum();
 					time = v.getVUhrzeit();
+					jahr = date.getYear();
 					
 					fieldBeschrAE.setText(beschreibung);
 					AreInfoAE.setText(info);
 					fieldNiveauAE.setText(niveau);
 					fieldVorraussetzungenAE.setText(voraussetzungen);
 					
-					dropdownDayAE.setSelectedItem(date.getDay());
-					dropdownMonthAE.setSelectedItem(date.getMonth());
-					dropdownYearAE.setSelectedItem(date.getYear());
+					dropdownDayAE.setSelectedIndex(date.getDay()-1);
+					dropdownMonthAE.setSelectedIndex(date.getMonth()-1);
+					dropdownYearAE.setSelectedItem((String.valueOf(jahr))); 
 					
 					dropdownMinuteAE.setSelectedIndex(time.getMinute());
 					dropdownHourAE.setSelectedIndex(time.getHour());
