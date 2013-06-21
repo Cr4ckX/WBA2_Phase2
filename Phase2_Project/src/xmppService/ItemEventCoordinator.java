@@ -116,6 +116,8 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
     	VeranstaltungenM deletedVeranstaltungen = cr.getVeranstaltungen(sportgruppeId, sportartId, true);
     	Sportart newSportList = cr.getSportart(sportgruppeId, sportartId);
     	
+    	meldung = "Es wurde eine Veranstaltung aus der Sportart " + newSportList.getSName() + " gelšscht.";
+    	
     	for(Veranstaltung veranstaltung : deletedVeranstaltungen.getVeranstaltung()){
     		if(veranstaltung.getId().equals(veranstaltungId)){
     			nameOfDeletedVeranstaltungen = veranstaltung.getVBeschreibung();
