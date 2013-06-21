@@ -128,7 +128,6 @@ public class CombinedServicesVeranstalter{
 		
 		if(initialized == true){		
 			deleted = cr.deleteVeranstaltung(sportgruppeId, sportartId, veranstaltungId);
-			System.out.println(deleted);
 			if(deleted == true){
 				payloadVeranstaltung = "<D"+sportgruppeId+sportartId+veranstaltungId+"/>";
 				payloadSportart = "<N"+sportgruppeId+sportartId+veranstaltungId+"/>";

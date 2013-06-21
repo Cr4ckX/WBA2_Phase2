@@ -227,7 +227,7 @@ public class VeranstaltungKonkret {
 						 for (int m = 0; m < s.getVeranstaltungenM().getVeranstaltung().size(); m++){
 							 Veranstaltung v = (Veranstaltung) s.getVeranstaltungenM().getVeranstaltung().get(m);
 							 
-							 System.out.println("†bergebene ID: "+ vstId + ", Veranstaltung-ID: " + v.getId());
+							 //System.out.println("†bergebene ID: "+ vstId + ", Veranstaltung-ID: " + v.getId());
 							 if (vstId.equals(v.getId()))
 							 {
 								 //Remove erwartet Index, nicht ID ! (Deswegen rm(m)!)
