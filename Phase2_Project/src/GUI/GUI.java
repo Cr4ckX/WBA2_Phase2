@@ -132,7 +132,7 @@ public class GUI
    			labelAreaVSG.setText("Sportart: " +labelInfo);
    			AreaVSG.setText(info);
    			
-   			showButtonNewV();
+   			showBtnNewV();
    			
    			if (countVV >0){
 //					hideAreaVSG();
@@ -141,7 +141,7 @@ public class GUI
    			}
    			
    			if (countNew > 0){
-				hideFieldsNewV();
+				hideTextfieldsVErstellen();
 				hideLabelsFields();
 			}
    			
@@ -189,7 +189,7 @@ public class GUI
    			countVV++;
    			
    			if (countNew > 0){
-   				hideFieldsNewV();
+   				hideTextfieldsVErstellen();
    				hideLabelsFields();
    			}
    		}
@@ -288,6 +288,28 @@ public class GUI
 		}
 	};
 	
+	static ActionListener BtnAbortEditListen = new ActionListener(){
+
+		@Override
+		public void actionPerformed(ActionEvent BtnAbortEdite) {
+			hideTextfieldsVAendern();
+			hideLabelsFields();
+			hideBtnEditOK();
+			hideBtnEditAbort();
+			showAreaVSG();
+			showBtnEdit();
+			showBtnDelete();
+			/*
+			AreaInfoAE.setEditable(true);
+			AreaInfoAE.validate();
+			AreaInfoAE.repaint();
+			scrollpaneAreaInfoAE.repaint();
+			scrollpaneAreaInfoAE.validate();
+			*/
+			//resetInsertsFieldsAE();
+		}
+	};
+	
 	/********************************************/
 	/**************Interessent*******************/
 	/********************************************/
@@ -300,7 +322,7 @@ public class GUI
 	private static JTextArea AreaSG, AreaV, AreaO;
 	
 	private static JButton btnSubscribeSA, btnUnsubscribeSA,
-		btnUnsubscribeV, btnSubscribeV, btnzurueckSG, btnzurueckVS, btnzurueckO, btnEditOK;  
+		btnzurueckSG, btnzurueckVS, btnzurueckO, btnEditOK;  
 	private static JList subscriptions;
 	
 	
@@ -311,26 +333,25 @@ public class GUI
 		btnUnsubscribeE, btnUnsubscribeG, btnZurueckVV, btnNewV, btnNewOK, 
 		btnAbortEdit, btnAbortNew;
 	
-	private static JLabel labelVSG, labelAreaVV, labelAreaVSG, labelAreaVSA, 
+	private static JLabel labelVSG, labelAreaVSG, 
 		labelVSA, labelVV, labelVEBeschr, labelVEInfo, labelVEDatum, 
 		labelVEUhrzeit, labelVENiveau, labelVEVorraussetungen, labelVEGebäude,
 		labelAreaAllgSGV, labelAreaAllgVV, 
-		labelAreaAllgV, labelAreaAllgSA, labelAreaAllgVS, labelAreaAllgO;		
+		labelAreaAllgVS, labelAreaAllgO;		
 	private static JComboBox dropdownVSG, dropdownVSA, dropdownVV, dropdownDayE, 
 		dropdownMonthE, dropdownYearE, dropdownHourE, dropdownMinuteE, 
 		dropdownGebäudeE, 
 		dropdownDayAE, dropdownMonthAE, dropdownYearAE, dropdownHourAE, 
 		dropdownMinuteAE, dropdownGebäudeAE;
-	private static JTextArea AreaVV, AreaVSG, AreaVSA, AreaInfoE, AreInfoAE, 
-		AreaAllgemeinPanelV, AreaAllgemeinSG, AreaAllgemeinVS,AreaAllgemeinO,
-		AreaAllgemeinSA, AreaAllgemeinV;
+	private static JTextArea AreaVSG, AreaInfoE,AreaInfoAE, 
+		AreaAllgemeinPanelV, AreaAllgemeinSG, AreaAllgemeinVS,AreaAllgemeinO;
 	
 	private static JTextField fieldBeschrE, fieldNiveauE, fieldBeschrAE,
 		fieldVorraussetzungenE, fieldNiveauAE, fieldVorraussetzungenAE;	
 
 	private static JScrollPane scrollpaneAreaInfoE, scrollpaneAreaAllg, 
 		scrollpaneAreaInfoAE, scrollpaneAreaAllgSG, scrollpaneAreaAllgVS, 
-		scrollpaneAreaAllgO, scrollpaneAreaAllgSA, scrollpaneAreaAllgV;
+		scrollpaneAreaAllgO;
 	
 	/********************************************/
 	/**************KlickCounter******************/
@@ -338,6 +359,8 @@ public class GUI
 	static int countVV = 0;
 	static int countNew = 0;
 	static int countSA = 0;
+	static int countAbbrechen = 0;
+	static int countAendern = 0;
 		
 	final static JFrame fenster1 = new JFrame("Herzlich Willkommen");
 	final static JFrame fenster2 = new JFrame("Herzlich Willkommen");
@@ -611,17 +634,17 @@ public class GUI
         	panelVV.add(fieldBeschrAE);
         	panelVV.validate();
         	
-    		
-        	AreInfoAE = new JTextArea(5, 20);
-         	AreInfoAE.setText("");
-         	AreInfoAE.setLineWrap(true);
-         	AreInfoAE.setWrapStyleWord(true);
-         	AreInfoAE.setEditable(true);
-         	scrollpaneAreaInfoAE = new JScrollPane(AreInfoAE); 
-         	scrollpaneAreaInfoAE.setBounds(650, 130, 300, 50);
-         	scrollpaneAreaInfoAE.setToolTipText("Geben Sie eine Info bezüglich ihrer Beschreibung ein");
-            panelVV.add(scrollpaneAreaInfoAE);
-         	scrollpaneAreaInfoAE.setVisible(false);
+    				
+			AreaInfoAE = new JTextArea(5, 20);
+        	AreaInfoAE.setText("");
+        	AreaInfoAE.setEditable(true);
+        	 AreaInfoAE.setLineWrap(true);
+        	 AreaInfoAE.setWrapStyleWord(true);
+             scrollpaneAreaInfoAE = new JScrollPane(AreaInfoAE); 
+          	 scrollpaneAreaInfoAE.setBounds(650, 130, 300, 50);
+          	 scrollpaneAreaInfoAE.setToolTipText("Geben Sie Informationen bezüglich der Informationen ein");
+             panelVV.add(scrollpaneAreaInfoAE);
+             scrollpaneAreaInfoAE.setVisible(false);
 
          	
         	final String[] DropDownDayAE = new String[] {"01", "02","03","04","05","06","07","08", "09","10","11","12","13", "14","15","16","17","18","19","20","21","22","23", "24","25","26","27","28","29","30","31"};
@@ -948,6 +971,11 @@ public class GUI
     		labelVS.setVisible(true);
     		dropdownVS.setVisible(true);   	
     	}
+    
+    public static void hideDropDownVS(){
+		dropdownVS.setVisible(false);
+		labelVS.setVisible(false);
+	}
 
     /**************************DropdownO********************
      * Das Dropdown mit den Orten wird angezeigt.
@@ -1439,7 +1467,7 @@ public class GUI
 				
 				public void actionPerformed(ActionEvent BtnOKe) {
 					
-					hideFieldsNewV();
+					hideTextfieldsVErstellen();
 					hideLabelsFields();
 					showAreaVSG();
 					btnAbortNew.setVisible(false);
@@ -1514,7 +1542,7 @@ public class GUI
 				
 				public void actionPerformed(ActionEvent BtnNewAborte) {
 					
-					hideFieldsNewV();
+					hideTextfieldsVErstellen();
 					hideLabelsFields();
 					showAreaVSG();
 					btnAbortNew.setVisible(false);
@@ -1530,7 +1558,7 @@ public class GUI
      * Der Button wird erstellt und positioniert.
      *Sobald er gedrpckt wird werden die Fields geladen
      * ****************************************************************/
-    public static void showButtonNewV(){
+    public static void showBtnNewV(){
     		
         	btnNewV.setVisible(true);
         	
@@ -1556,6 +1584,10 @@ public class GUI
         	
     	}
 
+    public static void hideBtnNewV(){
+		btnNewV.setVisible(false);
+    }
+   
     
     /***************Area zur Darstellung der Werte in der XML***********
      * 
@@ -1569,12 +1601,14 @@ public class GUI
      *
      * ****************************************************************/
     public static void showAreaVSG(){
-    	
     	labelAreaVSG.setVisible(true);
     	AreaVSG.setVisible(true);
-
-            
-    	}
+    }
+    
+    public static void hideAreaVSG(){
+		AreaVSG.setVisible(false);
+		labelAreaVSG.setVisible(false);
+	}
     	
     /**************************DropdownVSG********************
      *Das Dropdown mit den Sportgruppen wird angezeigt.
@@ -1628,11 +1662,11 @@ public class GUI
         				}
         				
         				if (countNew > 0){
-        					hideFieldsNewV();
+        					hideTextfieldsVErstellen();
         					hideLabelsFields();
         				}
         				
-        				hideBtnAbortEdit();
+        				hideBtnEditAbort();
         				hideBtnDelete();
         				hideBtnEdit();
         				
@@ -1719,6 +1753,11 @@ public class GUI
         	dropdownVV.addActionListener(DropDownVVListen);
         	
     	}
+    
+    public static void hideDropDownVV(){
+		dropdownVV.setVisible(false);
+		labelVV.setVisible(false);
+	}
     	
     
     /*******************Button Ändern einer Veranstaltung*************
@@ -1734,10 +1773,18 @@ public class GUI
         	btnEditV.addActionListener(new ActionListener() {
 				
 				public void actionPerformed(ActionEvent BtnEdite) {
+					
+					
 					String beschreibung, info, niveau, voraussetzungen;
 					XMLGregorianCalendar date, time;
 					int jahr;
-					AreInfoAE.setEditable(true);
+					/*
+					AreaInfoAE.setEditable(true);
+					AreaInfoAE.validate();
+					AreaInfoAE.repaint();
+					scrollpaneAreaInfoAE.repaint();
+					scrollpaneAreaInfoAE.validate();
+					*/
 					
 					hideAreaVSG();
 					showTextfieldsVAendern();
@@ -1756,7 +1803,15 @@ public class GUI
 					jahr = date.getYear();
 					
 					fieldBeschrAE.setText(beschreibung);
-					AreInfoAE.setText(info);
+					AreaInfoAE.setText(info);
+					/*
+					AreaInfoAE.setEditable(true);
+					AreaInfoAE.validate();
+					AreaInfoAE.repaint();
+					scrollpaneAreaInfoAE.repaint();
+					scrollpaneAreaInfoAE.validate();
+					*/
+					
 					fieldNiveauAE.setText(niveau);
 					fieldVorraussetzungenAE.setText(voraussetzungen);
 					
@@ -1771,38 +1826,40 @@ public class GUI
 					btnDeleteV.setVisible(false);
 //					hideBtnAbortEdit();
 					showBtnEditOK();
-					showBtnAbortEdit();
+					showBtnEditAbort();
 					
 				}
 			});
     	}
+    
+    public static void hideBtnEdit(){
+		
+		btnEditV.setVisible(false);
+	}
 
     /************Button Ändern einer Veranstaltung Abbrechen*************
      *Der Button erscheint.
      */
-    public static void showBtnAbortEdit(){
+    public static void showBtnEditAbort(){
 		
 		btnAbortEdit.setVisible(true);
-    	
-    	btnAbortEdit.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent BtnAbortEdite) {
-				hideFieldsEditV();
-				hideLabelsFields();
-				hideBtnEditOK();
-				hideBtnAbortEdit();
-				showAreaVSG();
-				showBtnEdit();
-				showBtnDelete();
-				
-				//resetInsertsFieldsAE();
-			}
-		});
+    	btnAbortEdit.addActionListener(BtnAbortEditListen);
+	}
+    
+    public static void hideBtnEditAbort(){
+		
+		btnAbortEdit.setVisible(false);
+		//AreaInfoAE.setEditable(true);
 	}
     	
     public static void resetInsertsFieldsAE(){
     	fieldBeschrAE.setText("");
-    	AreInfoAE.setText("");
+    	AreaInfoAE.setText("");
+    	/*
+		AreaInfoAE.setEditable(true);
+		scrollpaneAreaInfoAE.validate();
+		scrollpaneAreaInfoAE.repaint();
+		*/
     	fieldNiveauAE.setText("");
     	fieldVorraussetzungenAE.setText("");
     	dropdownDayAE.setSelectedIndex(0);
@@ -1851,6 +1908,12 @@ public class GUI
     			}
     		});	
     	} 
+    
+    public static void hideBtnDelete(){
+		
+		btnDeleteV.setVisible(false);
+		
+	}
     	
     
     /***********Button Ändern einer Veranstaltung Bestätigen*************
@@ -1870,16 +1933,25 @@ public class GUI
 					XMLGregorianCalendar date, time;
 					Veranstaltung refreshV = new Veranstaltung();;
 					
-					hideFieldsEditV();
+					hideTextfieldsVAendern();
 					hideLabelsFields();
 					hideBtnEditOK();
-					hideBtnAbortEdit();
+					hideBtnEditAbort();
 					showAreaVSG();				
 					showBtnEdit();
 					showBtnDelete();
 					
+					
+					
 					beschreibung = fieldBeschrAE.getText();
-					info = AreInfoAE.getText();
+					info = AreaInfoAE.getText();
+					/*
+					AreaInfoAE.setEditable(true);
+					AreaInfoAE.validate();
+					AreaInfoAE.repaint();
+					scrollpaneAreaInfoAE.repaint();
+					scrollpaneAreaInfoAE.validate();
+					 */
 					niveau = fieldNiveauAE.getText();
 					voraussetzungen = fieldVorraussetzungenAE.getText();
 					
@@ -1921,6 +1993,10 @@ public class GUI
 				}
 			});
     	}  
+    
+    public static void hideBtnEditOK(){
+		btnEditOK.setVisible(false);
+	}
     	
     
     /*******************Labels der Fields einblenden**************/
@@ -1934,16 +2010,23 @@ public class GUI
 		labelVENiveau.setVisible(true);
 		labelVEVorraussetungen.setVisible(true);
 		labelVEGebäude.setVisible(true);
+    }
+    
+    public static void hideLabelsFields(){
 		
-    		
-    	}
+		labelVEBeschr.setVisible(false);
+		labelVEInfo.setVisible(false);
+    	labelVEDatum.setVisible(false);
+		labelVEUhrzeit.setVisible(false);
+    	labelVENiveau.setVisible(false);
+    	labelVEVorraussetungen.setVisible(false);
+    	labelVEGebäude.setVisible(false);	
+	}
    
     
     /*******************TextFields zur Erstellung einblenden**************/
     public static void showTextfieldsVErstellen(){
     		
-        	showLabelsFields();
-
     		showLabelsFields();
     		fieldBeschrE.setVisible(true);
             scrollpaneAreaInfoE.setVisible(true);
@@ -1955,10 +2038,30 @@ public class GUI
         	fieldNiveauE.setVisible(true);
         	fieldVorraussetzungenE.setVisible(true);
         	dropdownGebäudeE.setVisible(true);
-        	
-        
+
     	}
     	
+    public static void hideTextfieldsVErstellen(){
+		labelVEBeschr.setVisible(false);
+		fieldBeschrE.setVisible(false);
+		labelVEInfo.setVisible(false);
+		scrollpaneAreaInfoE.setVisible(false);
+		labelVEDatum.setVisible(false);
+		dropdownDayE.setVisible(false);
+		dropdownMonthE.setVisible(false);
+		dropdownYearE.setVisible(false);
+		labelVEUhrzeit.setVisible(false);
+		dropdownHourE.setVisible(false);
+		dropdownMinuteE.setVisible(false);
+		labelVEGebäude.setVisible(false);
+		dropdownGebäudeE.setVisible(false);
+		labelVENiveau.setVisible(false);
+		fieldNiveauE.setVisible(false);
+		labelVEVorraussetungen.setVisible(false);
+		fieldVorraussetzungenE.setVisible(false);
+		btnNewOK.setVisible(false);
+		
+	}
     	
     /**************Meldungen bezüglich Publishen/Subscriben**********
      *Unten links Area
@@ -1995,8 +2098,8 @@ public class GUI
     		
     		showLabelsFields();
     		fieldBeschrAE.setVisible(true);
-        	scrollpaneAreaInfoAE.setVisible(true);
-            dropdownDayAE.setVisible(true);
+            scrollpaneAreaInfoAE.setVisible(true);
+        	dropdownDayAE.setVisible(true);
         	dropdownMonthAE.setVisible(true);
         	dropdownYearAE.setVisible(true);
         	dropdownHourAE.setVisible(true);
@@ -2004,93 +2107,38 @@ public class GUI
         	fieldNiveauAE.setVisible(true);
         	fieldVorraussetzungenAE.setVisible(true);
         	dropdownGebäudeAE.setVisible(true);
-        	
     	}
     	
-    public static void hideBtnNewV(){
-    		btnNewV.setVisible(false);
-    		
-    	}
     
-    public static void hideDropDownVV(){
+    public static void hideTextfieldsVAendern(){
+		fieldBeschrAE.setVisible(false);
+		AreaInfoAE.setVisible(false);
+		dropdownDayAE.setVisible(false);
+		scrollpaneAreaInfoAE.setVisible(false);
+		dropdownMonthAE.setVisible(false);
+		dropdownYearAE.setVisible(false);
+		dropdownHourAE.setVisible(false);
+		dropdownMinuteAE.setVisible(false);
+		dropdownGebäudeAE.setVisible(false);
+		fieldNiveauAE.setVisible(false);
+		fieldVorraussetzungenAE.setVisible(false);
 		
-		dropdownVV.setVisible(false);
-		labelVV.setVisible(false);
 	}
+   
     
-    public static void hideDropDownVS(){
-    		
-    		dropdownVS.setVisible(false);
-    		labelVS.setVisible(false);
-    	}
-    public static void hideAreaVSG(){
-    		
-    		AreaVSG.setVisible(false);
-    		labelAreaVSG.setVisible(false);
-    	}
-    public static void hideBtnDelete(){
-    		
-    		btnDeleteV.setVisible(false);
-    		
-    	}
-    public static void hideBtnEdit(){
-    		
-    		btnEditV.setVisible(false);
-    	}
-    public static void hideBtnAbortEdit(){
-    		
-    		btnAbortEdit.setVisible(false);
-    		
-    	}
-    public static void hideFieldsEditV(){
-    		fieldBeschrAE.setVisible(false);
-    		AreInfoAE.setVisible(false);
-    		dropdownDayAE.setVisible(false);
-    		scrollpaneAreaInfoAE.setVisible(false);
-    		dropdownMonthAE.setVisible(false);
-    		dropdownYearAE.setVisible(false);
-    		dropdownHourAE.setVisible(false);
-    		dropdownMinuteAE.setVisible(false);
-    		dropdownGebäudeAE.setVisible(false);
-    		fieldNiveauAE.setVisible(false);
-    		fieldVorraussetzungenAE.setVisible(false);
-    		
-    	}
-    public static void hideFieldsNewV(){
-    		labelVEBeschr.setVisible(false);
-    		fieldBeschrE.setVisible(false);
-    		labelVEInfo.setVisible(false);
-    		scrollpaneAreaInfoE.setVisible(false);
-    		labelVEDatum.setVisible(false);
-    		dropdownDayE.setVisible(false);
-    		dropdownMonthE.setVisible(false);
-    		dropdownYearE.setVisible(false);
-    		labelVEUhrzeit.setVisible(false);
-    		dropdownHourE.setVisible(false);
-    		dropdownMinuteE.setVisible(false);
-    		labelVEGebäude.setVisible(false);
-    		dropdownGebäudeE.setVisible(false);
-    		labelVENiveau.setVisible(false);
-    		fieldNiveauE.setVisible(false);
-    		labelVEVorraussetungen.setVisible(false);
-    		fieldVorraussetzungenE.setVisible(false);
-    		btnNewOK.setVisible(false);
-    		
-    	}
-    public static void hideBtnEditOK(){
-    		btnEditOK.setVisible(false);
-    	}
-    public static void hideLabelsFields(){
-    		
-    		labelVEBeschr.setVisible(false);
-    		labelVEInfo.setVisible(false);
-        	labelVEDatum.setVisible(false);
-    		labelVEUhrzeit.setVisible(false);
-        	labelVENiveau.setVisible(false);
-        	labelVEVorraussetungen.setVisible(false);
-        	labelVEGebäude.setVisible(false);
-    		
-    	}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     /***************(Un-)Subscribe Equipment und Gebäude***********
     * 
