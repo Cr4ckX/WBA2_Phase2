@@ -375,6 +375,67 @@ public class GUI
 		}
 	};
 	
+	static ActionListener BtnEditOkListen = new ActionListener() {
+		
+		public void actionPerformed(ActionEvent BtnEditOKe) {
+		
+			String beschreibung, info, niveau, voraussetzungen;
+			XMLGregorianCalendar date, time;
+			Veranstaltung refreshV = new Veranstaltung();;
+			
+			hideTextfieldsVAendern();
+			hideLabelsFields();
+			hideBtnEditOK();
+			hideBtnEditAbort();
+			showAreaVSG();				
+			showBtnEdit();
+			showBtnDelete();
+			
+			
+			
+			beschreibung = fieldBeschrAE.getText();
+			info = AreaInfoAE.getText();
+			/*
+			AreaInfoAE.setEditable(true);
+			AreaInfoAE.validate();
+			AreaInfoAE.repaint();
+			scrollpaneAreaInfoAE.repaint();
+			scrollpaneAreaInfoAE.validate();
+			 */
+			niveau = fieldNiveauAE.getText();
+			voraussetzungen = fieldVorraussetzungenAE.getText();
+			
+			try {
+				date = csv.buildXMLDate(Integer.parseInt(dropdownYearAE.getSelectedItem().toString()),
+						Integer.parseInt(dropdownMonthAE.getSelectedItem().toString()),
+						Integer.parseInt(dropdownDayAE.getSelectedItem().toString()));
+				
+				time = csv.buildXMLTime(Integer.parseInt(dropdownHourAE.getSelectedItem().toString()),
+						Integer.parseInt(dropdownMinuteAE.getSelectedItem().toString()));
+				
+				refreshV = csv.buildVeranstaltung(beschreibung, info, date, time, niveau,
+						voraussetzungen, "0", "0");
+				
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (DatatypeConfigurationException e) {
+				e.printStackTrace();
+			}
+			
+			if(csv.putVeranstaltung(String.valueOf(sportgruppenIndex),
+					String.valueOf(sportartenIndex),
+					String.valueOf(veranstaltungenIndex), refreshV)){
+				
+				try {
+					AreaAllgemeinPanelV.getDocument().insertString(0, "Veranstaltung wurde geändert!\n", null);
+				} catch (BadLocationException e) {
+					e.printStackTrace();
+				}
+				
+			}				
+		}
+	};
+	
 	/********************************************/
 	/**************Interessent*******************/
 	/********************************************/
@@ -806,6 +867,7 @@ public class GUI
         	btnEditOK = new JButton("Übernehmen");
     		btnEditOK.setBounds(800, 450, 150, 25);
     		btnEditOK.setVisible(false);
+    		btnEditOK.addActionListener(BtnEditOkListen);
         	panelVV.add(btnEditOK);
         	panelVV.validate();
         	panelVV.repaint();
@@ -1941,68 +2003,6 @@ public class GUI
     public static void showBtnEditOK(){
     		
     		btnEditOK.setVisible(true);
-        	
-        	
-        	btnEditOK.addActionListener(new ActionListener() {
-				
-				public void actionPerformed(ActionEvent BtnEditOKe) {
-				
-					String beschreibung, info, niveau, voraussetzungen;
-					XMLGregorianCalendar date, time;
-					Veranstaltung refreshV = new Veranstaltung();;
-					
-					hideTextfieldsVAendern();
-					hideLabelsFields();
-					hideBtnEditOK();
-					hideBtnEditAbort();
-					showAreaVSG();				
-					showBtnEdit();
-					showBtnDelete();
-					
-					
-					
-					beschreibung = fieldBeschrAE.getText();
-					info = AreaInfoAE.getText();
-					/*
-					AreaInfoAE.setEditable(true);
-					AreaInfoAE.validate();
-					AreaInfoAE.repaint();
-					scrollpaneAreaInfoAE.repaint();
-					scrollpaneAreaInfoAE.validate();
-					 */
-					niveau = fieldNiveauAE.getText();
-					voraussetzungen = fieldVorraussetzungenAE.getText();
-					
-					try {
-						date = csv.buildXMLDate(Integer.parseInt(dropdownYearAE.getSelectedItem().toString()),
-								Integer.parseInt(dropdownMonthAE.getSelectedItem().toString()),
-								Integer.parseInt(dropdownDayAE.getSelectedItem().toString()));
-						
-						time = csv.buildXMLTime(Integer.parseInt(dropdownHourAE.getSelectedItem().toString()),
-								Integer.parseInt(dropdownMinuteAE.getSelectedItem().toString()));
-						
-						refreshV = csv.buildVeranstaltung(beschreibung, info, date, time, niveau,
-								voraussetzungen, "0", "0");
-						
-					} catch (NumberFormatException e) {
-						e.printStackTrace();
-					} catch (DatatypeConfigurationException e) {
-						e.printStackTrace();
-					}
-					
-					if(csv.putVeranstaltung(String.valueOf(sportgruppenIndex),
-							String.valueOf(sportartenIndex),
-							String.valueOf(veranstaltungenIndex), refreshV)){
-						
-						try {
-							AreaAllgemeinPanelV.getDocument().insertString(0, "Veranstaltung wurde geändert!\n", null);
-						} catch (BadLocationException e) {
-							e.printStackTrace();
-						}
-						
-					}				
-				}
-			});
     	}  
     
     public static void hideBtnEditOK(){
