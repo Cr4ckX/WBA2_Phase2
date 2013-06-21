@@ -1450,8 +1450,9 @@ public class GUI
 								dropdownMinuteE.getSelectedIndex());
 
 					
-					date = csv.buildXMLDate(dropdownYearE.getSelectedIndex(), 
-							dropdownMonthE.getSelectedIndex(), dropdownDayE.getSelectedIndex());
+					date = csv.buildXMLDate(Integer.parseInt(dropdownYearE.getSelectedItem().toString()), 
+							Integer.parseInt(dropdownMonthE.getSelectedItem().toString()),
+							Integer.parseInt(dropdownDayE.getSelectedItem().toString()));
 					
 					} catch (DatatypeConfigurationException e) {
 						System.out.println("Falsche Datum/Uhrzeit Daten!");
