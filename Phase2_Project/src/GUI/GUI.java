@@ -1790,6 +1790,8 @@ public class GUI
 				hideBtnEditOK();
 				hideBtnAbortEdit();
 				showAreaVSG();
+				showBtnEdit();
+				showBtnDelete();
 			}
 		});
 	}
@@ -1852,6 +1854,10 @@ public class GUI
 					hideBtnEditOK();
 					hideBtnAbortEdit();
 					showAreaVSG();				
+					showBtnEdit();
+					showBtnDelete();
+					/*TODO: Veranstaltung aktualisieren*/
+
 					
 				}
 			});
