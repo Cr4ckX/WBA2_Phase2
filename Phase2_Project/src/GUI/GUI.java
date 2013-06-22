@@ -320,14 +320,16 @@ public class GUI
 			btnAbortNew.setVisible(false);
 			XMLGregorianCalendar time = null, date = null;
 			
-			
+			dropdownVSA.removeActionListener(DropDownVSAListen);
 			try {
 			time = csv.buildXMLTime(dropdownHourE.getSelectedIndex(), 
 						dropdownMinuteE.getSelectedIndex());
 
+			int month = Integer.parseInt(dropdownMonthE.getSelectedItem().toString());
+			month --;
 			
 			date = csv.buildXMLDate(Integer.parseInt(dropdownYearE.getSelectedItem().toString()), 
-					Integer.parseInt(dropdownMonthE.getSelectedItem().toString()),
+					month,
 					Integer.parseInt(dropdownDayE.getSelectedItem().toString()));
 			
 			} catch (DatatypeConfigurationException e) {
@@ -372,6 +374,9 @@ public class GUI
 			hideDropDownVV();
 
 			resetInsertsFieldsE();
+			dropdownVSA.setSelectedIndex(-1);
+			dropdownVSA.addActionListener(DropDownVSAListen);
+
 		}
 	};
 	
@@ -404,10 +409,11 @@ public class GUI
 			 */
 			niveau = fieldNiveauAE.getText();
 			voraussetzungen = fieldVorraussetzungenAE.getText();
-			
+			int monat = Integer.parseInt(dropdownMonthAE.getSelectedItem().toString());
+			monat--;
 			try {
 				date = csv.buildXMLDate(Integer.parseInt(dropdownYearAE.getSelectedItem().toString()),
-						Integer.parseInt(dropdownMonthAE.getSelectedItem().toString()),
+						monat,
 						Integer.parseInt(dropdownDayAE.getSelectedItem().toString()));
 				
 				time = csv.buildXMLTime(Integer.parseInt(dropdownHourAE.getSelectedItem().toString()),
@@ -432,7 +438,11 @@ public class GUI
 					e.printStackTrace();
 				}
 				
-			}				
+			}	
+			
+			AreaVSG.setText(csv.getVeranstaltung(String.valueOf(sportgruppenIndex),
+					String.valueOf(sportartenIndex), 
+					String.valueOf(veranstaltungenIndex)));
 		}
 	};
 	
@@ -1634,7 +1644,12 @@ public class GUI
 					showAreaVSG();
 					btnAbortNew.setVisible(false);
 					resetInsertsFieldsE();
-					hideDropDownVV();
+					//hideDropDownVV();
+					dropdownVV.removeActionListener(DropDownVVListen);
+					dropdownVV.setSelectedIndex(-1);
+					dropdownVV.setVisible(true);
+					labelVV.setVisible(true);
+					
 				}
 			});
     	}
@@ -1717,6 +1732,7 @@ public class GUI
     		final String[] DropDownVSG = sportgruppenListe.toArray(new String[sportgruppenListe.size()]);
         	dropdownVSG = new JComboBox(DropDownVSG);
         	dropdownVSG.setBounds(10, 70, 200, 25);
+        	dropdownVSG.setSelectedIndex(-1);
         	panelVV.add(dropdownVSG);
         	
         	
@@ -1757,6 +1773,8 @@ public class GUI
         				hideBtnDelete();
         				hideBtnEdit();
         				
+        				labelVV.setVisible(false);
+        				dropdownVV.setVisible(false);
         				
         		}
 
@@ -1796,6 +1814,7 @@ public class GUI
     		for(String sportarten:sportartenListe){
     			dropdownVSA.addItem(sportarten);
     		}
+    		dropdownVSA.setSelectedIndex(-1);
     		dropdownVSA.setVisible(true);
            	dropdownVSA.addActionListener(DropDownVSAListen);
         }
@@ -1835,7 +1854,8 @@ public class GUI
     		
     		for(String veranstaltungen:veranstaltungenListe){
     			dropdownVV.addItem(veranstaltungen);
-    		}    		
+    		}    	
+    		dropdownVV.setSelectedIndex(-1);
     		dropdownVV.setVisible(true);        	
         	dropdownVV.addActionListener(DropDownVVListen);
         	
@@ -1860,7 +1880,7 @@ public class GUI
         	btnEditV.addActionListener(new ActionListener() {
 				
 				public void actionPerformed(ActionEvent BtnEdite) {
-										
+							
 					String beschreibung, info, niveau, voraussetzungen;
 					XMLGregorianCalendar date, time;
 					int jahr;
