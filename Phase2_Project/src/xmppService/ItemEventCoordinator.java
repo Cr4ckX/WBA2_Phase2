@@ -70,10 +70,13 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
         //A = add (post), R = refresh(put), D = delete, N = newSportgruppenlist
         for (String refresh:refreshList){
         	String temp = refresh;
+        	String[] splitString;
+        	splitString = temp.split("-");
+        	
         	if(temp.startsWith("A")){
-        		String spg_id = String.valueOf(temp.charAt(1)); // = Sportgruppe
-        		String spa_id = String.valueOf(temp.charAt(2)); // = Sportart
-        		String vst_id = String.valueOf(temp.charAt(3)); // = neue Veranstaltung
+        		String spg_id = splitString[1]; //String.valueOf(temp.charAt(1)); // = Sportgruppe
+        		String spa_id = splitString[2]; //String.valueOf(temp.charAt(2)); // = Sportart
+        		String vst_id = splitString[3]; //String.valueOf(temp.charAt(3)); // = neue Veranstaltung
         		try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
@@ -83,9 +86,9 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
         	}
         	
         	if(temp.startsWith("N")){
-        		String spg_id = String.valueOf(temp.charAt(1)); // = Sportgruppe
-        		String spa_id = String.valueOf(temp.charAt(2)); // = Sportart
-        		String vst_id = String.valueOf(temp.charAt(3)); // = aktualisierte/gelšschte Veranstaltung
+        		String spg_id = splitString[1]; //String.valueOf(temp.charAt(1)); // = Sportgruppe
+        		String spa_id = splitString[2]; //String.valueOf(temp.charAt(2)); // = Sportart
+        		String vst_id = splitString[3]; //String.valueOf(temp.charAt(3)); // = aktualisierte/gelšschte Veranstaltung
             	try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
@@ -95,9 +98,9 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
         	}
         	
         	if(temp.startsWith("R")){
-        		String spg_id = String.valueOf(temp.charAt(1)); // = Sportgruppe
-        		String spa_id = String.valueOf(temp.charAt(2)); // = Sportart
-        		String vst_id = String.valueOf(temp.charAt(3)); // = aktualisierte/gelšschte Veranstaltung
+        		String spg_id = splitString[1]; //String.valueOf(temp.charAt(1)); // = Sportgruppe
+        		String spa_id = splitString[2]; //String.valueOf(temp.charAt(2)); // = Sportart
+        		String vst_id = splitString[3]; //String.valueOf(temp.charAt(3)); // = aktualisierte/gelšschte Veranstaltung
             	try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
@@ -107,9 +110,9 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
         	} 
         	
         	if(temp.startsWith("D")){
-        		String spg_id = String.valueOf(temp.charAt(1)); // = Sportgruppe
-        		String spa_id = String.valueOf(temp.charAt(2)); // = Sportart
-        		String vst_id = String.valueOf(temp.charAt(3)); // = aktualisierte/gelšschte Veranstaltung
+        		String spg_id = splitString[1]; //String.valueOf(temp.charAt(1)); // = Sportgruppe
+        		String spa_id = splitString[2]; //String.valueOf(temp.charAt(2)); // = Sportart
+        		String vst_id = splitString[3]; //String.valueOf(temp.charAt(3)); // = aktualisierte/gelšschte Veranstaltung
             	try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
