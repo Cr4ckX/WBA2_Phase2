@@ -18,7 +18,12 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import servicesCombined.CombinedServicesInteressent;
 import servicesCombined.CombinedServicesVeranstalter;
 
- 
+ /**
+  * Bei dieser Klasse handelt es sich lediglich um die grafische Benutzeroberfläche,
+  * in der soweit keine weitere Logik implementiert ist.
+  * @author CrackX
+  *
+  */
 public class GUI 
 {
 	static CombinedServicesVeranstalter csv = new CombinedServicesVeranstalter();
