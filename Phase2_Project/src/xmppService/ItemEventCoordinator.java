@@ -78,7 +78,7 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
         		String spa_id = splitString[2]; //String.valueOf(temp.charAt(2)); // = Sportart
         		String vst_id = splitString[3]; //String.valueOf(temp.charAt(3)); // = neue Veranstaltung
         		try {
-					Thread.sleep(1000);
+					Thread.sleep(200);
 				} catch (InterruptedException e) {
 					System.out.println("Die Abonnenten-Liste kann fehlerhaft angezeigt werden");
 				}
@@ -90,7 +90,7 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
         		String spa_id = splitString[2]; //String.valueOf(temp.charAt(2)); // = Sportart
         		String vst_id = splitString[3]; //String.valueOf(temp.charAt(3)); // = aktualisierte/gelšschte Veranstaltung
             	try {
-					Thread.sleep(1000);
+					Thread.sleep(200);
 				} catch (InterruptedException e) {
 					System.out.println("Die Abonnenten-Liste kann fehlerhaft angezeigt werden");
 				}
@@ -102,7 +102,7 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
         		String spa_id = splitString[2]; //String.valueOf(temp.charAt(2)); // = Sportart
         		String vst_id = splitString[3]; //String.valueOf(temp.charAt(3)); // = aktualisierte/gelšschte Veranstaltung
             	try {
-					Thread.sleep(2000);
+					Thread.sleep(200);
 				} catch (InterruptedException e) {
 					System.out.println("Die Abonnenten-Liste kann fehlerhaft angezeigt werden");
 				}
@@ -114,7 +114,7 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
         		String spa_id = splitString[2]; //String.valueOf(temp.charAt(2)); // = Sportart
         		String vst_id = splitString[3]; //String.valueOf(temp.charAt(3)); // = aktualisierte/gelšschte Veranstaltung
             	try {
-					Thread.sleep(2000);
+					Thread.sleep(200);
 				} catch (InterruptedException e) {
 					System.out.println("Die Abonnenten-Liste kann fehlerhaft angezeigt werden");
 				}
