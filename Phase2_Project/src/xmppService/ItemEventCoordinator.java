@@ -41,6 +41,11 @@ import restService.ClientRest;
  *  Es wird also lediglich eine Meldung ausgegeben, der Benutzer muss, um sich genauere
  *  Informationen zu der Änderung/Löschung zu beschaffen,.. selber informieren, indem 
  *  er sich in das entsprechende Menü (Sportart/konkrete Veranstaltung) bewegt.
+ *  
+ *  Die eine Sekunde 'Schlafenszeit' bringt natürlich eine Verzögerung von einer Sekunde
+ *  bei dem Empfangen einer gepublishten Nachricht mit sich. Dies ist jedoch beabsichtigt,
+ *  da jede Nachricht persistent gespeichert ist und bei jedem Programmstart neu abgerufen 
+ *  wird und somit sonst die Abonnentenliste mit doppelwertigen Inhalten dargestellt wird. 
  * @author CrackX
  *
  */
@@ -69,6 +74,11 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
         		String spg_id = String.valueOf(temp.charAt(1)); // = Sportgruppe
         		String spa_id = String.valueOf(temp.charAt(2)); // = Sportart
         		String vst_id = String.valueOf(temp.charAt(3)); // = neue Veranstaltung
+        		try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					System.out.println("Die Abonnenten-Liste kann fehlerhaft angezeigt werden");
+				}
         		throwAddNotice(spg_id, spa_id, vst_id);
         	}
         	
@@ -76,6 +86,11 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
         		String spg_id = String.valueOf(temp.charAt(1)); // = Sportgruppe
         		String spa_id = String.valueOf(temp.charAt(2)); // = Sportart
         		String vst_id = String.valueOf(temp.charAt(3)); // = aktualisierte/gelöschte Veranstaltung
+            	try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					System.out.println("Die Abonnenten-Liste kann fehlerhaft angezeigt werden");
+				}
         		throwDeleteNoticeSportart(spg_id, spa_id, vst_id);
         	}
         	
@@ -83,6 +98,11 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
         		String spg_id = String.valueOf(temp.charAt(1)); // = Sportgruppe
         		String spa_id = String.valueOf(temp.charAt(2)); // = Sportart
         		String vst_id = String.valueOf(temp.charAt(3)); // = aktualisierte/gelöschte Veranstaltung
+            	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					System.out.println("Die Abonnenten-Liste kann fehlerhaft angezeigt werden");
+				}
         		throwRefreshNotice(spg_id, spa_id, vst_id);
         	} 
         	
@@ -90,6 +110,11 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
         		String spg_id = String.valueOf(temp.charAt(1)); // = Sportgruppe
         		String spa_id = String.valueOf(temp.charAt(2)); // = Sportart
         		String vst_id = String.valueOf(temp.charAt(3)); // = aktualisierte/gelöschte Veranstaltung
+            	try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					System.out.println("Die Abonnenten-Liste kann fehlerhaft angezeigt werden");
+				}
         		throwDeleteNotice(spg_id, spa_id, vst_id);
         	}
         }         
@@ -123,12 +148,12 @@ public class ItemEventCoordinator implements ItemEventListener<Item> {
     			nameOfDeletedVeranstaltungen = veranstaltung.getVBeschreibung();
             	meldung = "Die von Ihnen abonnierte Sportart: '" + newSportList.getSName() +
             			"', enthielt eine Veranstaltung (" + nameOfDeletedVeranstaltungen + "), welche leider gelöscht wurde." + "\r\n";
-            	gui.showSubscriptionsList();
+            	
     		}
     	}
     	//System.out.println(meldung);
     	gui.addInteressentMeldung(meldung);
-		
+    	gui.showSubscriptionsList();
 	}
 	/**
 	 * Methode zum Benachrichtigen für den Sportarten-Abonnent, wenn eine Veranstaltung in der abonnierten
