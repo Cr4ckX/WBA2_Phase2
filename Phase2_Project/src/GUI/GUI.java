@@ -968,15 +968,17 @@ public class GUI
 	            final String[] DropDownSG = sportgruppenListe.toArray(new String[sportgruppenListe.size()]);
 	        	dropdownSG = new JComboBox(DropDownSG);
 	        	dropdownSG.setBounds(10, 70, 200, 25);
+	        	dropdownSG.setSelectedIndex(-1);
 	        	panelSG.add(dropdownSG);
 	        	
-
+	        	
 	        	dropdownSG.addActionListener(new ActionListener()
 	        	{
 	        		public void actionPerformed(ActionEvent dropdownSGe) 
 	        		{ 	
 	        			String info;
 	        			String labelInfo;
+	        			dropdownSA.removeActionListener(DropDownSAListen);
 	        			sportgruppenIndex = dropdownSG.getSelectedIndex();
 	        			
 	        			labelInfo = csi.getSportgruppeElement(String.valueOf(sportgruppenIndex)).getSGName();
@@ -985,7 +987,7 @@ public class GUI
 	        			AreaSG.setText(info);
 	        			labelAreaSG.setText("Sportgruppe: " + labelInfo);
 	        			
-	        			dropdownSA.removeActionListener(DropDownSAListen);
+	        			
 	        			dropdownSA.setVisible(false);
  	        			dropdownSA.removeAllItems();
  	        			if(btnUnsubscribeSA.isVisible()){
@@ -994,6 +996,8 @@ public class GUI
  	        			}
  	        			
 	        			showDropdownSA();
+	        			labelV.setVisible(false);
+	        			dropdownV.setVisible(false);
 	        		}
 	        	});
     	}
@@ -1024,13 +1028,15 @@ public class GUI
    }
 
     public static void showDropdownSA(){
-    		
+    	
+    	    		
     	List<String> sportartenListe = csi.getSportarten(String.valueOf(sportgruppenIndex));
     	labelSA.setVisible(true);
     	
     	for(String sportarten:sportartenListe){
         	dropdownSA.addItem(sportarten);
     	}
+    	dropdownSA.setSelectedIndex(-1);
     	dropdownSA.setVisible(true);
     	dropdownSA.addActionListener(DropDownSAListen);
     }
@@ -1068,6 +1074,7 @@ public class GUI
     	for(String veranstaltungen:veranstaltungenListe){
         	dropdownV.addItem(veranstaltungen);
     	}
+    	dropdownV.setSelectedIndex(-1);
     	dropdownV.setVisible(true);
     	dropdownV.addActionListener(DropDownVListen);
     		
