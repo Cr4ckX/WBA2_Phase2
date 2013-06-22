@@ -98,7 +98,7 @@ public class CombinedServicesVeranstalter{
 		if(initialized == true){
 			neueVeranstaltungsID = cr.postVeranstaltung(sportgruppeId, sportartId, neueVeranstaltung);	
 			if(neueVeranstaltungsID != -1){
-				payload = "<A"+sportgruppeId+sportartId+neueVeranstaltungsID+"/>";
+				payload = "<A"+"-"+sportgruppeId+"-"+sportartId+"-"+neueVeranstaltungsID+"/>";
 				
 				//Publish: Sportart hat neue Veranstaltung. 
 				xm.publishToLeaf(sportgruppeId+sportartId+"Sportart", payload, false);
@@ -129,8 +129,8 @@ public class CombinedServicesVeranstalter{
 		if(initialized == true){		
 			deleted = cr.deleteVeranstaltung(sportgruppeId, sportartId, veranstaltungId);
 			if(deleted == true){
-				payloadVeranstaltung = "<D"+sportgruppeId+sportartId+veranstaltungId+"/>";
-				payloadSportart = "<N"+sportgruppeId+sportartId+veranstaltungId+"/>";
+				payloadVeranstaltung = "<D"+"-"+sportgruppeId+"-"+sportartId+"-"+veranstaltungId+"/>";
+				payloadSportart = "<N"+"-"+sportgruppeId+"-"+sportartId+"-"+veranstaltungId+"/>";
 				//Publish: Node wird deleted
 				xm.publishToLeaf(sportgruppeId+sportartId+"Sportart", payloadSportart, false);
 				xm.publishToLeaf(sportgruppeId+sportartId+veranstaltungId+"Veranstaltung", payloadVeranstaltung, false);
@@ -158,7 +158,7 @@ public class CombinedServicesVeranstalter{
 		if(initialized == true){
 			updated = cr.putVeranstaltung(sportgruppeId, sportartId, veranstaltungId, neueVeranstaltung);
 			if(updated == true){
-				payload = "<R"+sportgruppeId+sportartId+veranstaltungId+"/>";
+				payload = "<R"+"-"+sportgruppeId+"-"+sportartId+"-"+veranstaltungId+"/>";
 				//Veranstaltung wurde geändert
 				xm.publishToLeaf(sportgruppeId+sportartId+veranstaltungId+"Veranstaltung", payload, false);
 				return true;
