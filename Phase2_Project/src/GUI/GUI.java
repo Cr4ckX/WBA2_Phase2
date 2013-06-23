@@ -58,11 +58,6 @@ public class GUI
 		}
 	};
 	
-	/**
-	 * Definiert die Events, welche auftreten sollen, sobald ein Wert im 
-	 * Dropdown SA (Sportarten) gewählt wurde.
-	 * 
-	 */
 	static ActionListener DropDownSAListen = new ActionListener()
 	{
 		public void actionPerformed(ActionEvent dropdownSAe) 
@@ -228,7 +223,7 @@ public class GUI
    			}
    		}
 	};
-	//TODO: Kann theoretisch wieder nach veranstaltungenIndex abfragen.
+
 	static ActionListener BtnSubscribe = new ActionListener(){
 		public void actionPerformed(ActionEvent subscribed){
 
@@ -324,7 +319,6 @@ public class GUI
 	
 	static ActionListener BtnAbortEditListen = new ActionListener(){
 
-		@Override
 		public void actionPerformed(ActionEvent BtnAbortEdite) {
 			hideTextfieldsVAendern();
 			hideLabelsFields();
@@ -333,14 +327,7 @@ public class GUI
 			showAreaVSG();
 			showBtnEdit();
 			showBtnDelete();
-			/*
-			AreaInfoAE.setEditable(true);
-			AreaInfoAE.validate();
-			AreaInfoAE.repaint();
-			scrollpaneAreaInfoAE.repaint();
-			scrollpaneAreaInfoAE.validate();
-			*/
-			//resetInsertsFieldsAE();
+			
 		}
 	};
 	
@@ -434,13 +421,6 @@ public class GUI
 			
 			beschreibung = fieldBeschrAE.getText();
 			info = AreaInfoAE.getText();
-			/*
-			AreaInfoAE.setEditable(true);
-			AreaInfoAE.validate();
-			AreaInfoAE.repaint();
-			scrollpaneAreaInfoAE.repaint();
-			scrollpaneAreaInfoAE.validate();
-			 */
 			niveau = fieldNiveauAE.getText();
 			voraussetzungen = fieldVorraussetzungenAE.getText();
 			int monat = Integer.parseInt(dropdownMonthAE.getSelectedItem().toString());
@@ -483,45 +463,29 @@ public class GUI
 	/********************************************/
 	/**************Interessent*******************/
 	/********************************************/
-	private static JLabel labelSG, labelSA, labelV, labelO, labelAreaSG, 
-		labelAreaV, labelAreaO, labelVS, labelSubList;
-	
-	private static JComboBox dropdownSG, dropdownSA, dropdownV, dropdownVS, 
-		dropdownO;		
-	
+	private static JLabel labelSG, labelSA, labelV, labelAreaSG, labelAreaV, labelAreaO, labelVS, labelSubList;
+	private static JComboBox dropdownSG, dropdownSA, dropdownV, dropdownVS;		
 	private static JTextArea AreaSG, AreaV, AreaO;
-	
-	private static JButton btnSubscribeSA, btnUnsubscribeSA,
-		btnzurueckSG, btnzurueckVS, btnzurueckO, btnEditOK;  
+	private static JButton btnSubscribeSA, btnUnsubscribeSA,btnzurueckSG, btnEditOK;  
 	private static JList subscriptions;
 	
 	
 	/********************************************/
 	/**************Veranstalter******************/
 	/********************************************/	
-	private static JButton btnDeleteV, btnEditV, btnSubscribeE, btnSubscribeG, 
-		btnUnsubscribeE, btnUnsubscribeG, btnZurueckVV, btnNewV, btnNewOK, 
-		btnAbortEdit, btnAbortNew;
-	
-	private static JLabel labelVSG, labelAreaVSG, 
-		labelVSA, labelVV, labelVEBeschr, labelVEInfo, labelVEDatum, 
-		labelVEUhrzeit, labelVENiveau, labelVEVorraussetungen, labelVEGebäude,
-		labelAreaAllgSGV, labelAreaAllgVV, 
+	private static JButton btnDeleteV, btnEditV,btnZurueckVV, btnNewV, btnNewOK,btnAbortEdit, btnAbortNew;
+	private static JLabel labelVSG, labelAreaVSG, labelVSA, labelVV, labelVEBeschr, labelVEInfo, labelVEDatum, 
+		labelVEUhrzeit, labelVENiveau, labelVEVorraussetungen, labelVEGebäude,labelAreaAllgSGV, labelAreaAllgVV, 
 		labelAreaAllgVS, labelAreaAllgO;		
-	private static JComboBox dropdownVSG, dropdownVSA, dropdownVV, dropdownDayE, 
-		dropdownMonthE, dropdownYearE, dropdownHourE, dropdownMinuteE, 
-		dropdownGebäudeE, 
-		dropdownDayAE, dropdownMonthAE, dropdownYearAE, dropdownHourAE, 
-		dropdownMinuteAE, dropdownGebäudeAE;
+	private static JComboBox dropdownVSG, dropdownVSA, dropdownVV, dropdownDayE, dropdownMonthE, dropdownYearE, 
+		dropdownHourE, dropdownMinuteE, dropdownGebäudeE, dropdownDayAE, dropdownMonthAE, dropdownYearAE, 
+		dropdownHourAE, dropdownMinuteAE, dropdownGebäudeAE;
 	private static JTextArea AreaVSG, AreaInfoE,AreaInfoAE, 
 		AreaAllgemeinPanelV, AreaAllgemeinSG, AreaAllgemeinVS,AreaAllgemeinO;
-	
-	private static JTextField fieldBeschrE, fieldNiveauE, fieldBeschrAE,
-		fieldVorraussetzungenE, fieldNiveauAE, fieldVorraussetzungenAE;	
-
-	private static JScrollPane scrollpaneAreaInfoE, scrollpaneAreaAllg, 
-		scrollpaneAreaInfoAE, scrollpaneAreaAllgSG, scrollpaneAreaAllgVS, 
-		scrollpaneAreaAllgO;
+	private static JTextField fieldBeschrE, fieldNiveauE, fieldBeschrAE,fieldVorraussetzungenE, fieldNiveauAE, 
+		fieldVorraussetzungenAE;	
+	private static JScrollPane scrollpaneAreaInfoE, scrollpaneAreaAllg, scrollpaneAreaInfoAE, scrollpaneAreaAllgSG, 
+		scrollpaneAreaAllgVS, scrollpaneAreaAllgO;
 	
 	/********************************************/
 	/**************KlickCounter******************/
@@ -542,11 +506,63 @@ public class GUI
 	static JPanel panelE = new JPanel();
 	static JPanel panelGB = new JPanel();
 	static JPanel panelVV = new JPanel();
-		
+	
+	
+	
     public static void main(String[] args) {
                 
-    	
     	v = new Vector<String>();
+    	
+    	List<String> sportgruppenListe = csi.getSportgruppen();
+	    	
+	    labelSG = new JLabel("Bitte wählen Sie eine Sportgruppe!");
+	    labelSG.setBounds(10, 50, 300, 25);
+		labelSG.setVisible(false);
+	 	panelSG.add(labelSG);	    
+	    
+ 	    final String[] DropDownSG = sportgruppenListe.toArray(new String[sportgruppenListe.size()]);
+	    dropdownSG = new JComboBox(DropDownSG);
+	    dropdownSG.setBounds(10, 70, 200, 25);
+	    dropdownSG.setSelectedIndex(-1);
+	    dropdownSG.setVisible(false);
+	    panelSG.add(dropdownSG);
+	    dropdownSG.addActionListener(dropdownSGListen);
+	    
+	    
+	    labelAreaAllgSGV = new JLabel("Meldungen (neuste zuerst):");
+		labelAreaAllgSGV.setBounds(10, 300, 300, 100);
+		labelAreaAllgSGV.setVisible(false);
+        panelSG.add(labelAreaAllgSGV);
+    	panelSG.validate();
+    	panelSG.repaint();
+		
+		AreaAllgemeinSG = new JTextArea(7, 20);
+		AreaAllgemeinSG.setText("");
+		AreaAllgemeinSG.setLineWrap(true);
+		AreaAllgemeinSG.setWrapStyleWord(true);
+		AreaAllgemeinSG.setVisible(false);
+        scrollpaneAreaAllgSG = new JScrollPane(AreaAllgemeinSG); 
+     	scrollpaneAreaAllgSG.setBounds(10, 370, 300, 150);
+        panelSG.add(scrollpaneAreaAllgSG);
+	    
+        
+        labelAreaAllgVS = new JLabel("Meldungen:");
+		labelAreaAllgVS.setBounds(10, 300, 300, 100);
+		labelAreaAllgVS.setVisible(false);
+        panelVS.add(labelAreaAllgVS);
+    	panelVS.validate();
+    	panelVS.repaint();
+		
+		AreaAllgemeinVS = new JTextArea(7, 20);
+		AreaAllgemeinVS.setText("");
+		AreaAllgemeinVS.setVisible(false);
+		AreaAllgemeinVS.setLineWrap(true);
+		AreaAllgemeinVS.setWrapStyleWord(true);
+        scrollpaneAreaAllgVS = new JScrollPane(AreaAllgemeinVS); 
+     	scrollpaneAreaAllgVS.setBounds(10, 370, 400, 150);
+        panelVS.add(scrollpaneAreaAllgVS);
+        
+        
     	/********************************************/
     	/*****************Windows********************/
     	/********************************************/
@@ -588,15 +604,12 @@ public class GUI
 	            showDropdownSG();
 	            showAreaO();
 	            showAreaVS();
-	            showButtonZurueckO();
 	            showLogoutSG();
-	            showButtonZurueckVS();
 	            showAreaAllgemeinSG();	
 	            showAreaAllgemeinVS();
 	            showAreaAllgemeinO(); 
 	            createDropdownSA();
 	            createDropdownV();
-	            createDropdownVS();
 	            createSubscriptionList();
 	            showSubscriptionsList();
 	            fenster1.setVisible(true);
@@ -617,21 +630,22 @@ public class GUI
                	showDropdownVSG();
                	showBtnLogoutVV();
 	            showAreaAllgPanelV();
-	            createDropdownVS();
 	            createDropdownVSA();
 	            createDropdownVV();
                 fenster2.setVisible(true);
                 fenster1.setVisible(false);
              }
             
-    		labelAreaSG = new JLabel("Informationen:");
-            labelAreaSG.setBounds(600, 10, 300, 100);
-            
-            labelAreaVSG = new JLabel ("Informationen:");
-            labelAreaVSG.setBounds(600, 10, 300, 100);
-            
-			showAreaSG();
-			
+             labelAreaSG = new JLabel("Informationen:");
+             labelAreaSG.setBounds(600, 10, 300, 100);
+             
+             labelAreaVSG = new JLabel ("Informationen:");
+             labelAreaVSG.setBounds(600, 10, 300, 100);
+             
+ 			showAreaSG();
+ 			
+ 			
+		    
 			
 			btnSubscribeSA = new JButton("Subscribe");
         	btnSubscribeSA.setBounds(600, 400, 150, 25);
@@ -955,19 +969,8 @@ public class GUI
      * @throws InterruptedException 
      ****************************************************************/
     public static void showDropdownSG(){
-    	List<String> sportgruppenListe = csi.getSportgruppen();
-    	
-    	labelSG = new JLabel("Bitte wählen Sie eine Sportgruppe!");
- 	    labelSG.setBounds(10, 50, 300, 25);
- 	    panelSG.add(labelSG);	    
-	    
- 	    final String[] DropDownSG = sportgruppenListe.toArray(new String[sportgruppenListe.size()]);
-	    dropdownSG = new JComboBox(DropDownSG);
-	    dropdownSG.setBounds(10, 70, 200, 25);
-	    dropdownSG.setSelectedIndex(-1);
-	    panelSG.add(dropdownSG);
-	    dropdownSG.addActionListener(dropdownSGListen);
-	    	
+    	labelSG.setVisible(true);
+	    dropdownSG.setVisible(true);	
     	}
 
     /**************************DropdownSA********************
@@ -1048,65 +1051,13 @@ public class GUI
     	dropdownV.setVisible(true);
     	dropdownV.addActionListener(DropDownVListen);
     		
-    }
-
-    	
-    /**************************DropdownVS********************
-     * Das Dropdown mit den Veranstaltern wird erstellt und angezeigt.
-     * Hierzu wird gleichzeitig das Label erstellt.
-     * Sobald ein VS gewählt wurde, erscheinen die Subscribe und Unsubrice Button sowie eine Area.
-     * TODOEVLT: In den String DropdownVS müssen die richtigen Veranstalter rein
-     * TODOEVTL: AreaVS muss befüllt werden
-     * TODONE: aufrufen!
-     * ****************************************************************/ 
-   public static void createDropdownVS(){
-		labelVS = new JLabel("Bitte wählen Sie eine(n) Veranstalter/in!");
-		labelVS.setBounds(10, 10, 300, 100);
-		labelVS.setVisible(false);
-		panelVS.add(labelVS);      
-		panelVS.validate();
-       
-	   	final String[] DropDownVS = new String[] {"Veranstalter", "David", "Laura", "Super", "Mentor"};
-	   	dropdownVS = new JComboBox(DropDownVS);
-	   	dropdownVS.setBounds(10, 70, 200, 25);
-	   	dropdownVS.setVisible(false);
-	   	panelVS.add(dropdownVS);
-	   	panelVS.validate();
-   }
-    
+    }    
     public static void showDropdownVS(){
     		labelVS.setVisible(true);
     		dropdownVS.setVisible(true);   	
     	}
     
 
-    /**************************DropdownO********************
-     * Das Dropdown mit den Orten wird angezeigt.
-     * Hierzu wird gleichzeitig das Label erstellt.
-     * Sobald ein O gewählt wurde, erscheinen die Subscribe und Unsubrice Button sowie eine Area.
-     * TODOEVTL: In den String DropdownO müssen die richtigen Ort rein
-     * TODOEVTL: AreaO muss befüllt werden
-     * ****************************************************************/ 
-    public static void createDropdownO(){
-    	
-    	labelO = new JLabel("Bitte wählen Sie einen Ort");
-        labelO.setBounds(10, 10, 300, 100);
-        labelO.setVisible(false);
-        panelO.add(labelO);
-        labelO.validate();
-		
-		final String[] DropDownO = new String[] {"Orte", "Bernberg", "Hesselbach", "Niederseßmar", "Wiehl"};
-    	dropdownO = new JComboBox(DropDownO);
-    	dropdownO.setVisible(false);
-    	dropdownO.setBounds(10, 70, 200, 25);
-    	panelO.add(dropdownO);
-    	panelO.validate();
-    }
-    
-    public static void showDropdownO(){ 		
-        labelO.setVisible(true);
-    	dropdownO.setVisible(true);
-    	}
     
     /**************************Logout**********************************
      * Die Logout Button werden erstellt. 
@@ -1125,175 +1076,65 @@ public class GUI
 				            	
             		fenster1.dispose();
                 	
-                	Object[] options = {"Interessent", "Veranstalter"};
-                    
-                    int selected = JOptionPane.showOptionDialog(null,
-                      "Welche Rolle haben Sie?",
-                      "Alternativen",
-                      JOptionPane.DEFAULT_OPTION, 
-                      JOptionPane.INFORMATION_MESSAGE, 
-                      null, options, options[0]);
-    					
-                    if(selected == 0)
-                    {
-        	            showPanelInteressent();
-        	            showDropdownSG();
-        	            showDropdownO();
-        	            showAreaO();
-        	            showAreaVS();
-        	            showButtonZurueckO();
-        	            showLogoutSG();
-        	            showButtonZurueckVS();
-        	            showAreaAllgemeinSG();	
-        	            showAreaAllgemeinVS();
-        	            showAreaAllgemeinO();
+            		Icon icon = new ImageIcon( "/Ausarbeitungen/icon.png" );
+                    Object[] options = {"Interessent", "Veranstalter"};
+                           
+                    int selected = JOptionPane.showOptionDialog(
+                    null, "Welche Rolle haben Sie?", "Alternativen", JOptionPane.DEFAULT_OPTION, 
+                    JOptionPane.INFORMATION_MESSAGE, icon, options, options[0]);
 
-        	             
-        	            fenster1.setVisible(true);
-        	            fenster2.setVisible(false);
-                     } 
+                    	//Interessent wurde gewählt
+                    	if(selected == 0){
+                    		try {
+                    			//Verbindung als Interessent aufbauen
+            					csi.initialize();
+            				} catch (InterruptedException e) {
+            					System.out.println("Fehler beim Verbinden!");
+            					e.printStackTrace();
+            				}
+            	            showPanelInteressent();
+            	            showDropdownSG();
+            	            showAreaO();
+            	            showAreaVS();
+            	            showLogoutSG();
+            	            showAreaAllgemeinSG();	
+            	            showAreaAllgemeinVS();
+            	            showAreaAllgemeinO(); 
+            	            createDropdownSA();
+            	            createDropdownV();
+            	            createSubscriptionList();
+            	            showSubscriptionsList();
+            	            fenster1.setVisible(true);
+            	            fenster2.setVisible(false);
+                         } 
 
-                     if(selected == 1)
-                     {
-                       	showPanelVeranstalter();
-                       	showDropdownVSG();
-                       	showBtnLogoutVV();
-        	            showAreaAllgPanelV();
-
-                        	
-                        fenster2.setVisible(true);
-                        fenster1.setVisible(false);
-                     }
-                     csi.logout();
+                    	
+                    	//Veranstalter wurde gewählt
+                         if(selected == 1){
+                     		try {
+                    			//Verbindung als Veranstalter aufbauen
+            					csv.initialize();
+            				} catch (InterruptedException e) {
+            					System.out.println("Fehler beim Verbinden!");
+            					e.printStackTrace();
+            				}
+                           	showPanelVeranstalter();
+                           	showDropdownVSG();
+                           	showBtnLogoutVV();
+            	            showAreaAllgPanelV();
+            	            createDropdownVSA();
+            	            createDropdownVV();
+                            fenster2.setVisible(true);
+                            fenster1.setVisible(false);
+                         }                     
+                         csi.logout();
             	}
         	});
     	}
  	
-    public static void showButtonZurueckVS(){
-    		//TODONE: Einbauen
-    		btnzurueckVS = new JButton ("Logout");
-        	btnzurueckVS.setBounds(800, 500, 150, 25);
-        	btnzurueckVS.setToolTipText("Zurück zur Rollenauswahl");
-        	panelVS.add(btnzurueckVS);
-        	panelVS.validate();
 
-        	
-        	
-        	btnzurueckVS.addActionListener(new ActionListener() {
-				
-				
-            	public void actionPerformed(ActionEvent btnzurueckVe) {
-				
-            	fenster1.dispose();
-            	
-            	Object[] options = {"Interessent", "Veranstalter"};
-                
-                int selected = JOptionPane.showOptionDialog(null,
-                  "Welche Rolle haben Sie?",
-                  "Alternativen",
-                  JOptionPane.DEFAULT_OPTION, 
-                  JOptionPane.INFORMATION_MESSAGE, 
-                  null, options, options[0]);
-					
-                if(selected == 0)
-                {
-    	            showPanelInteressent();
-    	            showDropdownSG();
-    	            showDropdownVS();
-    	            showDropdownO();
-    	            showAreaO();
-    	            showAreaVS();
-    	            showButtonZurueckO();
-    	            showLogoutSG();
-    	            showButtonZurueckVS();
-    	            showAreaAllgemeinSG();	
-    	            showAreaAllgemeinVS();
-    	            showAreaAllgemeinO();
-    	            
 
-    	             
-    	            fenster1.setVisible(true);
-    	            fenster2.setVisible(false);
-                 } 
-
-                 if(selected == 1)
-                 {
-                   	showPanelVeranstalter();
-                   	showDropdownVSG();
-                   	showBtnLogoutVV();
-    	            showAreaAllgPanelV();
-
-                    	
-                    fenster2.setVisible(true);
-                    fenster1.setVisible(false);
-                 }
-                
-				}
-			});
-    	}
-
-    public static void showButtonZurueckO(){
-    		//TODONE: Einbauen
-    		btnzurueckO = new JButton ("Logout");
-        	btnzurueckO.setBounds(800, 500, 150, 25);
-        	btnzurueckO.setToolTipText("Zurück zur Rollenauswahl");
-        	panelO.add(btnzurueckO);
-        	panelO.validate();
-
-        	
-        	
-        	btnzurueckO.addActionListener(new ActionListener() {
-				
-				
-            	public void actionPerformed(ActionEvent btnzurueckOe) {
-				
-            		fenster1.dispose();
-                	
-                	Object[] options = {"Interessent", "Veranstalter"};
-                    
-                    int selected = JOptionPane.showOptionDialog(null,
-                      "Welche Rolle haben Sie?",
-                      "Alternativen",
-                      JOptionPane.DEFAULT_OPTION, 
-                      JOptionPane.INFORMATION_MESSAGE, 
-                      null, options, options[0]);
-    					
-                    if(selected == 0)
-                    {
-        	            showPanelInteressent();
-        	            showDropdownSG();
-        	            showDropdownVS();
-        	            showDropdownO();
-        	            showAreaO();
-        	            showAreaVS();
-        	            showButtonZurueckO();
-        	            showLogoutSG();
-        	            showButtonZurueckVS();
-        	            showAreaAllgemeinSG();	
-        	            showAreaAllgemeinVS();
-        	            showAreaAllgemeinO();
-
-        	             
-        	            fenster1.setVisible(true);
-        	            fenster2.setVisible(false);
-                     } 
-
-                     if(selected == 1)
-                     {
-                       	showPanelVeranstalter();
-                       	showDropdownVSG();
-                       	showBtnLogoutVV();
-        	            showAreaAllgPanelV();
-
-                        	
-                        fenster2.setVisible(true);
-                        fenster1.setVisible(false);
-                     }
-                    
-    				}
-    			});
-        	}
-
+    
     /***************Areas zur Darstellung der Werte in der XML***********
      * 
      * Die Areas (rechts in der GUI) werden erstellt.
@@ -1313,6 +1154,8 @@ public class GUI
             AreaSG = new JTextArea();
             AreaSG.setLineWrap(true);
     		AreaSG.setBounds(600, 90, 350, 300);
+    		AreaSG.setWrapStyleWord(true);
+
     		AreaSG.setEditable(false);
     		panelSG.add(AreaSG);
         	panelSG.validate();            
@@ -1423,36 +1266,15 @@ public class GUI
      * ****************************************************************/
     public static void showAreaAllgemeinSG(){
     		
-    		labelAreaAllgSGV = new JLabel("Meldungen (neuste zuerst):");
-    		labelAreaAllgSGV.setBounds(10, 300, 300, 100);
-            panelSG.add(labelAreaAllgSGV);
-        	panelSG.validate();
-        	panelSG.repaint();
-    		
-    		AreaAllgemeinSG = new JTextArea(7, 20);
-    		AreaAllgemeinSG.setText("");
-    		AreaAllgemeinSG.setLineWrap(true);
+    		labelAreaAllgSGV.setVisible(true);
+    		AreaAllgemeinSG.setVisible(true);
     		AreaAllgemeinSG.setWrapStyleWord(true);
-            scrollpaneAreaAllgSG = new JScrollPane(AreaAllgemeinSG); 
-         	scrollpaneAreaAllgSG.setBounds(10, 370, 300, 150);
-            panelSG.add(scrollpaneAreaAllgSG);
     	}
     	
     public static void showAreaAllgemeinVS(){
     		
-    		labelAreaAllgVS = new JLabel("Meldungen:");
-    		labelAreaAllgVS.setBounds(10, 300, 300, 100);
-            panelVS.add(labelAreaAllgVS);
-        	panelVS.validate();
-        	panelVS.repaint();
-    		
-    		AreaAllgemeinVS = new JTextArea(7, 20);
-    		AreaAllgemeinVS.setText("");
-    		AreaAllgemeinVS.setLineWrap(true);
-    		AreaAllgemeinVS.setWrapStyleWord(true);
-            scrollpaneAreaAllgVS = new JScrollPane(AreaAllgemeinVS); 
-         	scrollpaneAreaAllgVS.setBounds(10, 370, 400, 150);
-            panelVS.add(scrollpaneAreaAllgVS);
+    		labelAreaAllgVS.setVisible(true);
+    		AreaAllgemeinVS.setVisible(true);
     	}
     	
     public static void showAreaAllgemeinO(){
@@ -1482,61 +1304,58 @@ public class GUI
 				
 		public void actionPerformed(ActionEvent btnZurueckVVe) {
 				
-			Object[] options = {"Interessent", "Veranstalter"};
-                    
-			int selected = JOptionPane.showOptionDialog(null,
-                      "Welche Rolle haben Sie?",
-                      "Alternativen",
-                      JOptionPane.DEFAULT_OPTION, 
-                      JOptionPane.INFORMATION_MESSAGE, 
-                      null, options, options[0]);
-    					
-			if(selected == 0){
-        		try {
-        			//Verbindung als Interessent aufbauen
-					csi.initialize();
-				} catch (InterruptedException e) {
-					System.out.println("Fehler beim Verbinden!");
-					e.printStackTrace();
-				}
-	            showPanelInteressent();
-	            showDropdownSG();
-	            showAreaO();
-	            showAreaVS();
-	            showButtonZurueckO();
-	            showLogoutSG();
-	            showButtonZurueckVS();
-	            showAreaAllgemeinSG();	
-	            showAreaAllgemeinVS();
-	            showAreaAllgemeinO(); 
-	            createDropdownSA();
-	            createDropdownV();
-	            createSubscriptionList();
-	            showSubscriptionsList();
-	            fenster1.setVisible(true);
-	            fenster2.setVisible(false);
-             } 
+			fenster2.dispose();
+			Icon icon = new ImageIcon( "/Ausarbeitungen/icon.png" );
+	        Object[] options = {"Interessent", "Veranstalter"};
+	               
+	        int selected = JOptionPane.showOptionDialog(
+	        null, "Welche Rolle haben Sie?", "Alternativen", JOptionPane.DEFAULT_OPTION, 
+	        JOptionPane.INFORMATION_MESSAGE, icon, options, options[0]);
 
-        	
-        	//Veranstalter wurde gewählt
-             if(selected == 1){
-         		try {
-        			//Verbindung als Veranstalter aufbauen
-					csv.initialize();
-				} catch (InterruptedException e) {
-					System.out.println("Fehler beim Verbinden!");
-					e.printStackTrace();
-				}
-               	showPanelVeranstalter();
-               	showDropdownVSG();
-               	showBtnLogoutVV();
-	            showAreaAllgPanelV();
-	            createDropdownVS();
-	            createDropdownVSA();
-	            createDropdownVV();
-                fenster2.setVisible(true);
-                fenster1.setVisible(false);
-             }
+	        	//Interessent wurde gewählt
+	        	if(selected == 0){
+	        		try {
+	        			//Verbindung als Interessent aufbauen
+						csi.initialize();
+					} catch (InterruptedException e) {
+						System.out.println("Fehler beim Verbinden!");
+						e.printStackTrace();
+					}
+		            showPanelInteressent();
+		            showDropdownSG();
+		            showAreaO();
+		            showAreaVS();
+		            showLogoutSG();
+		            showAreaAllgemeinSG();	
+		            showAreaAllgemeinVS();
+		            showAreaAllgemeinO(); 
+		            createDropdownSA();
+		            createDropdownV();
+		            createSubscriptionList();
+		            showSubscriptionsList();
+		            fenster1.setVisible(true);
+		            fenster2.setVisible(false);
+	             } 
+
+	        	
+	        	//Veranstalter wurde gewählt
+	             if(selected == 1){
+	         		try {
+	        			//Verbindung als Veranstalter aufbauen
+						csv.initialize();
+					} catch (InterruptedException e) {
+						System.out.println("Fehler beim Verbinden!");
+						e.printStackTrace();
+					}
+	               	showPanelVeranstalter();
+	               	showDropdownVSG();
+	               	showBtnLogoutVV();
+		            showAreaAllgPanelV();
+		            createDropdownVSA();
+		            createDropdownVV();
+	                fenster2.setVisible(true);
+	                fenster1.setVisible(false);
+	             }
 		}
 	});
     }
@@ -1633,6 +1452,7 @@ public class GUI
     public static void showAreaVSG(){
     	labelAreaVSG.setVisible(true);
     	AreaVSG.setVisible(true);
+    	AreaVSG.setWrapStyleWord(true);
     }
     
     public static void hideAreaVSG(){
@@ -1914,10 +1734,6 @@ public class GUI
 	}
     	
     
-    /***********Button Ändern einer Veranstaltung Bestätigen*************
-     *Der Button erscheint.
-     *
-     */
     public static void showBtnEditOK(){
     		btnEditOK.setVisible(true);
     }  
@@ -1926,8 +1742,7 @@ public class GUI
 		btnEditOK.setVisible(false);
 	}
     	
-    
-    /*******************Labels der Fields einblenden**************/
+
     public static void showLabelsFields(){
 		labelVEBeschr.setVisible(true);
     	labelVEInfo.setVisible(true);
@@ -1949,7 +1764,6 @@ public class GUI
 	}
    
     
-    /*******************TextFields zur Erstellung einblenden**************/
     public static void showTextfieldsVErstellen(){
     		
     		showLabelsFields();
@@ -2011,25 +1825,19 @@ public class GUI
    
    	}
     	
-    
-    /*******************TextFields zur Änderung einblenden*
-     * 
-     * TODO: Die entsprechenden Daten müssen eingefpgt werden
-     * 
-     */
     public static void showTextfieldsVAendern(){
     		
-    		showLabelsFields();
-    		fieldBeschrAE.setVisible(true);
-            scrollpaneAreaInfoAE.setVisible(true);
-        	dropdownDayAE.setVisible(true);
-        	dropdownMonthAE.setVisible(true);
-        	dropdownYearAE.setVisible(true);
-        	dropdownHourAE.setVisible(true);
-        	dropdownMinuteAE.setVisible(true);
-        	fieldNiveauAE.setVisible(true);
-        	fieldVorraussetzungenAE.setVisible(true);
-        	dropdownGebäudeAE.setVisible(true);
+    	showLabelsFields();
+    	fieldBeschrAE.setVisible(true);
+        scrollpaneAreaInfoAE.setVisible(true);
+        dropdownDayAE.setVisible(true);
+        dropdownMonthAE.setVisible(true);
+        dropdownYearAE.setVisible(true);
+        dropdownHourAE.setVisible(true);
+        dropdownMinuteAE.setVisible(true);
+        fieldNiveauAE.setVisible(true);
+        fieldVorraussetzungenAE.setVisible(true);
+        dropdownGebäudeAE.setVisible(true);
     }
     	
     
@@ -2046,49 +1854,6 @@ public class GUI
 		fieldNiveauAE.setVisible(false);
 		fieldVorraussetzungenAE.setVisible(false);
 	}
-    
-    
-    /***************(Un-)Subscribe Equipment und Gebäude***********
-    * 
-    * Sind nicht augerufen.
-    * Eventuell später einfach noch machen? 
-    *
-    ****************************************************************/
-    public static void showButtonSubsribeE(){
-        		
-    	btnSubscribeE = new JButton("Subscribe");
-        btnSubscribeE.setBounds(600, 400, 150, 25);
-        panelE.add(btnSubscribeSA);
-        panelE.validate();
-        panelE.repaint();    
-    }
-
-    public static void showButtonSubsribeG(){
-        		
-    	btnSubscribeG = new JButton("Subscribe");
-        btnSubscribeG.setBounds(600, 400, 150, 25);
-        panelVV.add(btnSubscribeG);
-        panelVV.validate();
-        panelVV.repaint();
-    }
-
-    public static void showButtonUnsubsribeE(){
-
-    	btnUnsubscribeE = new JButton("Subscribe");
-        btnUnsubscribeE.setBounds(600, 400, 150, 25);
-        panelE.add(btnUnsubscribeE);
-        panelE.validate();
-        panelE.repaint();
-    }
-
-    public static void showButtonUnsubsribeG(){
-        		
-    	btnUnsubscribeG = new JButton("Unsubscribe");
-        btnUnsubscribeG.setBounds(600, 400, 150, 25);
-        panelVV.add(btnUnsubscribeG);
-        panelVV.validate();
-        panelVV.repaint();
-    }
        
     public void addInteressentMeldung(String meldung){
     	try {
