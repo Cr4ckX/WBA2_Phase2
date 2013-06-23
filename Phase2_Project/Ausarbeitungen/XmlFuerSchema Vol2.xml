@@ -92,6 +92,7 @@
                 </Sportart>
             </SportartenM>
         </Sportgruppe>
+        
         <Sportgruppe id="2">
             <SGName>Tanzen</SGName>
             <SGBeschreibung>Beim Tanzsport wird Tanzen als Sportart ausgeübt.</SGBeschreibung>
@@ -138,6 +139,7 @@
                 </Sportart>
             </SportartenM>
         </Sportgruppe>
+        
         <Sportgruppe id="3">
             <SGName>Natursport</SGName>
             <SGBeschreibung>Sport in der Natur.</SGBeschreibung>
@@ -176,7 +178,182 @@
                 </Sportart>
             </SportartenM>
         </Sportgruppe>
+        
+        
+        <Sportgruppe id="4">
+            <SGName>Aquasport</SGName>
+            <SGBeschreibung>Alles rund ums Wasser. Ob Tauschen, schwimmen, segeln oder surfen . Hier ist für jeden was dabei.</SGBeschreibung>
+            <SportartenM>
+                <Sportart id="0">
+                    <SName>Aqua-Fitness</SName>
+                    <SBeschreibung>Spätestens seit Pfarrer Kneipp wissen wir, dass das Medium Wasser hervorragende Möglichkeiten zur Verbesserung der Fitness bietet. Aqua-Fitness schont Gelenke, Sehnen und Bänder und wirkt gesundheitsfördernd auf Herz und Kreislauf.</SBeschreibung>
+                    <SHerkunft>Deutschland</SHerkunft>
+                    <SVorraussetzung>Schwimmkleidung, Badelatschen</SVorraussetzung>
+                    <SRegeln>Bitte nicht ins Wasser pinkeln</SRegeln>
+                    <VeranstaltungenM>
+                        <Veranstaltung id="0" deleted="false">
+                            <VBeschreibung>Training wöchentlich</VBeschreibung>
+                            <VDatum>2014-04-13</VDatum>
+                            <VUhrzeit>19:00:00</VUhrzeit>
+                            <GebaeudeIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</GebaeudeIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</VeranstalterIDRef>
+                        </Veranstaltung>
+                    </VeranstaltungenM>
+                </Sportart>
+                
+                <Sportart id="1">
+                    <SName>Tauchen</SName>
+                    <SBeschreibung>Dein Element ist das Wasser? Du musst dir deine Nase dabei nicht zuhalten? Dann bist du hier genau richtig</SBeschreibung>
+                    <SHerkunft>Deutschland</SHerkunft>
+                    <SVorraussetzung>gute Schwimmerfahrung</SVorraussetzung>
+                    <SRegeln>Bitte nicht ins Wasser pinkeln, vor dem Baden bitte abduschen</SRegeln>
+                    <VeranstaltungenM>
+                        <Veranstaltung id="0" deleted="false">
+                            <VBeschreibung>Tauchscheinkurs Anfänger</VBeschreibung>
+                            <VDatum>2013-05-25</VDatum>
+                            <VUhrzeit>18:00:00</VUhrzeit>
+                            <GebaeudeIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</GebaeudeIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</VeranstalterIDRef>
+                        </Veranstaltung>
+                        <Veranstaltung id="1" deleted="false">
+                            <VBeschreibung>Tauchscheinkurs Fortgeschritten</VBeschreibung>
+                            <VDatum>2013-06-24</VDatum>
+                            <VUhrzeit>12:00:00</VUhrzeit>
+                            <GebaeudeIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</GebaeudeIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</VeranstalterIDRef>
+                        </Veranstaltung>
+                    </VeranstaltungenM>
+                </Sportart>
+                
+                <Sportart id="2">
+                    <SName>Wasserski</SName>
+                    <SBeschreibung>Dein Element ist das Wasser? Du musst dir deine Nase dabei nicht zuhalten? Dann bist du hier genau richtig</SBeschreibung>
+                    <SHerkunft>Deutschland</SHerkunft>
+                    <SVorraussetzung>gute Schwimmerfahrung</SVorraussetzung>
+                    <SRegeln>Halt sich bloß am Seil fest</SRegeln>
+                    <VeranstaltungenM>
+                        <Veranstaltung id="0" deleted="false">
+                            <VBeschreibung>3. Mentoring Wasserski Olympiade</VBeschreibung>
+                            <VDatum>2014-08-20</VDatum>
+                            <VUhrzeit>13:15:00</VUhrzeit>
+                            <GebaeudeIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</GebaeudeIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</VeranstalterIDRef>
+                        </Veranstaltung>
+                        <Veranstaltung id="1" deleted="false">
+                            <VBeschreibung>FortFunWasserski Ausflug</VBeschreibung>
+                            <VInfo>Wir treffen uns um 12.00 Uhr am Bahnhof in Montabaur. Von dort gehen wir zu Fuß zur Ems.</VInfo>
+                            <VDatum>2013-06-24</VDatum>
+                            <VUhrzeit>12:00:00</VUhrzeit>
+                            <GebaeudeIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</GebaeudeIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</VeranstalterIDRef>
+                        </Veranstaltung>
+                    </VeranstaltungenM>
+                </Sportart>
+            </SportartenM>
+        </Sportgruppe>
+        
+        <Sportgruppe id="5">
+            <SGName>Gesundheitssport</SGName>
+            <SGBeschreibung>Alles rund um eure Gesundheit. Auftanken und Gesund bleiben!</SGBeschreibung>
+            <SportartenM>
+                <Sportart id="0">
+                    <SName>Hatha-Yoga</SName>
+                    <SBeschreibung>Kreatives Hatha-Yoga arbeitet mit Körper, Atem und Geist. Ein Hauptfokus liegt dabei auf dem Wechsel von Anspannung und Entspannung sowie dem Zusammenspiel von Atem und Bewegung. Dadurch wird der Körper gestärkt und gedehnt.</SBeschreibung>
+                    <SHerkunft>China</SHerkunft>
+                    <SVorraussetzung>keine</SVorraussetzung>
+                    <SRegeln>Absolute Ruhe</SRegeln>
+                    <VeranstaltungenM>
+                        <Veranstaltung id="0" deleted="false">
+                            <VBeschreibung>Einsteiger Kurs</VBeschreibung>
+                            <VDatum>2013-05-23</VDatum>
+                            <VUhrzeit>15:00:00</VUhrzeit>
+                            <GebaeudeIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</GebaeudeIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</VeranstalterIDRef>
+                        </Veranstaltung>
+                    </VeranstaltungenM>
+                </Sportart>
+                
+                <Sportart id="1">
+                    <SName>Massage</SName>
+                    <SBeschreibung>Massssssssage! Das tut gut!</SBeschreibung>
+                    <SHerkunft>Ägypten</SHerkunft>
+                    <SVorraussetzung>Einen Körper</SVorraussetzung>
+                    <SRegeln>keine</SRegeln>
+                    <VeranstaltungenM>
+                        <Veranstaltung id="0" deleted="false">
+                            <VBeschreibung>Gesichtsmassage</VBeschreibung>
+                            <VDatum>2013-05-25</VDatum>
+                            <VUhrzeit>18:00:00</VUhrzeit>
+                            <GebaeudeIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</GebaeudeIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</VeranstalterIDRef>
+                        </Veranstaltung>
+                    </VeranstaltungenM>
+                </Sportart>
+                
+                <Sportart id="2">
+                    <SName>Qi Gong</SName>
+                    <SBeschreibung>Qi Gong ist eine ganzheitlich orientierte Energiearbeit, deren Wurzeln in Asien zu finden sind. Ziel ist das Erreichen einer Harmonisierung zwischen den polaren Kräften</SBeschreibung>
+                    <SHerkunft>Japan</SHerkunft>
+                    <SVorraussetzung>innere Unruhe</SVorraussetzung>
+                    <SRegeln>keine</SRegeln>
+                    <VeranstaltungenM>
+                        <Veranstaltung id="0" deleted="false">
+                            <VBeschreibung>3. Mentoring Wasserski Olympiade</VBeschreibung>
+                            <VDatum>2014-08-20</VDatum>
+                            <VUhrzeit>13:15:00</VUhrzeit>
+                            <GebaeudeIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</GebaeudeIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</VeranstalterIDRef>
+                        </Veranstaltung>
+                        <Veranstaltung id="1" deleted="false">
+                            <VBeschreibung>FortFunWasserski Ausflug</VBeschreibung>
+                            <VInfo>Wir treffen uns um 12.00 Uhr am Bahnhof in Montabaur. Von dort gehen wir zu Fuß zur Ems.</VInfo>
+                            <VDatum>2013-06-24</VDatum>
+                            <VUhrzeit>12:00:00</VUhrzeit>
+                            <GebaeudeIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</GebaeudeIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</VeranstalterIDRef>
+                        </Veranstaltung>
+                    </VeranstaltungenM>
+                </Sportart>
+                
+                <Sportart id="3">
+                    <SName>Tai Chi</SName>
+                    <SBeschreibung>Der Tai Chi Chuan-Übende verbindet durch raumgreifende, langsame, entspannt - fließende Bewegungsfolgen den Körper, die Atmung und die Vorstellungskraft bewusst miteinander.</SBeschreibung>
+                    <SHerkunft>China</SHerkunft>
+                    <SVorraussetzung>innere Unruhe</SVorraussetzung>
+                    <SRegeln>keine</SRegeln>
+                    <VeranstaltungenM>
+                        <Veranstaltung id="0" deleted="false">
+                            <VBeschreibung>Training jeden Monat</VBeschreibung>
+                            <VDatum>2014-08-23</VDatum>
+                            <VUhrzeit>15:30:00</VUhrzeit>
+                            <GebaeudeIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</GebaeudeIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</VeranstalterIDRef>
+                        </Veranstaltung>
+                    </VeranstaltungenM>
+                </Sportart>
+                
+                <Sportart id="4">
+                    <SName>Tajigong</SName>
+                    <SBeschreibung>Die Übungsform, welche die Essenz des Qi Gong und Tàijíquan (Tai Chi Chuan) verbindet. Sie stärkt die Kräfte des Körpers und des Geistes in der Tradition der chinesischen Lebenskünste. </SBeschreibung>
+                    <SHerkunft>Vietnam</SHerkunft>
+                    <SVorraussetzung>innere Unruhe</SVorraussetzung>
+                    <SRegeln>keine</SRegeln>
+                    <VeranstaltungenM>
+                        <Veranstaltung id="0" deleted="false">
+                            <VBeschreibung>Training jeden Monat</VBeschreibung>
+                            <VDatum>2013-08-23</VDatum>
+                            <VUhrzeit>17:30:00</VUhrzeit>
+                            <GebaeudeIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</GebaeudeIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</VeranstalterIDRef>
+                        </Veranstaltung>
+                    </VeranstaltungenM>
+                </Sportart>
+
+            </SportartenM>
+        </Sportgruppe>
     </SportgruppenM>
+    
+    
     <OrteM>
         <Ort id="0">
             <OName>Grevenbroich</OName>
