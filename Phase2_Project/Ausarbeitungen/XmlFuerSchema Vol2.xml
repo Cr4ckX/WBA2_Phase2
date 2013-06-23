@@ -1,85 +1,67 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Sportverzeichnis xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="Schema Vol2.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Sportverzeichnis>
     <SportgruppenM>
-        
         <Sportgruppe id="0">
-            
             <SGName>Kampfsport</SGName>
             <SGBeschreibung>Unter Kampfsport definiert man einen Sammelbegriff für diverse Sportarten in welchen Kampfstile integriert werden.</SGBeschreibung>
-                        
             <SportartenM>
                 <Sportart id="0">
-                    
                     <SName>Judo</SName>
                     <SBeschreibung>Bla</SBeschreibung>
                     <SHerkunft>Irgendwo</SHerkunft>
                     <SVorraussetzung>Hohe</SVorraussetzung>
                     <SRegeln>Viele</SRegeln>
-                    
-                    <VeranstaltungenM>                      
+                    <VeranstaltungenM>
                         <Veranstaltung id="0" deleted="false">
                             <VBeschreibung>Veranstaltung1</VBeschreibung>
-							<VInfo>Informationen zur Veranstaltung</VInfo>
+                            <VInfo>Informationen zur Veranstaltung</VInfo>
                             <VDatum>2013-04-27</VDatum>
                             <VUhrzeit>13:00:00</VUhrzeit>
-                            <GebaeudeIDRef>G00</GebaeudeIDRef>
-                            <VeranstalterIDRef>VT00</VeranstalterIDRef>
+                            <GebaeudeIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">G00</GebaeudeIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">VT00</VeranstalterIDRef>
                         </Veranstaltung>
-                        
                         <Veranstaltung id="1" deleted="false">
                             <VBeschreibung>Veranstaltung2</VBeschreibung>
                             <VDatum>2014-04-27</VDatum>
                             <VUhrzeit>15:00:00</VUhrzeit>
-                            <GebaeudeIDRef>G00</GebaeudeIDRef>
-                            <VeranstalterIDRef>VT00</VeranstalterIDRef>
+                            <GebaeudeIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">G00</GebaeudeIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">VT00</VeranstalterIDRef>
                         </Veranstaltung>
                     </VeranstaltungenM>
                 </Sportart>
-                
                 <Sportart id="1">
-                    
                     <SName>Taekwondo</SName>
                     <SBeschreibung>Taekwondo ist klassische koreanische Selbstverteidigung von höchster Effizienz. In keiner asiatischen Kampfkunst wurde die Beintechnik in Folge höherer Muskelkraft und größerer Reichweite so präzise weiter entwickelt, wie im Taekwondo.</SBeschreibung>
                     <SHerkunft>Korea</SHerkunft>
                     <SVorraussetzung>Keine</SVorraussetzung>
                     <SRegeln>Viele</SRegeln>
-                    
-                    <VeranstaltungenM>                      
+                    <VeranstaltungenM>
                         <Veranstaltung id="0" deleted="false">
                             <VBeschreibung>1. MexTex Turnier</VBeschreibung>
                             <VDatum>2015-03-12</VDatum>
                             <VUhrzeit>15:00:00</VUhrzeit>
-                            <GebaeudeIDRef>02</GebaeudeIDRef>
-                            <VeranstalterIDRef>00</VeranstalterIDRef>
+                            <GebaeudeIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">02</GebaeudeIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">00</VeranstalterIDRef>
                         </Veranstaltung>
-                        
                         <Veranstaltung id="1" deleted="false">
                             <VBeschreibung>Veranstaltung2</VBeschreibung>
                             <VDatum>2014-04-27</VDatum>
                             <VUhrzeit>15:00:00</VUhrzeit>
-                            <GebaeudeIDRef>G00</GebaeudeIDRef>
-                            <VeranstalterIDRef>VT00</VeranstalterIDRef>
+                            <GebaeudeIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">G00</GebaeudeIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">VT00</VeranstalterIDRef>
                         </Veranstaltung>
                     </VeranstaltungenM>
-                    
                 </Sportart>
-                
                 <Sportart id="2">
-                    
                     <SName>Kung-Fu</SName>
                     <SBeschreibung>Im Kung Fu Kian vereinigen sich dynamische Bewegungen, schnelle spektakuläre Fußtechniken und kraftvolle präzise Handtechniken zu einem modernen Stil, der den Geist traditioneller Kampfkünste weiterträgt.</SBeschreibung>
                     <SHerkunft>Korea</SHerkunft>
                     <SVorraussetzung>Keine</SVorraussetzung>
                     <SRegeln>Viele</SRegeln>
-                    
-                    <VeranstaltungenM></VeranstaltungenM> <!-- Keine Veranstaltungen vorhanden -->
-                    
+                    <VeranstaltungenM/>
                 </Sportart>
             </SportartenM>
-
         </Sportgruppe>
-        
         <Sportgruppe id="1">
             <SGName>Rückschlagsportart</SGName>
             <SGBeschreibung>Beschreibung1</SGBeschreibung>
@@ -90,9 +72,8 @@
                     <SHerkunft>..</SHerkunft>
                     <SVorraussetzung>..</SVorraussetzung>
                     <SRegeln>..</SRegeln>
-                    <VeranstaltungenM></VeranstaltungenM> <!-- keine Veranstaltungen momentan -->
+                    <VeranstaltungenM/>
                 </Sportart>
-                
                 <Sportart id="1">
                     <SName>Tennis</SName>
                     <SBeschreibung>Dynamik, Spaß und Power, das alles bietet diese wunderschöne Sportart. Unsere Angebote richten sich an AnfängerInnen, Fortgeschrittene, WettkampfspielerInnen und an diejenigen, die bloß spielen wollen.</SBeschreibung>
@@ -104,136 +85,115 @@
                             <VBeschreibung>Badminton Paralympia</VBeschreibung>
                             <VDatum>2013-04-07</VDatum>
                             <VUhrzeit>12:00:00</VUhrzeit>
-                            <GebaeudeIDRef>2</GebaeudeIDRef>
-                            <VeranstalterIDRef>2</VeranstalterIDRef>
+                            <GebaeudeIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</GebaeudeIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</VeranstalterIDRef>
                         </Veranstaltung>
-                    </VeranstaltungenM> 
+                    </VeranstaltungenM>
                 </Sportart>
-                
-                
-          
             </SportartenM>
         </Sportgruppe>
-
         <Sportgruppe id="2">
-            
             <SGName>Tanzen</SGName>
             <SGBeschreibung>Beim Tanzsport wird Tanzen als Sportart ausgeübt.</SGBeschreibung>
-            
             <SportartenM>
                 <Sportart id="0">
-                    
                     <SName>Discofox</SName>
                     <SBeschreibung>Leicht zu lernen und vielfältig nutzbar, mit Discofox kann man sich zu fast jeder Musik austoben - viele Variationen werden gezeigt, jede Menge Spaß ist angesagt. </SBeschreibung>
                     <SHerkunft>Brasilien</SHerkunft>
                     <SVorraussetzung>keine</SVorraussetzung>
                     <SRegeln>keine</SRegeln>
-                    
-                    <VeranstaltungenM>                      
+                    <VeranstaltungenM>
                         <Veranstaltung id="0" deleted="false">
                             <VBeschreibung>3. Kiddie Discofox Contest</VBeschreibung>
                             <VDatum>2013-04-07</VDatum>
                             <VUhrzeit>15:00:00</VUhrzeit>
-                            <GebaeudeIDRef>2</GebaeudeIDRef>
-                            <VeranstalterIDRef>2</VeranstalterIDRef>
+                            <GebaeudeIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</GebaeudeIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</VeranstalterIDRef>
                         </Veranstaltung>
-                        
                         <Veranstaltung id="1" deleted="true">
                             <VBeschreibung>Open Fox Concert</VBeschreibung>
                             <VDatum>2011-06-23</VDatum>
                             <VUhrzeit>15:00:00</VUhrzeit>
-                            <GebaeudeIDRef>0</GebaeudeIDRef>
-                            <VeranstalterIDRef>01</VeranstalterIDRef>
+                            <GebaeudeIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">0</GebaeudeIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">01</VeranstalterIDRef>
                         </Veranstaltung>
-                        
                         <Veranstaltung id="2" deleted="false">
                             <VBeschreibung>DiscoFox Olympia</VBeschreibung>
                             <VDatum>2014-05-25</VDatum>
                             <VUhrzeit>15:00:00</VUhrzeit>
-                            <GebaeudeIDRef>02</GebaeudeIDRef>
-                            <VeranstalterIDRef>01</VeranstalterIDRef>
+                            <GebaeudeIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">02</GebaeudeIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">01</VeranstalterIDRef>
+                        </Veranstaltung>
+                        <Veranstaltung id="3" deleted="true">
+                            <VBeschreibung>dfgwrtgr</VBeschreibung>
+                            <VInfo>rghrth</VInfo>
+                            <VDatum>2013-03-03+01:00</VDatum>
+                            <VUhrzeit>02:06:24.550+02:00</VUhrzeit>
+                            <VNiveau>ewrg</VNiveau>
+                            <VVorraussetzungen>erw</VVorraussetzungen>
+                            <GebaeudeIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">0</GebaeudeIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">0</VeranstalterIDRef>
                         </Veranstaltung>
                     </VeranstaltungenM>
-                    
                 </Sportart>
             </SportartenM>
-            
         </Sportgruppe>
-
         <Sportgruppe id="3">
-            
             <SGName>Natursport</SGName>
             <SGBeschreibung>Sport in der Natur.</SGBeschreibung>
-            
             <SportartenM>
                 <Sportart id="0">
-                    
                     <SName>Inline Skating</SName>
                     <SBeschreibung>Schrittweise werden die Grundtechniken (sicheres Fallen, Bremsen, Rollen) vermittelt. Aufbauend üben wir das Kurven fahren, Ausweichen und Gleiten. Bei allen Aktionen ist die komplette Schutzausrüstung Pflicht (Knie-, Ellenbogen-, Handprotektoren)! Helm ist ratsam!</SBeschreibung>
                     <SHerkunft>Deutschland</SHerkunft>
                     <SVorraussetzung>Inliner mitbringen</SVorraussetzung>
                     <SRegeln>keine</SRegeln>
-                    
-                    <VeranstaltungenM>                      
+                    <VeranstaltungenM>
                         <Veranstaltung id="0" deleted="false">
                             <VBeschreibung>Training wöchentlich</VBeschreibung>
                             <VDatum>2013-04-07</VDatum>
                             <VUhrzeit>15:00:00</VUhrzeit>
-                            <GebaeudeIDRef>2</GebaeudeIDRef>
-                            <VeranstalterIDRef>2</VeranstalterIDRef>
+                            <GebaeudeIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</GebaeudeIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</VeranstalterIDRef>
                         </Veranstaltung>
-                       
                     </VeranstaltungenM>
-                    
                 </Sportart>
-                
                 <Sportart id="1">
-                    
                     <SName>Klettern</SName>
                     <SBeschreibung>Klettern lernen im Herzen Gummersbachs</SBeschreibung>
                     <SHerkunft>Deutschland</SHerkunft>
                     <SVorraussetzung>Keine</SVorraussetzung>
                     <SRegeln>keine</SRegeln>
-                    
-                    <VeranstaltungenM>                      
+                    <VeranstaltungenM>
                         <Veranstaltung id="0" deleted="false">
                             <VBeschreibung>Training wöchentlich</VBeschreibung>
                             <VDatum>2012-02-07</VDatum>
                             <VUhrzeit>15:00:00</VUhrzeit>
-                            <GebaeudeIDRef>2</GebaeudeIDRef>
-                            <VeranstalterIDRef>2</VeranstalterIDRef>
+                            <GebaeudeIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</GebaeudeIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">2</VeranstalterIDRef>
                         </Veranstaltung>
-                        
                     </VeranstaltungenM>
-                    
                 </Sportart>
             </SportartenM>
-            
         </Sportgruppe>
-  
     </SportgruppenM>
-    
     <OrteM>
         <Ort id="0">
             <OName>Grevenbroich</OName>
             <GebaeudeM>
-                
                 <Gebaeude id="0">
                     <GName>Hans-Sachs Halle</GName>
                     <GAnschrift>Hans-Sachs Straße 4</GAnschrift>
                     <EquipmentM>
                         <Equipment id="0" entliehen="true">
                             <EName>Judomatten</EName>
-                            <VeranstalterIDRef>VT00</VeranstalterIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">VT00</VeranstalterIDRef>
                         </Equipment>
-                        
                         <Equipment id="1" entliehen="false">
                             <EName>Fußbälle</EName>
                         </Equipment>
-                        
                     </EquipmentM>
                 </Gebaeude>
-                
                 <Gebaeude id="1">
                     <GName>Tennishalle</GName>
                     <GAnschrift>Hautstraße 7</GAnschrift>
@@ -243,9 +203,7 @@
                         </Equipment>
                     </EquipmentM>
                 </Gebaeude>
-                
                 <Gebaeude id="2">
-                    
                     <GName>Dreifachhalle</GName>
                     <GAnschrift>Hülchratherstraße 3</GAnschrift>
                     <EquipmentM>
@@ -254,50 +212,40 @@
                         </Equipment>
                     </EquipmentM>
                 </Gebaeude>
-            
             </GebaeudeM>
-            
         </Ort>
-        
         <Ort id="1">
             <OName>Jüchen</OName>
             <GebaeudeM>
                 <Gebaeude id="0">
                     <GName>Halle 7</GName>
                     <GAnschrift>Günterstraße 13</GAnschrift>
-                    <EquipmentM></EquipmentM>
+                    <EquipmentM/>
                 </Gebaeude>
             </GebaeudeM>
         </Ort>
-        
         <Ort id="2">
             <OName>Kaarst</OName>
             <GebaeudeM>
-                
                 <Gebaeude id="0">
                     <GName>Thomas Sabo Halle</GName>
                     <GAnschrift>bibliothekastraße 3</GAnschrift>
                     <EquipmentM>
                         <Equipment id="0" entliehen="true">
                             <EName>Tennisbälle</EName>
-                            <VeranstalterIDRef>VT00</VeranstalterIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">VT00</VeranstalterIDRef>
                         </Equipment>
-                        
                         <Equipment id="1" entliehen="false">
                             <EName>Fußbälle</EName>
                         </Equipment>
-                        
                         <Equipment id="2" entliehen="false">
                             <EName>Seilchen</EName>
                         </Equipment>
-                        
                         <Equipment id="3" entliehen="true">
                             <EName>Softbälle</EName>
                         </Equipment>
-                        
                     </EquipmentM>
                 </Gebaeude>
-                
                 <Gebaeude id="1">
                     <GName>Tennishalle</GName>
                     <GAnschrift>Hautstraße 7</GAnschrift>
@@ -308,24 +256,20 @@
                     </EquipmentM>
                 </Gebaeude>
             </GebaeudeM>
-            
         </Ort>
-        
         <Ort id="3">
             <OName>Hememrden</OName>
             <GebaeudeM>
-                
                 <Gebaeude id="0">
                     <GName>Halle am Campusring</GName>
                     <GAnschrift>Keglerstraße 3</GAnschrift>
                     <EquipmentM>
                         <Equipment id="0" entliehen="false">
                             <EName>Tennisbälle</EName>
-                            <VeranstalterIDRef>VT00</VeranstalterIDRef>
+                            <VeranstalterIDRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">VT00</VeranstalterIDRef>
                         </Equipment>
                     </EquipmentM>
                 </Gebaeude>
-                
                 <Gebaeude id="1">
                     <GName>Tennishalle</GName>
                     <GAnschrift>Hautstraße 7</GAnschrift>
@@ -336,32 +280,26 @@
                     </EquipmentM>
                 </Gebaeude>
             </GebaeudeM>
-            
         </Ort>
-   
     </OrteM>
-    
     <VeranstalterM>
         <Veranstalter id="0">
             <VTName>Jens Kronenthal</VTName>
             <VTGeschlecht>m</VTGeschlecht>
             <VTEmail>jensi.kroni@gmx.de</VTEmail>
-            <VTTelefon>0123456789</VTTelefon>
+            <VTTelefon>123456789</VTTelefon>
         </Veranstalter>
-        
         <Veranstalter id="1">
             <VTName>Jenny Neukirchen</VTName>
             <VTGeschlecht>w</VTGeschlecht>
             <VTEmail>Jen@Neuki.de</VTEmail>
-            <VTTelefon>0123456789</VTTelefon>
+            <VTTelefon>123456789</VTTelefon>
         </Veranstalter>
-        
         <Veranstalter id="2">
             <VTName>Max Moritz</VTName>
             <VTGeschlecht>m</VTGeschlecht>
             <VTEmail>Max.Moritz@gmx.de</VTEmail>
-            <VTTelefon>0123456789</VTTelefon>
+            <VTTelefon>123456789</VTTelefon>
         </Veranstalter>
     </VeranstalterM>
-    
 </Sportverzeichnis>
